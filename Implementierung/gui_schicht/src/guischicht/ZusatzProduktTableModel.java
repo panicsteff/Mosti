@@ -7,12 +7,12 @@ import javax.swing.table.AbstractTableModel;
 import produkte.Produkt;
 import dienstleistung.Dienstleistung;
 
-public class ProduktTableModel extends AbstractTableModel{
+public class ZusatzProduktTableModel extends AbstractTableModel{
 
 		
 		private ArrayList<Produkt> produktsortiment;
 		
-		public ProduktTableModel(ArrayList<Produkt> produkte){
+		public ZusatzProduktTableModel(ArrayList<Produkt> produkte){
 			this.produktsortiment = produkte;
 		}
 		

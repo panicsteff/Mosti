@@ -20,7 +20,7 @@ import produkte.Produkt;
 public class Abrechnungsrahmen extends JFrame {
 	
 		//private ListSelectionModel kundeSelectionModel;
-		private ProduktTableModel abrechnungTableModel;
+		private ZusatzProduktTableModel abrechnungTableModel;
 
 		public Abrechnungsrahmen(ArrayList<Produkt> produktsortiment) {
 			
@@ -33,7 +33,7 @@ public class Abrechnungsrahmen extends JFrame {
 			contentPanel.setLayout(new GridLayout(4,1));
 			//contentPanel.setLayout(new BorderLayout());
 			
-			abrechnungTableModel = new ProduktTableModel(produktsortiment);
+			abrechnungTableModel = new ZusatzProduktTableModel(produktsortiment);
 			JTable table = new JTable(abrechnungTableModel);
 			
 			
