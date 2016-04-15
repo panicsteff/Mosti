@@ -1,0 +1,2 @@
+Aufgrund eines Problems konnte ich die bisherige Implementeriung der Kassenfunktion hier nicht ablegen.
+Sie befindet sich derzeit daher komplett im Ordner gui_schicht.
