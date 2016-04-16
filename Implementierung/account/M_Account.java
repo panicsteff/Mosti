@@ -1,5 +1,7 @@
 package account;
 
+import gui_schicht.M_Startseite;
+
 import javax.swing.JOptionPane;
 
 public class M_Account {
@@ -12,12 +14,10 @@ public class M_Account {
 		this.passwort = passwort;
 	}
 
-	public void benutzerSuchen(String benutzername){
-		
-	}
 	public void anmelden(String passwort) {
 		if (this.passwort.equals(passwort)) {
-			JOptionPane.showMessageDialog(null, "viel spass mit Mosti");
+			
+			new M_Startseite();
 		} else {
 			JOptionPane.showMessageDialog(null, "Falsches Passwort");
 		}
