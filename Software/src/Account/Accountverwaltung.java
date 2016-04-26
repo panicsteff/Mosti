@@ -1,7 +1,7 @@
-package account;
+package Account;
 
-import mitarbeiterverwaltung.Mitarbeiter;
-import mitarbeiterverwaltung.Mitarbeiterliste;
+import Mitarbeiterverwaltung.Mitarbeiter;
+import Mitarbeiterverwaltung.Mitarbeiterliste;
 
 public class Accountverwaltung {
 

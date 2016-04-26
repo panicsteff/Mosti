@@ -1,7 +1,7 @@
-package guischicht;
+package Kassenfunktion;
 
 import javax.swing.table.AbstractTableModel;
-import dienstleistung.Dienstleistung;
+import Dienstleistung_Produkt.Dienstleistung;
 
 public class DienstleistungenTableModel extends AbstractTableModel {
 

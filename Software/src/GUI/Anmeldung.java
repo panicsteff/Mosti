@@ -1,4 +1,4 @@
-package gui_schicht;
+package GUI;
 
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
@@ -10,7 +10,7 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 
-import account.Accountverwaltung;
+import Account.Accountverwaltung;
 
 public class Anmeldung extends JFrame {
 

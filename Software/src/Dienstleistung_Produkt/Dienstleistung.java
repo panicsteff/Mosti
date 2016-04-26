@@ -1,4 +1,4 @@
-package dienstleistung;
+package Dienstleistung_Produkt;
 
 public class Dienstleistung {
 

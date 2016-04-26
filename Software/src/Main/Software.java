@@ -1,10 +1,12 @@
-package main;
+package Main;
 
-import guischicht.Abrechnungsrahmen;
+import Kassenfunktion.Abrechnungsrahmen;
+
 import java.util.ArrayList;
-import produkte.Produkt;
 
-public class Main {
+import Dienstleistung_Produkt.Produkt;
+
+public class Software {
 
 	public static void main(String[] args) {
 		ArrayList<Produkt> p = new ArrayList<Produkt>();

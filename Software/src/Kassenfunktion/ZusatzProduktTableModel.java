@@ -1,8 +1,8 @@
-package guischicht;
+package Kassenfunktion;
 
 import java.util.ArrayList;
 import javax.swing.table.AbstractTableModel;
-import produkte.Produkt;
+import Dienstleistung_Produkt.Produkt;
 
 public class ZusatzProduktTableModel extends AbstractTableModel {
 

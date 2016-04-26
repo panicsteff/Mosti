@@ -1,4 +1,4 @@
-package mitarbeiterverwaltung;
+package Mitarbeiterverwaltung;
 
 public class Mitarbeiterliste {
 

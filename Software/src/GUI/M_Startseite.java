@@ -1,4 +1,4 @@
-package gui_schicht;
+package GUI;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -9,7 +9,8 @@ import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 
-import produkte.Produkt;
+import Dienstleistung_Produkt.Produkt;
+import Kassenfunktion.Abrechnungsrahmen;
 
 public class M_Startseite extends JFrame{
 	
@@ -38,7 +39,7 @@ public class M_Startseite extends JFrame{
 				p.add(p1);
 				p.add(p2);
 				p.add(p3);
-				Abrechnungsrahmen a = new Abrechnungsrahmen(p);
+				Abrechnungsrahmen a = new Abrechnungsrahmen(p,p);
 			}
 		});
 		

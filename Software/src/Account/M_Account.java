@@ -1,6 +1,6 @@
-package account;
+package Account;
 
-import gui_schicht.M_Startseite;
+import GUI.M_Startseite;
 
 import javax.swing.JOptionPane;
 

@@ -1,4 +1,4 @@
-package guischicht;
+package Kassenfunktion;
 
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
@@ -6,6 +6,7 @@ import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
+
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -14,10 +15,11 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
-import dienstleistung.Dienstleistung;
-import produkte.Einkauf;
-import produkte.Einkaufsposition;
-import produkte.Produkt;
+
+import Dienstleistung_Produkt.Dienstleistung;
+import Dienstleistung_Produkt.Einkauf;
+import Dienstleistung_Produkt.Einkaufsposition;
+import Dienstleistung_Produkt.Produkt;
 
 public class Abrechnungsrahmen extends JFrame {
 

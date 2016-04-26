@@ -1,4 +1,4 @@
-package produkte;
+package Dienstleistung_Produkt;
 
 import java.util.ArrayList;
 

@@ -1,6 +1,6 @@
-package mitarbeiterverwaltung;
+package Mitarbeiterverwaltung;
 
-import account.M_Account;
+import Account.M_Account;
 
 public class Mitarbeiter {
 

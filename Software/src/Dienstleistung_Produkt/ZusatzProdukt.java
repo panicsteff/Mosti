@@ -1,4 +1,4 @@
-package produkte;
+package Dienstleistung_Produkt;
 
 public class ZusatzProdukt extends Produkt {
 
