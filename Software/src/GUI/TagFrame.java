@@ -1,9 +1,14 @@
 package GUI;
 
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Date;
 
 import javax.swing.JDialog;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTable;
 
@@ -34,7 +39,7 @@ public class TagFrame extends JDialog{
 	}
 	
 	
-	public static void main (String[] args){
+	public static void main (String[] args) {
 		Tag neuerTag = new Tag(new Date());
 		
 		Termin t1 = new Termin();
@@ -44,8 +49,16 @@ public class TagFrame extends JDialog{
 		neuerTag.fuegeTerminHinzu(t1);
 		neuerTag.fuegeTerminHinzu(t2);
 		neuerTag.fuegeTerminHinzu(t3);
+		try {
+		Connection conn=DriverManager.getConnection(
+		        "jdbc:ucanaccess://C:/Studium/SoSe 2015/PG Übung/Aufgaben/KundenVerwaltung_V8/kunden.mdb");
+		Statement s = conn.createStatement();
+		ResultSet rs = s.executeQuery("SELECT [vorname] FROM [kunden]");
 		
 		TagFrame tag  = new TagFrame(neuerTag);
-			
+		}
+		catch (Exception e){
+			System.out.println(e);
+		}
 	}
 }
