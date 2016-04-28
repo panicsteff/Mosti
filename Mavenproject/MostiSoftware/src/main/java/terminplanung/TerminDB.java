@@ -17,7 +17,7 @@ public class TerminDB {
 			Connection conn = DriverManager
 					.getConnection("jdbc:ucanaccess://C:/Studium/SoSe 2016/Software-praktikum/Glump und zeig/Mosti-Datenkank.mdb");
 			Statement s = conn.createStatement();
-			ResultSet rs = s.executeQuery("SELECT * FROM [termine]");
+			ResultSet rs = s.executeQuery("SELECT * FROM [termine] where datum = #04/13/2016# ");
 			
 
 			/////////datum = #04/13/2016#
