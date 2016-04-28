@@ -2,7 +2,7 @@ package terminplanung;
 
 import java.util.Date;
 
-import Kundenverwaltung.Kunde;
+import kundenverwaltung.Kunde;
 
 public class Termin {
 
