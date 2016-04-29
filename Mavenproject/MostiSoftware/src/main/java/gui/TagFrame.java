@@ -1,25 +1,30 @@
 package gui;
 
 import java.awt.BorderLayout;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
-import javax.swing.JDialog;
+import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import javax.swing.ListSelectionModel;
 
 import kundenverwaltung.Formats;
-import terminplanung.TagTableModel;
+import terminplanung.TermineTableModel;
 import terminplanung.Termin;
 import terminplanung.TerminDB;
 
-public class TagFrame extends JDialog{
+public class TagFrame extends JFrame{
 
 	private ArrayList<Termin> terminliste;
-	TagTableModel tagTableModel;
+	private TermineTableModel termineTableModel;
 	private TerminDB terminDb;
+	private JTable tagesTabelle;
+	private ListSelectionModel terminSelectionModel;
 	SimpleDateFormat dateformat = new SimpleDateFormat("dd.MM.yyyy");
 	
 	public TagFrame (Date datum){
@@ -30,8 +35,21 @@ public class TagFrame extends JDialog{
 		setTitle(title);
 		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 		
-		tagTableModel = new TagTableModel(terminliste);
-		JTable tagesTabelle = new JTable(tagTableModel);
+		termineTableModel = new TermineTableModel(terminliste);
+		tagesTabelle = new JTable(termineTableModel);
+		
+		terminSelectionModel = tagesTabelle.getSelectionModel();
+		terminSelectionModel.setSelectionMode(
+		ListSelectionModel.SINGLE_SELECTION);
+		tagesTabelle.addMouseListener(new MouseAdapter() {
+			public void mousePressed(MouseEvent event) {
+				if (event.getClickCount() == 2){
+					int position = terminSelectionModel.getMaxSelectionIndex();
+					Termin t = termineTableModel.getTermin(position);
+					new TerminBearbeitenFrame(t);
+				}	
+			}
+		});
 		
 		JScrollPane scrollpane = new JScrollPane(tagesTabelle);
 		JPanel content = new JPanel();
