@@ -2,37 +2,40 @@ package terminplanung;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
-import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
+import java.util.GregorianCalendar;
+
+import kundenverwaltung.Kunde;
 
 public class TerminDB {
 
 	private Connection conn;
+	Calendar calendar;
 	
-	public ArrayList<Termin> termineLaden(Date datum) {
+	
+	public ArrayList<Integer> termineLaden(Date datum, int tageszeit) {
 
-		ArrayList<Termin> terminliste = new ArrayList<Termin>();
-
+		int obergrenze = tageszeit*36;
+		int untergrenze = (tageszeit-1)*36 + 1;
+		ArrayList<Integer> terminliste = new ArrayList<Integer>();
+		calendar = new GregorianCalendar();
+		calendar.setTime(datum);
+		int laufenderTag = calendar.get(Calendar.DAY_OF_YEAR) - 244;       //erster September abziehen
+		
 		try {
 			conn = DriverManager
-					.getConnection("jdbc:ucanaccess://C:/Studium/SoSe 2016/Software-praktikum/Glump und zeig/Mosti-Datenkank.mdb");
+					.getConnection("jdbc:ucanaccess://C:/Users/Irmi/Desktop/Mosti/Mavenproject/MostiSoftware/Mosti-Datenkank.mdb");
 			Statement s = conn.createStatement();
 			ResultSet rs = s
-					.executeQuery("SELECT * FROM [termine] where datum = #04/13/2016# ");
-
-			// datum = #04/13/2016#
+					.executeQuery("SELECT * FROM [termine] Where id between " + untergrenze + " and " + obergrenze);
 
 			while (rs.next()) {
-				Termin termin = new Termin();
-				termin.setDatum(rs.getDate("Datum"));
-				termin.setKundenname(rs.getString("Kundenname"));
-				termin.setUhrzeit(rs.getDate("Uhrzeit"));
-
-				terminliste.add(termin);
-				System.out.println(rs.getString(4));
+				int kundeID = rs.getInt("Tag"+laufenderTag);
+				terminliste.add(kundeID);			
 			}
 			s.close();
 			
@@ -43,17 +46,29 @@ public class TerminDB {
 		return terminliste;
 	}
 	
-	public void TermineSpeichern(Termin t){
-		try{
-			String kommando = "UPDATE termine SET Datum = ?, SET Kundenname = ?, SET Uhrzeit = ? WHERE ID = ?";
-			PreparedStatement s = conn.prepareStatement(kommando);
+	public String kundenNamenLaden(int kundenId){
+		
+		String name = new String();
+		try {
+			conn = DriverManager
+					.getConnection("jdbc:ucanaccess://C:/Users/Irmi/Desktop/Mosti/Mavenproject/MostiSoftware/Mosti-Datenkank.mdb");
+			Statement s = conn.createStatement();
+			ResultSet rs = s
+					.executeQuery("SELECT * FROM [kunden] Where id = " + kundenId);
+
+			while(rs.next()){
+				name = rs.getString("Nachname") + ", " + rs.getString("Vorname");
+			}
+			s.close();
 			
-			
-		} catch(Exception e){
+		} catch (Exception e) {
 			System.out.println(e);
 		}
 		
+		return name;
 		
 	}
+	
+	
 
 }

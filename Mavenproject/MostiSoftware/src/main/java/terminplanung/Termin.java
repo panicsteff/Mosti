@@ -6,19 +6,19 @@ import kundenverwaltung.Kunde;
 
 public class Termin {
 
-	private String kundenname;
+	private int kundenID;
 	private Kunde kunde;
 	private Date datum;
 	private Date uhrzeit;
 	
 	
 	
-	public String getKundenname(){
-		return kundenname;
+	public int getKundenId(){
+		return kundenID;
 	}
 
-	public void setKundenname(String name){
-		kundenname = name;
+	public void setKundenId(int ID){
+		kundenID = ID;
 	}
 
 	public Date getDatum() {

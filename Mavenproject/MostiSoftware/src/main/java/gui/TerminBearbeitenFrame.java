@@ -26,7 +26,7 @@ public class TerminBearbeitenFrame extends JFrame{
 		content.setLayout(new GridLayout(3,2));
 		
 		JLabel kunde = new JLabel("Kunde:");
-		JTextField kundetxt = new JTextField(termin.getKundenname());						//irgentwann mal vor und nachname vom kunden
+		JTextField kundetxt = new JTextField(termin.getKundenId());						//irgentwann mal vor und nachname vom kunden
 		
 		JLabel datum = new JLabel("Datum");
 		JTextField datumtxt = new JTextField(termin.getDatum().toString());

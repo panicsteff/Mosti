@@ -7,6 +7,7 @@ public class Kunde {
 	private String plz;
 	private String ort;
 	private String telefonnummer;
+	private int kundenID;
 	
 	
 	
@@ -58,6 +59,14 @@ public class Kunde {
 	
 	public void setTel(String telefonnummer){
 		this.telefonnummer = telefonnummer;
+	}
+
+	public int getKundenID() {
+		return kundenID;
+	}
+
+	public void setKundenID(int kundenID) {
+		this.kundenID = kundenID;
 	}
 	
 }
