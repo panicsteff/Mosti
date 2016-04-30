@@ -14,12 +14,13 @@ import javax.swing.JLabel;
 import javax.swing.JTextField;
 import javax.swing.text.NumberFormatter;
 
-import kundenverwaltung.Formats;
 import kundenverwaltung.NullableFormatter;
-import Dienstleistung_Produkt.Produkt;
 
 import com.sun.glass.ui.Pixels.Format;
 
+import dienstleistungProdukt.Produkt;
+
+@SuppressWarnings("serial")
 public class ProduktBearbeitenDialog extends JDialog {
 
 	private JTextField txtName;

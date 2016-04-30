@@ -1,8 +1,11 @@
 package lagerverwaltung;
 
 import java.util.List;
+
 import javax.swing.table.AbstractTableModel;
-import Dienstleistung_Produkt.Produkt;
+
+import dienstleistungProdukt.Produkt;
+
 
 
 public class LagerTableModel extends AbstractTableModel{

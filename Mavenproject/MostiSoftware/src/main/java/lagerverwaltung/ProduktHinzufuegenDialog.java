@@ -12,8 +12,8 @@ import javax.swing.JLabel;
 import javax.swing.JTextField;
 import javax.swing.text.NumberFormatter;
 import kundenverwaltung.NullableFormatter;
-import Dienstleistung_Produkt.Produkt;
 import com.sun.glass.ui.Pixels.Format;
+import dienstleistungProdukt.Produkt;
 
 public class ProduktHinzufuegenDialog extends JDialog {
 

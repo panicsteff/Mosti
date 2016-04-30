@@ -22,13 +22,15 @@ import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.table.TableColumn;
 
-import Dienstleistung_Produkt.Produkt;
+import dienstleistungProdukt.Produkt;
+
 
 public class LagerFrame extends JFrame {
 
 	private LagerTableModel lagerTableModel;
 	private ListSelectionModel produktSelectionModel;
 	private List<Produkt> pliste;
+	private JMenuItem bearP;
 
 	public LagerFrame(List<Produkt> auflistung) {
 
@@ -63,7 +65,7 @@ public class LagerFrame extends JFrame {
 		JMenuItem newP = new JMenuItem("Neues Produkt hinzufügen");
 		bearbeiten.add(newP);
 		bearbeiten.addSeparator();
-		JMenuItem bearP = new JMenuItem("Produkt bearbeiten");
+		bearP = new JMenuItem("Produkt bearbeiten");
 		bearbeiten.add(bearP);
 		bearbeiten.addSeparator();
 		JMenuItem löschP = new JMenuItem("Produkt löschen");
