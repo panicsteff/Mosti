@@ -15,6 +15,15 @@ public class TermineTableModel extends AbstractTableModel {
 		tageszeit = tz;
 	}
 
+	public String getColumnName(int col){
+		switch(col){
+		case 0: return "Uhrzeit";
+		case 1: return "Kunde";
+		
+		default: return null;
+		}
+	}
+	
 	public int getColumnCount() {
 		return 2;
 	}
