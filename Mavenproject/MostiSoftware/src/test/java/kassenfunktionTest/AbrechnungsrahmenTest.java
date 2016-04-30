@@ -9,7 +9,7 @@ public class AbrechnungsrahmenTest {
 
 	public static void main(String[] avg) {
 		//mehrereProdukte();										// funktioniert
-		keineProdukte();											//Anzeige funktioniert
+		//keineProdukte();											// funktioniert
 
 	}
 
@@ -48,16 +48,13 @@ public class AbrechnungsrahmenTest {
 	public static void keineProdukte(){
 		
 		ArrayList<Produkt> liste = new ArrayList<Produkt>();
-
 		new Abrechnungsrahmen(liste, liste);
-		
-		
-	}
-	
-	public static void einnkaufAbschlieﬂen(){
-		
+				
 	}
 
+	public static void einkaufAbschlieﬂen(){
+		
+	}
 	
 	
 	
