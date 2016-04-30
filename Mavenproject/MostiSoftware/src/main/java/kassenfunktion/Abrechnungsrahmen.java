@@ -195,8 +195,8 @@ public class Abrechnungsrahmen extends JFrame {
 		public void actionPerformed(ActionEvent arg0) {
 			Einkaufsposition e;
 			einkauf = new Einkauf();
-			System.out
-					.println(zusatzProduktSortiment.get(0).getVerkaufsMenge());
+//			System.out
+//					.println(zusatzProduktSortiment.get(0).getVerkaufsMenge());
 
 			for (int i = 0; i < Dienstleistung.listeDienstleistungen.length; i++) {
 				e = new Einkaufsposition(
@@ -222,8 +222,8 @@ public class Abrechnungsrahmen extends JFrame {
 
 			einkauf.setSumme(total);
 			einkauf.printEinkauf();
-			System.out
-					.println(zusatzProduktSortiment.get(0).getVerkaufsMenge());
+//			System.out
+//					.println(zusatzProduktSortiment.get(0).getVerkaufsMenge());
 			dispose();
 
 		}
