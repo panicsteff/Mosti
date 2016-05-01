@@ -31,13 +31,14 @@ public class KundenVerwaltung extends JFrame{
 	private ListSelectionModel kundeSelectionModel;
 	private JMenuItem miKundeBearbeiten;
 	private JMenuItem miSpeichern;
-	private KundeFileManager kundeFileManager;
+	private KundeDB kundeDb;
 	
 	public KundenVerwaltung(){
 		
 		setTitle("Kundenverwaltung");
 		setSize(750, 400);
 		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+		kundeDb = new KundeDB();
 	
 		JMenuBar menubar = new JMenuBar();
 		setJMenuBar(menubar);
@@ -47,27 +48,21 @@ public class KundenVerwaltung extends JFrame{
 		
 		menubar.add(menu = new JMenu("Datei"));
 		
-		menu.add(mi = new JMenuItem("Kundenstamm öffnen..."));
+		menu.add(mi = new JMenuItem("Kundenstamm öffnen"));
 		mi.addActionListener(new ActionListener(){
 			
 			public void actionPerformed(ActionEvent e){
-				FileDialog fd = new FileDialog(KundenVerwaltung.this, "Kundenstamm öffnen", FileDialog.LOAD);
-				fd.setDirectory(".");
-				fd.setVisible(true);
+	
 				try{
-					String filename = fd.getDirectory() + fd.getFile();
-					kundeFileManager = new KundeFileManager(filename);
-					kundeTableModel.setKunden(kundeFileManager.load());
+					ArrayList<Kunde> kundenliste = kundeDb.kundenLaden();
+					kundeTableModel.setKunden(kundenliste);
 					kundeTableModel.fireTableDataChanged();
 					miSpeichern.setEnabled(true);
 				}
-				catch(IOException ex){
-					JOptionPane.showMessageDialog(KundenVerwaltung.this, "Feheler beim Öffnen.", "Feheler", JOptionPane.ERROR_MESSAGE);
-				}
 				catch(Exception ex){
-					JOptionPane.showMessageDialog(KundenVerwaltung.this, "Ungültiges Format der Kundendatei.", "Fehler", JOptionPane.ERROR_MESSAGE);
-					ex.printStackTrace();
+					System.out.println(ex);
 				}
+				
 			}
 		});
 		
@@ -78,10 +73,10 @@ public class KundenVerwaltung extends JFrame{
 			
 			public void actionPerformed(ActionEvent e){
 				try{
-					kundeFileManager.save(kundeTableModel.getKunden());
+					kundeDb.kundenSpeichern(kundeTableModel.getKunden());
 				}
-				catch(IOException ex){
-					JOptionPane.showMessageDialog(KundenVerwaltung.this, "Fehler beim Speichern.", "Fehler", JOptionPane.ERROR_MESSAGE);
+				catch(Exception ex){
+					System.out.println(e);
 				}
 			}
 		});
