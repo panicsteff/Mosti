@@ -8,8 +8,10 @@ import javax.swing.JFrame;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
+import javax.swing.JSeparator;
 
 import kassenfunktion.Abrechnungsrahmen;
+import kundenverwaltung.KundenVerwaltung;
 import dienstleistungProdukt.Produkt;
 
 public class M_Startseite extends JFrame{
@@ -40,6 +42,15 @@ public class M_Startseite extends JFrame{
 				p.add(p2);
 				p.add(p3);
 				Abrechnungsrahmen a = new Abrechnungsrahmen(p,p);
+			}
+		});
+		
+		mDatei.add(new JSeparator());
+		JMenuItem kunden = new JMenuItem("Kunden pflegen");
+		mDatei.add(kunden);
+		kunden.addActionListener(new ActionListener(){
+			public void actionPerformed(ActionEvent e){
+				new KundenVerwaltung();
 			}
 		});
 		

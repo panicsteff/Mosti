@@ -80,5 +80,20 @@ public class DienstleistungenTableModel extends AbstractTableModel {
 		return d;
 
 	}
+	
+	public double berechneTeilpreis(){
+		double sum = 0;
+		for (int i = 0; i < Dienstleistung.listeDienstleistungen.length; i++) {
+			sum = sum
+					+ ((Integer) (getValueAt(0, i)) * Dienstleistung.listeDienstleistungen[i]
+							.getPreisProLiter());
+			System.out.println((Integer) (getValueAt(0, i))
+					+ " und "
+					+ Dienstleistung.listeDienstleistungen[i]
+							.getPreisProLiter());
+		}
+		
+		return sum;
+	}
 
 }

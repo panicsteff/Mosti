@@ -81,5 +81,18 @@ public class AbfüllMaterialTableModel extends AbstractTableModel {
 		return produkt;
 
 	}
+	
+	public double berechneTeilpreis(){
+		double sum = 0;
+		for (int i = 0; i < produktsortiment.size(); i++) {
+			sum = sum
+					+ ((Integer) (getValueAt(0, i)) * produktsortiment
+							.get(i).getPreis());
+			System.out.println((Integer) (getValueAt(0, i))
+					+ " und " + produktsortiment.get(i).getPreis());
+
+		}
+		return sum;
+	}
 
 }

@@ -62,14 +62,16 @@ public class ZusatzProduktTableModel extends AbstractTableModel {
 
 	public void setValueAt(Object eintrag, int row, int col) {
 
-		switch (col) {
-		case 0:
-			produktsortiment.get(col).setVerkaufsMenge((Integer) eintrag);
-		case 1:
-			produktsortiment.get(col).setVerkaufsMenge((Integer) eintrag);
-		case 2:
-			produktsortiment.get(col).setVerkaufsMenge((Integer) eintrag);
-		}
+		produktsortiment.get(col).setVerkaufsMenge((Integer) eintrag);					//
+		
+//		switch (col) {
+//		case 0:
+//			produktsortiment.get(col).setVerkaufsMenge((Integer) eintrag);
+//		case 1:
+//			produktsortiment.get(col).setVerkaufsMenge((Integer) eintrag);
+//		case 2:
+//			produktsortiment.get(col).setVerkaufsMenge((Integer) eintrag);
+//		}
 		this.fireTableDataChanged();
 
 	}
@@ -88,4 +90,16 @@ public class ZusatzProduktTableModel extends AbstractTableModel {
 
 	}
 
+	public double berechneTeilpreis(){
+		double sum = 0;
+		for (int i = 0; i < produktsortiment.size(); i++) {
+			sum = sum
+					+ ((Integer) (getValueAt(0, i)) * produktsortiment
+							.get(i).getPreis());
+			System.out.println((Integer) (getValueAt(0, i))
+					+ " und " + produktsortiment.get(i).getPreis());
+		}
+		
+		return sum;
+	}
 }

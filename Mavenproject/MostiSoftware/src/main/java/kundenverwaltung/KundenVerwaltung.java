@@ -152,12 +152,12 @@ public class KundenVerwaltung extends JFrame{
 		List<Kunde> kunden = new ArrayList<Kunde>();
 		Kunde kunde;
 		
-		/*kunde = new Kunde("Kaufmann", "Franz", Formats.DATE_FORMAT.parse("22.04.1941"), "Eichertweg 33", "93437", "Furth im Wald", Geschlecht.maennlich, true, 0.4);
-		kunden.add(kunde);
-		kunde = new Kunde("Siegl", "Regina", Formats.DATE_FORMAT.parse("14.12.1967"),  "Eichertweg 33", "93437", "Furth im Wald", Geschlecht.weiblich, false, 0.0);
-		kunden.add(kunde);
-		kunde = new Kunde("Siegl", "Katharina", Formats.DATE_FORMAT.parse("07.07.1996"), "Eichertweg 33", "93437", "Furth im Wald", Geschlecht.weiblich, false, 0.0);
-		kunden.add(kunde);*/
+//		kunde = new Kunde("Kaufmann", "Franz", "Eichertweg 33", "93437", "Furth im Wald","086581234");
+//		kunden.add(kunde);
+//		kunde = new Kunde("Siegl", "Regina",  "Eichertweg 33", "93437", "Furth im Wald", "086459876");
+//		kunden.add(kunde);
+//		kunde = new Kunde("Siegl", "Katharina", "Eichertweg 33", "93437", "Furth im Wald", "094145678");
+//		kunden.add(kunde);
 		
 		new KundenVerwaltung();
 	}

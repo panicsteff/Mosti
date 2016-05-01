@@ -91,34 +91,37 @@ public class Abrechnungsrahmen extends JFrame {
 		summePanel.add(new JLabel("Gesamtsumme in Euro: "));
 
 		double sum1 = 0;
-		for (int i = 0; i < Dienstleistung.listeDienstleistungen.length; i++) {
-			sum1 = sum1
-					+ ((Integer) (dienstTableModel.getValueAt(0, i)) * Dienstleistung.listeDienstleistungen[i]
-							.getPreisProLiter());
-			System.out.println((Integer) (dienstTableModel.getValueAt(0, i))
-					+ " und "
-					+ Dienstleistung.listeDienstleistungen[i]
-							.getPreisProLiter());
-		}
+//		for (int i = 0; i < Dienstleistung.listeDienstleistungen.length; i++) {
+//			sum1 = sum1
+//					+ ((Integer) (dienstTableModel.getValueAt(0, i)) * Dienstleistung.listeDienstleistungen[i]
+//							.getPreisProLiter());
+//			System.out.println((Integer) (dienstTableModel.getValueAt(0, i))
+//					+ " und "
+//					+ Dienstleistung.listeDienstleistungen[i]
+//							.getPreisProLiter());
+//		}
+		sum1 = dienstTableModel.berechneTeilpreis();									//
 		System.out.println();
 		double sum2 = 0;
-		for (int i = 0; i < abfüllProduktSortiment.size(); i++) {
-			sum2 = sum2
-					+ ((Integer) (abfüllTableModel.getValueAt(0, i)) * abfüllProduktSortiment
-							.get(i).getPreis());
-			System.out.println((Integer) (abfüllTableModel.getValueAt(0, i))
-					+ " und " + abfüllProduktSortiment.get(i).getPreis());
-
-		}
+//		for (int i = 0; i < abfüllProduktSortiment.size(); i++) {
+//			sum2 = sum2
+//					+ ((Integer) (abfüllTableModel.getValueAt(0, i)) * abfüllProduktSortiment
+//							.get(i).getPreis());
+//			System.out.println((Integer) (abfüllTableModel.getValueAt(0, i))
+//					+ " und " + abfüllProduktSortiment.get(i).getPreis());
+//
+//		}
+		sum2 = abfüllTableModel.berechneTeilpreis();									//
 		System.out.println();
 		double sum3 = 0;
-		for (int i = 0; i < zusatzProduktSortiment.size(); i++) {
-			sum3 = sum3
-					+ ((Integer) (zusatzTableModel.getValueAt(0, i)) * zusatzProduktSortiment
-							.get(i).getPreis());
-			System.out.println((Integer) (zusatzTableModel.getValueAt(0, i))
-					+ " und " + zusatzProduktSortiment.get(i).getPreis());
-		}
+//		for (int i = 0; i < zusatzProduktSortiment.size(); i++) {
+//			sum3 = sum3
+//					+ ((Integer) (zusatzTableModel.getValueAt(0, i)) * zusatzProduktSortiment
+//							.get(i).getPreis());
+//			System.out.println((Integer) (zusatzTableModel.getValueAt(0, i))
+//					+ " und " + zusatzProduktSortiment.get(i).getPreis());
+//		}
+		sum3 = zusatzTableModel.berechneTeilpreis();									//
 		total = sum1 + sum2 + sum3;
 
 		totalText = new JTextField(13);
@@ -166,23 +169,26 @@ public class Abrechnungsrahmen extends JFrame {
 	class AktualisiereSummeHandler implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
 			double sum1 = 0;
-			for (int i = 0; i < Dienstleistung.listeDienstleistungen.length; i++) {
-				sum1 = sum1
-						+ ((Integer) (dienstTableModel.getValueAt(0, i)) * Dienstleistung.listeDienstleistungen[i]
-								.getPreisProLiter());
-			}
+//			for (int i = 0; i < Dienstleistung.listeDienstleistungen.length; i++) {
+//				sum1 = sum1
+//						+ ((Integer) (dienstTableModel.getValueAt(0, i)) * Dienstleistung.listeDienstleistungen[i]
+//								.getPreisProLiter());
+//			}
+			sum1 = dienstTableModel.berechneTeilpreis();									//
 			double sum2 = 0;
-			for (int i = 0; i < abfüllProduktSortiment.size(); i++) {
-				sum2 = sum2
-						+ ((Integer) (abfüllTableModel.getValueAt(0, i)) * abfüllProduktSortiment
-								.get(i).getPreis());
-			}
+//			for (int i = 0; i < abfüllProduktSortiment.size(); i++) {
+//				sum2 = sum2
+//						+ ((Integer) (abfüllTableModel.getValueAt(0, i)) * abfüllProduktSortiment
+//								.get(i).getPreis());
+//			}
+			sum2 = abfüllTableModel.berechneTeilpreis();									//
 			double sum3 = 0;
-			for (int i = 0; i < zusatzProduktSortiment.size(); i++) {
-				sum3 = sum3
-						+ ((Integer) (zusatzTableModel.getValueAt(0, i)) * zusatzProduktSortiment
-								.get(i).getPreis());
-			}
+//			for (int i = 0; i < zusatzProduktSortiment.size(); i++) {
+//				sum3 = sum3
+//						+ ((Integer) (zusatzTableModel.getValueAt(0, i)) * zusatzProduktSortiment
+//								.get(i).getPreis());
+//			}
+			sum3 = zusatzTableModel.berechneTeilpreis();									//
 			total = sum1 + sum2 + sum3;
 
 			System.out.println(total);
@@ -195,8 +201,8 @@ public class Abrechnungsrahmen extends JFrame {
 		public void actionPerformed(ActionEvent arg0) {
 			Einkaufsposition e;
 			einkauf = new Einkauf();
-//			System.out
-//					.println(zusatzProduktSortiment.get(0).getVerkaufsMenge());
+			System.out
+					.println(zusatzProduktSortiment.get(0).getVerkaufsMenge());
 
 			for (int i = 0; i < Dienstleistung.listeDienstleistungen.length; i++) {
 				e = new Einkaufsposition(
@@ -220,7 +226,8 @@ public class Abrechnungsrahmen extends JFrame {
 				einkauf.addEinkauf(e);
 			}
 
-			einkauf.setSumme(total);
+			total = dienstTableModel.berechneTeilpreis() + abfüllTableModel.berechneTeilpreis() + zusatzTableModel.berechneTeilpreis();
+			einkauf.setSumme(total);											
 			einkauf.printEinkauf();
 //			System.out
 //					.println(zusatzProduktSortiment.get(0).getVerkaufsMenge());

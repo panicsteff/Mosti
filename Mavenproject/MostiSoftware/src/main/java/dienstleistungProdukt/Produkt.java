@@ -16,6 +16,10 @@ public class Produkt {
 		this.setVerkaufsMenge(0);
 	}
 
+	public Produkt() {
+		// TODO Auto-generated constructor stub
+	}
+
 	public String getName() {
 		return name;
 	}

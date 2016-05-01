@@ -18,13 +18,16 @@ public class Anmeldung extends JFrame {
 	private JTextField txtbenutzername;
 	private JTextField txtpasswort;
 	private JButton einloggen;
+	private Accountverwaltung accountverwaltung;
 
 	public Anmeldung() {
 		setTitle("Hallo bei Mosti - Anmeldung");
-		setSize(500, 400);
+		setSize(300, 200);
 		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 		setLayout(new GridLayout(3, 2));
 
+		accountverwaltung = new Accountverwaltung();
+		
 		add(new JLabel("Benutzername:"));
 		add(txtbenutzername = new JTextField());
 		add(new JLabel("Passwort"));
@@ -34,18 +37,23 @@ public class Anmeldung extends JFrame {
 
 			public void actionPerformed(ActionEvent arg0) {
 				boolean anmeldestatus = false;
-				anmeldestatus = Accountverwaltung.benutzernamenSuchen(
+				anmeldestatus = accountverwaltung.mitarbeiterSuchen(
 						txtbenutzername.getText(), txtpasswort.getText());
 
-				if (anmeldestatus == false) {
-					JOptionPane.showMessageDialog(Anmeldung.this,
-							"Der Benutzername ist nicht vorhanden");
+				if(anmeldestatus == true){
+					new M_Startseite();
+					dispose();
 				}
 			}
 
 		});
 
 		setVisible(true);
+	}
+	
+	public static void main (String[] avg){
+		
+		new Anmeldung();
 	}
 
 }
