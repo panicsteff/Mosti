@@ -48,7 +48,7 @@ public class KundenVerwaltung extends JFrame{
 		
 		menubar.add(menu = new JMenu("Datei"));
 		
-		menu.add(mi = new JMenuItem("Kundenstamm öffnen"));
+		menu.add(mi = new JMenuItem("Kundenstamm öffnen..."));
 		mi.addActionListener(new ActionListener(){
 			
 			public void actionPerformed(ActionEvent e){
