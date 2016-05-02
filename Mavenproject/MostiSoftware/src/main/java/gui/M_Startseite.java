@@ -35,11 +35,14 @@ public class M_Startseite extends JFrame {
 		panel.setLayout(new GridLayout(2, 3));
 		JButton kassenButton = new JButton();
 		kassenButton.setIcon(new ImageIcon("./src/register.png"));
-		JButton button = new JButton();
-		button.setIcon(new ImageIcon("./src/karre.jpg"));
+		JButton lagerButton = new JButton();
+		lagerButton.setIcon(new ImageIcon("./src/karre.jpg"));
+		JButton dlButton = new JButton();
+		dlButton.setIcon(new ImageIcon("./src/apple.png"));
 
 		panel.add(kassenButton);
-		panel.add(button);
+		panel.add(lagerButton);
+		panel.add(dlButton);
 		panel.add(new JLabel("andere funktion"));
 		panel.add(new JLabel("andere funktion"));
 		panel.add(new JLabel("andere funktion"));
@@ -57,7 +60,7 @@ public class M_Startseite extends JFrame {
 			}
 		});
 
-		button.addActionListener(new ActionListener() {
+		lagerButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				ArrayList<Produkt> p = new ArrayList<Produkt>();
 				Produkt p1 = new Produkt("5L Box", 1.00, 10, 200);
