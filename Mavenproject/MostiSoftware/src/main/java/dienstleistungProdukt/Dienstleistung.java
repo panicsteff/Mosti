@@ -12,6 +12,10 @@ public class Dienstleistung {
 		this.setVerkaufsMenge(0);
 	}
 
+	public Dienstleistung() {
+		// TODO Auto-generated constructor stub
+	}
+
 	public String getName() {
 		return name;
 	}
