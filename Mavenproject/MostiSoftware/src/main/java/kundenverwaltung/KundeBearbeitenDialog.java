@@ -3,7 +3,6 @@ import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.text.ParseException;
 
 import javax.swing.JButton;
 import javax.swing.JDialog;
@@ -13,11 +12,14 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextField;
-import javax.swing.text.DateFormatter;
-import javax.swing.text.MaskFormatter;
 
 
 public class KundeBearbeitenDialog extends JDialog{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	class MyOkHandler implements ActionListener{
 		private String beautify(String s){
 			if(s == null){
@@ -92,8 +94,8 @@ public class KundeBearbeitenDialog extends JDialog{
 		main.add(txtVorname);
 		
 		
-		DateFormatter df = new DateFormatter(Formats.DATE_FORMAT);
-		NullableFormatter nf = new NullableFormatter(df);
+//		DateFormatter df = new DateFormatter(Formats.DATE_FORMAT);
+//		NullableFormatter nf = new NullableFormatter(df);
 		
 		
 		label = new JLabel("Straﬂe:");
@@ -108,15 +110,15 @@ public class KundeBearbeitenDialog extends JDialog{
 		label.setBounds(10, 130, 100, 20);
 		main.add(label);
 		
-		MaskFormatter mf = null;
-		try{
-			mf = new MaskFormatter("#####");
-		}
-		catch(ParseException e){
-			System.out.println(e);
-			
-		}
-		nf = new NullableFormatter(mf);
+//		MaskFormatter mf = null;
+//		try{
+//			mf = new MaskFormatter("#####");
+//		}
+//		catch(ParseException e){
+//			System.out.println(e);
+//			
+//		}
+//		nf = new NullableFormatter(mf);
 		txtPlz = new JFormattedTextField();
 		txtPlz.setValue(kunde.getPlz());
 		txtPlz.setBounds(110, 130, 40, 20);
