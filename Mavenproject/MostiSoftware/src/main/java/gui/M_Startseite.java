@@ -19,6 +19,7 @@ import kassenfunktion.Abrechnungsrahmen;
 import kundenverwaltung.KundenVerwaltung;
 import lagerverwaltung.LagerFrame;
 import main.Angebote;
+import main.Kundeneinkäufe;
 import dienstleistungProdukt.Produkt;
 import dienstleistungenverwaltung.DLFrame;
 
@@ -28,9 +29,11 @@ public class M_Startseite extends JFrame {
 	JMenu mDatei;
 	JMenuItem abrechnen;
 	Angebote angebote;
+	Kundeneinkäufe kundeneinkäufe;
 
-	public M_Startseite(Angebote a) {
+	public M_Startseite(Angebote a, Kundeneinkäufe k) {
 		angebote = a;
+		kundeneinkäufe = k;
 		setSize(500, 500);
 		setTitle("Startseite");
 		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
@@ -53,7 +56,7 @@ public class M_Startseite extends JFrame {
 
 		kassenButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				Abrechnungsrahmen a = new Abrechnungsrahmen(angebote.getDLSortiment(),angebote.getAbfuellSortiment(), angebote.getZProduktSortiment());
+				Abrechnungsrahmen a = new Abrechnungsrahmen(angebote.getDLSortiment(),angebote.getAbfuellSortiment(), angebote.getZProduktSortiment(),kundeneinkäufe);
 			}
 		});
 
@@ -84,7 +87,7 @@ public class M_Startseite extends JFrame {
 		mDatei.add(abrechnen);
 		abrechnen.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				Abrechnungsrahmen a = new Abrechnungsrahmen(angebote.getDLSortiment(),angebote.getAbfuellSortiment(), angebote.getZProduktSortiment());
+				Abrechnungsrahmen a = new Abrechnungsrahmen(angebote.getDLSortiment(),angebote.getAbfuellSortiment(), angebote.getZProduktSortiment(), kundeneinkäufe);
 			}
 		});
 

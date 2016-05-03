@@ -50,7 +50,7 @@ public class DLBearbeitenDialog extends JDialog {
 		NumberFormatter nuf = new NumberFormatter(FoFormat.pf);
 		NullableFormatter nf = new NullableFormatter(nuf);
 		txtPreis = new JFormattedTextField(nf);
-		txtPreis.setValue(dienstleistung.getPreisProLiter());
+		txtPreis.setValue(dienstleistung.getPreis());
 		add(txtPreis);
 
 		JButton okButton = new JButton("OK");
@@ -69,7 +69,7 @@ public class DLBearbeitenDialog extends JDialog {
 
 		public void actionPerformed(ActionEvent arg0) {
 			dienstleistung.setName(txtName.getText());
-			dienstleistung.setPreisProLiter(Double.parseDouble(txtPreis.getText()));
+			dienstleistung.setPreis(Double.parseDouble(txtPreis.getText()));
 
 			dispose();
 		}

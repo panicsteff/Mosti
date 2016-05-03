@@ -1,14 +1,14 @@
 package dienstleistungProdukt;
 
-public class Dienstleistung {
+public class Dienstleistung implements Einkaufsposition {
 
 	private String name;
-	private double preisProLiter;
+	private double preis; //preis pro liter
 	private int verkaufsMenge;
 
 	public Dienstleistung(String name, double preis) {
 		this.setName(name);
-		this.setPreisProLiter(preis);
+		this.setPreis(preis);
 		this.setVerkaufsMenge(0);
 	}
 
@@ -24,12 +24,12 @@ public class Dienstleistung {
 		this.name = name;
 	}
 
-	public double getPreisProLiter() {
-		return preisProLiter;
+	public double getPreis() {
+		return preis;
 	}
 
-	public void setPreisProLiter(double preisProLiter) {
-		this.preisProLiter = preisProLiter;
+	public void setPreis(double preis) {
+		this.preis = preis;
 	}
 
 	public int getVerkaufsMenge() {

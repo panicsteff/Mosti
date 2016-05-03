@@ -35,7 +35,7 @@ public class DLTableModel extends AbstractTableModel{
 			Dienstleistung d = dliste.get(row);
 			switch (col){
 			case 0: return d.getName();
-			case 1: return d.getPreisProLiter();
+			case 1: return d.getPreis();
 			default: return null;
 			}
 		}
