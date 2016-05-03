@@ -6,15 +6,15 @@ public class Mitarbeiterliste {
 
 	public Mitarbeiterliste(){
 		liste = new Mitarbeiter[10];
-		Mitarbeiter m = new Mitarbeiter("Maier", "Sepp", null, 0, 0, null, null, "daMaia");
+		Mitarbeiter m = new Mitarbeiter("Maier", "Sepp", null, null, null, null, null, "daMaia");
 		liste[0] = m;
-		m = new Mitarbeiter("Schmidt", "Helmut", null, 0, 0, null, null, "Schmiddi");
+		m = new Mitarbeiter("Schmidt", "Helmut", null, null, null, null, null, "Schmiddi");
 		liste[1] = m;
-		m = new Mitarbeiter("Huber", "Franziska", null, 0, 0, null, null, "DIEFrau");
+		m = new Mitarbeiter("Huber", "Franziska", null, null, null, null, null, "DIEFrau");
 		liste[2] = m;
-		m = new Mitarbeiter("Schofreiter", "Franz", null, 0, 0, null, null, "Schofreiter");
+		m = new Mitarbeiter("Schofreiter", "Franz", null, null, null, null, null, "Schofreiter");
 		liste[3] = m;
-		m = new Mitarbeiter("Gamsberger", "Schos", null, 0, 0, null, null, "BlauesAuge");
+		m = new Mitarbeiter("Gamsberger", "Schos", null, null, null, null, null, "BlauesAuge");
 		liste[4] = m;
 	}
 
