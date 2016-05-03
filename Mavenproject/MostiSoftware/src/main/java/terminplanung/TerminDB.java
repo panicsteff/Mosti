@@ -5,35 +5,39 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
+import java.util.GregorianCalendar;
+
+import kundenverwaltung.Kunde;
 
 public class TerminDB {
 
-	public ArrayList<Termin> termineLaden(Date datum) {
+	private Connection conn;
+	Calendar calendar;
+	
+	
+	public ArrayList<Integer> termineLaden(Date datum, int tageszeit) {
 
-		ArrayList<Termin> terminliste = new ArrayList<Termin>();
-
+		int obergrenze = tageszeit*36;
+		int untergrenze = (tageszeit-1)*36 + 1;
+		ArrayList<Integer> terminliste = new ArrayList<Integer>();
+		calendar = new GregorianCalendar();
+		calendar.setTime(datum);
+		int laufenderTag = calendar.get(Calendar.DAY_OF_YEAR) - 244;       //erster September abziehen
+		
 		try {
-			Connection conn = DriverManager
-					.getConnection("jdbc:ucanaccess://C:/Studium/SoSe 2016/Software-praktikum/Glump und zeig/Mosti-Datenkank.mdb");
+			conn = DriverManager
+					.getConnection("jdbc:ucanaccess://C:/Users/Irmi/Desktop/Mosti/Mavenproject/MostiSoftware/Mosti-Datenkank.mdb");
 			Statement s = conn.createStatement();
-			ResultSet rs = s.executeQuery("SELECT * FROM [termine]");
-			
+			ResultSet rs = s
+					.executeQuery("SELECT * FROM [termine] Where id between " + untergrenze + " and " + obergrenze);
 
-			/////////datum = #04/13/2016#
-			
 			while (rs.next()) {
-				Termin termin = new Termin();
-				termin.setDatum(rs.getDate("Datum"));
-				termin.setKunde(rs.getInt("KundeID"));
-				termin.setUhrzeit(rs.getDate("Uhrzeit"));
-				
-				terminliste.add(termin);
-				System.out.println(rs.getString(4));
+				int kundeID = rs.getInt("Tag"+laufenderTag);
+				terminliste.add(kundeID);			
 			}
-
 			s.close();
-			
 			
 		} catch (Exception e) {
 			System.out.println(e);
@@ -41,5 +45,30 @@ public class TerminDB {
 
 		return terminliste;
 	}
+	
+	public String kundenNamenLaden(int kundenId){
+		
+		String name = new String();
+		try {
+			conn = DriverManager
+					.getConnection("jdbc:ucanaccess://C:/Users/Irmi/Desktop/Mosti/Mavenproject/MostiSoftware/Mosti-Datenkank.mdb");
+			Statement s = conn.createStatement();
+			ResultSet rs = s
+					.executeQuery("SELECT * FROM [kunden] Where id = " + kundenId);
+
+			while(rs.next()){
+				name = rs.getString("Nachname") + ", " + rs.getString("Vorname");
+			}
+			s.close();
+			
+		} catch (Exception e) {
+			System.out.println(e);
+		}
+		
+		return name;
+		
+	}
+	
+	
 
 }
