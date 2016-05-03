@@ -7,16 +7,16 @@ public class Mitarbeiter {
 	private String nachname;
 	private String vorname;
 	private String strasse;
-	private int hausnummer;
-	private int plz;
+	private String hausnummer;
+	private String plz;
 	private String stadt;
 	private String telefonnummer;
 	private String benutzername;
 	private M_Account account;
 
 	public Mitarbeiter(String nachname, String vorname, String strasse,
-			int hausnummer, int plz, String stadt, String telefonnummer,
-			String benutzername) {
+			String hausnummer, String plz, String stadt, String telefonnummer, String benutzername)
+	{
 		setNachname(nachname);
 		setVorname(vorname);
 		setStrasse(strasse);
@@ -68,19 +68,19 @@ public class Mitarbeiter {
 		this.benutzername = benutzername;
 	}
 
-	public int getHausnummer() {
+	public String getHausnummer() {
 		return hausnummer;
 	}
 
-	public void setHausnummer(int hausnummer) {
+	public void setHausnummer(String hausnummer) {
 		this.hausnummer = hausnummer;
 	}
 
-	public int getPlz() {
+	public String getPlz() {
 		return plz;
 	}
 
-	public void setPlz(int plz) {
+	public void setPlz(String plz) {
 		this.plz = plz;
 	}
 

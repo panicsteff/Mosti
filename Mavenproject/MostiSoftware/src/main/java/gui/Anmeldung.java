@@ -41,7 +41,7 @@ public class Anmeldung extends JFrame {
 						txtbenutzername.getText(), txtpasswort.getText());
 
 				if(anmeldestatus == true){
-					new M_Startseite();
+					//new M_Startseite();
 					dispose();
 				}
 			}

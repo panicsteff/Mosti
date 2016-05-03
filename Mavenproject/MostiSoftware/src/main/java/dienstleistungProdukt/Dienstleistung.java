@@ -40,9 +40,9 @@ public class Dienstleistung {
 		this.verkaufsMenge = verkaufsMenge;
 	}
 
-	public static Dienstleistung[] listeDienstleistungen = {
-			new Dienstleistung("Literzahl - heiß in Beutel", 0.1),
-			new Dienstleistung("Literzahl - heiß in Flaschen", 0.2),
-			new Dienstleistung("Literzahl - kalt", 0.3) };
+//	public static Dienstleistung[] listeDienstleistungen = {
+//			new Dienstleistung("Literzahl - heiß in Beutel", 0.1),
+//			new Dienstleistung("Literzahl - heiß in Flaschen", 0.2),
+//			new Dienstleistung("Literzahl - kalt", 0.3) };
 
 }

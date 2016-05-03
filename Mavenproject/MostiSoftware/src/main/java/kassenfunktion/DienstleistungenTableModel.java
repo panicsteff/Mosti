@@ -1,8 +1,11 @@
 package kassenfunktion;
 
+import java.util.ArrayList;
+
 import javax.swing.table.AbstractTableModel;
 
 import dienstleistungProdukt.Dienstleistung;
+import dienstleistungProdukt.Produkt;
 
 public class DienstleistungenTableModel extends AbstractTableModel {
 
@@ -10,25 +13,19 @@ public class DienstleistungenTableModel extends AbstractTableModel {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	private Dienstleistung[] dienstleistungen;
+	private ArrayList <Dienstleistung> dienstleistungen;
+	private static int DLAnzahl;
 
-	public DienstleistungenTableModel() {
-		// this.produktsortiment = produkte;
-		dienstleistungen = Dienstleistung.listeDienstleistungen;
+	public DienstleistungenTableModel(ArrayList <Dienstleistung> dienstleistungen) {
+		this.dienstleistungen = dienstleistungen;
+		DLAnzahl = dienstleistungen.size();
 	}
 
 	public String getColumnName(int col) {
-
-		switch (col) {
-		case 0:
-			return dienstleistungen[0].getName();
-		case 1:
-			return dienstleistungen[1].getName();
-		case 2:
-			return dienstleistungen[2].getName();
-		default:
+		if (col >= 0 && col < DLAnzahl) {
+			return dienstleistungen.get(col).getName();
+		} else
 			return null;
-		}
 	}
 
 	public int getRowCount() {
@@ -36,32 +33,20 @@ public class DienstleistungenTableModel extends AbstractTableModel {
 	}
 
 	public int getColumnCount() {
-		return 3;
+		return DLAnzahl;
 	}
 
 	public Object getValueAt(int row, int col) {
-		switch (col) {
-		case 0:
-			return dienstleistungen[col].getVerkaufsMenge();
-		case 1:
-			return dienstleistungen[col].getVerkaufsMenge();
-		case 2:
-			return dienstleistungen[col].getVerkaufsMenge();
-
-		default:
+		if (col >= 0 && col < DLAnzahl) {
+			return dienstleistungen.get(col).getVerkaufsMenge();
+		} else
 			return null;
-		}
 	}
 
 	public void setValueAt(Object eintrag, int row, int col) {
 
-		switch (col) {
-		case 0:
-			dienstleistungen[col].setVerkaufsMenge((Integer) eintrag);
-		case 1:
-			dienstleistungen[col].setVerkaufsMenge((Integer) eintrag);
-		case 2:
-			dienstleistungen[col].setVerkaufsMenge((Integer) eintrag);
+		if (col >= 0 && col < DLAnzahl) {
+			dienstleistungen.get(col).setVerkaufsMenge((Integer) eintrag);
 		}
 		this.fireTableDataChanged();
 
@@ -76,20 +61,20 @@ public class DienstleistungenTableModel extends AbstractTableModel {
 	}
 
 	public Dienstleistung getDL(int row) {
-		Dienstleistung d = dienstleistungen[row];
+		Dienstleistung d = dienstleistungen.get(row);
 		return d;
 
 	}
 	
 	public double berechneTeilpreis(){
 		double sum = 0;
-		for (int i = 0; i < Dienstleistung.listeDienstleistungen.length; i++) {
+		for (int i = 0; i < DLAnzahl; i++) {
 			sum = sum
-					+ ((Integer) (getValueAt(0, i)) * Dienstleistung.listeDienstleistungen[i]
+					+ ((Integer) (getValueAt(0, i)) * dienstleistungen.get(i)
 							.getPreisProLiter());
 			System.out.println((Integer) (getValueAt(0, i))
 					+ " und "
-					+ Dienstleistung.listeDienstleistungen[i]
+					+ dienstleistungen.get(i)
 							.getPreisProLiter());
 		}
 		

@@ -18,15 +18,19 @@ import javax.swing.JSeparator;
 import kassenfunktion.Abrechnungsrahmen;
 import kundenverwaltung.KundenVerwaltung;
 import lagerverwaltung.LagerFrame;
+import main.Angebote;
 import dienstleistungProdukt.Produkt;
+import dienstleistungenverwaltung.DLFrame;
 
 public class M_Startseite extends JFrame {
 
 	JMenuBar mbar;
 	JMenu mDatei;
 	JMenuItem abrechnen;
+	Angebote angebote;
 
-	public M_Startseite() {
+	public M_Startseite(Angebote a) {
+		angebote = a;
 		setSize(500, 500);
 		setTitle("Startseite");
 		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
@@ -49,27 +53,26 @@ public class M_Startseite extends JFrame {
 
 		kassenButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				ArrayList<Produkt> p = new ArrayList<Produkt>();
-				Produkt p1 = new Produkt("5L Box", 1.00, 10, 200);
-				Produkt p2 = new Produkt("10L Box", 2.00, 100, 200);
-				Produkt p3 = new Produkt("10L Box", 2.00, 100, 200);
-				p.add(p1);
-				p.add(p2);
-				p.add(p3);
-				Abrechnungsrahmen a = new Abrechnungsrahmen(p, p);
+				Abrechnungsrahmen a = new Abrechnungsrahmen(angebote.getDLSortiment(),angebote.getAbfuellSortiment(), angebote.getZProduktSortiment());
 			}
 		});
 
 		lagerButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				ArrayList<Produkt> p = new ArrayList<Produkt>();
-				Produkt p1 = new Produkt("5L Box", 1.00, 10, 200);
-				Produkt p2 = new Produkt("10L Box", 2.00, 100, 200);
-				Produkt p3 = new Produkt("10L Box", 2.00, 100, 200);
-				p.add(p1);
-				p.add(p2);
-				p.add(p3);
-				LagerFrame l = new LagerFrame(p);
+//				ArrayList<Produkt> p = new ArrayList<Produkt>();
+//				Produkt p1 = new Produkt("5L Box", 1.00, 10, 200, true);
+//				Produkt p2 = new Produkt("10L Box", 2.00, 100, 200, true);
+//				Produkt p3 = new Produkt("10L Box", 2.00, 100, 200, true);
+//				p.add(p1);
+//				p.add(p2);
+//				p.add(p3);
+				LagerFrame l = new LagerFrame(angebote.getAbfuellSortiment(), angebote.getZProduktSortiment());
+			}
+		});
+		
+		dlButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				DLFrame dl = new DLFrame(angebote.getDLSortiment());
 			}
 		});
 
@@ -81,14 +84,7 @@ public class M_Startseite extends JFrame {
 		mDatei.add(abrechnen);
 		abrechnen.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				ArrayList<Produkt> p = new ArrayList<Produkt>();
-				Produkt p1 = new Produkt("5L Box", 1.00, 10, 200);
-				Produkt p2 = new Produkt("10L Box", 2.00, 100, 200);
-				Produkt p3 = new Produkt("10L Box", 2.00, 100, 200);
-				p.add(p1);
-				p.add(p2);
-				p.add(p3);
-				Abrechnungsrahmen a = new Abrechnungsrahmen(p, p);
+				Abrechnungsrahmen a = new Abrechnungsrahmen(angebote.getDLSortiment(),angebote.getAbfuellSortiment(), angebote.getZProduktSortiment());
 			}
 		});
 
@@ -105,8 +101,8 @@ public class M_Startseite extends JFrame {
 		setVisible(true);
 	}
 
-	public static void main(String[] args) {
-		M_Startseite startseite = new M_Startseite();
-	}
+//	public static void main(String[] args) {
+//		M_Startseite startseite = new M_Startseite();
+//	}
 
 }

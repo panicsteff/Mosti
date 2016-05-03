@@ -7,12 +7,14 @@ public class Produkt {
 	private int menge;
 	private int untergrenze;
 	private int verkaufsMenge;
+	private boolean isAbfüllmaterial;
 
-	public Produkt(String name, double preis, int menge, int untergrenze) {
+	public Produkt(String name, double preis, int menge, int untergrenze, boolean isA) {
 		this.setName(name);
 		this.setPreis(preis);
 		this.setMenge(menge);
 		this.setUntergrenze(untergrenze);
+		this.setAbfüllmaterial(isA);
 		this.setVerkaufsMenge(0);
 	}
 
@@ -58,6 +60,14 @@ public class Produkt {
 
 	public void setVerkaufsMenge(int verkaufsMenge) {
 		this.verkaufsMenge = verkaufsMenge;
+	}
+
+	public boolean isAbfüllmaterial() {
+		return isAbfüllmaterial;
+	}
+
+	public void setAbfüllmaterial(boolean isAbfüllmaterial) {
+		this.isAbfüllmaterial = isAbfüllmaterial;
 	}
 
 }
