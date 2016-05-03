@@ -38,11 +38,11 @@ public class DLHinzufuegenDialog extends JDialog {
 		this.liste = auflistung;
 
 		setTitle("Neue Dienstleistung erstellen");
-		setSize(300, 200);
+		setSize(350, 250);
 		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 		setModal(true);
 
-		setLayout(new GridLayout(5, 2));
+		setLayout(new GridLayout(3, 2));
 
 		add(new JLabel("Name:"));
 		add(txtName = new JTextField());

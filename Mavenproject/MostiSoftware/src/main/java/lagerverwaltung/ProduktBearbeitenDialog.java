@@ -14,6 +14,7 @@ import javax.swing.JLabel;
 import javax.swing.JTextField;
 import javax.swing.text.NumberFormatter;
 
+import main.Angebote;
 import kundenverwaltung.NullableFormatter;
 
 import com.sun.glass.ui.Pixels.Format;
@@ -27,6 +28,7 @@ public class ProduktBearbeitenDialog extends JDialog {
 	private JFormattedTextField txtMenge;
 	private JFormattedTextField txtUntergrenze;
 	private JFormattedTextField txtPreis;
+	private JCheckBox cBoxIsAbfuellmaterial;
 	private Produkt produkt;
 	private Format format;
 
@@ -57,6 +59,11 @@ public class ProduktBearbeitenDialog extends JDialog {
 
 		add(new JLabel("Untergrenze"));
 		add(txtUntergrenze = new JFormattedTextField(produkt.getUntergrenze()));
+		
+		add(new JLabel("Ist Abfüllmaterial:"));
+		cBoxIsAbfuellmaterial = new JCheckBox();
+		cBoxIsAbfuellmaterial.setSelected(produkt.isAbfüllmaterial());
+		add(cBoxIsAbfuellmaterial);
 
 		JButton okButton = new JButton("OK");
 		add(okButton);
@@ -76,8 +83,12 @@ public class ProduktBearbeitenDialog extends JDialog {
 			produkt.setName(txtName.getText());
 			produkt.setPreis(Double.parseDouble(txtPreis.getText()));
 			produkt.setMenge(Integer.parseInt(txtMenge.getText()));
-			produkt.setVerkaufsMenge(Integer.parseInt(txtMenge.getText()));
-
+			produkt.setUntergrenze(Integer.parseInt(txtUntergrenze.getText()));
+			if(produkt.isAbfüllmaterial() != cBoxIsAbfuellmaterial.isSelected()){
+				produkt.setAbfüllmaterial(cBoxIsAbfuellmaterial.isSelected());
+				LagerFrame.hasChanged = true;
+			}
+			
 			dispose();
 		}
 	}

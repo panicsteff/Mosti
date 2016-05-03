@@ -36,13 +36,15 @@ public class Abrechnungsrahmen extends JFrame {
 	private JTextField totalText;
 	private ArrayList<Produkt> abfüllProduktSortiment;
 	private ArrayList<Produkt> zusatzProduktSortiment;
+	private ArrayList<Dienstleistung> dienstleistungen;
 	private Einkauf einkauf;
 
-	public Abrechnungsrahmen(ArrayList<Produkt> abfüllProduktSortiment,
+	public Abrechnungsrahmen(ArrayList<Dienstleistung> dienstleistungen, ArrayList<Produkt> abfüllProduktSortiment,
 			ArrayList<Produkt> zusatzProduktSortiment) {
 
 		this.abfüllProduktSortiment = abfüllProduktSortiment;
 		this.zusatzProduktSortiment = zusatzProduktSortiment;
+		this.dienstleistungen = dienstleistungen;
 
 		setTitle("Abrechnung für <Kundenname>");
 		setSize(700, 400);
@@ -51,7 +53,7 @@ public class Abrechnungsrahmen extends JFrame {
 		JPanel contentPanel = new JPanel();
 		contentPanel.setLayout(new GridLayout(8, 1));
 
-		dienstTableModel = new DienstleistungenTableModel();
+		dienstTableModel = new DienstleistungenTableModel(dienstleistungen);
 		JTable dienstTable = new JTable(dienstTableModel);
 
 		abfüllTableModel = new AbfüllMaterialTableModel(abfüllProduktSortiment);
@@ -204,12 +206,12 @@ public class Abrechnungsrahmen extends JFrame {
 			System.out
 					.println(zusatzProduktSortiment.get(0).getVerkaufsMenge());
 
-			for (int i = 0; i < Dienstleistung.listeDienstleistungen.length; i++) {
+			for (int i = 0; i < dienstleistungen.size(); i++) {
 				e = new Einkaufsposition(
-						Dienstleistung.listeDienstleistungen[i].getName(),
-						Dienstleistung.listeDienstleistungen[i]
+						dienstleistungen.get(i).getName(),
+						dienstleistungen.get(i)
 								.getVerkaufsMenge());
-				Dienstleistung.listeDienstleistungen[i].setVerkaufsMenge(0);
+				dienstleistungen.get(i).setVerkaufsMenge(0);
 			}
 			for (int i = 0; i < abfüllProduktSortiment.size(); i++) {
 				e = new Einkaufsposition(abfüllProduktSortiment.get(i)

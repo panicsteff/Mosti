@@ -37,11 +37,11 @@ public class DLBearbeitenDialog extends JDialog {
 		this.dienstleistung = d;
 
 		setTitle("Produkt bearbeiten");
-		setSize(250, 450);
+		setSize(350, 250);
 		setModal(true);
 		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 
-		setLayout(new GridLayout(6, 2));
+		setLayout(new GridLayout(3, 2));
 
 		add(new JLabel("Name:"));
 		add(txtName = new JTextField(dienstleistung.getName()));
@@ -61,7 +61,7 @@ public class DLBearbeitenDialog extends JDialog {
 		add(abbButton);
 		abbButton.addActionListener(new MyAbbHandler());
 
-		pack();
+		//pack();
 		setVisible(true);
 	}
 

@@ -17,7 +17,7 @@ public class M_Account {
 	public void anmelden(String passwort) {
 		if (this.passwort.equals(passwort)) {
 			
-			new M_Startseite();
+			//new M_Startseite();
 		} else {
 			JOptionPane.showMessageDialog(null, "Falsches Passwort");
 		}

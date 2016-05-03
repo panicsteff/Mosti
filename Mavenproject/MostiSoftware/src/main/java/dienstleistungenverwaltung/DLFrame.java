@@ -23,6 +23,7 @@ import javax.swing.event.ListSelectionListener;
 import javax.swing.table.TableColumn;
 
 import lagerverwaltung.PreisCellRenderer;
+import main.Angebote;
 import dienstleistungProdukt.Dienstleistung;
 import dienstleistungProdukt.Produkt;
 
@@ -163,7 +164,7 @@ import dienstleistungProdukt.Produkt;
 			d.add(d3);
 		
 
-			DLFrame df = new DLFrame(d);
+			//DLFrame df = new DLFrame(d);
 		}
 
 

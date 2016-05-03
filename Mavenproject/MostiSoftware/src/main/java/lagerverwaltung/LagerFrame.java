@@ -15,11 +15,11 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
-import javax.swing.JSeparator;
 import javax.swing.JTable;
 import javax.swing.ListSelectionModel;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
+import javax.swing.plaf.ListUI;
 import javax.swing.table.TableColumn;
 
 import dienstleistungProdukt.Produkt;
@@ -29,13 +29,21 @@ public class LagerFrame extends JFrame {
 
 	private LagerTableModel lagerTableModel;
 	private ListSelectionModel produktSelectionModel;
-	private List<Produkt> pliste;
+	//private List<Produkt> pliste;
+	private List<Produkt> gliste;
+	private List<Produkt> aliste;
+	private List<Produkt> zliste;
 	private JMenuItem bearP;
+	static boolean hasChanged;
 
-	public LagerFrame(List<Produkt> auflistung) {
+	public LagerFrame(List<Produkt> a_auflistung, List<Produkt> z_auflistung) {
 
-		pliste = auflistung;
-
+		//pliste = auflistung;
+		aliste = a_auflistung;
+		zliste = z_auflistung;
+		hasChanged = false;
+//		createGesamtListe();
+		
 		setTitle("Produkte verwalten");
 		setSize(700, 400);
 		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
@@ -90,7 +98,8 @@ public class LagerFrame extends JFrame {
 		});
 		bearP.setEnabled(false);
 
-		lagerTableModel = new LagerTableModel(pliste);
+		//lagerTableModel = new LagerTableModel(pliste);
+		lagerTableModel = new LagerTableModel(aliste, zliste);
 		JTable ptabelle = new JTable(lagerTableModel);
 
 		produktSelectionModel = ptabelle.getSelectionModel();
@@ -118,17 +127,17 @@ public class LagerFrame extends JFrame {
 		TableColumn preisspalte = ptabelle.getColumnModel().getColumn(1);
 		preisspalte.setCellRenderer(new PreisCellRenderer());
 //		
-//		TableColumn mengespalte = ptabelle.getColumnModel().getColumn(2);
-//		mengespalte.setCellRenderer(new MengeCellRenderer());
-//		
-//		TableColumn grenzespalte = ptabelle.getColumnModel().getColumn(3);
-//		grenzespalte.setCellRenderer(new MengeCellRenderer());
+		TableColumn mengespalte = ptabelle.getColumnModel().getColumn(2);
+		mengespalte.setCellRenderer(new MengeCellRenderer());	
+		TableColumn grenzespalte = ptabelle.getColumnModel().getColumn(3);
+		grenzespalte.setCellRenderer(new MengeCellRenderer());
 
 		ptabelle.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
 		 ptabelle.getColumnModel().getColumn(0).setPreferredWidth(200);
 		 ptabelle.getColumnModel().getColumn(1).setPreferredWidth(100);
-		 ptabelle.getColumnModel().getColumn(2).setPreferredWidth(100);
-		 ptabelle.getColumnModel().getColumn(3).setPreferredWidth(100);
+		 ptabelle.getColumnModel().getColumn(2).setPreferredWidth(120);
+		 ptabelle.getColumnModel().getColumn(3).setPreferredWidth(120);
+		 ptabelle.getColumnModel().getColumn(4).setPreferredWidth(100);
 
 		JScrollPane scrollpane = new JScrollPane(ptabelle);
 		JPanel titlepane = new JPanel();
@@ -141,42 +150,84 @@ public class LagerFrame extends JFrame {
 		setVisible(true);
 
 	}
+	
+//	private void createGesamtListe(){
+//		gliste = new ArrayList<Produkt>();
+//		gliste.addAll(aliste);
+//		gliste.addAll(zliste);
+//	}
 
 	private void addProdukt() {
-		new ProduktHinzufuegenDialog(this, pliste);
+		new ProduktHinzufuegenDialog(this, aliste, zliste);
+		//createGesamtListe();
+		printListe();
 		lagerTableModel.fireTableDataChanged();
 	}
 	
 	private void deleteProdukt() {
 		int row = produktSelectionModel.getMinSelectionIndex();
-		pliste.remove(row);
+		Produkt p = lagerTableModel.getProdukt(row);
+		if(aliste.contains(p)== true)
+			aliste.remove(p);
+		else
+			zliste.remove(p);
+		//pliste.remove(row);
+		printListe();
+		//createGesamtListe();
 		lagerTableModel.fireTableDataChanged();
 	}
 
 	private void bearbeiteProdukt() {
 		int row = produktSelectionModel.getMinSelectionIndex();
-		new ProduktBearbeitenDialog(this, lagerTableModel.getProdukt(row));
-		lagerTableModel.fireTableRowsUpdated(row, row);
+		Produkt p = lagerTableModel.getProdukt(row);
+		new ProduktBearbeitenDialog(this, p);
+		if(hasChanged == true){
+			if (aliste.contains(p) && p.isAbfüllmaterial() == false) {
+				aliste.remove(p);
+				zliste.add(p);
+			} else if (zliste.contains(p) && p.isAbfüllmaterial() == true) {
+				zliste.remove(p);
+				aliste.add(p);
+			}
+			hasChanged = false;
+		}
+		printListe();
+		lagerTableModel.fireTableRowsUpdated(0, (aliste != null? aliste.size() : 0)+(zliste != null? zliste.size() : 0)-1);
+	}
+	
+	private void printListe(){
+//		for(Produkt p:gliste){
+//			System.out.print(p.getName());
+//		}
+		System.out.println();
+		for(Produkt p:aliste){
+			System.out.print(p.getName());
+		}
+		System.out.println();
+		for(Produkt p:zliste){
+			System.out.print(p.getName());
+		}
+		System.out.println();
 	}
 
-	public static void main(String[] args) {
-
-		List<Produkt> p = new ArrayList<Produkt>();
-
-		Produkt p1 = new Produkt("3L-Beutel", 1.00, 10, 200);
-		Produkt p2 = new Produkt("5L-Beutel", 1.50, 100, 300);
-		Produkt p3 = new Produkt("10L-Beutel", 2.00, 100, 200);
-		Produkt p4 = new Produkt("3L Beutel+Box", 2.00, 100, 200);
-		Produkt p5 = new Produkt("5L Beutel+Box", 2.50, 100, 200);
-		Produkt p6 = new Produkt("10L Beutel+Box", 3.00, 100, 200);
-		p.add(p1);
-		p.add(p2);
-		p.add(p3);
-		p.add(p4);
-		p.add(p5);
-		p.add(p6);
-
-		LagerFrame lf = new LagerFrame(p);
-	}
+//	public static void main(String[] args) {
+//
+//		List<Produkt> p = new ArrayList<Produkt>();
+//
+//		Produkt p1 = new Produkt("3L-Beutel", 1.00, 10, 200, true);
+//		Produkt p2 = new Produkt("5L-Beutel", 1.50, 100, 300,true);
+//		Produkt p3 = new Produkt("10L-Beutel", 2.00, 100, 200,true);
+//		Produkt p4 = new Produkt("Hefe", 2.00, 100, 200, false);
+//		Produkt p5 = new Produkt("Vitamin C", 2.50, 100, 200, false);
+//		Produkt p6 = new Produkt("Box-Ständer", 3.00, 100, 200, false);
+//		p.add(p1);
+//		p.add(p2);
+//		p.add(p3);
+//		p.add(p4);
+//		p.add(p5);
+//		p.add(p6);
+//
+//		LagerFrame lf = new LagerFrame(p);
+//	}
 
 }

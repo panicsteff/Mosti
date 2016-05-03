@@ -4,15 +4,20 @@ import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.List;
+
 import javax.swing.JButton;
+import javax.swing.JCheckBox;
 import javax.swing.JDialog;
 import javax.swing.JFormattedTextField;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 import javax.swing.text.NumberFormatter;
+
 import kundenverwaltung.NullableFormatter;
+
 import com.sun.glass.ui.Pixels.Format;
+
 import dienstleistungProdukt.Produkt;
 
 public class ProduktHinzufuegenDialog extends JDialog {
@@ -25,22 +30,27 @@ public class ProduktHinzufuegenDialog extends JDialog {
 	private JFormattedTextField txtPreis;
 	private JFormattedTextField txtMenge;
 	private JFormattedTextField txtUntergrenze;
+	private JCheckBox cBoxIsAbfuellmaterial;
 	private Produkt produkt;
 	private List<Produkt> liste;
+	private List<Produkt> aliste;
+	private List<Produkt> zliste;
 	private Format format;
 
-	public ProduktHinzufuegenDialog(JFrame parent, List<Produkt> auflistung) {
+	public ProduktHinzufuegenDialog(JFrame parent, List<Produkt> a_auflistung, List<Produkt> z_auflistung) {
 
 		super(parent);
 
-		this.liste = auflistung;
-
+		//this.liste = auflistung;
+		this.aliste = a_auflistung;
+		this.zliste = z_auflistung;
+				
 		setTitle("Neues Produkt erstellen");
 		setSize(300, 200);
 		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 		setModal(true);
 
-		setLayout(new GridLayout(5, 2));
+		setLayout(new GridLayout(6, 2));
 
 		add(new JLabel("Name:"));
 		add(txtName = new JTextField());
@@ -55,6 +65,9 @@ public class ProduktHinzufuegenDialog extends JDialog {
 
 		add(new JLabel("Untergrenze:"));
 		add(txtUntergrenze = new JFormattedTextField());
+		
+		add(new JLabel("Ist Abfüllmaterial:"));
+		add(cBoxIsAbfuellmaterial = new JCheckBox());
 
 		JButton okButton = new JButton("OK");
 		okButton.addActionListener(new MyOKHandler());
@@ -75,8 +88,12 @@ public class ProduktHinzufuegenDialog extends JDialog {
 			produkt.setPreis(Double.parseDouble(txtPreis.getText()));
 			produkt.setMenge(Integer.parseInt(txtMenge.getText()));
 			produkt.setUntergrenze(Integer.parseInt(txtUntergrenze.getText()));
-
-			liste.add(produkt);
+			produkt.setAbfüllmaterial(cBoxIsAbfuellmaterial.isSelected());
+			
+			if(produkt.isAbfüllmaterial()== true)
+				aliste.add(produkt);
+			else
+				zliste.add(produkt);
 			dispose();
 
 		}
