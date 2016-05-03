@@ -1,13 +1,12 @@
 package kundenverwaltung;
-import java.util.Date;
-import java.util.List;
+import java.util.ArrayList;
 
 import javax.swing.table.AbstractTableModel;
 
 
 public class KundeTableModel extends AbstractTableModel{
 
-private List<Kunde> kunden;
+private ArrayList<Kunde> kunden;
 
 	
 	public Class<?> getColumnClass(int col){
@@ -23,7 +22,7 @@ private List<Kunde> kunden;
 		case 2: return "Straße";
 		case 3: return "Plz";
 		case 4: return "Wohnort";
-		case 5: return "Tel";
+		case 5: return "Telefonnummer";
 		default: return null;
 		}
 	}
@@ -50,11 +49,11 @@ private List<Kunde> kunden;
 		}
 	}
 	
-	public List<Kunde> getKunden(){
+	public ArrayList<Kunde> getKunden(){
 		return kunden;
 	}
 	
-	public void setKunden(List<Kunde> kunden){
+	public void setKunden(ArrayList<Kunde> kunden){
 		this.kunden = kunden;
 	}
 	

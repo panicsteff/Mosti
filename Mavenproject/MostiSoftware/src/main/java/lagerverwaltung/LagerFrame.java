@@ -36,7 +36,7 @@ public class LagerFrame extends JFrame {
 
 		pliste = auflistung;
 
-		setTitle("Angebotsverwaltung");
+		setTitle("Produkte verwalten");
 		setSize(700, 400);
 		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 
@@ -125,20 +125,19 @@ public class LagerFrame extends JFrame {
 //		grenzespalte.setCellRenderer(new MengeCellRenderer());
 
 		ptabelle.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
-		// ptabelle.getColumnModel().getColumn(0).setPreferredWidth(100);
-		// ptabelle.getColumnModel().getColumn(1).setPreferredWidth(150);
-		// ptabelle.getColumnModel().getColumn(2).setPreferredWidth(100);
-		// ptabelle.getColumnModel().getColumn(3).setPreferredWidth(70);
+		 ptabelle.getColumnModel().getColumn(0).setPreferredWidth(200);
+		 ptabelle.getColumnModel().getColumn(1).setPreferredWidth(100);
+		 ptabelle.getColumnModel().getColumn(2).setPreferredWidth(100);
+		 ptabelle.getColumnModel().getColumn(3).setPreferredWidth(100);
 
 		JScrollPane scrollpane = new JScrollPane(ptabelle);
 		JPanel titlepane = new JPanel();
 		titlepane.setBorder(BorderFactory.createTitledBorder(
-				BorderFactory.createEtchedBorder(), "Getränke"));
+				BorderFactory.createEtchedBorder(), "Produkte"));
 		titlepane.setLayout(new BorderLayout());
 		titlepane.add(scrollpane);
 
 		add(titlepane);
-		// new GetraenkHinzufuegenDialog(this, liste);
 		setVisible(true);
 
 	}
