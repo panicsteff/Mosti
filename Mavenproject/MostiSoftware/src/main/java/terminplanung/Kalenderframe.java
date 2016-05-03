@@ -2,8 +2,9 @@ package terminplanung;
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
+
 import com.toedter.calendar.JCalendar;
-import javax.swing.JPanel;
+import com.toedter.calendar.JDateChooser;
 
 
 public class Kalenderframe {
@@ -45,5 +46,11 @@ public class Kalenderframe {
 		JCalendar calendar = new JCalendar();
 		calendar.setBounds(0, 0, 434, 261);
 		frame.getContentPane().add(calendar);
+		
+		MyDateChooser dateChooser = new MyDateChooser();
+		dateChooser.setBounds(435, 270, 100, 30);
+		frame.getContentPane().add(dateChooser);
 	}
+	
+	
 }

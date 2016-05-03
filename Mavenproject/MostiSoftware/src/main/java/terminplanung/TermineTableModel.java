@@ -6,13 +6,25 @@ import javax.swing.table.AbstractTableModel;
 
 public class TermineTableModel extends AbstractTableModel {
 
-	ArrayList<Integer> terminliste;
-	private int tageszeit;
-	TerminDB termindb = new TerminDB();
+	private static final long serialVersionUID = 1L;
+	private ArrayList<Integer> terminliste;
+	private int zeitslot;
+	private int arbeitsbeginn;
+	private int arbeitsende;
+	private int anzeigeseite;
+	private int aufteilung;
+	private TerminDB termindb;
+	
 
-	public TermineTableModel(ArrayList<Integer> terminliste, int tz) {
+	public TermineTableModel(ArrayList<Integer> terminliste, int as) {
 		this.terminliste = terminliste;
-		tageszeit = tz;
+		termindb = new TerminDB();
+		ArrayList<Integer> adminwerte = termindb.ladeAdminwerte();
+		zeitslot = adminwerte.get(0);
+		arbeitsbeginn = adminwerte.get(1);
+		arbeitsende = adminwerte.get(2);
+		aufteilung = adminwerte.get(3);
+		anzeigeseite = as;
 	}
 
 	public String getColumnName(int col){
@@ -29,13 +41,13 @@ public class TermineTableModel extends AbstractTableModel {
 	}
 
 	public int getRowCount() {
-		return 36;
+		return berechneZeilen();
 	}
 
 	public Object getValueAt(int row, int col) {
 		switch (col) {
 		case 0:
-			return berechneUhrzeit(row, tageszeit);
+			return berechneUhrzeit(row, anzeigeseite);
 			
 		case 1:
 			return termindb.kundenNamenLaden(terminliste.get(row));
@@ -50,10 +62,11 @@ public class TermineTableModel extends AbstractTableModel {
 		return terminliste.get(position);
 	}
 	
-	public String berechneUhrzeit(int row, int tageszeit){
+	public String berechneUhrzeit(int row, int anzeigeseite){
 		
-		int stunde = 6 + 3*tageszeit;
-		int minuten = row*5;
+		int stunde = (arbeitsbeginn + berechneZeilen()*(anzeigeseite-1)*zeitslot)/60;
+		int restminuten = (arbeitsbeginn + berechneZeilen()*(anzeigeseite-1)*zeitslot)%60;
+		int minuten = row * zeitslot + restminuten;
 		while(minuten-60 >= 0){
 			minuten-=60;
 			stunde++;
@@ -64,6 +77,16 @@ public class TermineTableModel extends AbstractTableModel {
 		}
 		
 		return stunde + ":" + minuten;
+	}
+	
+	public int berechneZeilen(){
+		int spalten = (arbeitsende-arbeitsbeginn)/(zeitslot*aufteilung);
+		
+		return spalten;
+	}
+	
+	public int getAufteilung(){
+		return aufteilung;
 	}
 
 }

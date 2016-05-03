@@ -1,12 +1,13 @@
 package gui;
 
 import java.awt.BorderLayout;
-import java.awt.Container;
+import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -24,28 +25,31 @@ import terminplanung.TermineTableModel;
 
 public class TagFrame extends JFrame {
 
+	private static final long serialVersionUID = 1L;
 	private ArrayList<Integer> terminliste;
 	private TermineTableModel termineTableModel;
 	private TerminDB terminDb;
 	private JTable tagesTabelle;
 	private Date datum;
-	private int tageszeit;
+	private int anzeigeseite;
 	private ListSelectionModel terminSelectionModel;
 	SimpleDateFormat dateformat = new SimpleDateFormat("dd.MM.yyyy");
 
-	public TagFrame(Date d, int tz) {
+	public TagFrame(Date d, int as) {
 		datum = d;
-		tageszeit = tz;
+		anzeigeseite = as;
 		terminDb = new TerminDB();
-		terminliste = terminDb.termineLaden(datum, tageszeit);
+		terminliste = terminDb.termineLaden(datum, anzeigeseite);
 		setSize(500, 800);
 		String title = Formats.DATE_FORMAT.format(datum);
 		setTitle(title);
 		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 
-		termineTableModel = new TermineTableModel(terminliste, tageszeit);
+		termineTableModel = new TermineTableModel(terminliste, anzeigeseite);
 		tagesTabelle = new JTable(termineTableModel);
-		tagesTabelle.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+		tagesTabelle.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
+		tagesTabelle.setRowHeight(30);
+		tagesTabelle.setFont(tagesTabelle.getFont().deriveFont(16f));
 
 		terminSelectionModel = tagesTabelle.getSelectionModel();
 		terminSelectionModel
@@ -60,57 +64,71 @@ public class TagFrame extends JFrame {
 			}
 		});
 
-		JButton cmdFrueher = new JButton("Früher");
-		cmdFrueher.setBounds(0, 40, 80, 20);
-		cmdFrueher.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				new TagFrame(datum, tageszeit - 1);
-				TagFrame.this.dispose();
-			}
-		});
-		if (tageszeit == 1) {
-			cmdFrueher.setEnabled(false);
-		}
-
-		JPanel panelfrueher = new JPanel();
-		panelfrueher.setLayout(null);
-		panelfrueher.add(cmdFrueher);
-		add(panelfrueher);
+		JPanel contentPane = new JPanel();
+		contentPane.setLayout(new GridLayout(2,1));
+		
 
 		JScrollPane scrollpane = new JScrollPane(tagesTabelle);
 		JPanel tabellenpane = new JPanel();
 		tabellenpane.setLayout(new BorderLayout());
 		tabellenpane.add(scrollpane);
-		add(tabellenpane);
+		tabellenpane.setBounds(0, 0, 300, 500);
+		contentPane.add(tabellenpane);
 
+		
+		JButton cmdFrueher = new JButton("Früher");
+		cmdFrueher.setBounds(0, 40, 80, 20);
+		cmdFrueher.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				new TagFrame(datum, anzeigeseite - 1);
+				TagFrame.this.dispose();
+			}
+		});
+		if (anzeigeseite == 1) {
+			cmdFrueher.setEnabled(false);
+		}
+		
 		JButton cmdSpaeter = new JButton("Später");
 		cmdSpaeter.setBounds(0, 40, 80, 20);
 		cmdSpaeter.addActionListener(new ActionListener() {
 
 			public void actionPerformed(ActionEvent e) {
-				new TagFrame(datum, tageszeit + 1);
+				new TagFrame(datum, anzeigeseite + 1);
 				TagFrame.this.dispose();
 
 			}
 		});
-		if (tageszeit == 3) {
+		if (anzeigeseite == termineTableModel.getAufteilung()) {										//eigetlich die Anzeigeanzahl
 			cmdSpaeter.setEnabled(false);
 		}
 
-		JPanel panelspaeter = new JPanel();
-		panelspaeter.setLayout(null);
-		panelspaeter.add(cmdSpaeter);
-		add(panelspaeter);
-
-		Container content = getContentPane();
-		content.setLayout(new GridLayout(1, 3));
+		JPanel buttonpanel = new JPanel();
+		buttonpanel.setLayout(new FlowLayout());
+		buttonpanel.add(cmdFrueher);
+		buttonpanel.add(cmdSpaeter);
+		buttonpanel.setBounds(300, 100, 200, 50);
+		contentPane.add(buttonpanel);
 		
+		add(contentPane);
+		
+		
+		System.out.println(termineTableModel.berechneZeilen());
 		setVisible(true);
 
 	}
 
 	public static void main(String[] avgs) {
-		new TagFrame(new Date(), 1);
+		
+		SimpleDateFormat df = new SimpleDateFormat("dd.MM.yyyy");
+		String s = "1.9.2016";
+		Date d = new Date();
+		try {
+			d = df.parse(s);
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		new TagFrame(d, 1);
 	}
 
 }
