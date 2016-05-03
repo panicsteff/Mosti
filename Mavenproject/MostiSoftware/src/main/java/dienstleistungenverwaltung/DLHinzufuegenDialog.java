@@ -68,7 +68,7 @@ public class DLHinzufuegenDialog extends JDialog {
 		public void actionPerformed(ActionEvent arg0) {
 			dienstleistung = new Dienstleistung();
 			dienstleistung.setName(txtName.getText());
-			dienstleistung.setPreisProLiter(Double.parseDouble(txtPreis.getText()));
+			dienstleistung.setPreis(Double.parseDouble(txtPreis.getText()));
 
 			liste.add(dienstleistung);
 			dispose();

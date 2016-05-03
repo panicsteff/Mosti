@@ -5,23 +5,25 @@ import java.util.ArrayList;
 public class Einkauf {
 
 	private ArrayList<Einkaufsposition> einkaufsliste;
+	private int literzahl;
 	private double total;
 
 	public Einkauf() {
 		einkaufsliste = new ArrayList<Einkaufsposition>();
+		setLiterzahl(0);
 		total = 0;
 	}
 
 	public void addEinkauf(Einkaufsposition position) {
 		einkaufsliste.add(position);
+		//total = total + position.getVerkaufsMenge()*position.getPreis();
 	}
 
 	public void printEinkauf() {
 		for (Einkaufsposition e : einkaufsliste) {
-			if (e.getVerkaufsMenge() != 0) {
-				System.out.println(e.getVerkaufsMenge() + "x " + e.getName());
-			}
+				System.out.print(e.getVerkaufsMenge() + "x " + e.getName()+ ", ");
 		}
+		System.out.println(" für " + getsumme()+ " €");
 	}
 
 	public void setSumme(double total) {
@@ -30,6 +32,14 @@ public class Einkauf {
 
 	public double getsumme() {
 		return total;
+	}
+
+	public int getLiterzahl() {
+		return literzahl;
+	}
+
+	public void setLiterzahl(int literzahl) {
+		this.literzahl = literzahl;
 	}
 
 }

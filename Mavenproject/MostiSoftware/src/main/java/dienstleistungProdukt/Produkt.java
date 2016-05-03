@@ -1,6 +1,6 @@
 package dienstleistungProdukt;
 
-public class Produkt {
+public class Produkt implements Einkaufsposition {
 
 	private String name;
 	private double preis;

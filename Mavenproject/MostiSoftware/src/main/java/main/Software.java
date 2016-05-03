@@ -12,7 +12,8 @@ public class Software {
 	public static void main(String[] args) {
 		
 		Angebote a = new Angebote();
-		M_Startseite startseite = new M_Startseite(a);
+		Kundeneinkäufe k = new Kundeneinkäufe();
+		M_Startseite startseite = new M_Startseite(a,k);
 		
 		
 		

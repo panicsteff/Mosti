@@ -16,6 +16,8 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 
+import trester.Tresterabrechnung;
+import main.Kundeneinkäufe;
 import dienstleistungProdukt.Dienstleistung;
 import dienstleistungProdukt.Einkauf;
 import dienstleistungProdukt.Einkaufsposition;
@@ -34,17 +36,21 @@ public class Abrechnungsrahmen extends JFrame {
 	private JTable zusatzTable;
 	private double total;
 	private JTextField totalText;
-	private ArrayList<Produkt> abfüllProduktSortiment;
-	private ArrayList<Produkt> zusatzProduktSortiment;
+	private ArrayList<Produkt> aliste;
+	private ArrayList<Produkt> zliste;
 	private ArrayList<Dienstleistung> dienstleistungen;
 	private Einkauf einkauf;
+	private Kundeneinkäufe kundeneinkäufe;
 
 	public Abrechnungsrahmen(ArrayList<Dienstleistung> dienstleistungen, ArrayList<Produkt> abfüllProduktSortiment,
-			ArrayList<Produkt> zusatzProduktSortiment) {
+			ArrayList<Produkt> zusatzProduktSortiment, Kundeneinkäufe kundeneinkäufe) {
 
-		this.abfüllProduktSortiment = abfüllProduktSortiment;
-		this.zusatzProduktSortiment = zusatzProduktSortiment;
+		this.aliste = abfüllProduktSortiment;
+		this.zliste = zusatzProduktSortiment;
 		this.dienstleistungen = dienstleistungen;
+		this.kundeneinkäufe = kundeneinkäufe;
+		
+		initVerkaufsmengen();
 
 		setTitle("Abrechnung für <Kundenname>");
 		setSize(700, 400);
@@ -164,78 +170,103 @@ public class Abrechnungsrahmen extends JFrame {
 
 	class AbbruchHandler implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
+			//initVerkaufsmengen();
 			dispose();
 		}
 	}
 
 	class AktualisiereSummeHandler implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
-			double sum1 = 0;
-//			for (int i = 0; i < Dienstleistung.listeDienstleistungen.length; i++) {
-//				sum1 = sum1
-//						+ ((Integer) (dienstTableModel.getValueAt(0, i)) * Dienstleistung.listeDienstleistungen[i]
-//								.getPreisProLiter());
-//			}
-			sum1 = dienstTableModel.berechneTeilpreis();									//
-			double sum2 = 0;
-//			for (int i = 0; i < abfüllProduktSortiment.size(); i++) {
-//				sum2 = sum2
-//						+ ((Integer) (abfüllTableModel.getValueAt(0, i)) * abfüllProduktSortiment
-//								.get(i).getPreis());
-//			}
-			sum2 = abfüllTableModel.berechneTeilpreis();									//
-			double sum3 = 0;
-//			for (int i = 0; i < zusatzProduktSortiment.size(); i++) {
-//				sum3 = sum3
-//						+ ((Integer) (zusatzTableModel.getValueAt(0, i)) * zusatzProduktSortiment
-//								.get(i).getPreis());
-//			}
-			sum3 = zusatzTableModel.berechneTeilpreis();									//
-			total = sum1 + sum2 + sum3;
-
-			System.out.println(total);
+			berechneGesamtTotal();
+			//System.out.println(total);
 			totalText.setText(String.valueOf(total));
 		}
+	}
+	
+	public void initVerkaufsmengen(){
+		for(Dienstleistung d: dienstleistungen){
+			if(d.getVerkaufsMenge()!= 0)
+				d.setVerkaufsMenge(0);
+		}
+		
+		for(Produkt p: aliste){
+			if(p.getVerkaufsMenge()!= 0)
+				p.setVerkaufsMenge(0);
+		}
+		
+		for(Produkt p: zliste){
+			if(p.getVerkaufsMenge()!= 0)
+				p.setVerkaufsMenge(0);
+		}
+	}
+	
+	
+	public void berechneGesamtTotal(){
+		total = dienstTableModel.berechneTeilpreis()+									//
+				  abfüllTableModel.berechneTeilpreis()+									//
+				  zusatzTableModel.berechneTeilpreis();									//
 	}
 
 	class EinkaufAbschließenHandler implements ActionListener {
 
 		public void actionPerformed(ActionEvent arg0) {
-			Einkaufsposition e;
 			einkauf = new Einkauf();
-			System.out
-					.println(zusatzProduktSortiment.get(0).getVerkaufsMenge());
-
-			for (int i = 0; i < dienstleistungen.size(); i++) {
-				e = new Einkaufsposition(
-						dienstleistungen.get(i).getName(),
-						dienstleistungen.get(i)
-								.getVerkaufsMenge());
-				dienstleistungen.get(i).setVerkaufsMenge(0);
+			int literzahl=0;
+			
+			for(Dienstleistung d: dienstleistungen){
+				if(d.getVerkaufsMenge()> 0){
+					einkauf.addEinkauf(d);
+					literzahl = literzahl + d.getVerkaufsMenge();
+				}
 			}
-			for (int i = 0; i < abfüllProduktSortiment.size(); i++) {
-				e = new Einkaufsposition(abfüllProduktSortiment.get(i)
-						.getName(), abfüllProduktSortiment.get(i)
-						.getVerkaufsMenge());
-				abfüllProduktSortiment.get(i).setVerkaufsMenge(0);
-				einkauf.addEinkauf(e);
+			
+			for(Produkt p: aliste){
+				if(p.getVerkaufsMenge()> 0)
+					einkauf.addEinkauf(p);
 			}
-			for (int i = 0; i < zusatzProduktSortiment.size(); i++) {
-				e = new Einkaufsposition(zusatzProduktSortiment.get(i)
-						.getName(), zusatzProduktSortiment.get(i)
-						.getVerkaufsMenge());
-				zusatzProduktSortiment.get(i).setVerkaufsMenge(0);
-				einkauf.addEinkauf(e);
+			
+			for(Produkt p: zliste){
+				if(p.getVerkaufsMenge()> 0)
+					einkauf.addEinkauf(p);
 			}
 
-			total = dienstTableModel.berechneTeilpreis() + abfüllTableModel.berechneTeilpreis() + zusatzTableModel.berechneTeilpreis();
-			einkauf.setSumme(total);											
-			einkauf.printEinkauf();
-//			System.out
-//					.println(zusatzProduktSortiment.get(0).getVerkaufsMenge());
+//			for (int i = 0; i < dienstleistungen.size(); i++) {
+//				e = new Einkaufsposition(
+//						dienstleistungen.get(i).getName(),
+//						dienstleistungen.get(i)
+//								.getVerkaufsMenge());
+//				dienstleistungen.get(i).setVerkaufsMenge(0);
+//			}
+//			for (int i = 0; i < aliste.size(); i++) {
+//				e = new Einkaufsposition1(aliste.get(i)
+//						.getName(), aliste.get(i)
+//						.getVerkaufsMenge());
+//				aliste.get(i).setVerkaufsMenge(0);
+//				einkauf.addEinkauf(e);
+//			}
+//			for (int i = 0; i < zliste.size(); i++) {
+//				e = new Einkaufsposition1(zliste.get(i)
+//						.getName(), zliste.get(i)
+//						.getVerkaufsMenge());
+//				zliste.get(i).setVerkaufsMenge(0);
+//				einkauf.addEinkauf(e);
+//			}
+
+			berechneGesamtTotal();
+			einkauf.setSumme(total);
+			einkauf.setLiterzahl(literzahl);
+			kundeneinkäufe.addEinkauf(einkauf);
+			System.out.println("Einkauf abgeschlossen");
+			kundeneinkäufe.printKundeneinkäufe();
+			Tresterabrechnung tA = new Tresterabrechnung(kundeneinkäufe);
+			tA.printTresterAbrechnung();
+			//initVerkaufsmengen();
+			
 			dispose();
 
 		}
+		
+		
 
 	}
 

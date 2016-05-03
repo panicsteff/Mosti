@@ -71,11 +71,11 @@ public class DienstleistungenTableModel extends AbstractTableModel {
 		for (int i = 0; i < DLAnzahl; i++) {
 			sum = sum
 					+ ((Integer) (getValueAt(0, i)) * dienstleistungen.get(i)
-							.getPreisProLiter());
+							.getPreis());
 			System.out.println((Integer) (getValueAt(0, i))
 					+ " und "
 					+ dienstleistungen.get(i)
-							.getPreisProLiter());
+							.getPreis());
 		}
 		
 		return sum;
