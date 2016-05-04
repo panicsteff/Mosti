@@ -13,7 +13,7 @@ public class TerminBearbeitenFrame extends JFrame{
 
 	
 	
-	public TerminBearbeitenFrame(String date, String name, String zeit){
+	TerminBearbeitenFrame(String date, String name, String zeit){
 		
 		setTitle("Termin bearbeiten");
 		setSize(300,200);

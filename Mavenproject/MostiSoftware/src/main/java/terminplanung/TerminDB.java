@@ -9,14 +9,12 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
 
-import kundenverwaltung.Kunde;
-
 public class TerminDB {
 
 	private Connection conn;
 	Calendar calendar;
 
-	protected ArrayList<Integer> termineLaden(Date datum, int anzahl, int anzeigeseite) {
+	ArrayList<Integer> termineLaden(Date datum, int anzahl, int anzeigeseite) {
 
 		int obergrenze = anzeigeseite * anzahl;
 		int untergrenze = (anzeigeseite - 1) * anzahl + 1;
@@ -49,7 +47,7 @@ public class TerminDB {
 		return terminliste;
 	}
 
-	public String kundenNamenLaden(int kundenId) {
+	String kundenNamenLaden(int kundenId) {
 
 		String name = new String();
 		try {
@@ -73,7 +71,7 @@ public class TerminDB {
 
 	}
 
-	public ArrayList<Integer> adminwerteLaden() {
+	ArrayList<Integer> adminwerteLaden() {
 
 		ArrayList<Integer> adminwerte = new ArrayList<Integer>();
 		try {
