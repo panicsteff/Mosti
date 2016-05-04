@@ -1,4 +1,4 @@
-package gui;
+package terminplanung;
 
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
@@ -20,8 +20,6 @@ import javax.swing.JTable;
 import javax.swing.ListSelectionModel;
 
 import kundenverwaltung.Formats;
-import terminplanung.TerminDB;
-import terminplanung.TermineTableModel;
 
 public class TagFrame extends JFrame {
 

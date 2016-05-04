@@ -1,7 +1,5 @@
 package account;
 
-import gui.M_Startseite;
-
 import javax.swing.JOptionPane;
 
 public class M_Account {

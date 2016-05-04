@@ -43,17 +43,15 @@ public class Kalenderframe {
 	 */
 	private void initialize() {
 		frame = new JFrame("Kalender");
-		frame.setBounds(100, 100, 450, 300);
+		
+		frame.setBounds(200, 200, 650, 400);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 		
 		calendar = new JCalendar();
-		calendar.setBounds(0, 0, 434, 261);
+		calendar.setBounds(0, 0, 600, 350);
 		frame.getContentPane().add(calendar);
 		
-		JDateChooser dateChooser = new JDateChooser();
-		dateChooser.setBounds(435, 270, 100, 30);
-		frame.getContentPane().add(dateChooser);
 		frame.setVisible(true);
 	}
 	

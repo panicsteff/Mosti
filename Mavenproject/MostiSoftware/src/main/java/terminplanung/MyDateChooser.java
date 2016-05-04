@@ -1,7 +1,5 @@
 package terminplanung;
 
-import gui.TagFrame;
-
 import java.awt.event.ActionEvent;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;

@@ -1,4 +1,4 @@
-package gui;
+package terminplanung;
 
 import java.awt.GridLayout;
 
@@ -6,8 +6,6 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
-
-import terminplanung.Termin;
 
 public class TerminBearbeitenFrame extends JFrame{
 
