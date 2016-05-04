@@ -1,13 +1,13 @@
 package terminplanung;
 import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
-import java.beans.PropertyChangeListener;
+import java.awt.event.ActionListener;
+import java.util.Date;
 
-import javax.swing.Action;
+import javax.swing.JButton;
 import javax.swing.JFrame;
 
 import com.toedter.calendar.JCalendar;
-import com.toedter.calendar.JDateChooser;
 
 
 public class Kalenderframe {
@@ -51,6 +51,8 @@ public class Kalenderframe {
 		calendar = new JCalendar();
 		calendar.setBounds(0, 0, 600, 350);
 		frame.getContentPane().add(calendar);
+	
+		
 		
 		frame.setVisible(true);
 	}

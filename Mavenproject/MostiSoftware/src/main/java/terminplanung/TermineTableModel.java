@@ -10,21 +10,16 @@ public class TermineTableModel extends AbstractTableModel {
 	private ArrayList<Integer> terminliste;
 	private int zeitslot;
 	private int arbeitsbeginn;
-	private int arbeitsende;
 	private int anzeigeseite;
-	private int aufteilung;
 	private TerminDB termindb;
 	
 
-	public TermineTableModel(ArrayList<Integer> terminliste, int as) {
+	public TermineTableModel(ArrayList<Integer> terminliste, int as, ArrayList<Integer> adminwerte) {
 		this.terminliste = terminliste;
-		termindb = new TerminDB();
-		ArrayList<Integer> adminwerte = termindb.ladeAdminwerte();
+		anzeigeseite = as;
 		zeitslot = adminwerte.get(0);
 		arbeitsbeginn = adminwerte.get(1);
-		arbeitsende = adminwerte.get(2);
-		aufteilung = adminwerte.get(3);
-		anzeigeseite = as;
+		termindb = new TerminDB();
 	}
 
 	public String getColumnName(int col){
@@ -41,7 +36,7 @@ public class TermineTableModel extends AbstractTableModel {
 	}
 
 	public int getRowCount() {
-		return berechneZeilen();
+		return terminliste.size();
 	}
 
 	public Object getValueAt(int row, int col) {
@@ -57,16 +52,10 @@ public class TermineTableModel extends AbstractTableModel {
 		}
 	}
 	
-
-	public Integer getTermin(int position) {
-		return terminliste.get(position);
-	}
-	
-	public String berechneUhrzeit(int row, int anzeigeseite){
+	private String berechneUhrzeit(int row, int anzeigeseite){
 		
-		int stunde = (arbeitsbeginn + berechneZeilen()*(anzeigeseite-1)*zeitslot)/60;
-		int restminuten = (arbeitsbeginn + berechneZeilen()*(anzeigeseite-1)*zeitslot)%60;
-		int minuten = row * zeitslot + restminuten;
+		int stunde = 0;
+		int minuten = (arbeitsbeginn + terminliste.size()*(anzeigeseite-1)*zeitslot) + row*zeitslot;
 		while(minuten-60 >= 0){
 			minuten-=60;
 			stunde++;
@@ -79,14 +68,8 @@ public class TermineTableModel extends AbstractTableModel {
 		return stunde + ":" + minuten;
 	}
 	
-	public int berechneZeilen(){
-		int spalten = (arbeitsende-arbeitsbeginn)/(zeitslot*aufteilung);
-		
-		return spalten;
-	}
-	
-	public int getAufteilung(){
-		return aufteilung;
+	public int getTermin(int t){
+		return terminliste.get(t);
 	}
 
 }

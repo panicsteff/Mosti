@@ -3,7 +3,6 @@ package account;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.ArrayList;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -20,7 +19,7 @@ import kundenverwaltung.KundenVerwaltung;
 import lagerverwaltung.LagerFrame;
 import main.Angebote;
 import main.Kundeneinkäufe;
-import dienstleistungProdukt.Produkt;
+import terminplanung.TerminplanungsFrame;
 import dienstleistungenverwaltung.DLFrame;
 
 public class M_Startseite extends JFrame {
@@ -34,9 +33,9 @@ public class M_Startseite extends JFrame {
 	public M_Startseite(Angebote a, Kundeneinkäufe k) {
 		angebote = a;
 		kundeneinkäufe = k;
-		setSize(500, 500);
 		setTitle("Startseite");
 		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+		setBounds(500, 200, 500, 500);
 
 		JPanel panel = new JPanel();
 		panel.setLayout(new GridLayout(2, 3));
@@ -99,6 +98,18 @@ public class M_Startseite extends JFrame {
 				new KundenVerwaltung();
 			}
 		});
+		
+		JMenu terminplanung = new JMenu("Terminplanung");
+		mbar.add(terminplanung);
+		JMenuItem termin = new JMenuItem("Zur Terminplanung");
+		terminplanung.add(termin);
+		termin.addActionListener(new ActionListener(){
+			public void actionPerformed(ActionEvent e){
+				new TerminplanungsFrame();
+				M_Startseite.this.dispose();
+			}
+		});
+		
 
 		add(panel);
 		setVisible(true);

@@ -14,10 +14,10 @@ public class TerminDB {
 	private Connection conn;
 	Calendar calendar;
 
-	public ArrayList<Integer> termineLaden(Date datum, int anzeigeseite) {
+	public ArrayList<Integer> termineLaden(Date datum, int anzahl, int anzeigeseite) {
 
-		int obergrenze = anzeigeseite * 21;
-		int untergrenze = (anzeigeseite - 1) * 21 + 1;
+		int obergrenze = anzeigeseite * anzahl;
+		int untergrenze = (anzeigeseite - 1) * anzahl + 1;
 		ArrayList<Integer> terminliste = new ArrayList<Integer>();
 		calendar = new GregorianCalendar();
 		calendar.setTime(datum);
@@ -33,6 +33,7 @@ public class TerminDB {
 					.executeQuery("SELECT * FROM [termine] Where id between "
 							+ untergrenze + " and " + obergrenze);
 
+			
 			while (rs.next()) {
 				int kundeID = rs.getInt("Tag" + laufenderTag);
 				terminliste.add(kundeID);
@@ -98,5 +99,5 @@ public class TerminDB {
 
 		return adminwerte;
 	}
-
+	
 }
