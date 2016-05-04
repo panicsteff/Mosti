@@ -13,35 +13,35 @@ public class Termin {
 	
 	
 	
-	public int getKundenId(){
+	int getKundenId(){
 		return kundenID;
 	}
 
-	public void setKundenId(int ID){
+	void setKundenId(int ID){
 		kundenID = ID;
 	}
 
-	public Date getDatum() {
+	Date getDatum() {
 		return datum;
 	}
 
-	public void setDatum(Date datum) {
+	void setDatum(Date datum) {
 		this.datum = datum;
 	}
 
-	public Date getUhrzeit() {
+	Date getUhrzeit() {
 		return uhrzeit;
 	}
 
-	public void setUhrzeit(Date uhrzeit) {
+	void setUhrzeit(Date uhrzeit) {
 		this.uhrzeit = uhrzeit;
 	}
 
-	public Kunde getKunde() {
+	Kunde getKunde() {
 		return kunde;
 	}
 
-	public void setKunde(Kunde kunde) {
+	void setKunde(Kunde kunde) {
 		this.kunde = kunde;
 	}
 }

@@ -7,7 +7,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -32,9 +31,8 @@ public class TagFrame extends JFrame {
 	private int anzeigeseite;
 	private int zeilenanzahl;
 	private ListSelectionModel terminSelectionModel;
-	SimpleDateFormat dateformat = new SimpleDateFormat("dd.MM.yyyy");
 
-	public TagFrame(Date d, int za, int as, ArrayList<Integer> aw) {
+	TagFrame(Date d, int za, int as, ArrayList<Integer> aw) {
 		
 		datum = d;
 		zeilenanzahl = za;
@@ -62,9 +60,12 @@ public class TagFrame extends JFrame {
 		tagesTabelle.addMouseListener(new MouseAdapter() {
 			public void mousePressed(MouseEvent event) {
 				if (event.getClickCount() == 2) {
-					int position = terminSelectionModel.getMaxSelectionIndex();
-					int kundenId = termineTableModel.getTermin(position);
-					// new TerminBearbeitenFrame(t);
+					int zeile = terminSelectionModel.getMaxSelectionIndex();
+					//int kundenId = termineTableModel.getTermin(zeile);
+					String date = Formats.DATE_FORMAT.format(datum);
+					String name = (String) termineTableModel.getValueAt(zeile, 1);
+					String zeit = (String) termineTableModel.getValueAt(zeile, 0);
+					new TerminBearbeitenFrame(date, name, zeit);
 				}
 			}
 		});
@@ -103,7 +104,7 @@ public class TagFrame extends JFrame {
 
 			}
 		});
-		if (anzeigeseite == adminwerte.get(3)) {										//eigetlich die Anzeigeanzahl
+		if (anzeigeseite == adminwerte.get(3)) {									
 			cmdSpaeter.setEnabled(false);
 		}
 

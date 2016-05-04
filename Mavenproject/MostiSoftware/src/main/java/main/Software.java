@@ -1,10 +1,6 @@
 package main;
 
-import java.util.ArrayList;
-
 import account.M_Startseite;
-import kassenfunktion.Abrechnungsrahmen;
-import dienstleistungProdukt.Produkt;
 
 public class Software {
 

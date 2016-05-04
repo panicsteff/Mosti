@@ -34,7 +34,7 @@ public class TerminplanungsFrame extends JFrame{
 		terminwaehlen.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e){
 				terminDb = new TerminDB();
-				adminwerte = terminDb.ladeAdminwerte();
+				adminwerte = terminDb.adminwerteLaden();
 				
 				int zeitslot = adminwerte.get(0);
 				int beginn = adminwerte.get(1);

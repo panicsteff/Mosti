@@ -14,7 +14,7 @@ public class TermineTableModel extends AbstractTableModel {
 	private TerminDB termindb;
 	
 
-	public TermineTableModel(ArrayList<Integer> terminliste, int as, ArrayList<Integer> adminwerte) {
+	TermineTableModel(ArrayList<Integer> terminliste, int as, ArrayList<Integer> adminwerte) {
 		this.terminliste = terminliste;
 		anzeigeseite = as;
 		zeitslot = adminwerte.get(0);
@@ -68,7 +68,7 @@ public class TermineTableModel extends AbstractTableModel {
 		return stunde + ":" + minuten;
 	}
 	
-	public int getTermin(int t){
+	int getTermin(int t){
 		return terminliste.get(t);
 	}
 

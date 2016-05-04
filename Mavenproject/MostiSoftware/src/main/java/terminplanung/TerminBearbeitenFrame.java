@@ -9,28 +9,33 @@ import javax.swing.JTextField;
 
 public class TerminBearbeitenFrame extends JFrame{
 
-	private Termin termin;
+	private static final long serialVersionUID = 1L;
+
 	
 	
-	public TerminBearbeitenFrame(Termin t){
+	public TerminBearbeitenFrame(String date, String name, String zeit){
 		
 		setTitle("Termin bearbeiten");
-		setSize(300,400);
+		setSize(300,200);
 		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
-		
-		termin = t;
 		
 		JPanel content = new JPanel();
 		content.setLayout(new GridLayout(3,2));
 		
 		JLabel kunde = new JLabel("Kunde:");
-		JTextField kundetxt = new JTextField(termin.getKundenId());						//irgentwann mal vor und nachname vom kunden
+		kunde.setFont(kunde.getFont().deriveFont(16f));
+		JTextField kundetxt = new JTextField(name);	
+		kundetxt.setFont(kundetxt.getFont().deriveFont(16f));
 		
 		JLabel datum = new JLabel("Datum");
-		JTextField datumtxt = new JTextField(termin.getDatum().toString());
+		datum.setFont(datum.getFont().deriveFont(16f));
+		JTextField datumtxt = new JTextField(date);
+		datumtxt.setFont(datumtxt.getFont().deriveFont(16f));
 		
 		JLabel uhrzeit = new JLabel("Uhrzeit");
-		JTextField uhrzeittxt = new JTextField(termin.getUhrzeit().toString());
+		uhrzeit.setFont(uhrzeit.getFont().deriveFont(16f));
+		JTextField uhrzeittxt = new JTextField(zeit);
+		uhrzeittxt.setFont(uhrzeittxt.getFont().deriveFont(16f));
 		
 		content.add(kunde);
 		content.add(kundetxt);
@@ -44,4 +49,7 @@ public class TerminBearbeitenFrame extends JFrame{
 		setVisible(true);
 	}
 	
+	public static void main (String[] avg){
+		new TerminBearbeitenFrame("1.9.2016" ,"Franz Schofreiter", "11.45");
+	}
 }
