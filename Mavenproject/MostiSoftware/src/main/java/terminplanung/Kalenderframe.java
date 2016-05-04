@@ -10,6 +10,7 @@ import com.toedter.calendar.JDateChooser;
 public class Kalenderframe {
 
 	private JFrame frame;
+	private JCalendar calendar;
 
 	/**
 	 * Launch the application.
@@ -43,14 +44,17 @@ public class Kalenderframe {
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 		
-		JCalendar calendar = new JCalendar();
+		calendar = new JCalendar();
 		calendar.setBounds(0, 0, 434, 261);
 		frame.getContentPane().add(calendar);
 		
-		MyDateChooser dateChooser = new MyDateChooser();
+		JDateChooser dateChooser = new JDateChooser();
 		dateChooser.setBounds(435, 270, 100, 30);
 		frame.getContentPane().add(dateChooser);
+		frame.setVisible(true);
 	}
 	
-	
+	public JCalendar getKalender(){
+		return calendar;
+	}
 }
