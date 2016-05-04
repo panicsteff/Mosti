@@ -112,16 +112,16 @@ public class MitarbeiterBearbeitenDialog extends JDialog {
 		
 		
 		label = new JLabel("Hausnummer:");
-		label.setBounds(10,120,100,20);
+		label.setBounds(10,130,100,20);
 		main.add(label);
 		
 		txtHausnummer = new JTextField(mitarbeiter.getHausnummer());
-		txtHausnummer.setBounds(110,100,150,20);
+		txtHausnummer.setBounds(110,130,150,20);
 		main.add(txtHausnummer);
 		
 		
 		label = new JLabel("Plz:");
-		label.setBounds(10, 130, 100, 20);
+		label.setBounds(10, 160, 100, 20);
 		main.add(label);
 		
 //		MaskFormatter mf = null;
@@ -135,31 +135,31 @@ public class MitarbeiterBearbeitenDialog extends JDialog {
 //		nf = new NullableFormatter(mf);
 		txtPlz = new JFormattedTextField();
 		txtPlz.setValue(mitarbeiter.getPlz());
-		txtPlz.setBounds(110, 130, 40, 20);
+		txtPlz.setBounds(110, 160, 40, 20);
 		main.add(txtPlz);
 		
 		label = new JLabel("Ort:");
-		label.setBounds(10, 160, 100, 20);
+		label.setBounds(10, 190, 100, 20);
 		main.add(label);
 		
 		txtStadt = new JTextField(mitarbeiter.getStadt());
-		txtStadt.setBounds(110, 160, 150, 20);
+		txtStadt.setBounds(110, 190, 100, 20);
 		main.add(txtStadt);
 		
 		label = new JLabel("Telefonnummer:");
-		label.setBounds(10, 180, 100, 20);
+		label.setBounds(10, 220, 100, 20);
 		main.add(label);
 		
 		txtTel = new JTextField(mitarbeiter.getTelefonnummer());
-		txtTel.setBounds(110,180,170,20);
+		txtTel.setBounds(110,220,100,20);
 		main.add(txtTel);
 		
 		label = new JLabel("Benutzername:");
-		label.setBounds(10,200,100,20);
+		label.setBounds(10,250,100,20);
 		main.add(label);
 		
 		txtBenutzername = new JTextField(mitarbeiter.getBenutzername());
-		txtBenutzername.setBounds(110,200,190,20);
+		txtBenutzername.setBounds(110,250,100,20);
 		main.add(txtBenutzername);
 		
 		

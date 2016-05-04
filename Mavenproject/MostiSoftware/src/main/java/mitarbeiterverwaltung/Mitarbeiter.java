@@ -11,11 +11,12 @@ public class Mitarbeiter {
 	private String plz;
 	private String stadt;
 	private String telefonnummer;
+	private int mitarbeiterID;
 	private String benutzername;
 	private M_Account account;
 
 	public Mitarbeiter(String nachname, String vorname, String strasse,
-			String hausnummer, String plz, String stadt, String telefonnummer, String benutzername)
+			String hausnummer, String plz, String stadt, String telefonnummer, int mitarbeiterId, String benutzername)
 	{
 		setNachname(nachname);
 		setVorname(vorname);
@@ -24,8 +25,13 @@ public class Mitarbeiter {
 		setPlz(plz);
 		setStadt(stadt);
 		setTelefonnummer(telefonnummer);
+		setMitarbeiterID(mitarbeiterId);
 		setBenutzername(benutzername);
 		setAccount(new M_Account(benutzername, "test"));
+	}
+	
+	public Mitarbeiter(){
+		
 	}
 
 	public String getNachname() {
@@ -98,5 +104,13 @@ public class Mitarbeiter {
 
 	public void setAccount(M_Account account) {
 		this.account = account;
+	}
+
+	public int getMitarbeiterID() {
+		return mitarbeiterID;
+	}
+
+	public void setMitarbeiterID(int mitarbeiterID) {
+		this.mitarbeiterID = mitarbeiterID;
 	}
 }

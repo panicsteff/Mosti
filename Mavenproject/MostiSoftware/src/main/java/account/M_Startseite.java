@@ -19,6 +19,7 @@ import kundenverwaltung.KundenVerwaltung;
 import lagerverwaltung.LagerFrame;
 import main.Angebote;
 import main.Kundeneinkäufe;
+import mitarbeiterverwaltung.MitarbeiterVerwaltung;
 import terminplanung.TerminplanungsFrame;
 import dienstleistungenverwaltung.DLFrame;
 
@@ -107,6 +108,16 @@ public class M_Startseite extends JFrame {
 			public void actionPerformed(ActionEvent e){
 				new TerminplanungsFrame();
 				M_Startseite.this.dispose();
+			}
+		});
+		
+		JMenu mitarbeiter = new JMenu("Mitarbeiter");
+		mbar.add(mitarbeiter);
+		JMenuItem cmdMitarbeiter = new JMenuItem("Mitarbeiterverwaltung");
+		mitarbeiter.add(cmdMitarbeiter);
+		cmdMitarbeiter.addActionListener(new ActionListener(){
+			public void actionPerformed(ActionEvent e){
+				new MitarbeiterVerwaltung();
 			}
 		});
 		

@@ -147,4 +147,8 @@ public class MitarbeiterVerwaltung extends JFrame {
 		mitarbeiterTableModel.fireTableRowsUpdated(row, row);
 	}
 
+	
+	public static void main (String[] avgs){
+		new MitarbeiterVerwaltung();
+	}
 }
