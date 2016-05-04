@@ -1,6 +1,9 @@
 package terminplanung;
 import java.awt.EventQueue;
+import java.awt.event.ActionEvent;
+import java.beans.PropertyChangeListener;
 
+import javax.swing.Action;
 import javax.swing.JFrame;
 
 import com.toedter.calendar.JCalendar;
