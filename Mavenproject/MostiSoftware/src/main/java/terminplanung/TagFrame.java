@@ -2,6 +2,7 @@ package terminplanung;
 
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
+import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -53,13 +54,15 @@ public class TagFrame extends JFrame {
 		setJMenuBar(mbar);
 		
 		JMenu termine = new JMenu("Termine");
+		termine.setFont(termine.getFont().deriveFont(15f));
 		mbar.add(termine);
 		
 		JMenuItem neuerTermin = new JMenuItem("Neuen Termin anlegen");
 		termine.add(neuerTermin);
+		neuerTermin.setFont(neuerTermin.getFont().deriveFont(15f));
 		neuerTermin.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e){
-				
+				new TerminHinzufügenFrame(adminwerte);
 			}
 		});
 		
@@ -72,6 +75,7 @@ public class TagFrame extends JFrame {
 		tagesTabelle.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
 		tagesTabelle.setRowHeight(30);
 		tagesTabelle.setFont(tagesTabelle.getFont().deriveFont(16f));
+		tagesTabelle.getTableHeader().setFont(tagesTabelle.getTableHeader().getFont().deriveFont(16f));
 
 
 		terminSelectionModel = tagesTabelle.getSelectionModel();
