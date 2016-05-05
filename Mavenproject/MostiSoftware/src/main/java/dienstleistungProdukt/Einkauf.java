@@ -23,7 +23,7 @@ public class Einkauf {
 		for (Einkaufsposition e : einkaufsliste) {
 				System.out.print(e.getVerkaufsMenge() + "x " + e.getName()+ ", ");
 		}
-		System.out.println(" für " + getsumme()+ " €");
+		System.out.println(" für insgesamt" + getsumme()+ " €");
 	}
 
 	public void setSumme(double total) {

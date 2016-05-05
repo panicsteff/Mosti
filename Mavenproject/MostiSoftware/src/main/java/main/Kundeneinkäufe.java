@@ -35,7 +35,7 @@ public class Kundeneinkäufe {
 	}
 	
 	public int getSize(){
-		return kundeneinkäufe.size();
+		return kundeneinkäufe != null? kundeneinkäufe.size():0;
 	}
 	
 

@@ -18,7 +18,7 @@ public class DienstleistungenTableModel extends AbstractTableModel {
 
 	public DienstleistungenTableModel(ArrayList <Dienstleistung> dienstleistungen) {
 		this.dienstleistungen = dienstleistungen;
-		DLAnzahl = dienstleistungen.size();
+		DLAnzahl = getColumnCount();
 	}
 
 	public String getColumnName(int col) {
@@ -33,7 +33,7 @@ public class DienstleistungenTableModel extends AbstractTableModel {
 	}
 
 	public int getColumnCount() {
-		return DLAnzahl;
+		return dienstleistungen != null? dienstleistungen.size() : 0;
 	}
 
 	public Object getValueAt(int row, int col) {
