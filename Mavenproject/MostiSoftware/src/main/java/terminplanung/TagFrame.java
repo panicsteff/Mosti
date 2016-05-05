@@ -54,6 +54,7 @@ public class TagFrame extends JFrame {
 		tagesTabelle.setRowHeight(30);
 		tagesTabelle.setFont(tagesTabelle.getFont().deriveFont(16f));
 
+
 		terminSelectionModel = tagesTabelle.getSelectionModel();
 		terminSelectionModel
 				.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);

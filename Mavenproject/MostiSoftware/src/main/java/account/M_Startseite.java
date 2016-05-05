@@ -107,7 +107,6 @@ public class M_Startseite extends JFrame {
 		termin.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e){
 				new TerminplanungsFrame();
-				M_Startseite.this.dispose();
 			}
 		});
 		
