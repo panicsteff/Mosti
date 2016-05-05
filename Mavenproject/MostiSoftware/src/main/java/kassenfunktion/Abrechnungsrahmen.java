@@ -29,8 +29,10 @@ public class Abrechnungsrahmen extends JFrame {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	private ZusatzProduktTableModel zusatzTableModel;
-	private AbfüllMaterialTableModel abfüllTableModel;
+	//private ZusatzProduktTableModel zusatzTableModel;
+	//private AbfüllMaterialTableModel abfüllTableModel;
+	private ProduktTableModel zusatzTableModel;
+	private ProduktTableModel abfüllTableModel;
 	private DienstleistungenTableModel dienstTableModel;
 	private JLabel label;
 	private JTable zusatzTable;
@@ -41,6 +43,9 @@ public class Abrechnungsrahmen extends JFrame {
 	private ArrayList<Dienstleistung> dienstleistungen;
 	private Einkauf einkauf;
 	private Kundeneinkäufe kundeneinkäufe;
+	private Einkaufsposition DLposition;
+	private Einkaufsposition produktPosition;
+	
 
 	public Abrechnungsrahmen(ArrayList<Dienstleistung> dienstleistungen, ArrayList<Produkt> abfüllProduktSortiment,
 			ArrayList<Produkt> zusatzProduktSortiment, Kundeneinkäufe kundeneinkäufe) {
@@ -62,15 +67,14 @@ public class Abrechnungsrahmen extends JFrame {
 		dienstTableModel = new DienstleistungenTableModel(dienstleistungen);
 		JTable dienstTable = new JTable(dienstTableModel);
 
-		abfüllTableModel = new AbfüllMaterialTableModel(abfüllProduktSortiment);
+		//abfüllTableModel = new AbfüllMaterialTableModel(abfüllProduktSortiment);
+		abfüllTableModel = new ProduktTableModel(abfüllProduktSortiment);
 		JTable abfüllTable = new JTable(abfüllTableModel);
 
-		zusatzTableModel = new ZusatzProduktTableModel(zusatzProduktSortiment);
+		//zusatzTableModel = new ZusatzProduktTableModel(zusatzProduktSortiment);
+		zusatzTableModel = new ProduktTableModel(zusatzProduktSortiment);
 		zusatzTable = new JTable(zusatzTableModel);
-		// zusatzTable.getColumnModel().getColumn(0).setCellRenderer(new
-		// AnzahlTableCellRenderer());
-		// zusatzTable.getColumnModel().getColumn(2).setCellRenderer(new
-		// AnzahlTableCellRenderer());
+		
 
 		JScrollPane tableContainer1 = new JScrollPane(dienstTable);
 		JScrollPane tableContainer2 = new JScrollPane(abfüllTable);
@@ -99,36 +103,15 @@ public class Abrechnungsrahmen extends JFrame {
 		summePanel.add(new JLabel("Gesamtsumme in Euro: "));
 
 		double sum1 = 0;
-//		for (int i = 0; i < Dienstleistung.listeDienstleistungen.length; i++) {
-//			sum1 = sum1
-//					+ ((Integer) (dienstTableModel.getValueAt(0, i)) * Dienstleistung.listeDienstleistungen[i]
-//							.getPreisProLiter());
-//			System.out.println((Integer) (dienstTableModel.getValueAt(0, i))
-//					+ " und "
-//					+ Dienstleistung.listeDienstleistungen[i]
-//							.getPreisProLiter());
-//		}
+
 		sum1 = dienstTableModel.berechneTeilpreis();									//
 		System.out.println();
 		double sum2 = 0;
-//		for (int i = 0; i < abfüllProduktSortiment.size(); i++) {
-//			sum2 = sum2
-//					+ ((Integer) (abfüllTableModel.getValueAt(0, i)) * abfüllProduktSortiment
-//							.get(i).getPreis());
-//			System.out.println((Integer) (abfüllTableModel.getValueAt(0, i))
-//					+ " und " + abfüllProduktSortiment.get(i).getPreis());
-//
-//		}
+
 		sum2 = abfüllTableModel.berechneTeilpreis();									//
 		System.out.println();
 		double sum3 = 0;
-//		for (int i = 0; i < zusatzProduktSortiment.size(); i++) {
-//			sum3 = sum3
-//					+ ((Integer) (zusatzTableModel.getValueAt(0, i)) * zusatzProduktSortiment
-//							.get(i).getPreis());
-//			System.out.println((Integer) (zusatzTableModel.getValueAt(0, i))
-//					+ " und " + zusatzProduktSortiment.get(i).getPreis());
-//		}
+//		
 		sum3 = zusatzTableModel.berechneTeilpreis();									//
 		total = sum1 + sum2 + sum3;
 
@@ -183,6 +166,10 @@ public class Abrechnungsrahmen extends JFrame {
 		}
 	}
 	
+	public void printEinkaufsposition(Einkaufsposition e){
+		System.out.println("Einkaufsdrum: " +e.getName()+ "  Anzahl: " + e.getVerkaufsMenge() +" a " + e.getPreis());
+	}
+	
 	public void initVerkaufsmengen(){
 		for(Dienstleistung d: dienstleistungen){
 			if(d.getVerkaufsMenge()!= 0)
@@ -211,23 +198,35 @@ public class Abrechnungsrahmen extends JFrame {
 
 		public void actionPerformed(ActionEvent arg0) {
 			einkauf = new Einkauf();
+			DLposition = new Dienstleistung();
+			produktPosition = new Produkt();
 			int literzahl=0;
+			
+			//Fehler!!!!!!!!!!!!
 			
 			for(Dienstleistung d: dienstleistungen){
 				if(d.getVerkaufsMenge()> 0){
-					einkauf.addEinkauf(d);
+					DLposition = d;
+					einkauf.addEinkauf(DLposition);
 					literzahl = literzahl + d.getVerkaufsMenge();
+					printEinkaufsposition(d);
 				}
 			}
 			
 			for(Produkt p: aliste){
-				if(p.getVerkaufsMenge()> 0)
-					einkauf.addEinkauf(p);
+				if(p.getVerkaufsMenge()> 0){
+					produktPosition = p;
+					einkauf.addEinkauf(produktPosition);
+					printEinkaufsposition(p);
+				}
 			}
 			
 			for(Produkt p: zliste){
-				if(p.getVerkaufsMenge()> 0)
-					einkauf.addEinkauf(p);
+				if(p.getVerkaufsMenge()> 0){
+					produktPosition = p;
+					einkauf.addEinkauf(produktPosition);
+					printEinkaufsposition(p);
+				}
 			}
 
 //			for (int i = 0; i < dienstleistungen.size(); i++) {

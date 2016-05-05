@@ -9,4 +9,5 @@ public interface Einkaufsposition {
 	public double getPreis();
 	public void setPreis(double preis);
 
+
 }
