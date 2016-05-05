@@ -7,11 +7,15 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Date;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JMenu;
+import javax.swing.JMenuBar;
+import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
@@ -31,6 +35,7 @@ public class TagFrame extends JFrame {
 	private int anzeigeseite;
 	private int zeilenanzahl;
 	private ListSelectionModel terminSelectionModel;
+	private JMenuBar mbar;
 
 	TagFrame(Date d, int za, int as, ArrayList<Integer> aw) {
 		
@@ -43,6 +48,20 @@ public class TagFrame extends JFrame {
 		String title = Formats.DATE_FORMAT.format(datum);
 		setTitle(title);
 		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+		
+		mbar = new JMenuBar();
+		setJMenuBar(mbar);
+		
+		JMenu termine = new JMenu("Termine");
+		mbar.add(termine);
+		
+		JMenuItem neuerTermin = new JMenuItem("Neuen Termin anlegen");
+		termine.add(neuerTermin);
+		neuerTermin.addActionListener(new ActionListener(){
+			public void actionPerformed(ActionEvent e){
+				
+			}
+		});
 		
 		terminDb = new TerminDB();
 		terminliste = terminDb.termineLaden(datum, zeilenanzahl, anzeigeseite);
@@ -120,6 +139,25 @@ public class TagFrame extends JFrame {
 		
 		setVisible(true);
 
+	}
+	
+	public static void main (String[] avgs){
+		ArrayList<Integer> aw = new ArrayList<Integer>();
+		aw.add(5);
+		aw.add(540);
+		aw.add(1140);
+		aw.add(3);
+		
+		String s = "1.9.2016";
+		Date d = new Date();
+		try {
+			d = Formats.DATE_FORMAT.parse(s);
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		new TagFrame(d,10, 1,aw);
 	}
 
 }

@@ -2,6 +2,7 @@ package kassenfunktion;
 
 import java.util.ArrayList;
 
+import javax.swing.JOptionPane;
 import javax.swing.table.AbstractTableModel;
 
 import dienstleistungProdukt.Produkt;
@@ -61,7 +62,11 @@ public class ZusatzProduktTableModel extends AbstractTableModel {
 	}
 
 	public void setValueAt(Object eintrag, int row, int col) {
-
+		
+		if ((Integer) eintrag <0){
+			JOptionPane.showMessageDialog(null, "Keine negativen Werte erlaubt!");
+			return;
+		}
 		produktsortiment.get(col).setVerkaufsMenge((Integer) eintrag);					//
 		
 //		switch (col) {
@@ -99,7 +104,8 @@ public class ZusatzProduktTableModel extends AbstractTableModel {
 			System.out.println((Integer) (getValueAt(0, i))
 					+ " und " + produktsortiment.get(i).getPreis());
 		}
-		
+		sum = Math.round(sum*100);
+		sum = sum/100;
 		return sum;
 	}
 }
