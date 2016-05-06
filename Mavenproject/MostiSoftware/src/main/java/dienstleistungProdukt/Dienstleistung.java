@@ -12,7 +12,7 @@ public class Dienstleistung implements Einkaufsposition {
 		this.setVerkaufsMenge(menge);
 	}
 
-	public String getName() {
+	 public String getName() {
 		return name;
 	}
 

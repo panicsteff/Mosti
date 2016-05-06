@@ -3,8 +3,6 @@ package lagerverwaltung;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.text.NumberFormat;
-
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JDialog;
@@ -13,16 +11,12 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 import javax.swing.text.NumberFormatter;
-
-import main.Angebote;
 import kundenverwaltung.NullableFormatter;
-
-import com.sun.glass.ui.Pixels.Format;
 
 import dienstleistungProdukt.Produkt;
 
 @SuppressWarnings("serial")
-public class ProduktBearbeitenDialog extends JDialog {
+class ProduktBearbeitenDialog extends JDialog {
 
 	private JTextField txtName;
 	private JFormattedTextField txtMenge;
@@ -30,9 +24,8 @@ public class ProduktBearbeitenDialog extends JDialog {
 	private JFormattedTextField txtPreis;
 	private JCheckBox cBoxIsAbfuellmaterial;
 	private Produkt produkt;
-	private Format format;
 
-	public ProduktBearbeitenDialog(JFrame parent, Produkt p) {
+	ProduktBearbeitenDialog(JFrame parent, Produkt p) {
 
 		super(parent);
 		this.produkt = p;
@@ -77,7 +70,7 @@ public class ProduktBearbeitenDialog extends JDialog {
 		setVisible(true);
 	}
 
-	class MyOkHandler implements ActionListener {
+	private class MyOkHandler implements ActionListener {
 
 		public void actionPerformed(ActionEvent arg0) {
 			produkt.setName(txtName.getText());
@@ -88,12 +81,11 @@ public class ProduktBearbeitenDialog extends JDialog {
 				produkt.setAbfüllmaterial(cBoxIsAbfuellmaterial.isSelected());
 				LagerFrame.hasChanged = true;
 			}
-			
 			dispose();
 		}
 	}
 
-	class MyAbbHandler implements ActionListener {
+	private class MyAbbHandler implements ActionListener {
 
 		public void actionPerformed(ActionEvent e) {
 			dispose();

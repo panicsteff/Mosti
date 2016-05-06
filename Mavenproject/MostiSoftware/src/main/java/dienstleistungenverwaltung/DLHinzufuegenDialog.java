@@ -19,7 +19,7 @@ import lagerverwaltung.FoFormat;
 import com.sun.glass.ui.Pixels.Format;
 import dienstleistungProdukt.Dienstleistung;
 
-public class DLHinzufuegenDialog extends JDialog {
+class DLHinzufuegenDialog extends JDialog {
 
 	/**
 	 * 
@@ -63,24 +63,20 @@ public class DLHinzufuegenDialog extends JDialog {
 		setVisible(true);
 	}
 
-	class MyOKHandler implements ActionListener {
+	private class MyOKHandler implements ActionListener {
 
 		public void actionPerformed(ActionEvent arg0) {
 			dienstleistung = new Dienstleistung(txtName.getText(), Double.parseDouble(txtPreis.getText()),0);
 			liste.add(dienstleistung);
 			dispose();
-
 		}
-
 	}
 
-	class MyAbbHandler implements ActionListener {
-
+	private class MyAbbHandler implements ActionListener {
+		
 		public void actionPerformed(ActionEvent e) {
 			dispose();
-
 		}
-
 	}
 
 }

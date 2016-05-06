@@ -8,7 +8,7 @@ import dienstleistungProdukt.Produkt;
 
 
 
-public class LagerTableModel extends AbstractTableModel{
+class LagerTableModel extends AbstractTableModel{
 		
 		/**
 	 * 
@@ -23,7 +23,7 @@ public class LagerTableModel extends AbstractTableModel{
 //			produktliste = liste;
 //		}
 		
-		public LagerTableModel(List <Produkt> aliste, List <Produkt> zliste){
+		LagerTableModel(List <Produkt> aliste, List <Produkt> zliste){
 			this.aliste = aliste;
 			this.zliste = zliste;
 		}

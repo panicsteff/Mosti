@@ -5,9 +5,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.util.ArrayList;
 import java.util.List;
-
 import javax.swing.BorderFactory;
 import javax.swing.JFrame;
 import javax.swing.JMenu;
@@ -19,7 +17,6 @@ import javax.swing.JTable;
 import javax.swing.ListSelectionModel;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
-import javax.swing.plaf.ListUI;
 import javax.swing.table.TableColumn;
 
 import dienstleistungProdukt.Produkt;
@@ -30,7 +27,6 @@ public class LagerFrame extends JFrame {
 	private LagerTableModel lagerTableModel;
 	private ListSelectionModel produktSelectionModel;
 	//private List<Produkt> pliste;
-	private List<Produkt> gliste;
 	private List<Produkt> aliste;
 	private List<Produkt> zliste;
 	private JMenuItem bearP;
@@ -151,15 +147,8 @@ public class LagerFrame extends JFrame {
 
 	}
 	
-//	private void createGesamtListe(){
-//		gliste = new ArrayList<Produkt>();
-//		gliste.addAll(aliste);
-//		gliste.addAll(zliste);
-//	}
-
 	private void addProdukt() {
 		new ProduktHinzufuegenDialog(this, aliste, zliste);
-		//createGesamtListe();
 		printListe();
 		lagerTableModel.fireTableDataChanged();
 	}
@@ -171,9 +160,7 @@ public class LagerFrame extends JFrame {
 			aliste.remove(p);
 		else
 			zliste.remove(p);
-		//pliste.remove(row);
 		printListe();
-		//createGesamtListe();
 		lagerTableModel.fireTableDataChanged();
 	}
 
@@ -196,9 +183,6 @@ public class LagerFrame extends JFrame {
 	}
 	
 	private void printListe(){
-//		for(Produkt p:gliste){
-//			System.out.print(p.getName());
-//		}
 		System.out.println();
 		for(Produkt p:aliste){
 			System.out.print(p.getName());

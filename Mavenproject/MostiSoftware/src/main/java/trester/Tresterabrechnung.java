@@ -14,7 +14,7 @@ public class Tresterabrechnung {
 		setPreis(berechnePreis());
 	}
 	
-	public int berechneGesamtLiter(){
+	private int berechneGesamtLiter(){
 		int total = 0;
 		for(int i = 0; i < kundeneinkäufe.getSize(); i++){
 			total = total + kundeneinkäufe.getEinkauf(i).getLiterzahl();
@@ -22,7 +22,7 @@ public class Tresterabrechnung {
 		return total;
 	}
 	
-	public double berechnePreis(){
+	private double berechnePreis(){
 		return gesamtLiter * 1.00;
 	}
 

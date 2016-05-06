@@ -7,11 +7,11 @@ import dienstleistungProdukt.Dienstleistung;
 
 
 
-public class DLTableModel extends AbstractTableModel{
+class DLTableModel extends AbstractTableModel{
 		
 		private List <Dienstleistung> dliste;
 		
-		public DLTableModel(List <Dienstleistung> liste){
+		DLTableModel(List <Dienstleistung> liste){
 			dliste = liste;
 		}
 
@@ -40,7 +40,7 @@ public class DLTableModel extends AbstractTableModel{
 			}
 		}
 		
-		public Class<?> getColumnClass (int col){
+		 public Class<?> getColumnClass (int col){
 			switch(col){
 			case 0: return String.class;
 			case 1: return Double.class;
@@ -56,7 +56,7 @@ public class DLTableModel extends AbstractTableModel{
 			return dliste;
 		}
 		
-		public void setGetraenke (List<Dienstleistung> liste){
+		public void setDienstleistungen (List<Dienstleistung> liste){
 			dliste = liste;
 		}
 

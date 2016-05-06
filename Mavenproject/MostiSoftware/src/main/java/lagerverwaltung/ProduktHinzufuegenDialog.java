@@ -20,7 +20,7 @@ import com.sun.glass.ui.Pixels.Format;
 
 import dienstleistungProdukt.Produkt;
 
-public class ProduktHinzufuegenDialog extends JDialog {
+class ProduktHinzufuegenDialog extends JDialog {
 
 	/**
 	 * 
@@ -35,9 +35,8 @@ public class ProduktHinzufuegenDialog extends JDialog {
 	private List<Produkt> liste;
 	private List<Produkt> aliste;
 	private List<Produkt> zliste;
-	private Format format;
 
-	public ProduktHinzufuegenDialog(JFrame parent, List<Produkt> a_auflistung, List<Produkt> z_auflistung) {
+	ProduktHinzufuegenDialog(JFrame parent, List<Produkt> a_auflistung, List<Produkt> z_auflistung) {
 
 		super(parent);
 
@@ -80,7 +79,7 @@ public class ProduktHinzufuegenDialog extends JDialog {
 		setVisible(true);
 	}
 
-	class MyOKHandler implements ActionListener {
+	private class MyOKHandler implements ActionListener {
 
 		public void actionPerformed(ActionEvent arg0) {
 			produkt = new Produkt(txtName.getText(), Double.parseDouble(txtPreis.getText()), Integer.parseInt(txtMenge.getText()), 
@@ -96,7 +95,7 @@ public class ProduktHinzufuegenDialog extends JDialog {
 
 	}
 
-	class MyAbbHandler implements ActionListener {
+	private class MyAbbHandler implements ActionListener {
 
 		public void actionPerformed(ActionEvent e) {
 			dispose();
