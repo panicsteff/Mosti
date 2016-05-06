@@ -22,14 +22,14 @@ import com.sun.glass.ui.Pixels.Format;
 
 
 @SuppressWarnings("serial")
-public class DLBearbeitenDialog extends JDialog {
+class DLBearbeitenDialog extends JDialog {
 
 	private JTextField txtName;
 	private JFormattedTextField txtPreis;
 	private Dienstleistung dienstleistung;
 	private Format format;
 
-	public DLBearbeitenDialog(JFrame parent, Dienstleistung d) {
+	DLBearbeitenDialog(JFrame parent, Dienstleistung d) {
 
 		super(parent);
 		this.dienstleistung = d;
@@ -63,7 +63,7 @@ public class DLBearbeitenDialog extends JDialog {
 		setVisible(true);
 	}
 
-	class MyOkHandler implements ActionListener {
+	private class MyOkHandler implements ActionListener {
 
 		public void actionPerformed(ActionEvent arg0) {
 			dienstleistung.setName(txtName.getText());
@@ -73,7 +73,7 @@ public class DLBearbeitenDialog extends JDialog {
 		}
 	}
 
-	class MyAbbHandler implements ActionListener {
+	private class MyAbbHandler implements ActionListener {
 
 		public void actionPerformed(ActionEvent e) {
 			dispose();

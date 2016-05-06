@@ -3,9 +3,8 @@ package kassenfunktionTest;
 import java.util.ArrayList;
 
 import dienstleistungenverwaltung.Dienstleistung;
-import kassenfunktion.AbfüllMaterialTableModel;
 import kassenfunktion.DienstleistungenTableModel;
-import kassenfunktion.ZusatzProduktTableModel;
+import kassenfunktion.ProduktTableModel;
 import lagerverwaltung.Produkt;
 
 public class AbrechnungsrahmenTest {
@@ -101,7 +100,7 @@ public class AbrechnungsrahmenTest {
 			 
 		}
 		
-		ZusatzProduktTableModel ztm = new ZusatzProduktTableModel(z);
+		ProduktTableModel ztm = new ProduktTableModel(z);
 		
 		for(int i=0; i<testwerte.length; i++){
 			for(int j=0; j<3; j++){
@@ -153,7 +152,7 @@ public class AbrechnungsrahmenTest {
 			 
 		}
 		
-		AbfüllMaterialTableModel atm = new AbfüllMaterialTableModel(p);
+		ProduktTableModel atm = new ProduktTableModel(p);
 		
 		for(int i=0; i<testwerte.length; i++){
 			for(int j=0; j<3; j++){

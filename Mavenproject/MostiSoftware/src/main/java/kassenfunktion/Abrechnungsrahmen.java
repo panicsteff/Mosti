@@ -29,8 +29,7 @@ public class Abrechnungsrahmen extends JFrame {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	//private ZusatzProduktTableModel zusatzTableModel;
-	//private AbfüllMaterialTableModel abfüllTableModel;
+
 	private ProduktTableModel zusatzTableModel;
 	private ProduktTableModel abfüllTableModel;
 	private DienstleistungenTableModel dienstTableModel;
@@ -151,14 +150,14 @@ public class Abrechnungsrahmen extends JFrame {
 
 	}
 
-	class AbbruchHandler implements ActionListener {
+	private class AbbruchHandler implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
 			//initVerkaufsmengen();
 			dispose();
 		}
 	}
 
-	class AktualisiereSummeHandler implements ActionListener {
+	private class AktualisiereSummeHandler implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
 			berechneGesamtTotal();
 			//System.out.println(total);
@@ -166,11 +165,11 @@ public class Abrechnungsrahmen extends JFrame {
 		}
 	}
 	
-	public void printEinkaufsposition(Einkaufsposition e){
+	private void printEinkaufsposition(Einkaufsposition e){
 		System.out.println("Einkaufsdrum: " +e.getName()+ "  Anzahl: " + e.getVerkaufsMenge() +" a " + e.getPreis());
 	}
 	
-	public void initVerkaufsmengen(){
+	private void initVerkaufsmengen(){
 		for(Dienstleistung d: dienstleistungen){
 			if(d.getVerkaufsMenge()!= 0)
 				d.setVerkaufsMenge(0);
@@ -188,7 +187,7 @@ public class Abrechnungsrahmen extends JFrame {
 	}
 	
 	
-	public void berechneGesamtTotal(){
+	private void berechneGesamtTotal(){
 		total = dienstTableModel.berechneTeilpreis()+									//
 				  abfüllTableModel.berechneTeilpreis()+									//
 				  zusatzTableModel.berechneTeilpreis();									//
@@ -204,7 +203,7 @@ public class Abrechnungsrahmen extends JFrame {
 		}
 	}
 
-	class EinkaufAbschließenHandler implements ActionListener {
+	private class EinkaufAbschließenHandler implements ActionListener {
 
 		public void actionPerformed(ActionEvent arg0) {
 			einkauf = new Einkauf();

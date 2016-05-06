@@ -23,6 +23,10 @@ import javax.swing.table.TableColumn;
 
 public class LagerFrame extends JFrame {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private LagerTableModel lagerTableModel;
 	private ListSelectionModel produktSelectionModel;
 	//private List<Produkt> pliste;
