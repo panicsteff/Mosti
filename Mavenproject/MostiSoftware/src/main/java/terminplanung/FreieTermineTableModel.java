@@ -81,19 +81,19 @@ class Intervall {
 	private int start;
 	private int ende;
 
-	public int getEnde() {
+	int getEnde() {
 		return ende;
 	}
 
-	public void setEnde(int ende) {
+	void setEnde(int ende) {
 		this.ende = ende;
 	}
 
-	public int getStart() {
+	int getStart() {
 		return start;
 	}
 
-	public void setStart(int start) {
+	void setStart(int start) {
 		this.start = start;
 	}
 }
