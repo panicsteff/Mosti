@@ -8,17 +8,14 @@ public class TermineTableModel extends AbstractTableModel {
 
 	private static final long serialVersionUID = 1L;
 	private ArrayList<Integer> terminliste;
-	private int zeitslot;
-	private int arbeitsbeginn;
+	private Konfigurationswerte k = new Konfigurationswerte();
 	private int anzeigeseite;
 	private TerminDB termindb;
 	
 
-	TermineTableModel(ArrayList<Integer> terminliste, int as, ArrayList<Integer> adminwerte) {
+	TermineTableModel(ArrayList<Integer> terminliste, int as) {
 		this.terminliste = terminliste;
 		anzeigeseite = as;
-		zeitslot = adminwerte.get(0);
-		arbeitsbeginn = adminwerte.get(1);
 		termindb = new TerminDB();
 	}
 
@@ -42,7 +39,7 @@ public class TermineTableModel extends AbstractTableModel {
 	public Object getValueAt(int row, int col) {
 		switch (col) {
 		case 0:
-			return berechneUhrzeit(row, anzeigeseite);
+			return (anzeigeseite-1)*k.getZeilenanzahlProSeite() + row +1;					//absolute TerminId berechenen, noch um ein erhühen weils die zeile null gib aber nur mindestens den Termin 1
 			
 		case 1:
 			return termindb.kundenNamenLaden(terminliste.get(row));
@@ -52,24 +49,5 @@ public class TermineTableModel extends AbstractTableModel {
 		}
 	}
 	
-	private String berechneUhrzeit(int row, int anzeigeseite){
-		
-		int stunde = 0;
-		int minuten = (arbeitsbeginn + terminliste.size()*(anzeigeseite-1)*zeitslot) + row*zeitslot;
-		while(minuten-60 >= 0){
-			minuten-=60;
-			stunde++;
-		}
-		
-		if(minuten<10){
-			return stunde + ":0" + minuten;
-		}
-		
-		return stunde + ":" + minuten;
-	}
 	
-	int getTermin(int t){
-		return terminliste.get(t);
-	}
-
 }

@@ -1,33 +1,50 @@
 package terminplanung;
 
+import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.text.ParseException;
 import java.util.ArrayList;
+import java.util.Date;
 
+import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
 import javax.swing.JTextField;
+import javax.swing.ListSelectionModel;
+import javax.swing.table.TableColumnModel;
+
+import kundenverwaltung.Formats;
 
 public class TerminHinzufügenFrame extends JFrame{
 
 	private static final long serialVersionUID = 1L;
-	private ArrayList<Integer> adminwerte = new ArrayList<Integer>();
+	private Konfigurationswerte k = new Konfigurationswerte();
+	private ArrayList<Integer> freieTermine;
 	private JTextField txtmenge;
-	private JLabel beginn;
-	private JTextField txtbeginn;
 	private JLabel dauer;
 	private JTextField txtdauer;
+	private TerminDB terminDb;
+	private FreieTermineTableModel fttm;
+	private JTable verfügbarTabelle;
+	private JPanel titlepane;
+	private ListSelectionModel terminSelectionModel;
+	private TableColumnModel tcm;
 
 	
-	public TerminHinzufügenFrame(ArrayList<Integer> aw){
-		setBounds(350, 200, 300, 200);
+	public TerminHinzufügenFrame(){
+		setBounds(350, 200, 300, 500);
 		setTitle("Neuer Termin");
 		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 		
-		adminwerte = aw;
+		terminDb = new TerminDB();
 		setLayout(null);
 		
 		JLabel menge = new JLabel("Obstmenge: ");
@@ -46,20 +63,28 @@ public class TerminHinzufügenFrame extends JFrame{
 				try {
 					String s = txtmenge.getText();
 					länge = berechneTermindauer(s);
-				} catch (Exception ex) {
+					dauer.setEnabled(true);
+					txtdauer.setEnabled(true);
+					txtdauer.setText(länge + "");
+					titlepane.setEnabled(true);
+					freieTermine = terminDb.freieTermineSuchen(new Date()); 
+					//vom heutigen Tag aus mit arbeitsende und zeitslots
+					fttm = new FreieTermineTableModel(freieTermine);
+					verfügbarTabelle.setModel(fttm);
+					tcm = verfügbarTabelle.getColumnModel();
+					tcm.getColumn(1).setCellRenderer(new TermineCellRenderer());
+					tcm.getColumn(2).setCellRenderer(new TermineCellRenderer());
+					
+				} catch (ParseException ex) {
 					JOptionPane.showMessageDialog(TerminHinzufügenFrame.this, "Keine gültige Eingabe der Obstmenge");
 				}
-				beginn.setEnabled(true);
-				txtbeginn.setEnabled(true);
-				dauer.setEnabled(true);
-				txtdauer.setEnabled(true);
-				txtdauer.setText(länge + "");
+				
 			}
 		});
 		add(dauerberechnen);
 		
-		dauer = new JLabel("Termindauer");
-		dauer.setBounds(10, 90, 100, 20);
+		dauer = new JLabel("Presszeit in Minuten:");
+		dauer.setBounds(10, 90, 150, 20);
 		dauer.setEnabled(false);
 		add(dauer);
 		
@@ -68,22 +93,38 @@ public class TerminHinzufügenFrame extends JFrame{
 		txtdauer.setEnabled(false);
 		add(txtdauer);
 		
-		beginn = new JLabel("Terminbeginn");
-		beginn.setEnabled(false);
-		beginn.setBounds(10, 130, 100, 20);
-		add(beginn);
+		verfügbarTabelle = new JTable();
+		verfügbarTabelle.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
 		
-		txtbeginn = new JTextField();
-		txtbeginn.setEnabled(false);
-		txtbeginn.setBounds(150, 130, 100, 20);
-		add(txtbeginn);
+		terminSelectionModel = verfügbarTabelle.getSelectionModel();
+		terminSelectionModel
+				.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+		verfügbarTabelle.addMouseListener(new MouseAdapter() {
+			public void mousePressed(MouseEvent event) {
+				if (event.getClickCount() == 2) {
+					int zeile = terminSelectionModel.getMinSelectionIndex();
+					String datum = (String) fttm.getValueAt(zeile, 0);
+					Date d = new Date();
+					try {
+						d = Formats.DATE_FORMAT.parse(datum);
+					} catch (ParseException e) {
+						e.printStackTrace();
+					}
+					int terminid = (Integer) fttm.getValueAt(zeile, 1);
+					int anzeigeseite = berechneAnzeigeSeite(terminid);
+					new TagFrame(d,anzeigeseite, TerminHinzufügenFrame.this);
+				}
+			}
+		});
 		
-		
-		
-		
-		
-		
-		
+		JScrollPane scrollpane = new JScrollPane(verfügbarTabelle);
+		titlepane = new JPanel();
+		titlepane.setBounds(10, 130, 200, 200);
+		titlepane.setBorder(BorderFactory.createTitledBorder(BorderFactory.createEtchedBorder(), "Freie Termine"));
+		titlepane.setLayout(new BorderLayout());
+		titlepane.add(scrollpane);
+		titlepane.setEnabled(false);
+		add(titlepane);
 		
 		setVisible(true);
 	}
@@ -95,14 +136,14 @@ public class TerminHinzufügenFrame extends JFrame{
 		aw.add(540);
 		aw.add(1140);
 		aw.add(3);
-		new TerminHinzufügenFrame(aw);
+		new TerminHinzufügenFrame();
 	}
 	
 	int berechneTermindauer(String s) throws ParseException{
 		
 		int obstmenge = Integer.parseInt(s);
-		double dauer = obstmenge/3;
-		int zeitslot = adminwerte.get(0);
+		double dauer = obstmenge/10;
+		int zeitslot = k.getZeitslot();
 		if(dauer%zeitslot == 0){
 			return (int) dauer;
 		} else{
@@ -111,4 +152,27 @@ public class TerminHinzufügenFrame extends JFrame{
 			return (int) dauer;
 		}
 	}
+	
+	private  int berechneAnzeigeSeite(int terminId){
+		for(int i = 1;i<= k.getAufteilung(); i++){
+			if(terminId<=k.getZeilenanzahlProSeite()*i){
+				int anzeigeseite = i;
+				return anzeigeseite;
+			}
+		}
+		return k.getAufteilung();
+		
+	}
+	
+	public int getTerminlänge(){
+		String s = txtdauer.getText();
+		int dauer = 0;
+		try{
+			 dauer= Integer.parseInt(s);
+		} catch (Exception e){
+			e.printStackTrace();
+		}
+		return dauer;
+	}
+	
 }

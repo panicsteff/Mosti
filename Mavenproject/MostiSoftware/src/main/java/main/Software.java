@@ -1,5 +1,6 @@
 package main;
 
+import terminplanung.Konfigurationswerte;
 import account.M_Startseite;
 
 public class Software {

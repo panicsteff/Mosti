@@ -12,19 +12,26 @@ import java.util.GregorianCalendar;
 public class TerminDB {
 
 	private Connection conn;
-	Calendar calendar;
+	private Calendar calendar;
+	private int zeitslot;
+	private int arbeitsbeginn;
+	private int arbeitsende;
+	private int aufteilung;
+	private int anzahlProSeite;
 
-	ArrayList<Integer> termineLaden(Date datum, int anzahl, int anzeigeseite) {
+	public TerminDB(){
+		init();
+	}
+	
+	ArrayList<Integer> termineLaden(Date datum, int anzeigeseite) {
 
-		int obergrenze = anzeigeseite * anzahl;
-		int untergrenze = (anzeigeseite - 1) * anzahl + 1;
+		int obergrenze = anzeigeseite * anzahlProSeite;
+		int untergrenze = (anzeigeseite - 1)*anzahlProSeite + 1;
 		ArrayList<Integer> terminliste = new ArrayList<Integer>();
 		calendar = new GregorianCalendar();
 		calendar.setTime(datum);
-		int laufenderTag = calendar.get(Calendar.DAY_OF_YEAR) - 244; // erster
-																		// September
-																		// abziehen
-
+		int laufenderTag = calendar.get(Calendar.DAY_OF_YEAR); 
+		
 		try {
 			conn = DriverManager
 					.getConnection("jdbc:ucanaccess://C:/Users/Irmi/Desktop/Mosti/Mavenproject/MostiSoftware/Mosti-Datenkank.mdb");
@@ -98,6 +105,63 @@ public class TerminDB {
 		}
 
 		return adminwerte;
+	}
+	
+	ArrayList<Integer> freieTermineSuchen(Date d){
+		
+		ArrayList<Integer> freierTermin = new ArrayList<Integer>();
+		calendar = new GregorianCalendar();
+		calendar.setTime(d);
+		int laufenderTag = calendar.get(Calendar.DAY_OF_YEAR);
+		int obergrenze = (arbeitsende - arbeitsbeginn) / zeitslot;
+		
+		try {
+			conn = DriverManager
+					.getConnection("jdbc:ucanaccess://C:/Users/Irmi/Desktop/Mosti/Mavenproject/MostiSoftware/Mosti-Datenkank.mdb");
+			Statement s = conn.createStatement();
+			ResultSet rs = s.executeQuery("SELECT Tag"+ laufenderTag + ", ID FROM [termine] where id between 1 and " + obergrenze);
+
+			while (rs.next()) {
+				Integer i = rs.getInt("Tag"+ laufenderTag);
+				Integer j = rs.getInt("ID");
+				if(i == 0){
+					freierTermin.add(j);
+				}
+			}
+			s.close();
+
+		} catch (Exception e) {
+			System.out.println(e);
+
+		}
+
+		return freierTermin;
+	}
+	
+	public void init(){
+		try {
+			conn = DriverManager
+					.getConnection("jdbc:ucanaccess://C:/Users/Irmi/Desktop/Mosti/Mavenproject/MostiSoftware/Mosti-Datenkank.mdb");
+			Statement s = conn.createStatement();
+			ResultSet rs = s.executeQuery("SELECT * FROM [Adminwerte] where id = 1");
+
+			while (rs.next()) {
+				Integer i = rs.getInt("Zeitslotlänge");
+				zeitslot = i;
+				i = rs.getInt("Arbeitsbeginn");
+				arbeitsbeginn = i;
+				i = rs.getInt("Arbeitsende");
+				arbeitsende = i;
+				i = rs.getInt("AnzeigeAufteilung");
+				aufteilung = i;
+				anzahlProSeite = (arbeitsende-arbeitsbeginn)/(zeitslot*aufteilung);
+			}
+			s.close();
+
+		} catch (Exception e) {
+			System.out.println(e);
+
+		}
 	}
 	
 	

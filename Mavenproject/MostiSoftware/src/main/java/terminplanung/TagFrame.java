@@ -2,7 +2,6 @@ package terminplanung;
 
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
-import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -14,82 +13,65 @@ import java.util.Date;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
-import javax.swing.JMenu;
 import javax.swing.JMenuBar;
-import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.ListSelectionModel;
+import javax.swing.table.TableColumnModel;
 
 import kundenverwaltung.Formats;
 
 public class TagFrame extends JFrame {
 
 	private static final long serialVersionUID = 1L;
+	private Konfigurationswerte k = new Konfigurationswerte();
 	private ArrayList<Integer> terminliste;
-	ArrayList<Integer> adminwerte;
 	private TermineTableModel termineTableModel;
 	private TerminDB terminDb;
 	private JTable tagesTabelle;
 	private Date datum;
 	private int anzeigeseite;
-	private int zeilenanzahl;
 	private ListSelectionModel terminSelectionModel;
 	private JMenuBar mbar;
+	private TerminHinzufügenFrame parent;
 
-	TagFrame(Date d, int za, int as, ArrayList<Integer> aw) {
-		
+	TagFrame(Date d, int as, TerminHinzufügenFrame p) {
+		parent = p;
 		datum = d;
-		zeilenanzahl = za;
-		anzeigeseite = as;
-		adminwerte = aw;	
+		anzeigeseite = as;	
 		
 		setSize(500, 800);
 		String title = Formats.DATE_FORMAT.format(datum);
 		setTitle(title);
 		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 		
-		mbar = new JMenuBar();
-		setJMenuBar(mbar);
-		
-		JMenu termine = new JMenu("Termine");
-		termine.setFont(termine.getFont().deriveFont(15f));
-		mbar.add(termine);
-		
-		JMenuItem neuerTermin = new JMenuItem("Neuen Termin anlegen");
-		termine.add(neuerTermin);
-		neuerTermin.setFont(neuerTermin.getFont().deriveFont(15f));
-		neuerTermin.addActionListener(new ActionListener(){
-			public void actionPerformed(ActionEvent e){
-				new TerminHinzufügenFrame(adminwerte);
-			}
-		});
-		
 		terminDb = new TerminDB();
-		terminliste = terminDb.termineLaden(datum, zeilenanzahl, anzeigeseite);
+		terminliste = terminDb.termineLaden(datum, anzeigeseite);
 		
 
-		termineTableModel = new TermineTableModel(terminliste, anzeigeseite, adminwerte);
+		termineTableModel = new TermineTableModel(terminliste, anzeigeseite);
 		tagesTabelle = new JTable(termineTableModel);
 		tagesTabelle.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
 		tagesTabelle.setRowHeight(30);
 		tagesTabelle.setFont(tagesTabelle.getFont().deriveFont(16f));
 		tagesTabelle.getTableHeader().setFont(tagesTabelle.getTableHeader().getFont().deriveFont(16f));
+		TableColumnModel tcm = tagesTabelle.getColumnModel();
+		tcm.getColumn(0).setCellRenderer(new TermineCellRenderer());
 
 
 		terminSelectionModel = tagesTabelle.getSelectionModel();
 		terminSelectionModel
 				.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-		tagesTabelle.addMouseListener(new MouseAdapter() {
-			public void mousePressed(MouseEvent event) {
-				if (event.getClickCount() == 2) {
+		
+		tagesTabelle.addMouseListener(new MouseAdapter(){
+			public void mousePressed(MouseEvent event){
+				if(event.getClickCount() == 2){
+					int dauer = parent.getTerminlänge();
 					int zeile = terminSelectionModel.getMaxSelectionIndex();
-					//int kundenId = termineTableModel.getTermin(zeile);
-					String date = Formats.DATE_FORMAT.format(datum);
-					String name = (String) termineTableModel.getValueAt(zeile, 1);
-					String zeit = (String) termineTableModel.getValueAt(zeile, 0);
-					new TerminBearbeitenFrame(date, name, zeit);
+					int terminId = (Integer) termineTableModel.getValueAt(zeile, 0);
+					new TerminErstellenFrame(dauer, datum, terminId, termineTableModel);
+					termineTableModel.fireTableDataChanged();
 				}
 			}
 		});
@@ -110,7 +92,7 @@ public class TagFrame extends JFrame {
 		cmdFrueher.setBounds(0, 40, 80, 20);
 		cmdFrueher.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				new TagFrame(datum, zeilenanzahl, anzeigeseite - 1, adminwerte);
+				new TagFrame(datum, anzeigeseite - 1, parent);
 				TagFrame.this.dispose();
 			}
 		});
@@ -123,12 +105,12 @@ public class TagFrame extends JFrame {
 		cmdSpaeter.addActionListener(new ActionListener() {
 
 			public void actionPerformed(ActionEvent e) {
-				new TagFrame(datum, zeilenanzahl, anzeigeseite + 1, adminwerte);
+				new TagFrame(datum, anzeigeseite + 1, parent);
 				TagFrame.this.dispose();
 
 			}
 		});
-		if (anzeigeseite == adminwerte.get(3)) {									
+		if (anzeigeseite == k.getAufteilung()) {									
 			cmdSpaeter.setEnabled(false);
 		}
 
@@ -145,23 +127,5 @@ public class TagFrame extends JFrame {
 
 	}
 	
-	public static void main (String[] avgs){
-		ArrayList<Integer> aw = new ArrayList<Integer>();
-		aw.add(5);
-		aw.add(540);
-		aw.add(1140);
-		aw.add(3);
-		
-		String s = "1.9.2016";
-		Date d = new Date();
-		try {
-			d = Formats.DATE_FORMAT.parse(s);
-		} catch (ParseException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
-		new TagFrame(d,10, 1,aw);
-	}
 
 }
