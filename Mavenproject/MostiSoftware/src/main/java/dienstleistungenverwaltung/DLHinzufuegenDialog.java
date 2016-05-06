@@ -66,10 +66,7 @@ public class DLHinzufuegenDialog extends JDialog {
 	class MyOKHandler implements ActionListener {
 
 		public void actionPerformed(ActionEvent arg0) {
-			dienstleistung = new Dienstleistung();
-			dienstleistung.setName(txtName.getText());
-			dienstleistung.setPreis(Double.parseDouble(txtPreis.getText()));
-
+			dienstleistung = new Dienstleistung(txtName.getText(), Double.parseDouble(txtPreis.getText()),0);
 			liste.add(dienstleistung);
 			dispose();
 

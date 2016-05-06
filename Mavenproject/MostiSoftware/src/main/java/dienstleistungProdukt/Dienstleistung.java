@@ -6,14 +6,10 @@ public class Dienstleistung implements Einkaufsposition {
 	private double preis; //preis pro liter
 	private int verkaufsMenge;
 
-	public Dienstleistung(String name, double preis) {
+	public Dienstleistung(String name, double preis, int menge) {
 		this.setName(name);
 		this.setPreis(preis);
-		this.setVerkaufsMenge(0);
-	}
-
-	public Dienstleistung() {
-		// TODO Auto-generated constructor stub
+		this.setVerkaufsMenge(menge);
 	}
 
 	public String getName() {

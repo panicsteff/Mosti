@@ -193,41 +193,52 @@ public class Abrechnungsrahmen extends JFrame {
 				  abfüllTableModel.berechneTeilpreis()+									//
 				  zusatzTableModel.berechneTeilpreis();									//
 	}
+	
+	private void produkteZuEinkauf(ArrayList<Produkt>liste){
+		for(Produkt p: liste){
+			if(p.getVerkaufsMenge()> 0){
+				produktPosition = new Produkt(p.getName(), p.getPreis(), p.getVorratsmenge(), p.getUntergrenze(), p.isAbfüllmaterial(),p.getVerkaufsMenge());
+				einkauf.addEinkauf(produktPosition);
+				printEinkaufsposition(p);
+			}
+		}
+	}
 
 	class EinkaufAbschließenHandler implements ActionListener {
 
 		public void actionPerformed(ActionEvent arg0) {
 			einkauf = new Einkauf();
-			DLposition = new Dienstleistung();
-			produktPosition = new Produkt();
 			int literzahl=0;
 			
 			//Fehler!!!!!!!!!!!!
 			
 			for(Dienstleistung d: dienstleistungen){
 				if(d.getVerkaufsMenge()> 0){
-					DLposition = d;
+					DLposition = new Dienstleistung(d.getName(), d.getPreis(), d.getVerkaufsMenge());
 					einkauf.addEinkauf(DLposition);
 					literzahl = literzahl + d.getVerkaufsMenge();
 					printEinkaufsposition(d);
 				}
 			}
 			
-			for(Produkt p: aliste){
-				if(p.getVerkaufsMenge()> 0){
-					produktPosition = p;
-					einkauf.addEinkauf(produktPosition);
-					printEinkaufsposition(p);
-				}
-			}
+			produkteZuEinkauf(aliste);
+			produkteZuEinkauf(zliste);
 			
-			for(Produkt p: zliste){
-				if(p.getVerkaufsMenge()> 0){
-					produktPosition = p;
-					einkauf.addEinkauf(produktPosition);
-					printEinkaufsposition(p);
-				}
-			}
+//			for(Produkt p: aliste){
+//				if(p.getVerkaufsMenge()> 0){
+//					produktPosition = p;
+//					einkauf.addEinkauf(produktPosition);
+//					printEinkaufsposition(p);
+//				}
+//			}
+//			
+//			for(Produkt p: zliste){
+//				if(p.getVerkaufsMenge()> 0){
+//					produktPosition = p;
+//					einkauf.addEinkauf(produktPosition);
+//					printEinkaufsposition(p);
+//				}
+//			}
 
 //			for (int i = 0; i < dienstleistungen.size(); i++) {
 //				e = new Einkaufsposition(

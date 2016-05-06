@@ -83,12 +83,8 @@ public class ProduktHinzufuegenDialog extends JDialog {
 	class MyOKHandler implements ActionListener {
 
 		public void actionPerformed(ActionEvent arg0) {
-			produkt = new Produkt();
-			produkt.setName(txtName.getText());
-			produkt.setPreis(Double.parseDouble(txtPreis.getText()));
-			produkt.setMenge(Integer.parseInt(txtMenge.getText()));
-			produkt.setUntergrenze(Integer.parseInt(txtUntergrenze.getText()));
-			produkt.setAbfüllmaterial(cBoxIsAbfuellmaterial.isSelected());
+			produkt = new Produkt(txtName.getText(), Double.parseDouble(txtPreis.getText()), Integer.parseInt(txtMenge.getText()), 
+					Integer.parseInt(txtUntergrenze.getText()), cBoxIsAbfuellmaterial.isSelected(), 0);
 			
 			if(produkt.isAbfüllmaterial()== true)
 				aliste.add(produkt);

@@ -4,22 +4,18 @@ public class Produkt implements Einkaufsposition {
 
 	private String name;
 	private double preis;
-	private int menge;
+	private int vorratsMenge;
 	private int untergrenze;
 	private int verkaufsMenge;
 	private boolean isAbfüllmaterial;
 
-	public Produkt(String name, double preis, int menge, int untergrenze, boolean isA) {
+	public Produkt(String name, double preis, int menge, int untergrenze, boolean isA, int verkaufsmenge) {
 		this.setName(name);
 		this.setPreis(preis);
-		this.setMenge(menge);
+		this.setVorratsmenge(menge);
 		this.setUntergrenze(untergrenze);
 		this.setAbfüllmaterial(isA);
-		this.setVerkaufsMenge(0);
-	}
-
-	public Produkt() {
-		// TODO Auto-generated constructor stub
+		this.setVerkaufsMenge(verkaufsmenge);
 	}
 
 	public String getName() {
@@ -38,12 +34,12 @@ public class Produkt implements Einkaufsposition {
 		this.preis = preis;
 	}
 
-	public int getMenge() {
-		return menge;
+	public int getVorratsmenge() {
+		return vorratsMenge;
 	}
 
-	public void setMenge(int menge) {
-		this.menge = menge;
+	public void setVorratsmenge(int menge) {
+		this.vorratsMenge = menge;
 	}
 
 	public int getUntergrenze() {
