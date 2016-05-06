@@ -20,9 +20,9 @@ public class AbrechnungsrahmenTest {
 
 	public static void berechneTeilpreisDienstleistung(){
 		ArrayList<Dienstleistung> d = new ArrayList<Dienstleistung>();
-		Dienstleistung d1 = new Dienstleistung("Literzahl - heiﬂ in Beutel", 0.1);
-		Dienstleistung d2 = new Dienstleistung("Literzahl - heiﬂ in Flaschen", 0.2);
-		Dienstleistung d3 = new Dienstleistung("Literzahl - kalt", 0.3);
+		Dienstleistung d1 = new Dienstleistung("Literzahl - heiﬂ in Beutel", 0.1,0);
+		Dienstleistung d2 = new Dienstleistung("Literzahl - heiﬂ in Flaschen", 0.2,0);
+		Dienstleistung d3 = new Dienstleistung("Literzahl - kalt", 0.3,0);
 		d.add(d1);
 		d.add(d2);
 		d.add(d3);
@@ -72,9 +72,9 @@ public class AbrechnungsrahmenTest {
 	public static void berechneTeilpreisZusatzprodukt(){
 		
 		ArrayList<Produkt> z = new ArrayList<Produkt>();
-		Produkt z1 = new Produkt("Saftbox-St‰nder", 12.00, 10, 200, true);
-		Produkt z2 = new Produkt("Hefe - unterg‰rig", 1.50, 100, 300, true);
-		Produkt z3 = new Produkt("Hefe - oberg‰rig", 2.00, 100, 200, true);
+		Produkt z1 = new Produkt("Saftbox-St‰nder", 12.00, 10, 200, true,0);
+		Produkt z2 = new Produkt("Hefe - unterg‰rig", 1.50, 100, 300, true,0);
+		Produkt z3 = new Produkt("Hefe - oberg‰rig", 2.00, 100, 200, true,0);
 		z.add(z1);
 		z.add(z2);
 		z.add(z3);
@@ -124,9 +124,9 @@ public class AbrechnungsrahmenTest {
 	public static void berechneTeilpreisAbf¸llMaterial(){
 		
 		ArrayList<Produkt> p = new ArrayList<Produkt>();
-		Produkt p1 = new Produkt("3L-Beutel", 1.00, 10, 200, false);
-		Produkt p2 = new Produkt("5L-Beutel", 1.50, 100, 300, false);
-		Produkt p3 = new Produkt("10L-Beutel", 2.00, 100, 200, false);
+		Produkt p1 = new Produkt("3L-Beutel", 1.00, 10, 200, false,0);
+		Produkt p2 = new Produkt("5L-Beutel", 1.50, 100, 300, false,0);
+		Produkt p3 = new Produkt("10L-Beutel", 2.00, 100, 200, false,0);
 		p.add(p1);
 		p.add(p2);
 		p.add(p3);

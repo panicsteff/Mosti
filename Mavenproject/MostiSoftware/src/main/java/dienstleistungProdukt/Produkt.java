@@ -9,17 +9,13 @@ public class Produkt implements Einkaufsposition {
 	private int verkaufsMenge;
 	private boolean isAbfüllmaterial;
 
-	public Produkt(String name, double preis, int menge, int untergrenze, boolean isA) {
+	public Produkt(String name, double preis, int menge, int untergrenze, boolean isA, int verkaufsmenge) {
 		this.setName(name);
 		this.setPreis(preis);
 		this.setMenge(menge);
 		this.setUntergrenze(untergrenze);
 		this.setAbfüllmaterial(isA);
-		this.setVerkaufsMenge(0);
-	}
-
-	public Produkt() {
-		// TODO Auto-generated constructor stub
+		this.setVerkaufsMenge(verkaufsmenge);
 	}
 
 	public String getName() {
