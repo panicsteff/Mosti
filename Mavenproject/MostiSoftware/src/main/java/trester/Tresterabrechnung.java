@@ -1,6 +1,6 @@
 package trester;
 
-import main.Kundeneinkäufe;
+import verkaufsverwaltung.Kundeneinkäufe;
 
 public class Tresterabrechnung {
 	

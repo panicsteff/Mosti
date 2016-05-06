@@ -18,9 +18,9 @@ import kassenfunktion.Abrechnungsrahmen;
 import kundenverwaltung.KundenVerwaltung;
 import lagerverwaltung.LagerFrame;
 import main.Angebote;
-import main.Kundeneinkäufe;
 import mitarbeiterverwaltung.MitarbeiterVerwaltung;
 import terminplanung.TerminplanungsFrame;
+import verkaufsverwaltung.Kundeneinkäufe;
 import dienstleistungenverwaltung.DLFrame;
 
 public class M_Startseite extends JFrame {

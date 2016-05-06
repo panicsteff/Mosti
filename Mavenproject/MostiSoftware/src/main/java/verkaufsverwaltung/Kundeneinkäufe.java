@@ -1,8 +1,6 @@
-package main;
+package verkaufsverwaltung;
 
 import java.util.ArrayList;
-
-import verkaufsverwaltung.Einkauf;
 
 public class Kundeneinkäufe {
 	

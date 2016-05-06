@@ -20,8 +20,8 @@ import trester.Tresterabrechnung;
 import verkaufsverwaltung.Dienstleistung;
 import verkaufsverwaltung.Einkauf;
 import verkaufsverwaltung.Einkaufsposition;
+import verkaufsverwaltung.Kundeneinkäufe;
 import verkaufsverwaltung.Produkt;
-import main.Kundeneinkäufe;
 
 public class Abrechnungsrahmen extends JFrame {
 

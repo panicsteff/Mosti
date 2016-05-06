@@ -1,6 +1,7 @@
 package main;
 
 import terminplanung.Konfigurationswerte;
+import verkaufsverwaltung.Kundeneinkäufe;
 import account.M_Startseite;
 
 public class Software {
