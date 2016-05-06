@@ -20,7 +20,7 @@ public class KundeDB {
 		try {
 
 			conn = DriverManager
-					.getConnection("jdbc:ucanaccess://C:/Users/Irmi/Desktop/Mosti/Mavenproject/MostiSoftware/Mosti-Datenkank.mdb");
+					.getConnection("jdbc:ucanaccess://C:/Users/Katharina/Desktop/Mosti/Mavenproject/MostiSoftware/Mosti-Datenkank.mdb");
 			Statement s = conn.createStatement();
 			ResultSet rs = s.executeQuery("Select * from [kunden]");
 
@@ -49,7 +49,7 @@ public class KundeDB {
 
 		try {
 			conn = DriverManager
-					.getConnection("jdbc:ucanaccess://C:/Users/Irmi/Desktop/Mosti/Mavenproject/MostiSoftware/Mosti-Datenkank.mdb");
+					.getConnection("jdbc:ucanaccess://C:/Users/Katharina/Desktop/Mosti/Mavenproject/MostiSoftware/Mosti-Datenkank.mdb");
 			PreparedStatement s = null;
 			
 			for (Kunde k: kundenliste){
