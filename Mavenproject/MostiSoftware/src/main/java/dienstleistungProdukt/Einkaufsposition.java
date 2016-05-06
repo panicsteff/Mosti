@@ -3,11 +3,11 @@ package dienstleistungProdukt;
 public interface Einkaufsposition {
 	
 	public String getName();
-	public void setName(String name);
+	void setName(String name);
 	public int getVerkaufsMenge();
-	public void setVerkaufsMenge(int verkaufsMenge);
+	void setVerkaufsMenge(int verkaufsMenge);
 	public double getPreis();
-	public void setPreis(double preis);
+	void setPreis(double preis);
 
 
 }
