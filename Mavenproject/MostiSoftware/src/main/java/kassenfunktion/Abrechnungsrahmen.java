@@ -197,7 +197,7 @@ public class Abrechnungsrahmen extends JFrame {
 	private void produkteZuEinkauf(ArrayList<Produkt>liste){
 		for(Produkt p: liste){
 			if(p.getVerkaufsMenge()> 0){
-				produktPosition = new Produkt(p.getName(), p.getPreis(), p.getMenge(), p.getUntergrenze(), p.isAbfüllmaterial(),p.getVerkaufsMenge());
+				produktPosition = new Produkt(p.getName(), p.getPreis(), p.getVorratsmenge(), p.getUntergrenze(), p.isAbfüllmaterial(),p.getVerkaufsMenge());
 				einkauf.addEinkauf(produktPosition);
 				printEinkaufsposition(p);
 			}

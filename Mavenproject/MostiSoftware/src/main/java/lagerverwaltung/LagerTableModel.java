@@ -59,7 +59,7 @@ public class LagerTableModel extends AbstractTableModel{
 			switch (col){
 			case 0: return p.getName();
 			case 1: return p.getPreis();
-			case 2: return p.getMenge();
+			case 2: return p.getVorratsmenge();
 			case 3: return p.getUntergrenze();
 			case 4: return p.isAbfüllmaterial();
 			default: return null;

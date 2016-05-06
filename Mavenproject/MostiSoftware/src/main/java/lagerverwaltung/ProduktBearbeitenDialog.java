@@ -55,7 +55,7 @@ public class ProduktBearbeitenDialog extends JDialog {
 		add(txtPreis);
 
 		add(new JLabel("Aktuelle Menge:"));
-		add(txtMenge = new JFormattedTextField(produkt.getMenge()));
+		add(txtMenge = new JFormattedTextField(produkt.getVorratsmenge()));
 
 		add(new JLabel("Untergrenze"));
 		add(txtUntergrenze = new JFormattedTextField(produkt.getUntergrenze()));
@@ -82,7 +82,7 @@ public class ProduktBearbeitenDialog extends JDialog {
 		public void actionPerformed(ActionEvent arg0) {
 			produkt.setName(txtName.getText());
 			produkt.setPreis(Double.parseDouble(txtPreis.getText()));
-			produkt.setMenge(Integer.parseInt(txtMenge.getText()));
+			produkt.setVorratsmenge(Integer.parseInt(txtMenge.getText()));
 			produkt.setUntergrenze(Integer.parseInt(txtUntergrenze.getText()));
 			if(produkt.isAbfüllmaterial() != cBoxIsAbfuellmaterial.isSelected()){
 				produkt.setAbfüllmaterial(cBoxIsAbfuellmaterial.isSelected());
