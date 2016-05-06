@@ -4,8 +4,6 @@ import java.util.List;
 
 import javax.swing.table.AbstractTableModel;
 
-import verkaufsverwaltung.Dienstleistung;
-
 
 
 class DLTableModel extends AbstractTableModel{

@@ -1,4 +1,6 @@
-package verkaufsverwaltung;
+package dienstleistungenverwaltung;
+
+import verkaufsverwaltung.Einkaufsposition;
 
 public class Dienstleistung implements Einkaufsposition {
 

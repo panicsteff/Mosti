@@ -22,10 +22,7 @@ import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.table.TableColumn;
 
-import verkaufsverwaltung.Dienstleistung;
-import verkaufsverwaltung.Produkt;
 import lagerverwaltung.PreisCellRenderer;
-import main.Angebote;
 
 
 	public class DLFrame extends JFrame {

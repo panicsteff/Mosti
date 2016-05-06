@@ -14,7 +14,6 @@ import javax.swing.JLabel;
 import javax.swing.JTextField;
 import javax.swing.text.NumberFormatter;
 
-import verkaufsverwaltung.Produkt;
 import kundenverwaltung.NullableFormatter;
 
 import com.sun.glass.ui.Pixels.Format;

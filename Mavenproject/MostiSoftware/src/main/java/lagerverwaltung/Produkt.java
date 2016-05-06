@@ -1,4 +1,6 @@
-package verkaufsverwaltung;
+package lagerverwaltung;
+
+import verkaufsverwaltung.Einkaufsposition;
 
 public class Produkt implements Einkaufsposition {
 

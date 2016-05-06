@@ -16,12 +16,12 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 
+import lagerverwaltung.Produkt;
+import dienstleistungenverwaltung.Dienstleistung;
 import trester.Tresterabrechnung;
-import verkaufsverwaltung.Dienstleistung;
 import verkaufsverwaltung.Einkauf;
 import verkaufsverwaltung.Einkaufsposition;
 import verkaufsverwaltung.Kundeneinkäufe;
-import verkaufsverwaltung.Produkt;
 
 public class Abrechnungsrahmen extends JFrame {
 

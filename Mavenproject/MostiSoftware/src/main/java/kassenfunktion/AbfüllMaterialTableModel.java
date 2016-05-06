@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 import javax.swing.table.AbstractTableModel;
 
-import verkaufsverwaltung.Produkt;
+import lagerverwaltung.Produkt;
 
 public class AbfüllMaterialTableModel extends AbstractTableModel {
 

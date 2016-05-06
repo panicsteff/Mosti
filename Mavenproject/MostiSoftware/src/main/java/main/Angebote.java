@@ -3,8 +3,8 @@ package main;
 import java.util.ArrayList;
 import java.util.List;
 
-import verkaufsverwaltung.Dienstleistung;
-import verkaufsverwaltung.Produkt;
+import lagerverwaltung.Produkt;
+import dienstleistungenverwaltung.Dienstleistung;
 
 public class Angebote {
 

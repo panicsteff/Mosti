@@ -2,11 +2,11 @@ package kassenfunktionTest;
 
 import java.util.ArrayList;
 
-import verkaufsverwaltung.Dienstleistung;
-import verkaufsverwaltung.Produkt;
+import dienstleistungenverwaltung.Dienstleistung;
 import kassenfunktion.AbfüllMaterialTableModel;
 import kassenfunktion.DienstleistungenTableModel;
 import kassenfunktion.ZusatzProduktTableModel;
+import lagerverwaltung.Produkt;
 
 public class AbrechnungsrahmenTest {
 
