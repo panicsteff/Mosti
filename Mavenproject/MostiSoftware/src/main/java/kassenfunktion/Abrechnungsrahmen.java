@@ -17,11 +17,11 @@ import javax.swing.JTable;
 import javax.swing.JTextField;
 
 import trester.Tresterabrechnung;
+import verkaufsverwaltung.Dienstleistung;
+import verkaufsverwaltung.Einkauf;
+import verkaufsverwaltung.Einkaufsposition;
+import verkaufsverwaltung.Produkt;
 import main.Kundeneinkäufe;
-import dienstleistungProdukt.Dienstleistung;
-import dienstleistungProdukt.Einkauf;
-import dienstleistungProdukt.Einkaufsposition;
-import dienstleistungProdukt.Produkt;
 
 public class Abrechnungsrahmen extends JFrame {
 

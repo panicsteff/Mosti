@@ -15,12 +15,11 @@ import javax.swing.JLabel;
 import javax.swing.JTextField;
 import javax.swing.text.NumberFormatter;
 
+import verkaufsverwaltung.Dienstleistung;
 import kundenverwaltung.NullableFormatter;
 import lagerverwaltung.FoFormat;
 
 import com.sun.glass.ui.Pixels.Format;
-
-import dienstleistungProdukt.Dienstleistung;
 
 
 @SuppressWarnings("serial")

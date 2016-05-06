@@ -3,8 +3,8 @@ package main;
 import java.util.ArrayList;
 import java.util.List;
 
-import dienstleistungProdukt.Dienstleistung;
-import dienstleistungProdukt.Produkt;
+import verkaufsverwaltung.Dienstleistung;
+import verkaufsverwaltung.Produkt;
 
 public class Angebote {
 
@@ -14,7 +14,7 @@ public class Angebote {
 	static ArrayList<Dienstleistung> DLSortiment;
 	private boolean hasChanged;
 
-	public Angebote() {
+	Angebote() {
 		zProduktSortiment = new ArrayList<Produkt>();
 		abfuellSortiment = new ArrayList<Produkt>();
 		DLSortiment = new ArrayList<Dienstleistung>();

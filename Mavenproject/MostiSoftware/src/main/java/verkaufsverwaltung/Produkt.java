@@ -1,4 +1,4 @@
-package dienstleistungProdukt;
+package verkaufsverwaltung;
 
 public class Produkt implements Einkaufsposition {
 

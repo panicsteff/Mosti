@@ -4,7 +4,7 @@ import java.util.List;
 
 import javax.swing.table.AbstractTableModel;
 
-import dienstleistungProdukt.Produkt;
+import verkaufsverwaltung.Produkt;
 
 
 

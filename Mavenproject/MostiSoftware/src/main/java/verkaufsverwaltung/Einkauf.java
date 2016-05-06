@@ -1,4 +1,4 @@
-package dienstleistungProdukt;
+package verkaufsverwaltung;
 
 import java.util.ArrayList;
 

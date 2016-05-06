@@ -3,6 +3,7 @@ package lagerverwaltung;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JDialog;
@@ -11,9 +12,9 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 import javax.swing.text.NumberFormatter;
-import kundenverwaltung.NullableFormatter;
 
-import dienstleistungProdukt.Produkt;
+import verkaufsverwaltung.Produkt;
+import kundenverwaltung.NullableFormatter;
 
 @SuppressWarnings("serial")
 class ProduktBearbeitenDialog extends JDialog {

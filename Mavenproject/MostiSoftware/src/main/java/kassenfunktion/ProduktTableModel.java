@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import javax.swing.table.AbstractTableModel;
 
-import dienstleistungProdukt.Produkt;
+import verkaufsverwaltung.Produkt;
 
 public class ProduktTableModel extends AbstractTableModel {
 

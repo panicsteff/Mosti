@@ -2,7 +2,7 @@ package main;
 
 import java.util.ArrayList;
 
-import dienstleistungProdukt.Einkauf;
+import verkaufsverwaltung.Einkauf;
 
 public class Kundeneinkäufe {
 	
