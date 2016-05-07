@@ -187,12 +187,12 @@ public class Abrechnungsrahmen extends JFrame {
 			einkauf.setSumme(total);
 			einkauf.setLiterzahl(literzahl);
 			kundeneinkäufe.addEinkauf(einkauf);
+			
 			System.out.println("Einkauf abgeschlossen");
 			kundeneinkäufe.printKundeneinkäufe();
 			Tresterabrechnung tA = new Tresterabrechnung(kundeneinkäufe);
 			tA.printTresterAbrechnung();
-			// initVerkaufsmengen();
-
+			
 			dispose();
 
 		}
