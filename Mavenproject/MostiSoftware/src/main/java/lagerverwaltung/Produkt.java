@@ -2,38 +2,18 @@ package lagerverwaltung;
 
 import verkaufsverwaltung.Einkaufsposition;
 
-public class Produkt implements Einkaufsposition {
+public class Produkt extends Einkaufsposition {
 
-	private String name;
-	private double preis;
 	private int vorratsMenge;
 	private int untergrenze;
-	private int verkaufsMenge;
 	private boolean isAbfüllmaterial;
 
 	public Produkt(String name, double preis, int menge, int untergrenze, boolean isA, int verkaufsmenge) {
-		this.setName(name);
-		this.setPreis(preis);
+		super(name, preis, verkaufsmenge);
 		this.setVorratsmenge(menge);
 		this.setUntergrenze(untergrenze);
 		this.setAbfüllmaterial(isA);
-		this.setVerkaufsMenge(verkaufsmenge);
-	}
-
-	public String getName() {
-		return name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
-	}
-
-	public double getPreis() {
-		return preis;
-	}
-
-	public void setPreis(double preis) {
-		this.preis = preis;
+		
 	}
 
 	public int getVorratsmenge() {
@@ -50,14 +30,6 @@ public class Produkt implements Einkaufsposition {
 
 	public void setUntergrenze(int untergrenze) {
 		this.untergrenze = untergrenze;
-	}
-
-	public int getVerkaufsMenge() {
-		return verkaufsMenge;
-	}
-
-	public void setVerkaufsMenge(int verkaufsMenge) {
-		this.verkaufsMenge = verkaufsMenge;
 	}
 
 	public boolean isAbfüllmaterial() {

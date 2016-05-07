@@ -35,13 +35,6 @@ public class ProduktTableModel extends AbstractTableModel {
 			return produktsortiment.get(col).getName();
 		} else
 			return null;
-
-		// switch(col){
-		// case 0: return produktsortiment.get(0).getName();
-		// case 1: return produktsortiment.get(1).getName();
-		// case 2: return produktsortiment.get(2).getName();
-		// default: return null;
-		// }
 	}
 
 	public int getRowCount() {
@@ -58,13 +51,6 @@ public class ProduktTableModel extends AbstractTableModel {
 			return produktsortiment.get(col).getVerkaufsMenge();
 		} else
 			return null;
-
-		// switch (col){
-		// case 0: return 0;
-		// case 1: return 0;
-		// case 2: return 0;
-		// default: return null;
-		// }
 	}
 
 	public void setValueAt(Object eintrag, int row, int col) {

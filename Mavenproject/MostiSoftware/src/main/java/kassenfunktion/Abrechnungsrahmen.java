@@ -34,7 +34,6 @@ public class Abrechnungsrahmen extends JFrame {
 	private ProduktTableModel abfüllTableModel;
 	private DienstleistungenTableModel dienstTableModel;
 	private JLabel label;
-	private JTable zusatzTable;
 	private double total;
 	private JTextField totalText;
 	private ArrayList<Produkt> aliste;
@@ -44,16 +43,18 @@ public class Abrechnungsrahmen extends JFrame {
 	private Kundeneinkäufe kundeneinkäufe;
 	private Einkaufsposition DLposition;
 	private Einkaufsposition produktPosition;
-	
+	private int literzahl;
 
-	public Abrechnungsrahmen(ArrayList<Dienstleistung> dienstleistungen, ArrayList<Produkt> abfüllProduktSortiment,
-			ArrayList<Produkt> zusatzProduktSortiment, Kundeneinkäufe kundeneinkäufe) {
+	public Abrechnungsrahmen(ArrayList<Dienstleistung> dienstleistungen,
+			ArrayList<Produkt> abfüllProduktSortiment,
+			ArrayList<Produkt> zusatzProduktSortiment,
+			Kundeneinkäufe kundeneinkäufe) {
 
 		this.aliste = abfüllProduktSortiment;
 		this.zliste = zusatzProduktSortiment;
 		this.dienstleistungen = dienstleistungen;
 		this.kundeneinkäufe = kundeneinkäufe;
-		
+
 		initVerkaufsmengen();
 
 		setTitle("Abrechnung für <Kundenname>");
@@ -66,14 +67,11 @@ public class Abrechnungsrahmen extends JFrame {
 		dienstTableModel = new DienstleistungenTableModel(dienstleistungen);
 		JTable dienstTable = new JTable(dienstTableModel);
 
-		//abfüllTableModel = new AbfüllMaterialTableModel(abfüllProduktSortiment);
 		abfüllTableModel = new ProduktTableModel(abfüllProduktSortiment);
 		JTable abfüllTable = new JTable(abfüllTableModel);
 
-		//zusatzTableModel = new ZusatzProduktTableModel(zusatzProduktSortiment);
 		zusatzTableModel = new ProduktTableModel(zusatzProduktSortiment);
-		zusatzTable = new JTable(zusatzTableModel);
-		
+		JTable zusatzTable = new JTable(zusatzTableModel);
 
 		JScrollPane tableContainer1 = new JScrollPane(dienstTable);
 		JScrollPane tableContainer2 = new JScrollPane(abfüllTable);
@@ -101,22 +99,12 @@ public class Abrechnungsrahmen extends JFrame {
 		summePanel.setLayout(new FlowLayout(FlowLayout.RIGHT));
 		summePanel.add(new JLabel("Gesamtsumme in Euro: "));
 
-		double sum1 = 0;
-
-		sum1 = dienstTableModel.berechneTeilpreis();									//
-		System.out.println();
-		double sum2 = 0;
-
-		sum2 = abfüllTableModel.berechneTeilpreis();									//
-		System.out.println();
-		double sum3 = 0;
-//		
-		sum3 = zusatzTableModel.berechneTeilpreis();									//
-		total = sum1 + sum2 + sum3;
+		
 
 		totalText = new JTextField(13);
 		totalText.setHorizontalAlignment(JTextField.RIGHT);
 		totalText.setEditable(false);
+		total = berechneGesamtTotal();
 		totalText.setText(String.valueOf(total));
 
 		summePanel.add(totalText);
@@ -137,8 +125,6 @@ public class Abrechnungsrahmen extends JFrame {
 		buttonPanel.add(abschlussButton);
 		contentPanel.add(buttonPanel);
 
-		// getContentPane().add(contentPanel);
-
 		JPanel titlepane = new JPanel();
 		titlepane.setBorder(BorderFactory.createTitledBorder(
 				BorderFactory.createEtchedBorder(), "Einkäufe"));
@@ -147,121 +133,57 @@ public class Abrechnungsrahmen extends JFrame {
 		add(titlepane);
 
 		setVisible(true);
-
 	}
 
 	private class AbbruchHandler implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
-			//initVerkaufsmengen();
 			dispose();
 		}
 	}
 
 	private class AktualisiereSummeHandler implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
-			berechneGesamtTotal();
-			//System.out.println(total);
+			total = berechneGesamtTotal();
+			// System.out.println(total);
 			totalText.setText(String.valueOf(total));
 		}
 	}
-	
-	private void printEinkaufsposition(Einkaufsposition e){
-		System.out.println("Einkaufsdrum: " +e.getName()+ "  Anzahl: " + e.getVerkaufsMenge() +" a " + e.getPreis());
+
+	private double berechneGesamtTotal() {
+
+		return (dienstTableModel.berechneTeilpreis() + 
+				abfüllTableModel.berechneTeilpreis() + 
+				zusatzTableModel.berechneTeilpreis());
 	}
+
 	
-	private void initVerkaufsmengen(){
-		for(Dienstleistung d: dienstleistungen){
-			if(d.getVerkaufsMenge()!= 0)
+
+	private void initVerkaufsmengen() {
+		for (Dienstleistung d : dienstleistungen) {
+			if (d.getVerkaufsMenge() != 0)
 				d.setVerkaufsMenge(0);
 		}
-		
-		for(Produkt p: aliste){
-			if(p.getVerkaufsMenge()!= 0)
+
+		for (Produkt p : aliste) {
+			if (p.getVerkaufsMenge() != 0)
 				p.setVerkaufsMenge(0);
 		}
-		
-		for(Produkt p: zliste){
-			if(p.getVerkaufsMenge()!= 0)
+
+		for (Produkt p : zliste) {
+			if (p.getVerkaufsMenge() != 0)
 				p.setVerkaufsMenge(0);
-		}
-	}
-	
-	
-	private void berechneGesamtTotal(){
-		total = dienstTableModel.berechneTeilpreis()+									//
-				  abfüllTableModel.berechneTeilpreis()+									//
-				  zusatzTableModel.berechneTeilpreis();									//
-	}
-	
-	private void produkteZuEinkauf(ArrayList<Produkt>liste){
-		for(Produkt p: liste){
-			if(p.getVerkaufsMenge()> 0){
-				produktPosition = new Produkt(p.getName(), p.getPreis(), p.getVorratsmenge(), p.getUntergrenze(), p.isAbfüllmaterial(),p.getVerkaufsMenge());
-				einkauf.addEinkauf(produktPosition);
-				printEinkaufsposition(p);
-			}
 		}
 	}
 
 	private class EinkaufAbschließenHandler implements ActionListener {
 
 		public void actionPerformed(ActionEvent arg0) {
-			einkauf = new Einkauf();
-			int literzahl=0;
-			
-			//Fehler!!!!!!!!!!!!
-			
-			for(Dienstleistung d: dienstleistungen){
-				if(d.getVerkaufsMenge()> 0){
-					DLposition = new Dienstleistung(d.getName(), d.getPreis(), d.getVerkaufsMenge());
-					einkauf.addEinkauf(DLposition);
-					literzahl = literzahl + d.getVerkaufsMenge();
-					printEinkaufsposition(d);
-				}
-			}
-			
-			produkteZuEinkauf(aliste);
-			produkteZuEinkauf(zliste);
-			
-//			for(Produkt p: aliste){
-//				if(p.getVerkaufsMenge()> 0){
-//					produktPosition = p;
-//					einkauf.addEinkauf(produktPosition);
-//					printEinkaufsposition(p);
-//				}
-//			}
-//			
-//			for(Produkt p: zliste){
-//				if(p.getVerkaufsMenge()> 0){
-//					produktPosition = p;
-//					einkauf.addEinkauf(produktPosition);
-//					printEinkaufsposition(p);
-//				}
-//			}
+			einkauf = new Einkauf(); //
+			dlZuEinkauf(dienstleistungen); // gekaufte DL hinzufügen
+			produkteZuEinkauf(aliste); // gekaufte Abfüllmaterialien hinzufügen
+			produkteZuEinkauf(zliste); // gekaufte Zusatzprodukte hinzufügen
 
-//			for (int i = 0; i < dienstleistungen.size(); i++) {
-//				e = new Einkaufsposition(
-//						dienstleistungen.get(i).getName(),
-//						dienstleistungen.get(i)
-//								.getVerkaufsMenge());
-//				dienstleistungen.get(i).setVerkaufsMenge(0);
-//			}
-//			for (int i = 0; i < aliste.size(); i++) {
-//				e = new Einkaufsposition1(aliste.get(i)
-//						.getName(), aliste.get(i)
-//						.getVerkaufsMenge());
-//				aliste.get(i).setVerkaufsMenge(0);
-//				einkauf.addEinkauf(e);
-//			}
-//			for (int i = 0; i < zliste.size(); i++) {
-//				e = new Einkaufsposition1(zliste.get(i)
-//						.getName(), zliste.get(i)
-//						.getVerkaufsMenge());
-//				zliste.get(i).setVerkaufsMenge(0);
-//				einkauf.addEinkauf(e);
-//			}
-
-			berechneGesamtTotal();
+			total = berechneGesamtTotal();
 			einkauf.setSumme(total);
 			einkauf.setLiterzahl(literzahl);
 			kundeneinkäufe.addEinkauf(einkauf);
@@ -269,14 +191,35 @@ public class Abrechnungsrahmen extends JFrame {
 			kundeneinkäufe.printKundeneinkäufe();
 			Tresterabrechnung tA = new Tresterabrechnung(kundeneinkäufe);
 			tA.printTresterAbrechnung();
-			//initVerkaufsmengen();
-			
+			// initVerkaufsmengen();
+
 			dispose();
 
 		}
-		
-		
+	}
 
+	private void produkteZuEinkauf(ArrayList<Produkt> liste) {
+		for (Produkt p : liste) {
+			if (p.getVerkaufsMenge() > 0) {
+				produktPosition = new Einkaufsposition(p.getName(),
+						p.getPreis(), p.getVerkaufsMenge());
+				einkauf.addEinkauf(produktPosition);
+				p.printEinkaufsposition();
+			}
+		}
+	}
+
+	private void dlZuEinkauf(ArrayList<Dienstleistung> liste) {
+		literzahl = 0;
+		for (Dienstleistung d : liste) {
+			if (d.getVerkaufsMenge() > 0) {
+				DLposition = new Einkaufsposition(d.getName(), d.getPreis(),
+						d.getVerkaufsMenge());
+				einkauf.addEinkauf(DLposition);
+				literzahl = literzahl + d.getVerkaufsMenge();
+				d.printEinkaufsposition();
+			}
+		}
 	}
 
 }
