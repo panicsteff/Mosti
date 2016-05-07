@@ -25,9 +25,53 @@ import kundenverwaltung.Formats;
 
 public class TerminHinzufügenFrame extends JFrame{
 
+	class MyMouseListener extends MouseAdapter{
+		public void mousePressed(MouseEvent event) {
+			if (event.getClickCount() == 2) {
+				int zeile = terminSelectionModel.getMinSelectionIndex();
+				String datum = (String) fttm.getValueAt(zeile, 0);
+				Date d = new Date();
+				try {
+					d = Formats.DATE_FORMAT.parse(datum);
+				} catch (ParseException e) {
+					e.printStackTrace();
+				}
+				int terminid = (Integer) fttm.getValueAt(zeile, 1);
+				int anzeigeseite = berechneAnzeigeSeite(terminid);
+				new TagFrame(d,anzeigeseite, TerminHinzufügenFrame.this);
+			}
+		}
+	}
+	
+	class MyBerechnenHandler implements ActionListener{
+		public void actionPerformed(ActionEvent e){
+			int länge = 0;
+			try {
+				String s = txtmenge.getText();
+				länge = berechneTermindauer(s);
+				dauer.setEnabled(true);
+				txtdauer.setEnabled(true);
+				txtdauer.setText(länge + "");
+				titlepane.setEnabled(true);
+				freieTermine = terminDb.freieTermineSuchen(new Date()); 
+				//vom heutigen Tag aus mit arbeitsende und zeitslots
+				fttm = new FreieTermineTableModel(freieTermine);
+				verfügbarTabelle.setModel(fttm);
+				tcm = verfügbarTabelle.getColumnModel();
+				tcm.getColumn(1).setCellRenderer(new TermineCellRenderer());
+				tcm.getColumn(2).setCellRenderer(new TermineCellRenderer());
+				
+			} catch (ParseException ex) {
+				JOptionPane.showMessageDialog(TerminHinzufügenFrame.this, "Keine gültige Eingabe der Obstmenge");
+			}
+			
+		}
+	}
+	
+	
 	private static final long serialVersionUID = 1L;
 	private Konfigurationswerte k = new Konfigurationswerte();
-	private ArrayList<Integer> freieTermine;
+	private ArrayList<Termin> freieTermine;
 	private JTextField txtmenge;
 	private JLabel dauer;
 	private JTextField txtdauer;
@@ -57,30 +101,7 @@ public class TerminHinzufügenFrame extends JFrame{
 		
 		JButton dauerberechnen = new JButton("Termindauer berechnen");
 		dauerberechnen.setBounds(25, 50, 200, 20);
-		dauerberechnen.addActionListener(new ActionListener(){
-			public void actionPerformed(ActionEvent e){
-				int länge = 0;
-				try {
-					String s = txtmenge.getText();
-					länge = berechneTermindauer(s);
-					dauer.setEnabled(true);
-					txtdauer.setEnabled(true);
-					txtdauer.setText(länge + "");
-					titlepane.setEnabled(true);
-					freieTermine = terminDb.freieTermineSuchen(new Date()); 
-					//vom heutigen Tag aus mit arbeitsende und zeitslots
-					fttm = new FreieTermineTableModel(freieTermine);
-					verfügbarTabelle.setModel(fttm);
-					tcm = verfügbarTabelle.getColumnModel();
-					tcm.getColumn(1).setCellRenderer(new TermineCellRenderer());
-					tcm.getColumn(2).setCellRenderer(new TermineCellRenderer());
-					
-				} catch (ParseException ex) {
-					JOptionPane.showMessageDialog(TerminHinzufügenFrame.this, "Keine gültige Eingabe der Obstmenge");
-				}
-				
-			}
-		});
+		dauerberechnen.addActionListener(new MyBerechnenHandler());
 		add(dauerberechnen);
 		
 		dauer = new JLabel("Presszeit in Minuten:");
@@ -97,25 +118,8 @@ public class TerminHinzufügenFrame extends JFrame{
 		verfügbarTabelle.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
 		
 		terminSelectionModel = verfügbarTabelle.getSelectionModel();
-		terminSelectionModel
-				.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-		verfügbarTabelle.addMouseListener(new MouseAdapter() {
-			public void mousePressed(MouseEvent event) {
-				if (event.getClickCount() == 2) {
-					int zeile = terminSelectionModel.getMinSelectionIndex();
-					String datum = (String) fttm.getValueAt(zeile, 0);
-					Date d = new Date();
-					try {
-						d = Formats.DATE_FORMAT.parse(datum);
-					} catch (ParseException e) {
-						e.printStackTrace();
-					}
-					int terminid = (Integer) fttm.getValueAt(zeile, 1);
-					int anzeigeseite = berechneAnzeigeSeite(terminid);
-					new TagFrame(d,anzeigeseite, TerminHinzufügenFrame.this);
-				}
-			}
-		});
+		terminSelectionModel.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+		verfügbarTabelle.addMouseListener(new MyMouseListener());
 		
 		JScrollPane scrollpane = new JScrollPane(verfügbarTabelle);
 		titlepane = new JPanel();
@@ -127,16 +131,6 @@ public class TerminHinzufügenFrame extends JFrame{
 		add(titlepane);
 		
 		setVisible(true);
-	}
-	
-	
-	public static void main(String[] avgs){
-		ArrayList<Integer> aw = new ArrayList<Integer>();
-		aw.add(5);
-		aw.add(540);
-		aw.add(1140);
-		aw.add(3);
-		new TerminHinzufügenFrame();
 	}
 	
 	int berechneTermindauer(String s) throws ParseException{
@@ -173,6 +167,10 @@ public class TerminHinzufügenFrame extends JFrame{
 			e.printStackTrace();
 		}
 		return dauer;
+	}
+	
+	public static void main(String[] avgs){
+		new TerminHinzufügenFrame();
 	}
 	
 }

@@ -10,10 +10,10 @@ import kundenverwaltung.Formats;
 public class FreieTermineTableModel extends AbstractTableModel {
 
 	private static final long serialVersionUID = 1L;
-	private ArrayList<Integer> freieTermine;
+	private ArrayList<Termin> freieTermine;
 	private ArrayList<Intervall> intervallListe;
 
-	public FreieTermineTableModel(ArrayList<Integer> ft) {
+	public FreieTermineTableModel(ArrayList<Termin> ft) {
 		freieTermine = ft;
 		berechneLücken();
 
@@ -60,18 +60,18 @@ public class FreieTermineTableModel extends AbstractTableModel {
 		intervallListe = new ArrayList<Intervall>();
 
 		Intervall in = new Intervall();
-		in.setStart(freieTermine.get(0));
+		in.setStart(freieTermine.get(0).getTerminId());
 
 		int i;
 		for (i = 0; i < freieTermine.size() - 1; i++) {
-			if (freieTermine.get(i + 1) != freieTermine.get(i) + 1) {
-				in.setEnde(freieTermine.get(i));								
+			if (freieTermine.get(i + 1).getTerminId() != freieTermine.get(i).getTerminId() + 1) {
+				in.setEnde(freieTermine.get(i).getTerminId());								
 				intervallListe.add(in);
 				in = new Intervall();
-				in.setStart(freieTermine.get(i + 1));
+				in.setStart(freieTermine.get(i + 1).getTerminId());
 			}
 		}
-		in.setEnde(freieTermine.get(i)); // letzter Termin ist immer das Ende
+		in.setEnde(freieTermine.get(i).getTerminId()); // letzter Termin ist immer das Ende
 		intervallListe.add(in);
 	}
 

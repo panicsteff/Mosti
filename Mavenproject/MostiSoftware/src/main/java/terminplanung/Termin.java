@@ -1,47 +1,26 @@
 package terminplanung;
 
-import java.util.Date;
-
-import kundenverwaltung.Kunde;
 
 public class Termin {
 
-	private int kundenID;
-	private Kunde kunde;
-	private Date datum;
-	private Date uhrzeit;
+	private int kundenId;
+	private int terminId;
 	
 	
 	
 	int getKundenId(){
-		return kundenID;
+		return kundenId;
 	}
 
 	void setKundenId(int ID){
-		kundenID = ID;
+		kundenId = ID;
 	}
 
-	Date getDatum() {
-		return datum;
+	public int getTerminId() {
+		return terminId;
 	}
 
-	void setDatum(Date datum) {
-		this.datum = datum;
-	}
-
-	Date getUhrzeit() {
-		return uhrzeit;
-	}
-
-	void setUhrzeit(Date uhrzeit) {
-		this.uhrzeit = uhrzeit;
-	}
-
-	Kunde getKunde() {
-		return kunde;
-	}
-
-	void setKunde(Kunde kunde) {
-		this.kunde = kunde;
+	public void setTerminId(int terminId) {
+		this.terminId = terminId;
 	}
 }

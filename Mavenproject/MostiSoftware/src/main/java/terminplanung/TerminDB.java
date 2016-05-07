@@ -2,6 +2,7 @@ package terminplanung;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
@@ -23,18 +24,18 @@ public class TerminDB {
 		init();
 	}
 	
-	ArrayList<Integer> termineLaden(Date datum, int anzeigeseite) {
+	ArrayList<Termin> termineLaden(Date datum, int anzeigeseite) {
 
 		int obergrenze = anzeigeseite * anzahlProSeite;
 		int untergrenze = (anzeigeseite - 1)*anzahlProSeite + 1;
-		ArrayList<Integer> terminliste = new ArrayList<Integer>();
+		ArrayList<Termin> terminliste = new ArrayList<Termin>();
 		calendar = new GregorianCalendar();
 		calendar.setTime(datum);
 		int laufenderTag = calendar.get(Calendar.DAY_OF_YEAR); 
 		
 		try {
 			conn = DriverManager
-					.getConnection("jdbc:ucanaccess://C:/Users/Irmi/Desktop/Mosti/Mavenproject/MostiSoftware/Mosti-Datenkank.mdb");
+					.getConnection("jdbc:ucanaccess://./Mosti-Datenkank.mdb");
 			Statement s = conn.createStatement();
 			ResultSet rs = s
 					.executeQuery("SELECT * FROM [termine] Where id between "
@@ -42,8 +43,10 @@ public class TerminDB {
 
 			
 			while (rs.next()) {
-				int kundeID = rs.getInt("Tag" + laufenderTag);
-				terminliste.add(kundeID);
+				Termin t = new Termin();
+				t.setKundenId(rs.getInt("Tag" + laufenderTag));
+				t.setTerminId(rs.getInt("ID"));
+				terminliste.add(t);
 			}
 			s.close();
 
@@ -53,15 +56,42 @@ public class TerminDB {
 
 		return terminliste;
 	}
+	
+	void termineSpeichern(ArrayList<Termin> terminliste, Date datum){
+		
+		calendar = new GregorianCalendar();
+		calendar.setTime(datum);
+		int laufenderTag = calendar.get(Calendar.DAY_OF_YEAR); 
+		
+		try {
+			conn = DriverManager
+					.getConnection("jdbc:ucanaccess://./Mosti-Datenkank.mdb");
+			PreparedStatement s=null;
+			
+			for(Termin t: terminliste){
+				s = conn.prepareStatement("Update termine set Tag" + laufenderTag + " = ? where id = ?");
+				s.setInt(1, t.getKundenId());
+				s.setInt(2, t.getTerminId());
+				
+				s.executeUpdate();
+				
+			}
+
+			s.close();
+
+		} catch (Exception e) {
+			System.out.println(e);
+		}
+	}
 
 	String kundenNamenLaden(int kundenId) {
 
 		String name = new String();
 		try {
 			conn = DriverManager
-					.getConnection("jdbc:ucanaccess://C:/Users/Irmi/Desktop/Mosti/Mavenproject/MostiSoftware/Mosti-Datenkank.mdb");
+					.getConnection("jdbc:ucanaccess://./Mosti-Datenkank.mdb");
 			Statement s = conn.createStatement();
-			ResultSet rs = s.executeQuery("SELECT * FROM [kunden] Where id = "
+			ResultSet rs = s.executeQuery("SELECT vorname, nachname FROM [kunden] Where id = "
 					+ kundenId);
 
 			while (rs.next()) {
@@ -83,7 +113,7 @@ public class TerminDB {
 		ArrayList<Integer> adminwerte = new ArrayList<Integer>();
 		try {
 			conn = DriverManager
-					.getConnection("jdbc:ucanaccess://C:/Users/Irmi/Desktop/Mosti/Mavenproject/MostiSoftware/Mosti-Datenkank.mdb");
+					.getConnection("jdbc:ucanaccess://./Mosti-Datenkank.mdb");
 			Statement s = conn.createStatement();
 			ResultSet rs = s.executeQuery("SELECT * FROM [Adminwerte] where id = 1");
 
@@ -107,9 +137,9 @@ public class TerminDB {
 		return adminwerte;
 	}
 	
-	ArrayList<Integer> freieTermineSuchen(Date d){
+	ArrayList<Termin> freieTermineSuchen(Date d){
 		
-		ArrayList<Integer> freierTermin = new ArrayList<Integer>();
+		ArrayList<Termin> freierTermin = new ArrayList<Termin>();
 		calendar = new GregorianCalendar();
 		calendar.setTime(d);
 		int laufenderTag = calendar.get(Calendar.DAY_OF_YEAR);
@@ -117,15 +147,16 @@ public class TerminDB {
 		
 		try {
 			conn = DriverManager
-					.getConnection("jdbc:ucanaccess://C:/Users/Irmi/Desktop/Mosti/Mavenproject/MostiSoftware/Mosti-Datenkank.mdb");
+					.getConnection("jdbc:ucanaccess://./Mosti-Datenkank.mdb");
 			Statement s = conn.createStatement();
 			ResultSet rs = s.executeQuery("SELECT Tag"+ laufenderTag + ", ID FROM [termine] where id between 1 and " + obergrenze);
 
 			while (rs.next()) {
-				Integer i = rs.getInt("Tag"+ laufenderTag);
-				Integer j = rs.getInt("ID");
-				if(i == 0){
-					freierTermin.add(j);
+				Termin t = new Termin();
+				t.setKundenId(rs.getInt("Tag"+ laufenderTag));
+				t.setTerminId(rs.getInt("ID"));
+				if(rs.getInt("Tag" + laufenderTag) == 0){
+					freierTermin.add(t);
 				}
 			}
 			s.close();
@@ -141,7 +172,7 @@ public class TerminDB {
 	public void init(){
 		try {
 			conn = DriverManager
-					.getConnection("jdbc:ucanaccess://C:/Users/Irmi/Desktop/Mosti/Mavenproject/MostiSoftware/Mosti-Datenkank.mdb");
+					.getConnection("jdbc:ucanaccess://./Mosti-Datenkank.mdb");
 			Statement s = conn.createStatement();
 			ResultSet rs = s.executeQuery("SELECT * FROM [Adminwerte] where id = 1");
 
@@ -162,6 +193,30 @@ public class TerminDB {
 			System.out.println(e);
 
 		}
+	}
+	
+	int kundenIdLaden(String name){
+		
+		int kundenId = 0;
+		
+		try {
+			conn = DriverManager
+					.getConnection("jdbc:ucanaccess://./Mosti-Datenkank.mdb");
+			Statement s = conn.createStatement();
+			ResultSet rs = s.executeQuery("SELECT * FROM [kunden] where nachname like '" + name + "%'");
+
+			while(rs.next()){
+				kundenId= rs.getInt("ID");
+			}
+			
+			s.close();
+
+		} catch (Exception e) {
+			e.printStackTrace();
+
+		}
+		
+		return kundenId;
 	}
 	
 	

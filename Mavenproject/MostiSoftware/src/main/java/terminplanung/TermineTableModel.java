@@ -7,16 +7,11 @@ import javax.swing.table.AbstractTableModel;
 public class TermineTableModel extends AbstractTableModel {
 
 	private static final long serialVersionUID = 1L;
-	private ArrayList<Integer> terminliste;
-	private Konfigurationswerte k = new Konfigurationswerte();
-	private int anzeigeseite;
-	private TerminDB termindb;
+	private ArrayList<Termin> terminliste;
 	
 
-	TermineTableModel(ArrayList<Integer> terminliste, int as) {
+	TermineTableModel(ArrayList<Termin> terminliste) {
 		this.terminliste = terminliste;
-		anzeigeseite = as;
-		termindb = new TerminDB();
 	}
 
 	public String getColumnName(int col){
@@ -39,14 +34,27 @@ public class TermineTableModel extends AbstractTableModel {
 	public Object getValueAt(int row, int col) {
 		switch (col) {
 		case 0:
-			return (anzeigeseite-1)*k.getZeilenanzahlProSeite() + row +1;					//absolute TerminId berechenen, noch um ein erhühen weils die zeile null gib aber nur mindestens den Termin 1
+			return terminliste.get(row).getTerminId();				
 			
 		case 1:
-			return termindb.kundenNamenLaden(terminliste.get(row));
+			return terminliste.get(row).getKundenId();
 			
 		default:
 			return null;
 		}
+	}
+	
+	ArrayList<Termin> getTermine(int row, int anzahl){
+		ArrayList<Termin> liste = new ArrayList<Termin>();
+		for(int i=0; i<anzahl; i++){
+			liste.add(terminliste.get(row+i));
+		}
+	
+		return liste;
+	}
+	
+	ArrayList<Termin> getAlleTermine(){
+		return terminliste;
 	}
 	
 	

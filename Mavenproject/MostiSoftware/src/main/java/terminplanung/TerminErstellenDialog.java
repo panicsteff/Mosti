@@ -3,75 +3,87 @@ package terminplanung;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
+import java.util.ArrayList;
 import java.util.Date;
 
 import javax.swing.JButton;
-import javax.swing.JFrame;
+import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
-public class TerminErstellenFrame extends JFrame{
+import kundenverwaltung.Formats;
 
+public class TerminErstellenDialog extends JDialog{
+
+	class MyKeyListener extends KeyAdapter{
+		public void keyPressed(KeyEvent k){
+			eingabe = eingabe + k.getKeyChar();
+			kundenId = terminDb.kundenIdLaden(eingabe);
+			kundetxt.setText(terminDb.kundenNamenLaden(kundenId));
+		}
+	}
+	
+	class MyOkListener implements ActionListener{
+		public void actionPerformed(ActionEvent e){
+			
+			for(Termin t: terminliste){
+				t.setKundenId(kundenId);
+			}
+			TerminErstellenDialog.this.dispose();
+			
+		}
+	}
+	
+	
 	private static final long serialVersionUID = 1L;
-	private TermineTableModel termineTableModel;
 	private JTextField dauertxt;
 	private JTextField uhrzeittxt;
-	private Konfigurationswerte k = new Konfigurationswerte();
+	private JTextField kundetxt;
+	private ArrayList<Termin> terminliste;
+	private TerminDB terminDb;
+	private String eingabe = "";
+	private int kundenId;
 
-	public TerminErstellenFrame(int dauer, Date date, int terminId, TermineTableModel ttm){
+	public TerminErstellenDialog(int dauer, Date date, ArrayList<Termin> t, String uhrzeitAnzeige){
+				
+		setModal(true);
 		
 		setTitle("Termin anlegen");
-		setSize(300,200);
+		setSize(400,200);
 		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 		
-		termineTableModel = ttm;
+		terminliste = t;
+		terminDb = new TerminDB();
 		
 		JPanel content = new JPanel();
 		content.setLayout(new GridLayout(5,2));
 		
 		JLabel kunde = new JLabel("Kunde:");
 		kunde.setFont(kunde.getFont().deriveFont(16f));
-		JTextField kundetxt = new JTextField();	
+		kundetxt = new JTextField();
 		kundetxt.setFont(kundetxt.getFont().deriveFont(16f));
+		kundetxt.addKeyListener(new MyKeyListener());
 		
 		JLabel datum = new JLabel("Datum:");
 		datum.setFont(datum.getFont().deriveFont(16f));
-		JTextField datumtxt = new JTextField(date.toString());
+		JTextField datumtxt = new JTextField(Formats.DATE_FORMAT.format(date));
 		datumtxt.setFont(datumtxt.getFont().deriveFont(16f));
 		
 		JLabel uhrzeit = new JLabel("Uhrzeit:");
 		uhrzeit.setFont(uhrzeit.getFont().deriveFont(16f));
-		uhrzeittxt = new JTextField(terminId + "");
+		uhrzeittxt = new JTextField(uhrzeitAnzeige);						
 		uhrzeittxt.setFont(uhrzeittxt.getFont().deriveFont(16f));
 		
 		JLabel dauerlabel = new JLabel("Dauer:");
 		dauerlabel.setFont(dauerlabel.getFont().deriveFont(16f));
-		dauertxt = new JTextField(dauer + "");
+		dauertxt = new JTextField(dauer + " min");
 		dauertxt.setFont(dauertxt.getFont().deriveFont(16f));
 		
 		JButton speichern = new JButton("Speichern");
-		speichern.addActionListener(new ActionListener(){
-			public void actionPerformed(ActionEvent e){
-				String d = dauertxt.getText();
-				String t = uhrzeittxt.getText();
-				int dauer = 0;
-				int startTermin = 0;
-				try{
-					dauer = Integer.parseInt(d);
-					startTermin = Integer.parseInt(t);
-				} catch(Exception ex){
-					ex.printStackTrace();
-				}
-				int zeitslotAnzahl = dauer/k.getZeitslot();
-				
-				for(int i=0; i<zeitslotAnzahl; i++){
-					int row = startTermin%40 + 1;						// termin wieder auf tabelle umrechnen
-					termineTableModel.setValueAt(5, row +i, 0);
-				}
-				
-			}
-		});
+		speichern.addActionListener(new MyOkListener());
 		
 		
 		content.add(kunde);
@@ -87,6 +99,7 @@ public class TerminErstellenFrame extends JFrame{
 		add(content);
 		
 		setVisible(true);
+		
 	}
 	
 }
