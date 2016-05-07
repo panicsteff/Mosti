@@ -22,36 +22,36 @@ public class Konfigurationswerte {
 		setZeilenanzahlProSeite((arbeitsende-arbeitsbeginn)/(zeitslot*aufteilung));
 	}
 	
-	public int getZeitslot() {
+	int getZeitslot() {
 		return zeitslot;
 	}
-	public void setZeitslot(int zeitslot) {
+	void setZeitslot(int zeitslot) {
 		Konfigurationswerte.zeitslot = zeitslot;
 	}
-	public int getArbeitsbeginn() {
+	int getArbeitsbeginn() {
 		return arbeitsbeginn;
 	}
-	public void setArbeitsbeginn(int arbeitsbeginn) {
+	void setArbeitsbeginn(int arbeitsbeginn) {
 		Konfigurationswerte.arbeitsbeginn = arbeitsbeginn;
 	}
-	public int getArbeitsende() {
+	int getArbeitsende() {
 		return arbeitsende;
 	}
-	public void setArbeitsende(int arbeitsende) {
+	void setArbeitsende(int arbeitsende) {
 		Konfigurationswerte.arbeitsende = arbeitsende;
 	}
-	public int getAufteilung() {
+	int getAufteilung() {
 		return aufteilung;
 	}
-	public void setAufteilung(int aufteilung) {
+	void setAufteilung(int aufteilung) {
 		Konfigurationswerte.aufteilung = aufteilung;
 	}
 
-	public int getZeilenanzahlProSeite() {
+	int getZeilenanzahlProSeite() {
 		return zeilenanzahlProSeite;
 	}
 
-	public void setZeilenanzahlProSeite(int zeilenanzahlProSeite) {
+	void setZeilenanzahlProSeite(int zeilenanzahlProSeite) {
 		Konfigurationswerte.zeilenanzahlProSeite = zeilenanzahlProSeite;
 	}
 	

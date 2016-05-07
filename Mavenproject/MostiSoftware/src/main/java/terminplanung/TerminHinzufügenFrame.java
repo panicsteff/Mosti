@@ -158,7 +158,7 @@ public class TerminHinzufügenFrame extends JFrame{
 		
 	}
 	
-	public int getTerminlänge(){
+	int getTerminlänge(){
 		String s = txtdauer.getText();
 		int dauer = 0;
 		try{
@@ -167,10 +167,6 @@ public class TerminHinzufügenFrame extends JFrame{
 			e.printStackTrace();
 		}
 		return dauer;
-	}
-	
-	public static void main(String[] avgs){
-		new TerminHinzufügenFrame();
 	}
 	
 }

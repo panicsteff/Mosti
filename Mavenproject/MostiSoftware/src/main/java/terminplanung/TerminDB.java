@@ -169,7 +169,7 @@ public class TerminDB {
 		return freierTermin;
 	}
 	
-	public void init(){
+	private void init(){
 		try {
 			conn = DriverManager
 					.getConnection("jdbc:ucanaccess://./Mosti-Datenkank.mdb");
