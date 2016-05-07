@@ -13,7 +13,7 @@ public class ProduktTableModel extends AbstractTableModel {
 	 */
 	private static final long serialVersionUID = 1L;
 	private ArrayList<Produkt> produktsortiment;
-	private static int produktAnzahl;
+	private int produktAnzahl;
 
 	public ProduktTableModel(ArrayList<Produkt> produkte) {
 		this.produktsortiment = produkte;

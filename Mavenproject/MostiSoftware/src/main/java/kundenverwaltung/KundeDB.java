@@ -50,7 +50,8 @@ public class KundeDB {
 
 		try {
 			conn = DriverManager
-					.getConnection("jdbc:ucanaccess://C:/Users/Katharina/Desktop/Mosti/Mavenproject/MostiSoftware/Mosti-Datenkank.mdb");
+					//.getConnection("jdbc:ucanaccess://C:/Users/Katharina/Desktop/Mosti/Mavenproject/MostiSoftware/Mosti-Datenkank.mdb");
+					.getConnection("jdbc:ucanaccess://./Mosti-Datenkank.mdb");
 			PreparedStatement s = null;
 			
 			for (Kunde k: kundenliste){

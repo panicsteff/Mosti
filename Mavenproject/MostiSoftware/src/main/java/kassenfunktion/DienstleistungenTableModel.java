@@ -12,7 +12,7 @@ public class DienstleistungenTableModel extends AbstractTableModel {
 
 	private static final long serialVersionUID = 1L;
 	private ArrayList <Dienstleistung> dienstleistungen;
-	private static int DLAnzahl;
+	private int DLAnzahl;
 
 	public DienstleistungenTableModel(ArrayList <Dienstleistung> dienstleistungen) {
 		this.dienstleistungen = dienstleistungen;

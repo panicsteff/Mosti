@@ -30,7 +30,6 @@ class ProduktHinzufuegenDialog extends JDialog {
 	private JFormattedTextField txtUntergrenze;
 	private JCheckBox cBoxIsAbfuellmaterial;
 	private Produkt produkt;
-	private List<Produkt> liste;
 	private List<Produkt> aliste;
 	private List<Produkt> zliste;
 
@@ -38,7 +37,6 @@ class ProduktHinzufuegenDialog extends JDialog {
 
 		super(parent);
 
-		//this.liste = auflistung;
 		this.aliste = a_auflistung;
 		this.zliste = z_auflistung;
 				
