@@ -23,9 +23,7 @@ import javax.swing.table.TableColumn;
 
 public class LagerVerwaltungFrame extends JFrame {
 
-	/**
-	 * 
-	 */
+	
 	private static final long serialVersionUID = 1L;
 	private LagerTableModel lagerTableModel;
 	private ListSelectionModel produktSelectionModel;

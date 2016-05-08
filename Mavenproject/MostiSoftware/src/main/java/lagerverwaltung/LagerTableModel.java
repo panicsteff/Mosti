@@ -8,10 +8,8 @@ import javax.swing.table.AbstractTableModel;
 
 class LagerTableModel extends AbstractTableModel{
 		
-		/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
+		
+		private static final long serialVersionUID = 1L;
 		
 		//private List <Produkt> produktliste;
 		private List <Produkt> aliste;

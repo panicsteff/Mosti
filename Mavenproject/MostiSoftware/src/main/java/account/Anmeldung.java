@@ -7,7 +7,6 @@ import java.awt.event.ActionListener;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 
 public class Anmeldung extends JFrame {
@@ -49,9 +48,5 @@ public class Anmeldung extends JFrame {
 		setVisible(true);
 	}
 	
-	public static void main (String[] avg){
-		
-		new Anmeldung();
-	}
 
 }

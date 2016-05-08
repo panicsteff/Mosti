@@ -2,7 +2,6 @@ package lagerverwaltung;
 
 import javax.swing.JOptionPane;
 
-import kundenverwaltung.KundenVerwaltung;
 import verkaufsverwaltung.Einkaufsposition;
 
 public class Produkt extends Einkaufsposition {

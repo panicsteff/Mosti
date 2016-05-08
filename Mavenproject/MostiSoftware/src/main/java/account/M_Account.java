@@ -12,7 +12,7 @@ public class M_Account {
 		this.passwort = passwort;
 	}
 
-	public void anmelden(String passwort) {
+	void anmelden(String passwort) {
 		if (this.passwort.equals(passwort)) {
 			
 			//new M_Startseite();
@@ -21,11 +21,11 @@ public class M_Account {
 		}
 	}
 
-	public String getBenutzername() {
+	String getBenutzername() {
 		return benutzername;
 	}
 
-	public void setBenutzername(String benutzername) {
+	void setBenutzername(String benutzername) {
 		this.benutzername = benutzername;
 	}
 }

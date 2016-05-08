@@ -10,6 +10,7 @@ import javax.swing.table.DefaultTableCellRenderer;
 
 public class MengeCellRenderer extends DefaultTableCellRenderer.UIResource {
 
+	private static final long serialVersionUID = 1L;
 	private Format format;
 
 	public MengeCellRenderer() {
