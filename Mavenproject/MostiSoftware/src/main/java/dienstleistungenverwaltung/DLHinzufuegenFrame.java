@@ -19,19 +19,16 @@ import lagerverwaltung.FoFormat;
 
 import com.sun.glass.ui.Pixels.Format;
 
+@SuppressWarnings("serial")
 class DLHinzufuegenFrame extends JDialog {
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
 	private JTextField txtName;
 	private JFormattedTextField txtPreis;
 	private Dienstleistung dienstleistung;
 	private List<Dienstleistung> liste;
 	private Format format;
 
-	public DLHinzufuegenFrame(JFrame parent, List<Dienstleistung> auflistung) {
+	DLHinzufuegenFrame(JFrame parent, List<Dienstleistung> auflistung) {
 
 		super(parent);
 

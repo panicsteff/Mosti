@@ -62,7 +62,7 @@ public class DienstleistungenTableModel extends AbstractTableModel {
 		return true;
 	}
 
-	public Dienstleistung getDL(int row) {
+	Dienstleistung getDL(int row) {
 		Dienstleistung d = dienstleistungen.get(row);
 		return d;
 

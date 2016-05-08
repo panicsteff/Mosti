@@ -4,10 +4,8 @@ package dienstleistungenverwaltung;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.text.NumberFormat;
 
 import javax.swing.JButton;
-import javax.swing.JCheckBox;
 import javax.swing.JDialog;
 import javax.swing.JFormattedTextField;
 import javax.swing.JFrame;
@@ -18,16 +16,12 @@ import javax.swing.text.NumberFormatter;
 import kundenverwaltung.NullableFormatter;
 import lagerverwaltung.FoFormat;
 
-import com.sun.glass.ui.Pixels.Format;
 
-
-@SuppressWarnings("serial")
 class DLBearbeitenFrame extends JDialog {
 
-	private JTextField txtName;
 	private JFormattedTextField txtPreis;
 	private Dienstleistung dienstleistung;
-	private Format format;
+	private JTextField txtName;
 
 	DLBearbeitenFrame(JFrame parent, Dienstleistung d) {
 

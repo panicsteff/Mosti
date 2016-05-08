@@ -15,7 +15,6 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
-import javax.swing.JSeparator;
 import javax.swing.JTable;
 import javax.swing.ListSelectionModel;
 import javax.swing.event.ListSelectionEvent;
@@ -25,6 +24,7 @@ import javax.swing.table.TableColumn;
 import lagerverwaltung.PreisCellRenderer;
 
 
+	@SuppressWarnings("serial")
 	public class DLVerwaltungFrame extends JFrame {
 
 		private DLTableModel dlTableModel;
@@ -144,25 +144,8 @@ import lagerverwaltung.PreisCellRenderer;
 
 		private void bearbeiteDL() {
 			int row = dlSelectionModel.getMinSelectionIndex();
-			new DLBearbeitenFrame(this, dlTableModel.getDL(row));
+			new DLBearbeitenFrame(this, dlTableModel.getDienstleistung(row));
 			dlTableModel.fireTableRowsUpdated(row, row);
 		}
-
-//		public static void main(String[] args) {
-//
-//			List<Dienstleistung> d = new ArrayList<Dienstleistung>();
-//
-//			Dienstleistung d1 = new Dienstleistung("Apfelsaft heiﬂ in Beutel", 1.00);
-//			Dienstleistung d2 = new Dienstleistung("Apfelsaft heiﬂ in Flaschen", 2.00);
-//			Dienstleistung d3 = new Dienstleistung("Apfelsaft kalt", 0.5);
-//		
-//			d.add(d1);
-//			d.add(d2);
-//			d.add(d3);
-//		
-//
-//			//DLFrame df = new DLFrame(d);
-//		}
-
 
 }

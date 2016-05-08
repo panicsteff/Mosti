@@ -4,8 +4,7 @@ import java.util.List;
 
 import javax.swing.table.AbstractTableModel;
 
-
-
+@SuppressWarnings("serial")
 class DLTableModel extends AbstractTableModel{
 		
 		private List <Dienstleistung> dliste;
@@ -47,20 +46,13 @@ class DLTableModel extends AbstractTableModel{
 			}
 		}
 		
-		public Dienstleistung getDL (int row){
+		Dienstleistung getDienstleistung (int row){
 			return dliste.get(row);
 		}
 		
-		public List<Dienstleistung> getProdukte(){
+		List<Dienstleistung> getDienstleistungen(){
 			return dliste;
 		}
 		
-		public void setDienstleistungen (List<Dienstleistung> liste){
-			dliste = liste;
-		}
-
-	
-
-
 }
 

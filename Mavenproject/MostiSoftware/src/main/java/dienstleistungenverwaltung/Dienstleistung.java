@@ -9,6 +9,5 @@ public class Dienstleistung extends Einkaufsposition {
 	public Dienstleistung(String name, double preis, int menge) {  
 		super(name, preis, menge);
 	}
-
-	 
+	
 }
