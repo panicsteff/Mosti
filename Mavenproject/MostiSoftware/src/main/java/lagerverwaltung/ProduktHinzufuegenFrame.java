@@ -18,7 +18,7 @@ import kundenverwaltung.NullableFormatter;
 
 import com.sun.glass.ui.Pixels.Format;
 
-class ProduktHinzufuegenDialog extends JDialog {
+class ProduktHinzufuegenFrame extends JDialog {
 
 	/**
 	 * 
@@ -33,7 +33,7 @@ class ProduktHinzufuegenDialog extends JDialog {
 	private List<Produkt> aliste;
 	private List<Produkt> zliste;
 
-	ProduktHinzufuegenDialog(JFrame parent, List<Produkt> a_auflistung, List<Produkt> z_auflistung) {
+	ProduktHinzufuegenFrame(JFrame parent, List<Produkt> a_auflistung, List<Produkt> z_auflistung) {
 
 		super(parent);
 

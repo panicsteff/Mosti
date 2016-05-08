@@ -21,7 +21,7 @@ import javax.swing.event.ListSelectionListener;
 import javax.swing.table.TableColumn;
 
 
-public class LagerFrame extends JFrame {
+public class LagerVerwaltungFrame extends JFrame {
 
 	/**
 	 * 
@@ -35,7 +35,7 @@ public class LagerFrame extends JFrame {
 	private JMenuItem bearP;
 	static boolean hasChanged;
 
-	public LagerFrame(List<Produkt> a_auflistung, List<Produkt> z_auflistung) {
+	public LagerVerwaltungFrame(List<Produkt> a_auflistung, List<Produkt> z_auflistung) {
 
 		//pliste = auflistung;
 		aliste = a_auflistung;
@@ -151,7 +151,7 @@ public class LagerFrame extends JFrame {
 	}
 	
 	private void addProdukt() {
-		new ProduktHinzufuegenDialog(this, aliste, zliste);
+		new ProduktHinzufuegenFrame(this, aliste, zliste);
 		printListe();
 		lagerTableModel.fireTableDataChanged();
 	}
@@ -170,7 +170,7 @@ public class LagerFrame extends JFrame {
 	private void bearbeiteProdukt() {
 		int row = produktSelectionModel.getMinSelectionIndex();
 		Produkt p = lagerTableModel.getProdukt(row);
-		new ProduktBearbeitenDialog(this, p);
+		new ProduktBearbeitenFrame(this, p);
 		if(hasChanged == true){
 			if (aliste.contains(p) && p.isAbfüllmaterial() == false) {
 				aliste.remove(p);

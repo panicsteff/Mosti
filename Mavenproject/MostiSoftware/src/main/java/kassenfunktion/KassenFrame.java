@@ -23,7 +23,7 @@ import verkaufsverwaltung.Einkauf;
 import verkaufsverwaltung.Einkaufsposition;
 import verkaufsverwaltung.Kundeneinkäufe;
 
-public class Abrechnungsrahmen extends JFrame {
+public class KassenFrame extends JFrame {
 
 	/**
 	 * 
@@ -45,7 +45,7 @@ public class Abrechnungsrahmen extends JFrame {
 	private Einkaufsposition produktPosition;
 	private int literzahl;
 
-	public Abrechnungsrahmen(ArrayList<Dienstleistung> dienstleistungen,
+	public KassenFrame(ArrayList<Dienstleistung> dienstleistungen,
 			ArrayList<Produkt> abfüllProduktSortiment,
 			ArrayList<Produkt> zusatzProduktSortiment,
 			Kundeneinkäufe kundeneinkäufe) {
@@ -203,6 +203,7 @@ public class Abrechnungsrahmen extends JFrame {
 			if (p.getVerkaufsMenge() > 0) {
 				produktPosition = new Einkaufsposition(p.getName(),
 						p.getPreis(), p.getVerkaufsMenge());
+				p.setVorratsmenge(p.getVorratsmenge()-p.getVerkaufsMenge());
 				einkauf.addEinkauf(produktPosition);
 				p.printEinkaufsposition();
 			}

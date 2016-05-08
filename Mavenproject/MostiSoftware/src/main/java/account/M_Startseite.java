@@ -14,14 +14,14 @@ import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 import javax.swing.JSeparator;
 
-import kassenfunktion.Abrechnungsrahmen;
+import kassenfunktion.KassenFrame;
 import kundenverwaltung.KundenVerwaltung;
-import lagerverwaltung.LagerFrame;
+import lagerverwaltung.LagerVerwaltungFrame;
 import main.Angebote;
 import mitarbeiterverwaltung.MitarbeiterVerwaltung;
 import terminplanung.TerminplanungsFrame;
 import verkaufsverwaltung.Kundeneinkäufe;
-import dienstleistungenverwaltung.DLFrame;
+import dienstleistungenverwaltung.DLVerwaltungFrame;
 
 public class M_Startseite extends JFrame {
 
@@ -56,7 +56,7 @@ public class M_Startseite extends JFrame {
 
 		kassenButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				Abrechnungsrahmen a = new Abrechnungsrahmen(angebote.getDLSortiment(),angebote.getAbfuellSortiment(), angebote.getZProduktSortiment(),kundeneinkäufe);
+				KassenFrame a = new KassenFrame(angebote.getDLSortiment(),angebote.getAbfuellSortiment(), angebote.getZProduktSortiment(),kundeneinkäufe);
 			}
 		});
 
@@ -69,13 +69,13 @@ public class M_Startseite extends JFrame {
 //				p.add(p1);
 //				p.add(p2);
 //				p.add(p3);
-				LagerFrame l = new LagerFrame(angebote.getAbfuellSortiment(), angebote.getZProduktSortiment());
+				LagerVerwaltungFrame l = new LagerVerwaltungFrame(angebote.getAbfuellSortiment(), angebote.getZProduktSortiment());
 			}
 		});
 		
 		dlButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				DLFrame dl = new DLFrame(angebote.getDLSortiment());
+				DLVerwaltungFrame dl = new DLVerwaltungFrame(angebote.getDLSortiment());
 			}
 		});
 
@@ -87,7 +87,7 @@ public class M_Startseite extends JFrame {
 		mDatei.add(abrechnen);
 		abrechnen.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				Abrechnungsrahmen a = new Abrechnungsrahmen(angebote.getDLSortiment(),angebote.getAbfuellSortiment(), angebote.getZProduktSortiment(), kundeneinkäufe);
+				KassenFrame a = new KassenFrame(angebote.getDLSortiment(),angebote.getAbfuellSortiment(), angebote.getZProduktSortiment(), kundeneinkäufe);
 			}
 		});
 
