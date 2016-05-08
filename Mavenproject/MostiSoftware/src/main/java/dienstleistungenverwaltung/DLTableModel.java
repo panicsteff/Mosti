@@ -47,15 +47,15 @@ class DLTableModel extends AbstractTableModel{
 			}
 		}
 		
-		public Dienstleistung getDL (int row){
+		Dienstleistung getDL (int row){
 			return dliste.get(row);
 		}
 		
-		public List<Dienstleistung> getProdukte(){
+		List<Dienstleistung> getProdukte(){
 			return dliste;
 		}
 		
-		public void setDienstleistungen (List<Dienstleistung> liste){
+		void setDienstleistungen (List<Dienstleistung> liste){
 			dliste = liste;
 		}
 
