@@ -21,7 +21,7 @@ public class MitarbeiterDB {
 		try {
 
 			conn = DriverManager
-					.getConnection("jdbc:ucanaccess://C:/Users/Irmi/Desktop/Mosti/Mavenproject/MostiSoftware/Mosti-Datenkank.mdb");
+					.getConnection("jdbc:ucanaccess://./Mosti-Datenkank.mdb");
 			Statement s = conn.createStatement();
 			ResultSet rs = s.executeQuery("Select * From [mitarbeiter] ");
 
@@ -50,7 +50,7 @@ public class MitarbeiterDB {
 
 		try {
 			conn = DriverManager
-					.getConnection("jdbc:ucanaccess://C:/Users/Irmi/Desktop/Mosti/Mavenproject/MostiSoftware/Mosti-Datenkank.mdb");
+					.getConnection("jdbc:ucanaccess://./Mosti-Datenkank.mdb");
 			PreparedStatement s = null;
 
 			for (Mitarbeiter m : mitarbeiterliste) {
