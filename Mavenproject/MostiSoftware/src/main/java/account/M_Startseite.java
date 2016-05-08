@@ -25,6 +25,7 @@ import dienstleistungenverwaltung.DLVerwaltungFrame;
 
 public class M_Startseite extends JFrame {
 
+	private static final long serialVersionUID = 1L;
 	JMenuBar mbar;
 	JMenu mDatei;
 	JMenuItem abrechnen;

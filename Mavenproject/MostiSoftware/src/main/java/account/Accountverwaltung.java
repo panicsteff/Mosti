@@ -13,7 +13,7 @@ public class Accountverwaltung {
 	private Connection conn;
 	private String passwort;
 
-	public boolean mitarbeiterSuchen(String benutzernameEingabe,
+	boolean mitarbeiterSuchen(String benutzernameEingabe,
 			String passwortEingabe) {
 
 		try {
