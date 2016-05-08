@@ -34,83 +34,83 @@ public class Mitarbeiter {
 		
 	}
 
-	public String getNachname() {
+	String getNachname() {
 		return nachname;
 	}
 
-	public void setNachname(String nachname) {
+	void setNachname(String nachname) {
 		this.nachname = nachname;
 	}
 
-	public String getVorname() {
+	String getVorname() {
 		return vorname;
 	}
 
-	public void setVorname(String vorname) {
+	void setVorname(String vorname) {
 		this.vorname = vorname;
 	}
 
-	public String getStrasse() {
+	String getStrasse() {
 		return strasse;
 	}
 
-	public void setStrasse(String adresse) {
+	void setStrasse(String adresse) {
 		this.strasse = adresse;
 	}
 
-	public String getTelefonnummer() {
+	String getTelefonnummer() {
 		return telefonnummer;
 	}
 
-	public void setTelefonnummer(String telefonummer) {
+	void setTelefonnummer(String telefonummer) {
 		this.telefonnummer = telefonummer;
 	}
 
-	public String getBenutzername() {
+	String getBenutzername() {
 		return benutzername;
 	}
 
-	public void setBenutzername(String benutzername) {
+	void setBenutzername(String benutzername) {
 		this.benutzername = benutzername;
 	}
 
-	public String getHausnummer() {
+	String getHausnummer() {
 		return hausnummer;
 	}
 
-	public void setHausnummer(String hausnummer) {
+	void setHausnummer(String hausnummer) {
 		this.hausnummer = hausnummer;
 	}
 
-	public String getPlz() {
+	String getPlz() {
 		return plz;
 	}
 
-	public void setPlz(String plz) {
+	void setPlz(String plz) {
 		this.plz = plz;
 	}
 
-	public String getStadt() {
+	String getStadt() {
 		return stadt;
 	}
 
-	public void setStadt(String stadt) {
+	void setStadt(String stadt) {
 		this.stadt = stadt;
 	}
 
-	public M_Account getAccount() {
+	M_Account getAccount() {
 		return account;
 	}
 
-	public void setAccount(M_Account account) {
+	void setAccount(M_Account account) {
 		this.account = account;
 	}
 
-	public int getMitarbeiterID() {
+	int getMitarbeiterID() {
 		return mitarbeiterID;
 	}
 
-	public void setMitarbeiterID(int mitarbeiterID) {
+	void setMitarbeiterID(int mitarbeiterID) {
 		this.mitarbeiterID = mitarbeiterID;
 	}
 }

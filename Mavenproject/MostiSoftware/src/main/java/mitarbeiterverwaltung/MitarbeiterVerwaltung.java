@@ -24,9 +24,7 @@ import javax.swing.event.ListSelectionListener;
 
 
 public class MitarbeiterVerwaltung extends JFrame {
-	/**
-	 * 
-	 */
+	
 	private static final long serialVersionUID = 1L;  // ??? 
 	private MitarbeiterTableModel mitarbeiterTableModel;
 	private ListSelectionModel mitarbeiterSelectionModel;

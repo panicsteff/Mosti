@@ -13,7 +13,7 @@ public class KundeDB {
 	Connection conn;
 	ArrayList<Kunde> kundenliste;
 
-	public ArrayList<Kunde> kundenLaden() throws FileNotFoundException{
+	ArrayList<Kunde> kundenLaden() throws FileNotFoundException{
 
 		kundenliste = new ArrayList<Kunde>();
 
@@ -46,7 +46,7 @@ public class KundeDB {
 		}
 	}
 
-	public void kundenSpeichern(ArrayList<Kunde> kundenliste) {
+	void kundenSpeichern(ArrayList<Kunde> kundenliste) {
 
 		try {
 			conn = DriverManager

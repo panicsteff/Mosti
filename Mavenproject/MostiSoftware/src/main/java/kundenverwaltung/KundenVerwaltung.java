@@ -23,9 +23,7 @@ import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
 public class KundenVerwaltung extends JFrame {
-	/**
-	 * 
-	 */
+	
 	private static final long serialVersionUID = 1L;
 	private KundeTableModel kundeTableModel;
 	private ListSelectionModel kundeSelectionModel;
@@ -124,9 +122,7 @@ public class KundenVerwaltung extends JFrame {
 			}
 		});
 
-		//TableColumn colrabatt = table.getColumnModel().getColumn(5);
-		//TableColumn colanrede = table.getColumnModel().getColumn(0);
-
+		
 		table.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
 		JScrollPane scrollpane = new JScrollPane(table);
 		JPanel titlepane = new JPanel();
@@ -145,20 +141,5 @@ public class KundenVerwaltung extends JFrame {
 		kundeTableModel.fireTableRowsUpdated(row, row);
 	}
 
-//	public static void main(String[] args) throws ParseException {
-//		List<Kunde> kunden = new ArrayList<Kunde>();
-//		Kunde kunde;
-//
-//		 kunde = new Kunde("Kaufmann", "Franz", "Eichertweg 33", "93437",
-//		 "Furth im Wald","086581234");
-//		 kunden.add(kunde);
-//		 kunde = new Kunde("Siegl", "Regina", "Eichertweg 33", "93437",
-//		 "Furth im Wald", "086459876");
-//		 kunden.add(kunde);
-//		 kunde = new Kunde("Siegl", "Katharina", "Eichertweg 33", "93437",
-//		 "Furth im Wald", "094145678");
-//		 kunden.add(kunde);
-//
-//		new KundenVerwaltung();
-//	}
+
 }

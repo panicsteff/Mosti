@@ -27,61 +27,61 @@ public class Kunde {
 		
 	}
 	
-	public String getNachname(){
+	String getNachname(){
 		return nachname;
 	}
 	
-	public void setNachname(String nachname){
+	void setNachname(String nachname){
 		this.nachname = nachname;
 	}
 	
-	public String getVorname(){
+	String getVorname(){
 		return vorname;
 	}
 	
-	public void setVorname(String vorname){
+	void setVorname(String vorname){
 		this.vorname = vorname;
 	}
 	
 	
-	public String getStrasse(){
+	String getStrasse(){
 		return strasse;
 	}
 	
-	public void setStrasse(String strasse){
+	void setStrasse(String strasse){
 		this.strasse = strasse;
 	}
 	
 	
-	public String getPlz(){
+	String getPlz(){
 		return plz;
 	}
 	
-	public void setPlz(String plz){
+	void setPlz(String plz){
 		this.plz = plz;
 	}
 	
-	public String getWohnort(){
+	String getWohnort(){
 		return wohnort;
 	}
 	
-	public void setWohnort(String ort){
+	void setWohnort(String ort){
 		this.wohnort = ort;
 	}
 	
-	public String getTel(){
+	String getTel(){
 		return telefonnummer;
 	}
 	
-	public void setTel(String telefonnummer){
+	void setTel(String telefonnummer){
 		this.telefonnummer = telefonnummer;
 	}
 
-	public int getKundenID() {
+	int getKundenID() {
 		return kundenID;
 	}
 
-	public void setKundenID(int kundenID) {
+	void setKundenID(int kundenID) {
 		this.kundenID = kundenID;
 	}
 	

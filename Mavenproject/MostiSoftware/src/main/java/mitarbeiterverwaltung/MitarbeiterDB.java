@@ -13,7 +13,7 @@ public class MitarbeiterDB {
 	Connection conn;
 	ArrayList<Mitarbeiter> mitarbeiterliste;
 
-	public ArrayList<Mitarbeiter> mitarbeiterLaden()
+	ArrayList<Mitarbeiter> mitarbeiterLaden()
 			throws FileNotFoundException {
 
 		mitarbeiterliste = new ArrayList<Mitarbeiter>();
@@ -46,7 +46,7 @@ public class MitarbeiterDB {
 		return mitarbeiterliste;
 	}
 
-	public void mitarbeiterSpeichern(ArrayList<Mitarbeiter> mitarbeiterliste) {
+	void mitarbeiterSpeichern(ArrayList<Mitarbeiter> mitarbeiterliste) {
 
 		try {
 			conn = DriverManager

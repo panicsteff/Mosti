@@ -7,6 +7,8 @@ import javax.swing.text.DefaultFormatter;
 
 public class NullableFormatter extends DefaultFormatter{
 
+	
+	private static final long serialVersionUID = 1L;
 	private JFormattedTextField.AbstractFormatter base;
 	
 	public NullableFormatter(JFormattedTextField.AbstractFormatter base){

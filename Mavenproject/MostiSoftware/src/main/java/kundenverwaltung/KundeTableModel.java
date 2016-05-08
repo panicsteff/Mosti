@@ -6,7 +6,9 @@ import javax.swing.table.AbstractTableModel;
 
 public class KundeTableModel extends AbstractTableModel{
 
-private ArrayList<Kunde> kunden;
+
+	private static final long serialVersionUID = 1L;
+	private ArrayList<Kunde> kunden;
 
 	
 	public Class<?> getColumnClass(int col){
@@ -49,15 +51,15 @@ private ArrayList<Kunde> kunden;
 		}
 	}
 	
-	public ArrayList<Kunde> getKunden(){
+	ArrayList<Kunde> getKunden(){
 		return kunden;
 	}
 	
-	public void setKunden(ArrayList<Kunde> kunden){
+	void setKunden(ArrayList<Kunde> kunden){
 		this.kunden = kunden;
 	}
 	
-	public Kunde getKunde(int row){
+	Kunde getKunde(int row){
 		return kunden.get(row);
 	}
 }

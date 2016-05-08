@@ -16,9 +16,7 @@ import javax.swing.JTextField;
 
 public class MitarbeiterBearbeitenDialog extends JDialog {
 
-	/**
-	 * 
-	 */
+	
 	private static final long serialVersionUID = 1L;
 
 	class MyOkHandler implements ActionListener{
