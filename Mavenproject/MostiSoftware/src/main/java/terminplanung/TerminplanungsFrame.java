@@ -48,15 +48,15 @@ public class TerminplanungsFrame extends JFrame{
 		calendar.setVisible(true);
 		add(calendar);
 
-		JButton terminwaehlen = new JButton("Termin wählen");
-		terminwaehlen.addActionListener(new ActionListener(){
+		JButton terminuebersicht = new JButton("Terminübersicht");
+		terminuebersicht.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e){
 				Date d = calendar.getDate();
 				new TagFrame(d, 1, null);
 			}
 		});
-		terminwaehlen.setBounds(30, 360, 180, 30);
-		add(terminwaehlen);
+		terminuebersicht.setBounds(30, 360, 180, 30);
+		add(terminuebersicht);
 		
 		setVisible(true);
 	}
