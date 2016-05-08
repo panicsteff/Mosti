@@ -18,11 +18,11 @@ public class Kundeneinkäufe {
 		return kundeneinkäufe.get(index);
 	}
 	
-	public boolean containsEinkauf(Einkauf e){
-		if(kundeneinkäufe.contains(e))
-			return true;
-		else return false;			
-	}
+//	public boolean containsEinkauf(Einkauf e){
+//		if(kundeneinkäufe.contains(e))
+//			return true;
+//		else return false;			
+//	}
 	
 	public void printKundeneinkäufe(){
 		int count = 1;
