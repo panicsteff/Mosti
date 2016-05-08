@@ -1,27 +1,37 @@
 package lagerverwaltung;
 
+import javax.swing.JOptionPane;
+
+import kundenverwaltung.KundenVerwaltung;
 import verkaufsverwaltung.Einkaufsposition;
 
 public class Produkt extends Einkaufsposition {
 
-	private int vorratsMenge;
+	private int vorratsmenge;
 	private int untergrenze;
 	private boolean isAbfüllmaterial;
 
-	public Produkt(String name, double preis, int menge, int untergrenze, boolean isA, int verkaufsmenge) {
+	public Produkt(String name, double preis, int menge, int untergrenze,
+			boolean isA, int verkaufsmenge) {
 		super(name, preis, verkaufsmenge);
 		this.setVorratsmenge(menge);
 		this.setUntergrenze(untergrenze);
 		this.setAbfüllmaterial(isA);
-		
+
 	}
 
 	public int getVorratsmenge() {
-		return vorratsMenge;
+		return vorratsmenge;
 	}
 
 	public void setVorratsmenge(int menge) {
-		this.vorratsMenge = menge;
+		this.vorratsmenge = menge;
+		if (vorratsmenge < untergrenze) {
+			JOptionPane.showMessageDialog(null,
+					"Die angegebene Untergrenze für das Produkt " + getName()
+							+ " wurde soeben unterschritten.", "Warnung",
+					JOptionPane.WARNING_MESSAGE);
+		}
 	}
 
 	public int getUntergrenze() {

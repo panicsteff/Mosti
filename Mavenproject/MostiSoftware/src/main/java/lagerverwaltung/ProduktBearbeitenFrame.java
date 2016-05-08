@@ -16,7 +16,7 @@ import javax.swing.text.NumberFormatter;
 import kundenverwaltung.NullableFormatter;
 
 @SuppressWarnings("serial")
-class ProduktBearbeitenDialog extends JDialog {
+class ProduktBearbeitenFrame extends JDialog {
 
 	private JTextField txtName;
 	private JFormattedTextField txtMenge;
@@ -25,7 +25,7 @@ class ProduktBearbeitenDialog extends JDialog {
 	private JCheckBox cBoxIsAbfuellmaterial;
 	private Produkt produkt;
 
-	ProduktBearbeitenDialog(JFrame parent, Produkt p) {
+	ProduktBearbeitenFrame(JFrame parent, Produkt p) {
 
 		super(parent);
 		this.produkt = p;
@@ -79,7 +79,7 @@ class ProduktBearbeitenDialog extends JDialog {
 			produkt.setUntergrenze(Integer.parseInt(txtUntergrenze.getText()));
 			if(produkt.isAbfüllmaterial() != cBoxIsAbfuellmaterial.isSelected()){
 				produkt.setAbfüllmaterial(cBoxIsAbfuellmaterial.isSelected());
-				LagerFrame.hasChanged = true;
+				LagerVerwaltungFrame.hasChanged = true;
 			}
 			dispose();
 		}

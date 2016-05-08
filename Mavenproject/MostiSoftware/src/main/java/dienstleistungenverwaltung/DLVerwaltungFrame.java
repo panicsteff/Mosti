@@ -25,14 +25,14 @@ import javax.swing.table.TableColumn;
 import lagerverwaltung.PreisCellRenderer;
 
 
-	public class DLFrame extends JFrame {
+	public class DLVerwaltungFrame extends JFrame {
 
 		private DLTableModel dlTableModel;
 		private ListSelectionModel dlSelectionModel;
 		private List<Dienstleistung> pliste;
 		private JMenuItem bearDL;
 
-		public DLFrame (List<Dienstleistung> auflistung) {
+		public DLVerwaltungFrame (List<Dienstleistung> auflistung) {
 
 			pliste = auflistung;
 
@@ -132,7 +132,7 @@ import lagerverwaltung.PreisCellRenderer;
 		}
 
 		private void addDL() {
-			new DLHinzufuegenDialog(this, pliste);
+			new DLHinzufuegenFrame(this, pliste);
 			dlTableModel.fireTableDataChanged();
 		}
 		
@@ -144,7 +144,7 @@ import lagerverwaltung.PreisCellRenderer;
 
 		private void bearbeiteDL() {
 			int row = dlSelectionModel.getMinSelectionIndex();
-			new DLBearbeitenDialog(this, dlTableModel.getDL(row));
+			new DLBearbeitenFrame(this, dlTableModel.getDL(row));
 			dlTableModel.fireTableRowsUpdated(row, row);
 		}
 

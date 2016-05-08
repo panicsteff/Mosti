@@ -19,7 +19,7 @@ import lagerverwaltung.FoFormat;
 
 import com.sun.glass.ui.Pixels.Format;
 
-class DLHinzufuegenDialog extends JDialog {
+class DLHinzufuegenFrame extends JDialog {
 
 	/**
 	 * 
@@ -31,7 +31,7 @@ class DLHinzufuegenDialog extends JDialog {
 	private List<Dienstleistung> liste;
 	private Format format;
 
-	public DLHinzufuegenDialog(JFrame parent, List<Dienstleistung> auflistung) {
+	public DLHinzufuegenFrame(JFrame parent, List<Dienstleistung> auflistung) {
 
 		super(parent);
 

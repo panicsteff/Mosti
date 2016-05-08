@@ -22,14 +22,14 @@ import com.sun.glass.ui.Pixels.Format;
 
 
 @SuppressWarnings("serial")
-class DLBearbeitenDialog extends JDialog {
+class DLBearbeitenFrame extends JDialog {
 
 	private JTextField txtName;
 	private JFormattedTextField txtPreis;
 	private Dienstleistung dienstleistung;
 	private Format format;
 
-	DLBearbeitenDialog(JFrame parent, Dienstleistung d) {
+	DLBearbeitenFrame(JFrame parent, Dienstleistung d) {
 
 		super(parent);
 		this.dienstleistung = d;
