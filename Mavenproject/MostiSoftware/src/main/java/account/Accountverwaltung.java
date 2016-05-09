@@ -18,7 +18,8 @@ public class Accountverwaltung {
 
 		try {
 			conn = DriverManager
-					.getConnection("jdbc:ucanaccess://C:/Users/Irmi/Desktop/Mosti/Mavenproject/MostiSoftware/Mosti-Datenkank.mdb");
+					//.getConnection("jdbc:ucanaccess://C:/Users/Irmi/Desktop/Mosti/Mavenproject/MostiSoftware/Mosti-Datenkank.mdb");
+					.getConnection("jdbc:ucanaccess://./Mosti-Datenkank.mdb");
 			Statement s = conn.createStatement();
 			ResultSet rs = s
 					.executeQuery("SELECT * FROM [mitarbeiter] Where Benutzername = \""
