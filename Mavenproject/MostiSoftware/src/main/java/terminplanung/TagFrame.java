@@ -9,6 +9,7 @@ import java.util.Date;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.ListSelectionModel;
@@ -21,14 +22,20 @@ public class TagFrame extends JFrame {
 	class MyMouseListener extends MouseAdapter{
 		public void mousePressed(MouseEvent event){
 			if(event.getClickCount() == 2){
-				int dauer = parent.getTerminlänge();
-				int anzahlZeitslots = dauer/k.getZeitslot();
-				int zeile = terminSelectionModel.getMaxSelectionIndex();
-				ArrayList<Termin> t = termineTableModel.getTermine(zeile, anzahlZeitslots);
-				String uhrzeit = termineCellRenderer.getText();
-				new TerminErstellenDialog(dauer, datum, t, uhrzeit);
-				termineTableModel.fireTableRowsUpdated(zeile, zeile + dauer/k.getZeitslot());
-				terminDb.termineSpeichern(termineTableModel.getAlleTermine(), datum);
+				
+				if(parent == null){
+					JOptionPane.showMessageDialog(null, "Du geile Sau");
+				} else{
+					int dauer = parent.getTerminlänge();
+					int anzahlZeitslots = dauer/k.getZeitslot();
+					int zeile = terminSelectionModel.getMaxSelectionIndex();
+					ArrayList<Termin> t = termineTableModel.getTermine(zeile, anzahlZeitslots);
+					String uhrzeit = termineCellRenderer.getText();
+					new TerminErstellenDialog(dauer, datum, t, uhrzeit);
+					termineTableModel.fireTableRowsUpdated(zeile, zeile + dauer/k.getZeitslot());
+					terminlogik.termineSpeichern(termineTableModel.getAlleTermine(), datum);
+				}
+								
 			}
 		}
 	}
@@ -37,7 +44,7 @@ public class TagFrame extends JFrame {
 	private Konfigurationswerte k = new Konfigurationswerte();
 	private ArrayList<Termin> terminliste;
 	private TermineTableModel termineTableModel;
-	private TerminDB terminDb;
+	private TerminLogik terminlogik;
 	private JTable tagesTabelle;
 	private Date datum;
 	private int anzeigeseite;
@@ -50,14 +57,15 @@ public class TagFrame extends JFrame {
 		datum = d;
 		anzeigeseite = as;	
 		
+		terminlogik = new TerminLogik();
+		
 		setSize(500, 800);
 		String title = Formats.DATE_FORMAT.format(datum);
 		setTitle(title);
 		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 		setLayout(null);
 		
-		terminDb = new TerminDB();
-		terminliste = terminDb.termineLaden(datum, anzeigeseite);
+		terminliste = terminlogik.termineLaden(datum, anzeigeseite);
 		
 
 		termineTableModel = new TermineTableModel(terminliste);

@@ -18,60 +18,48 @@ public class TerminDB {
 	private int arbeitsbeginn;
 	private int arbeitsende;
 	private int aufteilung;
-	private int anzahlProSeite;
-
+	
 	public TerminDB(){
-		init();
+		init();												//braucht man des dann no?
 	}
 	
-	ArrayList<Termin> termineLaden(Date datum, int anzeigeseite) {
-
-		int obergrenze = anzeigeseite * anzahlProSeite;
-		int untergrenze = (anzeigeseite - 1)*anzahlProSeite + 1;
-		ArrayList<Termin> terminliste = new ArrayList<Termin>();
-		calendar = new GregorianCalendar();
-		calendar.setTime(datum);
-		int laufenderTag = calendar.get(Calendar.DAY_OF_YEAR); 
+	ArrayList<Integer> termineLaden(int obergrenze, int untergrenze, int laufenderTag){
+		
+		ArrayList<Integer> zahlenliste = new ArrayList<Integer>();
 		
 		try {
 			conn = DriverManager
 					.getConnection("jdbc:ucanaccess://./Mosti-Datenkank.mdb");
 			Statement s = conn.createStatement();
 			ResultSet rs = s
-					.executeQuery("SELECT * FROM [termine] Where id between "
+					.executeQuery("SELECT Tag" + laufenderTag + " FROM [termine] Where id between "
 							+ untergrenze + " and " + obergrenze);
 
 			
 			while (rs.next()) {
-				Termin t = new Termin();
-				t.setKundenId(rs.getInt("Tag" + laufenderTag));
-				t.setTerminId(rs.getInt("ID"));
-				terminliste.add(t);
+				Integer i = rs.getInt("Tag" + laufenderTag);
+				zahlenliste.add(i);
 			}
 			s.close();
 
 		} catch (Exception e) {
 			System.out.println(e);
 		}
-
-		return terminliste;
+		
+		return zahlenliste;
 	}
 	
-	void termineSpeichern(ArrayList<Termin> terminliste, Date datum){
-		
-		calendar = new GregorianCalendar();
-		calendar.setTime(datum);
-		int laufenderTag = calendar.get(Calendar.DAY_OF_YEAR); 
+	void termineSpeichern(ArrayList<Integer> terminIdListe, ArrayList<Integer> kundenIdListe, int laufenderTag){
 		
 		try {
 			conn = DriverManager
 					.getConnection("jdbc:ucanaccess://./Mosti-Datenkank.mdb");
 			PreparedStatement s=null;
 			
-			for(Termin t: terminliste){
+			for(int i=0; i<terminIdListe.size(); i++){
 				s = conn.prepareStatement("Update termine set Tag" + laufenderTag + " = ? where id = ?");
-				s.setInt(1, t.getKundenId());
-				s.setInt(2, t.getTerminId());
+				s.setInt(1, kundenIdListe.get(i));
+				s.setInt(2, terminIdListe.get(i));
 				
 				s.executeUpdate();
 				
@@ -185,7 +173,6 @@ public class TerminDB {
 				arbeitsende = i;
 				i = rs.getInt("AnzeigeAufteilung");
 				aufteilung = i;
-				anzahlProSeite = (arbeitsende-arbeitsbeginn)/(zeitslot*aufteilung);
 			}
 			s.close();
 
