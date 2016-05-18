@@ -3,8 +3,10 @@ package main;
 import java.util.ArrayList;
 import java.util.List;
 
+import lagerverwaltung.LagerDB;
 import lagerverwaltung.Produkt;
 import dienstleistungenverwaltung.Dienstleistung;
+import dienstleistungenverwaltung.DienstleistungenDB;
 
 public class Angebote {
 
@@ -13,29 +15,60 @@ public class Angebote {
 	static ArrayList<Produkt> abfuellSortiment;
 	static ArrayList<Dienstleistung> DLSortiment;
 	private boolean hasChanged;
+	private LagerDB lagerdb;
+	private DienstleistungenDB dldb;
 
 	Angebote() {
+		lagerdb = new LagerDB();
+		dldb = new DienstleistungenDB(); 
 		zProduktSortiment = new ArrayList<Produkt>();
 		abfuellSortiment = new ArrayList<Produkt>();
-		DLSortiment = new ArrayList<Dienstleistung>();
-		gesamtProduktSortiment = new ArrayList<Produkt>();
+		//DLSortiment = new ArrayList<Dienstleistung>();
+		//gesamtProduktSortiment = new ArrayList<Produkt>();
+		DLSortiment = dldb.dienstleistungenLaden();
+		gesamtProduktSortiment = lagerdb.produkteLaden();
+		createSpecialLists();
 		hasChanged = false;
 	}
 
-	public void addProdukt(Produkt p) {
-		if (p.isAbfüllmaterial() == true)
-			abfuellSortiment.add(p);
-		else
-			zProduktSortiment.add(p);
-		hasChanged = true;
+//	public void addProdukt(Produkt p) {
+//		if (p.isAbfüllmaterial() == true)
+//			abfuellSortiment.add(p);
+//		else
+//			zProduktSortiment.add(p);
+//		hasChanged = true;
+//	}
+	
+	private void createSpecialLists() {
+		for(Produkt p: gesamtProduktSortiment){
+			if (p.isAbfüllmaterial() == true)
+				abfuellSortiment.add(p);
+			else
+				zProduktSortiment.add(p);
+		}
 	}
+//		if (p.isAbfüllmaterial() == true)
+//			abfuellSortiment.add(p);
+//		else
+//			zProduktSortiment.add(p);
+//		hasChanged = true;
+//	}
+	
+	
+	public void addProdukt(Produkt p) {
+		gesamtProduktSortiment.add(p);
+	}
+	
+//	public void deleteProdukt(Produkt p) {
+//		if (p.isAbfüllmaterial() == true)
+//			abfuellSortiment.remove(p);
+//		else
+//			zProduktSortiment.remove(p);
+//		hasChanged = true;
+//	}
 
 	public void deleteProdukt(Produkt p) {
-		if (p.isAbfüllmaterial() == true)
-			abfuellSortiment.remove(p);
-		else
-			zProduktSortiment.remove(p);
-		hasChanged = true;
+		gesamtProduktSortiment.remove(p);
 	}
 
 	public void addDienstleistung(Dienstleistung d) {
@@ -46,19 +79,23 @@ public class Angebote {
 		DLSortiment.remove(d);
 	}
 	
-	public void createGesamtProduktSortiment(){
-		for(Produkt p : abfuellSortiment){
-			gesamtProduktSortiment.add(p);
-		}
-		for(Produkt p : zProduktSortiment){
-			gesamtProduktSortiment.add(p);
-		}
-	}
+//	public void createGesamtProduktSortiment(){
+//		for(Produkt p : abfuellSortiment){
+//			gesamtProduktSortiment.add(p);
+//		}
+//		for(Produkt p : zProduktSortiment){
+//			gesamtProduktSortiment.add(p);
+//		}
+//	}
+	
+//	public List<Produkt> getGesamtSortiment(){
+//		if(hasChanged == true)
+//			createGesamtProduktSortiment();
+//		hasChanged = false;
+//		return gesamtProduktSortiment;
+//	}
 	
 	public List<Produkt> getGesamtSortiment(){
-		if(hasChanged == true)
-			createGesamtProduktSortiment();
-		hasChanged = false;
 		return gesamtProduktSortiment;
 	}
 
@@ -66,24 +103,24 @@ public class Angebote {
 		return DLSortiment;
 	}
 
-	public ArrayList<Produkt> getZProduktSortiment() {
-		return zProduktSortiment;
-	}
+//	public ArrayList<Produkt> getZProduktSortiment() {
+//		return zProduktSortiment;
+//	}
+//
+//	public ArrayList<Produkt> getAbfuellSortiment() {
+//		return abfuellSortiment;
+//	}
 
-	public ArrayList<Produkt> getAbfuellSortiment() {
-		return abfuellSortiment;
-	}
-
-	public void switchList(Produkt p) {
-		if (abfuellSortiment.contains(p) && p.isAbfüllmaterial() == false) {
-			deleteProdukt(p);
-			addProdukt(p);
-		} else if (zProduktSortiment.contains(p)
-				&& p.isAbfüllmaterial() == true) {
-			deleteProdukt(p);
-			addProdukt(p);
-		}
-		hasChanged = false;
-	}
+//	public void switchList(Produkt p) {
+//		if (abfuellSortiment.contains(p) && p.isAbfüllmaterial() == false) {
+//			deleteProdukt(p);
+//			addProdukt(p);
+//		} else if (zProduktSortiment.contains(p)
+//				&& p.isAbfüllmaterial() == true) {
+//			deleteProdukt(p);
+//			addProdukt(p);
+//		}
+//		hasChanged = false;
+//	}
 
 }
