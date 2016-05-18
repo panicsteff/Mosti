@@ -24,7 +24,7 @@ public class TagFrame extends JFrame {
 			if(event.getClickCount() == 2){
 				
 				if(parent == null){
-					JOptionPane.showMessageDialog(null, "Du geile Sau");
+					JOptionPane.showMessageDialog(null, "Termin bearbeiten");
 				} else{
 					int dauer = parent.getTerminlänge();
 					int anzahlZeitslots = dauer/k.getZeitslot();

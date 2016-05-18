@@ -12,18 +12,24 @@ public class TerminLogik {
 	
 	public TerminLogik(){
 		k = new Konfigurationswerte();
+		terminDb = new TerminDB();
 	}
 	
 	
-	ArrayList<Termin> zahlenNachTermine(ArrayList<Integer> terminzahlen, int anzeigeseite) {
+	ArrayList<Termin> zahlenNachTermine(ArrayList<Integer> terminzahlen) {
 
 		ArrayList<Termin> terminliste = new ArrayList<Termin>();
 		
 		for(int i = 0; i < terminzahlen.size(); i++){
 			Termin t = new Termin();
 			t.setKundenId(terminzahlen.get(i));
-			int terminid = i + (anzeigeseite-1)*k.getZeilenanzahlProSeite();
-			t.setTerminId(terminid);	
+			t.setTerminId(i+1);									//ID zählung beginnt bei 1!!!
+			
+//			Date d = new Date();
+//			int stunde;
+//			int minute;
+//			d.setHours(hours);
+//			t.setUhrzeit(uhrzeit);
 			terminliste.add(t);
 		}
 		
@@ -51,19 +57,16 @@ public class TerminLogik {
 		
 		return terminIdListe;
 	}
+
+	ArrayList<Termin> termineLaden(Date datum){
 	
-	
-	ArrayList<Termin> termineLaden(Date datum, int anzeigeseite){
-	
-		int obergrenze = anzeigeseite * k.getZeilenanzahlProSeite();
-		int untergrenze = (anzeigeseite - 1)*k.getZeilenanzahlProSeite() + 1;
+		int obergrenze = (k.getArbeitsende() - k.getArbeitsbeginn()) / k.getZeitslot();
 		Calendar calendar = new GregorianCalendar();
 		calendar.setTime(datum);
 		int laufenderTag = calendar.get(Calendar.DAY_OF_YEAR); 
 		
-		terminDb = new TerminDB();
-		ArrayList<Integer> terminzahlen = terminDb.termineLaden(obergrenze, untergrenze, laufenderTag);
-		ArrayList<Termin> terminliste = zahlenNachTermine(terminzahlen, anzeigeseite);
+		ArrayList<Integer> terminzahlen = terminDb.termineLaden(obergrenze, laufenderTag);
+		ArrayList<Termin> terminliste = zahlenNachTermine(terminzahlen);
 		
 		return terminliste;
 		
@@ -82,5 +85,17 @@ public class TerminLogik {
 		
 	}
 	
-	
+	ArrayList<Termin> freieTermineSuchen(Date d){
+
+		ArrayList<Termin> freieTermine = termineLaden(d);
+		
+		for(int i=0; i<freieTermine.size(); i++){
+			if(freieTermine.get(i).getKundenId() == 0){
+				freieTermine.remove(i);
+			}
+		}
+		
+		return freieTermine;
+		
+	}
 }
