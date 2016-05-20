@@ -70,8 +70,7 @@ public class M_Startseite extends JFrame {
 //				p.add(p1);
 //				p.add(p2);
 //				p.add(p3);
-				//LagerVerwaltungFrame l = new LagerVerwaltungFrame(angebote.getAbfuellSortiment(), angebote.getZProduktSortiment());
-				LagerVerwaltungFrame l = new LagerVerwaltungFrame(angebote);
+				LagerVerwaltungFrame l = new LagerVerwaltungFrame(angebote.getAbfuellSortiment(), angebote.getZProduktSortiment());
 			}
 		});
 		
