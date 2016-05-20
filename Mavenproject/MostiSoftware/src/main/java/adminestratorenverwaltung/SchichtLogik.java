@@ -19,7 +19,7 @@ public class SchichtLogik {
 	
 	ArrayList<Schicht> zahlenNachSchichten(ArrayList<Integer> schichtzahlen) {
 
-		ArrayList<Schicht> terminliste = new ArrayList<Schicht>();
+		ArrayList<Schicht> schichtliste = new ArrayList<Schicht>();
 		
 		for(int i = 0; i < schichtzahlen.size(); i++){
 			Schicht s = new Schicht();
@@ -31,10 +31,10 @@ public class SchichtLogik {
 //			int minute;
 //			d.setHours(hours);
 //			t.setUhrzeit(uhrzeit);
-			terminliste.add(s);
+			schichtliste.add(s);
 		}
 		
-		return terminliste;
+		return schichtliste;
 	}
 	
 	ArrayList<Integer> schichtNachZahlen(ArrayList<Schicht> schichtliste){
@@ -52,14 +52,14 @@ public class SchichtLogik {
 		ArrayList<Integer> schichtIdListe = new ArrayList<Integer>();
 		
 		for(int i=0; i<schichtliste.size(); i++){
-			int terminid = schichtliste.get(i).getSchichtId();
-			schichtIdListe.add(terminid);
+			int schichtid = schichtliste.get(i).getSchichtId();
+			schichtIdListe.add(schichtid);
 		}
 		
 		return schichtIdListe;
 	}
 
-	ArrayList<Schicht> termineLaden(Date datum){
+	ArrayList<Schicht> schichtLaden(Date datum){
 	
 		int obergrenze = (k.getArbeitsende() - k.getArbeitsbeginn()) / k.getZeitslot();
 		Calendar calendar = new GregorianCalendar();
@@ -73,7 +73,7 @@ public class SchichtLogik {
 		
 	}
 	
-	void termineSpeichern(ArrayList<Schicht> schichtliste, Date datum){
+	void schichtSpeichern(ArrayList<Schicht> schichtliste, Date datum){
 		
 		ArrayList<Integer> mitarbeiterIdListe = schichtNachZahlen(schichtliste);
 		ArrayList<Integer> schichtIdListe = schichtNachZahlen(schichtliste);

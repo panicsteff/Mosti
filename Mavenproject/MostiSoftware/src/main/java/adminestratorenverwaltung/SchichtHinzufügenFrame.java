@@ -53,9 +53,9 @@ public class SchichtHinzufügenFrame extends JFrame{
 				txtdauer.setEnabled(true);
 				txtdauer.setText(länge + "");
 				titlepane.setEnabled(true);
-				freieSchicht = schichtplanDb.freieSchichtSuchen(new Date()); 
+				//freieSchicht = schichtplanDb.freieSchichtSuchen(new Date()); 
 				//vom heutigen Tag aus mit arbeitsende und zeitslots
-				fstm = new FreieSchichtTableModel(freieTermine);
+				fstm = new FreieSchichtTableModel(freieSchicht);
 				verfügbarTabelle.setModel(fstm);
 				tcm = verfügbarTabelle.getColumnModel();
 				tcm.getColumn(1).setCellRenderer(new SchichtCellRenderer());
@@ -71,7 +71,7 @@ public class SchichtHinzufügenFrame extends JFrame{
 	
 	private static final long serialVersionUID = 1L;
 	private Konfigurationswerte k = new Konfigurationswerte();
-	private ArrayList<Schicht> freieTermine;
+	private ArrayList<Schicht> freieSchicht;
 	private JTextField txtmenge;
 	private JLabel dauer;
 	private JTextField txtdauer;

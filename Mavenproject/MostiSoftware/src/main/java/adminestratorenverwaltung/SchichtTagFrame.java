@@ -48,7 +48,7 @@ public class SchichtTagFrame extends JFrame{
 	private JTable tagesTabelle;
 	private Date datum;
 	private int anzeigeseite;
-	private ListSelectionModel terminSelectionModel;
+	private ListSelectionModel schichtSelectionModel;
 	private SchichtCellRenderer schichtCellRenderer;
 	private SchichtHinzufügenFrame parent;
 
@@ -65,7 +65,7 @@ public class SchichtTagFrame extends JFrame{
 		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 		setLayout(null);
 		
-		schichtliste = schichtlogik.schichtLaden(datum, anzeigeseite);
+		schichtliste = schichtlogik.schichtLaden(datum);
 		
 
 		schichtTableModel = new SchichtTableModel(schichtliste);
@@ -80,8 +80,8 @@ public class SchichtTagFrame extends JFrame{
 		tcm.getColumn(1).setCellRenderer(new MitarbeiterNameCellRenderer());
 
 
-		terminSelectionModel = tagesTabelle.getSelectionModel();
-		terminSelectionModel.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+		schichtSelectionModel = tagesTabelle.getSelectionModel();
+		schichtSelectionModel.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		tagesTabelle.addMouseListener(new MyMouseListener());
 
 		JScrollPane scrollpane = new JScrollPane(tagesTabelle);
