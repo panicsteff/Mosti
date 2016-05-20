@@ -14,6 +14,7 @@ import javax.swing.JLabel;
 import javax.swing.JTextField;
 import javax.swing.text.NumberFormatter;
 
+import main.Angebote;
 import kundenverwaltung.NullableFormatter;
 
 import com.sun.glass.ui.Pixels.Format;
@@ -30,22 +31,21 @@ class ProduktHinzufuegenFrame extends JDialog {
 	private JFormattedTextField txtUntergrenze;
 	private JCheckBox cBoxIsAbfuellmaterial;
 	private Produkt produkt;
-<<<<<<< HEAD
 //	private List<Produkt> aliste;
 //	private List<Produkt> zliste;
-	//private List<Produkt> pliste;
+	private List<Produkt> pliste;
 	private Angebote a;
-=======
-	private List<Produkt> aliste;
-	private List<Produkt> zliste;
->>>>>>> a080322e1bc4b6b3257bb1e3a3157651d681482a
 
-	ProduktHinzufuegenFrame(JFrame parent, List<Produkt> a_auflistung, List<Produkt> z_auflistung) {
+	//ProduktHinzufuegenFrame(JFrame parent, List<Produkt> a_auflistung, List<Produkt> z_auflistung) {
+	//ProduktHinzufuegenFrame(JFrame parent, List<Produkt> pliste) {
+		ProduktHinzufuegenFrame(JFrame parent, Angebote a) {
 
 		super(parent);
-
-		this.aliste = a_auflistung;
-		this.zliste = z_auflistung;
+		this.a = a;
+		
+//		this.aliste = a_auflistung;
+//		this.zliste = z_auflistung;
+		//this.pliste = pliste;
 				
 		setTitle("Neues Produkt erstellen");
 		setSize(300, 200);
@@ -88,13 +88,18 @@ class ProduktHinzufuegenFrame extends JDialog {
 			produkt = new Produkt(txtName.getText(), Double.parseDouble(txtPreis.getText()), Integer.parseInt(txtMenge.getText()), 
 					Integer.parseInt(txtUntergrenze.getText()), cBoxIsAbfuellmaterial.isSelected(), 0);
 			
-			if(produkt.isAbfüllmaterial()== true)
-				aliste.add(produkt);
-			else
-				zliste.add(produkt);
+			//pliste.add(produkt);
+			a.addProdukt(produkt);
+			
+//			if(produkt.isAbfüllmaterial()== true)
+//				aliste.add(produkt);
+//			else
+//				zliste.add(produkt);
+			
 			dispose();
 
 		}
+
 
 	}
 

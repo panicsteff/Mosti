@@ -1,3 +1,4 @@
+
 package lagerverwaltung;
 
 import java.awt.BorderLayout;
@@ -20,6 +21,8 @@ import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.table.TableColumn;
 
+import main.Angebote;
+
 
 public class LagerVerwaltungFrame extends JFrame {
 
@@ -28,16 +31,19 @@ public class LagerVerwaltungFrame extends JFrame {
 	private LagerTableModel lagerTableModel;
 	private ListSelectionModel produktSelectionModel;
 	//private List<Produkt> pliste;
-	private List<Produkt> aliste;
-	private List<Produkt> zliste;
+//	private List<Produkt> aliste;
+//	private List<Produkt> zliste;
 	private JMenuItem bearP;
 	static boolean hasChanged;
+	private JMenuItem miSpeichern;
+	Angebote a;
 
-	public LagerVerwaltungFrame(List<Produkt> a_auflistung, List<Produkt> z_auflistung) {
-
-		//pliste = auflistung;
-		aliste = a_auflistung;
-		zliste = z_auflistung;
+//	public LagerVerwaltungFrame(List<Produkt> a_auflistung, List<Produkt> z_auflistung) {
+	public LagerVerwaltungFrame(Angebote angebote) {
+		this.a = angebote;
+		//pliste = a.getGesamtSortiment();
+//		aliste = a_auflistung;
+//		zliste = z_auflistung;
 		hasChanged = false;
 //		createGesamtListe();
 		
@@ -56,16 +62,37 @@ public class LagerVerwaltungFrame extends JFrame {
 //		JMenuItem save = new JMenuItem("Produkt-Liste speichern");
 //		datei.add(save);
 		datei.addSeparator();
+		
+		miSpeichern = new JMenuItem("Produktangebot speichern");
+		datei.add(miSpeichern);
+		miSpeichern.addActionListener(new ActionListener() {
+
+			public void actionPerformed(ActionEvent e) {
+				try {
+					a.createSpecialLists();
+					a.printGesamtListe();
+					//a.produkteSpeichern();
+					
+				} catch (Exception ex) {
+					System.out.println(e);
+				}
+			}
+		});
+		
+		datei.addSeparator();
+		
 		JMenuItem beenden = new JMenuItem("Beenden");
 		datei.add(beenden);
 
 		beenden.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent event) {
+				a.createSpecialLists();
+//				a.produkteSpeichern();
 				dispose();
 			}
 		});
-
-		JMenu bearbeiten = new JMenu("Bearbeiten");
+		
+		JMenu bearbeiten = new JMenu("Produktangebot bearbeiten");
 		menubar.add(bearbeiten);
 		JMenuItem newP = new JMenuItem("Neues Produkt hinzufügen");
 		bearbeiten.add(newP);
@@ -95,8 +122,8 @@ public class LagerVerwaltungFrame extends JFrame {
 		});
 		bearP.setEnabled(false);
 
-		//lagerTableModel = new LagerTableModel(pliste);
-		lagerTableModel = new LagerTableModel(aliste, zliste);
+		lagerTableModel = new LagerTableModel(/*pliste*/a.getGesamtSortiment());
+		//lagerTableModel = new LagerTableModel(aliste, zliste);
 		JTable ptabelle = new JTable(lagerTableModel);
 
 		produktSelectionModel = ptabelle.getSelectionModel();
@@ -149,11 +176,9 @@ public class LagerVerwaltungFrame extends JFrame {
 	}
 	
 	private void addProdukt() {
-<<<<<<< HEAD
+		//new ProduktHinzufuegenFrame(this, aliste, zliste);
+		//new ProduktHinzufuegenFrame(this, pliste);
 		new ProduktHinzufuegenFrame(this, a);
-=======
-		new ProduktHinzufuegenFrame(this, aliste, zliste);
->>>>>>> a080322e1bc4b6b3257bb1e3a3157651d681482a
 		printListe();
 		lagerTableModel.fireTableDataChanged();
 	}
@@ -161,10 +186,11 @@ public class LagerVerwaltungFrame extends JFrame {
 	private void deleteProdukt() {
 		int row = produktSelectionModel.getMinSelectionIndex();
 		Produkt p = lagerTableModel.getProdukt(row);
-		if(aliste.contains(p)== true)
-			aliste.remove(p);
-		else
-			zliste.remove(p);
+		a.deleteProdukt(p);
+//		if(aliste.contains(p)== true)
+//			aliste.remove(p);
+//		else
+//			zliste.remove(p);
 		printListe();
 		lagerTableModel.fireTableDataChanged();
 	}
@@ -173,27 +199,37 @@ public class LagerVerwaltungFrame extends JFrame {
 		int row = produktSelectionModel.getMinSelectionIndex();
 		Produkt p = lagerTableModel.getProdukt(row);
 		new ProduktBearbeitenFrame(this, p);
-		if(hasChanged == true){
-			if (aliste.contains(p) && p.isAbfüllmaterial() == false) {
-				aliste.remove(p);
-				zliste.add(p);
-			} else if (zliste.contains(p) && p.isAbfüllmaterial() == true) {
-				zliste.remove(p);
-				aliste.add(p);
-			}
-			hasChanged = false;
-		}
+		
+//		if(hasChanged == true){
+//			if (aliste.contains(p) && p.isAbfüllmaterial() == false) {
+//				aliste.remove(p);
+//				zliste.add(p);
+//			} else if (zliste.contains(p) && p.isAbfüllmaterial() == true) {
+//				zliste.remove(p);
+//				aliste.add(p);
+//			}
+//			hasChanged = false;
+//		}
+		a.produkteAktualisieren();
 		printListe();
-		lagerTableModel.fireTableRowsUpdated(0, (aliste != null? aliste.size() : 0)+(zliste != null? zliste.size() : 0)-1);
+		//lagerTableModel.fireTableRowsUpdated(0, (aliste != null? aliste.size() : 0)+(zliste != null? zliste.size() : 0)-1);
+		lagerTableModel.fireTableRowsUpdated(0, (a.getGesamtSortiment() != null? a.getGesamtSortiment().size() : 0));
+	}
+	
+	Angebote getAngebote(){
+		return a;
 	}
 	
 	private void printListe(){
 		System.out.println();
-		for(Produkt p:aliste){
-			System.out.print(p.getName());
-		}
-		System.out.println();
-		for(Produkt p:zliste){
+//		for(Produkt p:aliste){
+//			System.out.print(p.getName());
+//		}
+//		System.out.println();
+//		for(Produkt p:zliste){
+//			System.out.print(p.getName());
+//		}
+		for(Produkt p:a.getGesamtSortiment()){
 			System.out.print(p.getName());
 		}
 		System.out.println();
@@ -220,3 +256,4 @@ public class LagerVerwaltungFrame extends JFrame {
 //	}
 
 }
+

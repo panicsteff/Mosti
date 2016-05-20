@@ -1,3 +1,4 @@
+
 package main;
 
 import java.util.ArrayList;
@@ -10,43 +11,42 @@ import dienstleistungenverwaltung.DienstleistungenDB;
 
 public class Angebote {
 
-	static List<Produkt> gesamtProduktSortiment;
+	private static ArrayList<Produkt> gesamtProduktSortiment;
+	static ArrayList<Dienstleistung> DLSortiment;
 	static ArrayList<Produkt> zProduktSortiment;
 	static ArrayList<Produkt> abfuellSortiment;
-	static ArrayList<Dienstleistung> DLSortiment;
-	private boolean hasChanged;
+	//private boolean hasChanged;
 	private LagerDB lagerdb;
 	private DienstleistungenDB dldb;
 
 	Angebote() {
 		lagerdb = new LagerDB();
 		dldb = new DienstleistungenDB(); 
-		zProduktSortiment = new ArrayList<Produkt>();
-		abfuellSortiment = new ArrayList<Produkt>();
 		//DLSortiment = new ArrayList<Dienstleistung>();
 		//gesamtProduktSortiment = new ArrayList<Produkt>();
 		DLSortiment = dldb.dienstleistungenLaden();
 		gesamtProduktSortiment = lagerdb.produkteLaden();
 		createSpecialLists();
-		hasChanged = false;
+		//hasChanged = false;
 	}
-
-//	public void addProdukt(Produkt p) {
-//		if (p.isAbfüllmaterial() == true)
-//			abfuellSortiment.add(p);
-//		else
-//			zProduktSortiment.add(p);
-//		hasChanged = true;
-//	}
 	
-	private void createSpecialLists() {
+	
+	public void createSpecialLists() {
+		zProduktSortiment = new ArrayList<Produkt>();
+		abfuellSortiment = new ArrayList<Produkt>();
+		if(gesamtProduktSortiment.size() > 0){
 		for(Produkt p: gesamtProduktSortiment){
 			if (p.isAbfüllmaterial() == true)
 				abfuellSortiment.add(p);
 			else
 				zProduktSortiment.add(p);
+		}}
+	}
+	
+	public void printGesamtListe(){
+		for(Produkt p: gesamtProduktSortiment){
+			System.out.print(p.getName() + " ");
 		}
-<<<<<<< HEAD
 		System.out.println();
 	}
 	
@@ -54,7 +54,6 @@ public class Angebote {
 		System.out.println("Jou Datenbank");
 		printGesamtListe();
 		lagerdb.produkteUpdaten(gesamtProduktSortiment);
-		createSpecialLists();
 	}
 	
 	public void addProdukt(Produkt p) {
@@ -69,18 +68,16 @@ public class Angebote {
 		createSpecialLists();
 	}
 	
-	public void dienstleistungenAktualisieren(){
-		dldb.dlUpdaten(DLSortiment);
-	}
-	
 	public void addDienstleistung(Dienstleistung d) {
-		dldb.dienstleistungHinzufügen(d);
 		DLSortiment.add(d);
 	}
 
 	public void deleteDienstleistung(Dienstleistung d) {
-		dldb.dienstleistungLöschen(d);
 		DLSortiment.remove(d);
+	}
+	
+	public void dienstleistungenAktualisieren(){
+		dldb.dlUpdaten(DLSortiment);
 	}
 	
 	public List<Produkt> getGesamtSortiment(){
@@ -89,9 +86,27 @@ public class Angebote {
 
 	public ArrayList<Dienstleistung> getDLSortiment() {
 		return DLSortiment;
-=======
->>>>>>> a080322e1bc4b6b3257bb1e3a3157651d681482a
 	}
+	
+	public ArrayList<Produkt> getZProduktSortiment() {
+		return zProduktSortiment;
+	}
+
+	public ArrayList<Produkt> getAbfuellSortiment() {
+		return abfuellSortiment;
+	}
+	
+	
+	
+//	public void addProdukt(Produkt p) {
+//	if (p.isAbfüllmaterial() == true)
+//		abfuellSortiment.add(p);
+//	else
+//		zProduktSortiment.add(p);
+//	hasChanged = true;
+//}
+	
+	
 //		if (p.isAbfüllmaterial() == true)
 //			abfuellSortiment.add(p);
 //		else
@@ -99,10 +114,6 @@ public class Angebote {
 //		hasChanged = true;
 //	}
 	
-	
-	public void addProdukt(Produkt p) {
-		gesamtProduktSortiment.add(p);
-	}
 	
 //	public void deleteProdukt(Produkt p) {
 //		if (p.isAbfüllmaterial() == true)
@@ -112,18 +123,6 @@ public class Angebote {
 //		hasChanged = true;
 //	}
 
-	public void deleteProdukt(Produkt p) {
-		gesamtProduktSortiment.remove(p);
-	}
-
-	public void addDienstleistung(Dienstleistung d) {
-		DLSortiment.add(d);
-	}
-
-	public void deleteDienstleistung(Dienstleistung d) {
-		DLSortiment.remove(d);
-	}
-	
 //	public void createGesamtProduktSortiment(){
 //		for(Produkt p : abfuellSortiment){
 //			gesamtProduktSortiment.add(p);
@@ -139,22 +138,8 @@ public class Angebote {
 //		hasChanged = false;
 //		return gesamtProduktSortiment;
 //	}
-	
-	public List<Produkt> getGesamtSortiment(){
-		return gesamtProduktSortiment;
-	}
 
-	public ArrayList<Dienstleistung> getDLSortiment() {
-		return DLSortiment;
-	}
 
-//	public ArrayList<Produkt> getZProduktSortiment() {
-//		return zProduktSortiment;
-//	}
-//
-//	public ArrayList<Produkt> getAbfuellSortiment() {
-//		return abfuellSortiment;
-//	}
 
 //	public void switchList(Produkt p) {
 //		if (abfuellSortiment.contains(p) && p.isAbfüllmaterial() == false) {
@@ -169,3 +154,4 @@ public class Angebote {
 //	}
 
 }
+
