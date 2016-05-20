@@ -1,13 +1,8 @@
 package main;
 
-import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.swing.JOptionPane;
-
-import kundenverwaltung.Kunde;
-import kundenverwaltung.KundenVerwaltung;
 import lagerverwaltung.LagerDB;
 import lagerverwaltung.Produkt;
 import dienstleistungenverwaltung.Dienstleistung;
@@ -58,24 +53,33 @@ public class Angebote {
 		System.out.println("Jou Datenbank");
 		printGesamtListe();
 		lagerdb.produkteUpdaten(gesamtProduktSortiment);
-	}
-	
-	public void addDienstleistung(Dienstleistung d) {
-		DLSortiment.add(d);
-	}
-
-	public void deleteDienstleistung(Dienstleistung d) {
-		DLSortiment.remove(d);
+		createSpecialLists();
 	}
 	
 	public void addProdukt(Produkt p) {
 		lagerdb.produktHinzufügen(p);
 		gesamtProduktSortiment.add(p);
+		createSpecialLists();
 	}
 	
 	public void deleteProdukt(Produkt p) {
 		lagerdb.produktLöschen(p);
 		gesamtProduktSortiment.remove(p);
+		createSpecialLists();
+	}
+	
+	public void dienstleistungenAktualisieren(){
+		dldb.dlUpdaten(DLSortiment);
+	}
+	
+	public void addDienstleistung(Dienstleistung d) {
+		dldb.dienstleistungHinzufügen(d);
+		DLSortiment.add(d);
+	}
+
+	public void deleteDienstleistung(Dienstleistung d) {
+		dldb.dienstleistungLöschen(d);
+		DLSortiment.remove(d);
 	}
 	
 	public List<Produkt> getGesamtSortiment(){

@@ -33,7 +33,7 @@ class ProduktHinzufuegenFrame extends JDialog {
 	private Produkt produkt;
 //	private List<Produkt> aliste;
 //	private List<Produkt> zliste;
-	private List<Produkt> pliste;
+	//private List<Produkt> pliste;
 	private Angebote a;
 
 	//ProduktHinzufuegenFrame(JFrame parent, List<Produkt> a_auflistung, List<Produkt> z_auflistung) {

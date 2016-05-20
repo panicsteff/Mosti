@@ -77,7 +77,7 @@ public class M_Startseite extends JFrame {
 		
 		dlButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				DLVerwaltungFrame dl = new DLVerwaltungFrame(angebote.getDLSortiment());
+				DLVerwaltungFrame dl = new DLVerwaltungFrame(angebote);
 			}
 		});
 
