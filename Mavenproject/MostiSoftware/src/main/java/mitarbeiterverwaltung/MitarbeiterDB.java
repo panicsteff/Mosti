@@ -5,6 +5,7 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 
@@ -13,8 +14,7 @@ public class MitarbeiterDB {
 	Connection conn;
 	ArrayList<Mitarbeiter> mitarbeiterliste;
 
-	ArrayList<Mitarbeiter> mitarbeiterLaden()
-			throws FileNotFoundException {
+	ArrayList<Mitarbeiter> mitarbeiterLaden() throws FileNotFoundException {
 
 		mitarbeiterliste = new ArrayList<Mitarbeiter>();
 
@@ -74,6 +74,35 @@ public class MitarbeiterDB {
 
 		} catch (Exception e) {
 			System.out.println(e);
+		}
+
+	}
+
+	void mitarbeiterEinfügen(Mitarbeiter mitarbeiter) {
+
+		try {
+			conn = DriverManager
+					.getConnection("jdbc:ucanaccess://./Mosti-Datenkank.mdb");
+			PreparedStatement s = null;
+
+			/*s = conn.prepareStatement("INSERT INTO mitarbeiter("
+					+ "vorname, nachname, strasse, hausnummer, plz, Stadt, telefonnummer, benutzername) "
+					+ "VALUES(" + mitarbeiter.getVorname() + ","
+					+ mitarbeiter.getNachname() + "," + mitarbeiter.getStrasse() + ","
+					+ mitarbeiter.getHausnummer() + "," + mitarbeiter.getPlz() + "," 
+					+ mitarbeiter.getStadt() + ","  + mitarbeiter.getTelefonnummer()
+					+ "," + mitarbeiter.getBenutzername()
+					+ ")");*/
+			
+			s = conn.prepareStatement("INSERT INTO mitarbeiter("
+					+ "vorname, nachname, strasse, hausnummer, plz, Stadt, telefonnummer, benutzername) "
+				+ "VALUES(Kathi, Siegl, Eichertweg, 33, 93437, Furth im Wald, 099733597, kathi );");
+			
+			s.executeUpdate();
+			s.close();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
 		}
 
 	}

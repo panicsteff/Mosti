@@ -28,6 +28,8 @@ public class KundenVerwaltung extends JFrame {
 	private KundeTableModel kundeTableModel;
 	private ListSelectionModel kundeSelectionModel;
 	private JMenuItem miKundeBearbeiten;
+	private JMenuItem miKundeHinzufuegen;
+	private JMenuItem miKundeLoeschen;
 	private JMenuItem miSpeichern;
 	private KundeDB kundeDb;
 
@@ -65,6 +67,15 @@ public class KundenVerwaltung extends JFrame {
 
 			}
 		});
+		
+		miKundeLoeschen = new JMenuItem("Kunde löschen");
+		miKundeLoeschen.setEnabled(false);
+		menu.add(miKundeLoeschen);
+		miKundeLoeschen.addActionListener(new ActionListener(){
+			public void actionPerformed(ActionEvent e){
+				editKunde();
+			}
+		});
 
 		miSpeichern = new JMenuItem("Kundenstamm speichern");
 		miSpeichern.setEnabled(false);
@@ -80,6 +91,17 @@ public class KundenVerwaltung extends JFrame {
 			}
 		});
 
+		menu.add(new JSeparator());
+		
+		miKundeHinzufuegen = new JMenuItem("Neuen Kunden hinzufügen");
+		miKundeHinzufuegen.setEnabled(true);
+		menu.add(miKundeHinzufuegen);
+		miKundeHinzufuegen.addActionListener(new ActionListener(){
+			public void actionPerformed(ActionEvent e){
+				editKunde();
+			}
+		});
+		
 		miKundeBearbeiten = new JMenuItem("Kunde bearbeiten");
 		miKundeBearbeiten.setEnabled(false);
 		menu.add(miKundeBearbeiten);
