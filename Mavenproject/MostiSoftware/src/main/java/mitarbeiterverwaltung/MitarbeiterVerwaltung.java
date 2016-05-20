@@ -28,7 +28,9 @@ public class MitarbeiterVerwaltung extends JFrame {
 	private static final long serialVersionUID = 1L;  // ??? 
 	private MitarbeiterTableModel mitarbeiterTableModel;
 	private ListSelectionModel mitarbeiterSelectionModel;
+	private JMenuItem miMitarbeiterHinzufügen;
 	private JMenuItem miMitarbeiterBearbeiten;
+	private JMenuItem miMitarbeiterLoeschen;
 	private JMenuItem miSpeichern;
 	private MitarbeiterDB mitarbeiterDb; // mach ma des a mit DB ?? 
 
@@ -58,6 +60,9 @@ public class MitarbeiterVerwaltung extends JFrame {
 					mitarbeiterTableModel.setMitarbeiter(mitarbeiterliste);
 					mitarbeiterTableModel.fireTableDataChanged();
 					miSpeichern.setEnabled(true);
+					miMitarbeiterHinzufügen.setEnabled(true);		
+					miMitarbeiterLoeschen.setEnabled(true);
+					
 				} catch (FileNotFoundException ex) {
 					JOptionPane.showMessageDialog(MitarbeiterVerwaltung.this,
 							"Pfad zur Datenbank fehlerhaft");
@@ -82,15 +87,7 @@ public class MitarbeiterVerwaltung extends JFrame {
 			}
 		});
 		
-		miMitarbeiterBearbeiten = new JMenuItem("Mitarbeiter bearbeiten");
-		miMitarbeiterBearbeiten.setEnabled(false);
-		menu.add(miMitarbeiterBearbeiten);
-		miMitarbeiterBearbeiten.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				editMitarbeiter();
-			}
-		});
-
+		
 		menu.add(new JSeparator());
 
 		menu.add(mi = new JMenuItem("Beenden"));
@@ -99,6 +96,38 @@ public class MitarbeiterVerwaltung extends JFrame {
 				dispose();
 			}
 		});
+		
+		menubar.add(menu = new JMenu("Bearbeiten"));
+		
+		miMitarbeiterHinzufügen = new JMenuItem("Neuen Mitarbeiter hinzufügen");
+		miMitarbeiterHinzufügen.setEnabled(false);
+		menu.add(miMitarbeiterHinzufügen);
+		miMitarbeiterHinzufügen.addActionListener(new ActionListener(){
+			public void actionPerformed(ActionEvent e){
+				new MitarbeiterHinzufügenFrame(MitarbeiterVerwaltung.this, MitarbeiterTableModel.getMitarbeiter());
+				mitarbeiterTableModel.fireTableDataChanged();
+			}
+		});
+		
+		miMitarbeiterBearbeiten = new JMenuItem("Mitarbeiter bearbeiten");
+		miMitarbeiterBearbeiten.setEnabled(false);
+		menu.add(miMitarbeiterBearbeiten);
+		miMitarbeiterBearbeiten.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				editMitarbeiter();
+			}
+		});
+		
+		miMitarbeiterLoeschen = new JMenuItem("Mitarbeiter löschen");
+		miMitarbeiterLoeschen.setEnabled(false);
+		menu.add(miMitarbeiterLoeschen);
+		miMitarbeiterLoeschen.addActionListener(new ActionListener(){
+			public void actionPerformed(ActionEvent e){
+				//deleteMitarbeiter();
+			}
+		});
+
+		
 
 		mitarbeiterTableModel = new MitarbeiterTableModel();
 		JTable table = new JTable(mitarbeiterTableModel);
@@ -145,6 +174,11 @@ public class MitarbeiterVerwaltung extends JFrame {
 		mitarbeiterTableModel.fireTableRowsUpdated(row, row);
 	}
 
+	
+	/*public void deleteMitarbeiter(){
+		
+	}*/
+	
 	
 	public static void main (String[] avgs){
 		new MitarbeiterVerwaltung();
