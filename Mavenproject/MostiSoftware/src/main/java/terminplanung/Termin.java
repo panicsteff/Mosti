@@ -1,14 +1,14 @@
 package terminplanung;
 
-import java.util.Date;
+import kundenverwaltung.Kunde;
+
 
 
 public class Termin {
 
 	private int kundenId;
 	private int terminId;
-	private Date uhrzeit;
-	
+	private Kunde kunde;
 	
 	
 	int getKundenId(){
@@ -27,11 +27,13 @@ public class Termin {
 		this.terminId = terminId;
 	}
 
-	public Date getUhrzeit() {
-		return uhrzeit;
+	public Kunde getKunde() {
+		return kunde;
 	}
 
-	public void setUhrzeit(Date uhrzeit) {
-		this.uhrzeit = uhrzeit;
+	public void setKunde(Kunde kunde) {
+		this.kunde = kunde;
 	}
+
+
 }

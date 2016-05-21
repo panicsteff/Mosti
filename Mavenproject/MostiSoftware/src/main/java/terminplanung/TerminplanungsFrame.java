@@ -52,7 +52,7 @@ public class TerminplanungsFrame extends JFrame{
 		terminuebersicht.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e){
 				Date d = calendar.getDate();
-				new TagFrame(d, 1, null);
+				new TagFrame(d, null);
 			}
 		});
 		terminuebersicht.setBounds(30, 360, 180, 30);

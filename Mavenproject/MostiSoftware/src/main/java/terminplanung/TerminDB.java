@@ -6,7 +6,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
-import java.util.Date;
 
 public class TerminDB {
 
@@ -113,9 +112,6 @@ public class TerminDB {
 		return adminwerte;
 	}
 	
-	
-	
-
 	int kundenIdLaden(String name){
 		
 		int kundenId = 0;

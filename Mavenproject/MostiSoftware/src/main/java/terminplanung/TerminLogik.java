@@ -16,7 +16,7 @@ public class TerminLogik {
 	}
 	
 	
-	ArrayList<Termin> zahlenNachTermine(ArrayList<Integer> terminzahlen) {
+	private ArrayList<Termin> zahlenNachTermine(ArrayList<Integer> terminzahlen) {
 
 		ArrayList<Termin> terminliste = new ArrayList<Termin>();
 		
@@ -24,19 +24,13 @@ public class TerminLogik {
 			Termin t = new Termin();
 			t.setKundenId(terminzahlen.get(i));
 			t.setTerminId(i+1);									//ID zählung beginnt bei 1!!!
-			
-//			Date d = new Date();
-//			int stunde;
-//			int minute;
-//			d.setHours(hours);
-//			t.setUhrzeit(uhrzeit);
 			terminliste.add(t);
 		}
 		
 		return terminliste;
 	}
 	
-	ArrayList<Integer> termineNachZahlen(ArrayList<Termin> terminliste){
+	private ArrayList<Integer> kundenIDfiltern(ArrayList<Termin> terminliste){
 		ArrayList<Integer> zahlenliste = new ArrayList<Integer>();
 		
 		for(int i=0; i<terminliste.size(); i++){
@@ -47,7 +41,7 @@ public class TerminLogik {
 		return zahlenliste;
 	}
 	
-	ArrayList<Integer> terminIDNachZahlen(ArrayList<Termin> terminliste){
+	private ArrayList<Integer> terminIDfiltern(ArrayList<Termin> terminliste){
 		ArrayList<Integer> terminIdListe = new ArrayList<Integer>();
 		
 		for(int i=0; i<terminliste.size(); i++){
@@ -74,8 +68,8 @@ public class TerminLogik {
 	
 	void termineSpeichern(ArrayList<Termin> terminliste, Date datum){
 		
-		ArrayList<Integer> kundenIdListe = termineNachZahlen(terminliste);
-		ArrayList<Integer> terminIdListe = termineNachZahlen(terminliste);
+		ArrayList<Integer> kundenIdListe = kundenIDfiltern(terminliste);
+		ArrayList<Integer> terminIdListe = terminIDfiltern(terminliste);
 		
 		Calendar calendar = new GregorianCalendar();
 		calendar.setTime(datum);
@@ -89,8 +83,8 @@ public class TerminLogik {
 
 		ArrayList<Termin> freieTermine = termineLaden(d);
 		
-		for(int i=0; i<freieTermine.size(); i++){
-			if(freieTermine.get(i).getKundenId() == 0){
+		for(int i = freieTermine.size()-1; i>=0; i--){									//von hinten beginnen, damits beim löschen keine überschneidungen gibt
+			if(freieTermine.get(i).getKundenId() != 0){
 				freieTermine.remove(i);
 			}
 		}
@@ -98,4 +92,30 @@ public class TerminLogik {
 		return freieTermine;
 		
 	}
+	
+	boolean isFrueherEnabled(int anzeigeseite){
+		if(anzeigeseite == 1){
+			return false;
+		} else{
+			return true;
+		}	
+	}
+	
+	boolean isSpaeterEnabled(int anzeigeseite){
+		if(anzeigeseite == k.getAufteilung()){
+			return false;
+		} else{
+			return true;
+		}	
+	}
+	
+	int kundenIDLaden(String eingabe){
+		return terminDb.kundenIdLaden(eingabe);
+	}
+	
+	String kundenNamenLaden(int id){
+		return terminDb.kundenNamenLaden(id);
+	}
+	
+	
 }

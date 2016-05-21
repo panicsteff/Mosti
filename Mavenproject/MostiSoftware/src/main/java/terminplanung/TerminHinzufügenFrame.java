@@ -36,9 +36,7 @@ public class TerminHinzufügenFrame extends JFrame{
 				} catch (ParseException e) {
 					e.printStackTrace();
 				}
-				int terminid = (Integer) fttm.getValueAt(zeile, 1);
-				int anzeigeseite = berechneAnzeigeSeite(terminid);
-				new TagFrame(d,anzeigeseite, TerminHinzufügenFrame.this);
+				new TagFrame(d, TerminHinzufügenFrame.this);
 			}
 		}
 	}
@@ -53,8 +51,7 @@ public class TerminHinzufügenFrame extends JFrame{
 				txtdauer.setEnabled(true);
 				txtdauer.setText(länge + "");
 				titlepane.setEnabled(true);
-				freieTermine = terminDb.freieTermineSuchen(new Date()); 
-				//vom heutigen Tag aus mit arbeitsende und zeitslots
+				freieTermine = terminlogik.freieTermineSuchen(new Date());   
 				fttm = new FreieTermineTableModel(freieTermine);
 				verfügbarTabelle.setModel(fttm);
 				tcm = verfügbarTabelle.getColumnModel();
@@ -71,11 +68,11 @@ public class TerminHinzufügenFrame extends JFrame{
 	
 	private static final long serialVersionUID = 1L;
 	private Konfigurationswerte k = new Konfigurationswerte();
+	private TerminLogik terminlogik;
 	private ArrayList<Termin> freieTermine;
 	private JTextField txtmenge;
 	private JLabel dauer;
 	private JTextField txtdauer;
-	private TerminDB terminDb;
 	private FreieTermineTableModel fttm;
 	private JTable verfügbarTabelle;
 	private JPanel titlepane;
@@ -88,7 +85,7 @@ public class TerminHinzufügenFrame extends JFrame{
 		setTitle("Neuer Termin");
 		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 		
-		terminDb = new TerminDB();
+		terminlogik = new TerminLogik();
 		setLayout(null);
 		
 		JLabel menge = new JLabel("Obstmenge: ");
@@ -147,16 +144,6 @@ public class TerminHinzufügenFrame extends JFrame{
 		}
 	}
 	
-	private  int berechneAnzeigeSeite(int terminId){
-		for(int i = 1;i<= k.getAufteilung(); i++){
-			if(terminId<=k.getZeilenanzahlProSeite()*i){
-				int anzeigeseite = i;
-				return anzeigeseite;
-			}
-		}
-		return k.getAufteilung();
-		
-	}
 	
 	int getTerminlänge(){
 		String s = txtdauer.getText();

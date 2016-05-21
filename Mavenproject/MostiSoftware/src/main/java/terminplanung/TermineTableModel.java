@@ -8,10 +8,14 @@ public class TermineTableModel extends AbstractTableModel {
 
 	private static final long serialVersionUID = 1L;
 	private ArrayList<Termin> terminliste;
+	private int anzeigeseite;
+	private Konfigurationswerte k;
 	
 
 	TermineTableModel(ArrayList<Termin> terminliste) {
 		this.terminliste = terminliste;
+		anzeigeseite = 1;
+		k = new Konfigurationswerte();  
 	}
 
 	public String getColumnName(int col){
@@ -28,16 +32,19 @@ public class TermineTableModel extends AbstractTableModel {
 	}
 
 	public int getRowCount() {
-		return terminliste.size();
+		return k.getZeilenanzahlProSeite();
 	}
 
 	public Object getValueAt(int row, int col) {
+		
+		int reihe = (anzeigeseite - 1) * k.getZeilenanzahlProSeite() + row;
+		
 		switch (col) {
 		case 0:
-			return terminliste.get(row).getTerminId();				
+			return terminliste.get(reihe).getTerminId();				
 			
 		case 1:
-			return terminliste.get(row).getKundenId();
+			return terminliste.get(reihe).getKundenId();
 			
 		default:
 			return null;
@@ -55,6 +62,14 @@ public class TermineTableModel extends AbstractTableModel {
 	
 	ArrayList<Termin> getAlleTermine(){
 		return terminliste;
+	}
+	
+	void erhoeheAnzeigeseite(){
+		anzeigeseite++;
+	}
+	
+	void erniedrigeAnzeigeseite(){
+		anzeigeseite--;
 	}
 	
 	
