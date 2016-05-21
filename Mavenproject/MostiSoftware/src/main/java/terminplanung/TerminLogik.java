@@ -109,7 +109,7 @@ public class TerminLogik {
 		}	
 	}
 	
-	int kundenIDLaden(String eingabe){
+	ArrayList<Integer> kundenIDLaden(String eingabe){
 		return terminDb.kundenIdLaden(eingabe);
 	}
 	

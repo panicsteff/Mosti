@@ -112,9 +112,9 @@ public class TerminDB {
 		return adminwerte;
 	}
 	
-	int kundenIdLaden(String name){
+	ArrayList<Integer> kundenIdLaden(String name){
 		
-		int kundenId = 0;
+		ArrayList<Integer> kundenId = new ArrayList<Integer>();
 		
 		try {
 			conn = DriverManager
@@ -123,7 +123,8 @@ public class TerminDB {
 			ResultSet rs = s.executeQuery("SELECT * FROM [kunden] where nachname like '" + name + "%'");
 
 			while(rs.next()){
-				kundenId= rs.getInt("ID");
+				Integer i = rs.getInt("ID");
+				kundenId.add(i);
 			}
 			
 			s.close();
