@@ -30,13 +30,16 @@ public class TerminHinzufügenFrame extends JFrame{
 			if (event.getClickCount() == 2) {
 				int zeile = terminSelectionModel.getMinSelectionIndex();
 				String datum = (String) fttm.getValueAt(zeile, 0);
+				int terminzeile = (Integer) fttm.getValueAt(zeile, 1);
 				Date d = new Date();
 				try {
 					d = Formats.DATE_FORMAT.parse(datum);
 				} catch (ParseException e) {
 					e.printStackTrace();
 				}
-				new TagFrame(d, TerminHinzufügenFrame.this);
+				int as = terminlogik.berechneAnzeigeSeite(terminzeile);
+				new TagFrame(d, as, TerminHinzufügenFrame.this);
+				TerminHinzufügenFrame.this.dispose();
 			}
 		}
 	}
@@ -88,8 +91,8 @@ public class TerminHinzufügenFrame extends JFrame{
 		terminlogik = new TerminLogik();
 		setLayout(null);
 		
-		JLabel menge = new JLabel("Obstmenge: ");
-		menge.setBounds(10, 10, 100, 20);
+		JLabel menge = new JLabel("Obstmenge in Zentner: ");
+		menge.setBounds(10, 10, 150, 20);
 		add(menge);
 		
 		txtmenge = new JTextField();
@@ -133,11 +136,11 @@ public class TerminHinzufügenFrame extends JFrame{
 	int berechneTermindauer(String s) throws ParseException{
 		
 		int obstmenge = Integer.parseInt(s);
-		double dauer = obstmenge/10;
+		double dauer = obstmenge*5;
 		int zeitslot = k.getZeitslot();
-		if(dauer%zeitslot == 0){
+		if(dauer%zeitslot == 0){						
 			return (int) dauer;
-		} else{
+		} else{													//evtl. Dauer in vielfaches der Zeitslots umrechnen
 			int h = (int) dauer/zeitslot;
 			dauer = (h+1)*zeitslot;
 			return (int) dauer;
@@ -155,5 +158,6 @@ public class TerminHinzufügenFrame extends JFrame{
 		}
 		return dauer;
 	}
+	
 	
 }

@@ -19,28 +19,59 @@ import kundenverwaltung.Formats;
 
 public class TagFrame extends JFrame {
 
-	class MyMouseListener extends MouseAdapter{
-		public void mousePressed(MouseEvent event){
-			if(event.getClickCount() == 2){
-				
-				if(parent == null){
+	class MyMouseListener extends MouseAdapter {
+		public void mousePressed(MouseEvent event) {
+
+			boolean frei = true;
+
+			if (event.getClickCount() == 2) {
+
+				if (parent == null) {
 					JOptionPane.showMessageDialog(null, "Termin bearbeiten");
-				} else{
+				} else {
 					int dauer = parent.getTerminlänge();
-					int anzahlZeitslots = dauer/k.getZeitslot();
-					int zeile = terminSelectionModel.getMaxSelectionIndex() + (anzeigeseite-1) * k.getZeilenanzahlProSeite();
-					ArrayList<Termin> t = termineTableModel.getTermine(zeile, anzahlZeitslots);
-					String uhrzeit = termineCellRenderer.getText();
-					new TerminErstellenDialog(dauer, datum, t, uhrzeit);
-					termineTableModel.fireTableRowsUpdated(zeile, zeile + dauer/k.getZeitslot());
-					terminSelectionModel.setSelectionInterval(zeile, zeile + dauer/k.getZeitslot());				//Damit anzeige aktualisiert wird
-					terminlogik.termineSpeichern(termineTableModel.getAlleTermine(), datum);
+					int anzahlZeitslots = dauer / k.getZeitslot();
+					int zeile = terminSelectionModel.getMaxSelectionIndex()
+							+ (anzeigeseite - 1) * k.getZeilenanzahlProSeite();
+
+					if (zeile + anzahlZeitslots > k.getZeilenanzahlProSeite()
+							* k.getAufteilung()) {
+						JOptionPane.showMessageDialog(TagFrame.this,
+								"Termin dauert zu lange");
+					} else {
+
+						ArrayList<Termin> termine = termineTableModel
+								.getTermine(zeile, anzahlZeitslots);
+						String uhrzeit = termineCellRenderer.getText();
+						for (Termin t : termine) {
+							if (t.getKundenId() != 0) {
+								JOptionPane
+										.showMessageDialog(TagFrame.this,
+												"Nicht genug Zeit für einen Termin dieser Länge verfügbar");
+								frei = false;
+								break;
+							}
+						}
+						if (frei == true) {
+							new TerminErstellenDialog(dauer, datum, termine,
+									uhrzeit);
+							termineTableModel.fireTableRowsUpdated(zeile, zeile
+									+ dauer / k.getZeitslot());
+							terminSelectionModel.setSelectionInterval(zeile,
+									zeile + dauer / k.getZeitslot()); // Damit
+																		// anzeige
+																		// aktualisiert
+																		// wird
+							terminlogik.termineSpeichern(
+									termineTableModel.getAlleTermine(), datum);
+						}
+					}
 				}
-								
+
 			}
 		}
 	}
-	
+
 	private static final long serialVersionUID = 1L;
 	private Konfigurationswerte k = new Konfigurationswerte();
 	private ArrayList<Termin> terminliste;
@@ -52,50 +83,51 @@ public class TagFrame extends JFrame {
 	private ListSelectionModel terminSelectionModel;
 	private TermineCellRenderer termineCellRenderer;
 	private TerminHinzufügenFrame parent;
-	
+
 	private JButton cmdFrueher;
 	private JButton cmdSpaeter;
 
-	TagFrame(Date d, TerminHinzufügenFrame p) {
+	TagFrame(Date d, int as, TerminHinzufügenFrame p) {
 		parent = p;
 		datum = d;
-		anzeigeseite = 1;	
-		
+		anzeigeseite = as;
+
 		terminlogik = new TerminLogik();
-		
+
 		setSize(500, 800);
 		String title = Formats.DATE_FORMAT.format(datum);
 		setTitle(title);
 		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 		setLayout(null);
-		
+
 		terminliste = terminlogik.termineLaden(datum);
-		
-		termineTableModel = new TermineTableModel(terminliste);
+
+		termineTableModel = new TermineTableModel(terminliste, anzeigeseite);
 		tagesTabelle = new JTable(termineTableModel);
 		tagesTabelle.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
 		tagesTabelle.setRowHeight(30);
 		tagesTabelle.setFont(tagesTabelle.getFont().deriveFont(16f));
-		tagesTabelle.getTableHeader().setFont(tagesTabelle.getTableHeader().getFont().deriveFont(16f));
+		tagesTabelle.getTableHeader().setFont(
+				tagesTabelle.getTableHeader().getFont().deriveFont(16f));
 		TableColumnModel tcm = tagesTabelle.getColumnModel();
 		termineCellRenderer = new TermineCellRenderer();
 		tcm.getColumn(0).setCellRenderer(termineCellRenderer);
 		tcm.getColumn(1).setCellRenderer(new KundenNameCellRenderer());
 
-
 		terminSelectionModel = tagesTabelle.getSelectionModel();
-		terminSelectionModel.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+		terminSelectionModel
+				.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		tagesTabelle.addMouseListener(new MyMouseListener());
 
 		JScrollPane scrollpane = new JScrollPane(tagesTabelle);
 		scrollpane.setBounds(0, 0, 500, 400);
 		add(scrollpane);
-		
-		
+
 		cmdFrueher = new JButton("Früher");
 		cmdFrueher.setBounds(150, 430, 80, 20);
 		add(cmdFrueher);
-		cmdFrueher.setEnabled(false);
+		boolean enabledf = terminlogik.isFrueherEnabled(anzeigeseite);
+		cmdFrueher.setEnabled(enabledf);
 		cmdFrueher.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				anzeigeseite--;
@@ -107,11 +139,12 @@ public class TagFrame extends JFrame {
 				termineTableModel.fireTableDataChanged();
 			}
 		});
-		
+
 		cmdSpaeter = new JButton("Später");
 		cmdSpaeter.setBounds(260, 430, 80, 20);
 		add(cmdSpaeter);
-		cmdSpaeter.setEnabled(true);
+		boolean enabled = terminlogik.isSpaeterEnabled(anzeigeseite);
+		cmdSpaeter.setEnabled(enabled);
 		cmdSpaeter.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				anzeigeseite++;
@@ -124,10 +157,9 @@ public class TagFrame extends JFrame {
 
 			}
 		});
-		
+
 		setVisible(true);
 
 	}
-	
 
 }

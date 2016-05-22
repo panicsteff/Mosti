@@ -12,9 +12,9 @@ public class TermineTableModel extends AbstractTableModel {
 	private Konfigurationswerte k;
 	
 
-	TermineTableModel(ArrayList<Termin> terminliste) {
+	TermineTableModel(ArrayList<Termin> terminliste, int as) {
 		this.terminliste = terminliste;
-		anzeigeseite = 1;
+		anzeigeseite = as;
 		k = new Konfigurationswerte();  
 	}
 
@@ -53,9 +53,14 @@ public class TermineTableModel extends AbstractTableModel {
 	
 	ArrayList<Termin> getTermine(int row, int anzahl){
 		ArrayList<Termin> liste = new ArrayList<Termin>();
-		for(int i=0; i<anzahl; i++){
-			liste.add(terminliste.get(row+i));
+		try{
+			for(int i=0; i<anzahl; i++){
+				liste.add(terminliste.get(row+i));
+			}
+		} catch(IndexOutOfBoundsException e){
+			;
 		}
+		
 	
 		return liste;
 	}

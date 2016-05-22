@@ -117,5 +117,16 @@ public class TerminLogik {
 		return terminDb.kundenNamenLaden(id);
 	}
 	
+	int berechneAnzeigeSeite(int zeile){
+		int i;
+		for(i=0; i<=k.getAufteilung(); i++){
+			if((i+1)*k.getZeilenanzahlProSeite() >= zeile){
+				break;
+			}
+		}
+		return i+1;
+	}
+	
+	
 	
 }

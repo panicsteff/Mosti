@@ -6,18 +6,13 @@ import java.util.Date;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
-import javax.swing.JMenu;
-import javax.swing.JMenuBar;
-import javax.swing.JMenuItem;
 
 import com.toedter.calendar.JCalendar;
 
 public class TerminplanungsFrame extends JFrame{
 
 	private static final long serialVersionUID = 1L;
-	JCalendar calendar;
-	private JMenuBar mbar;
-	
+	JCalendar calendar;	
 	
 	public TerminplanungsFrame(){
 		
@@ -25,21 +20,14 @@ public class TerminplanungsFrame extends JFrame{
 		setTitle("Terminplanung");
 		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 		
-		mbar = new JMenuBar();
-		setJMenuBar(mbar);
-		
-		JMenu termine = new JMenu("Termine");
-		termine.setFont(termine.getFont().deriveFont(15f));
-		mbar.add(termine);
-		
-		JMenuItem neuerTermin = new JMenuItem("Neuen Termin anlegen");
-		termine.add(neuerTermin);
-		neuerTermin.setFont(neuerTermin.getFont().deriveFont(15f));
+		JButton neuerTermin = new JButton("Neuen Termin anlegen");
+		neuerTermin.setBounds(230, 360, 180, 30);
 		neuerTermin.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e){
 				new TerminHinzufügenFrame();
 			}
 		});
+		add(neuerTermin);
 		
 		this.setLayout(null);
 
@@ -52,7 +40,7 @@ public class TerminplanungsFrame extends JFrame{
 		terminuebersicht.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e){
 				Date d = calendar.getDate();
-				new TagFrame(d, null);
+				new TagFrame(d, 1, null);
 			}
 		});
 		terminuebersicht.setBounds(30, 360, 180, 30);
