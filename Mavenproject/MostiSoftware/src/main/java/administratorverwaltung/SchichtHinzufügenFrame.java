@@ -1,4 +1,4 @@
-package terminplanung;
+package administratorverwaltung;
 
 import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
@@ -21,25 +21,24 @@ import javax.swing.JTextField;
 import javax.swing.ListSelectionModel;
 import javax.swing.table.TableColumnModel;
 
-import kundenverwaltung.Formats;
+import mitarbeiterverwaltung.Formats;
 
-public class TerminHinzufügenFrame extends JFrame{
-
+public class SchichtHinzufügenFrame extends JFrame{
+	
 	class MyMouseListener extends MouseAdapter{
 		public void mousePressed(MouseEvent event) {
 			if (event.getClickCount() == 2) {
-				int zeile = terminSelectionModel.getMinSelectionIndex();
-				String datum = (String) fttm.getValueAt(zeile, 0);
-				int terminzeile = (Integer) fttm.getValueAt(zeile, 1);
-				Date d = heute;
+				int zeile = schichtSelectionModel.getMinSelectionIndex();
+				String datum = (String) fstm.getValueAt(zeile, 0);
+				Date d = new Date();
 				try {
 					d = Formats.DATE_FORMAT.parse(datum);
 				} catch (ParseException e) {
 					e.printStackTrace();
 				}
-				int as = terminlogik.berechneAnzeigeSeite(terminzeile);
-				new TagFrame(d, as, TerminHinzufügenFrame.this);
-				TerminHinzufügenFrame.this.dispose();
+				int schichtid = (Integer) fstm.getValueAt(zeile, 1);
+				int anzeigeseite = berechneAnzeigeSeite(schichtid);
+				new SchichtTagFrame(d,anzeigeseite, SchichtHinzufügenFrame.this);
 			}
 		}
 	}
@@ -49,21 +48,21 @@ public class TerminHinzufügenFrame extends JFrame{
 			int länge = 0;
 			try {
 				String s = txtmenge.getText();
-				länge = berechneTermindauer(s);
+				länge = berechneSchichtdauer(s);
 				dauer.setEnabled(true);
 				txtdauer.setEnabled(true);
 				txtdauer.setText(länge + "");
 				titlepane.setEnabled(true);
-				heute = new Date();
-				freieTermine = terminlogik.freieTermineSuchen(heute);   
-				fttm = new FreieTermineTableModel(freieTermine);
-				verfügbarTabelle.setModel(fttm);
+				//freieSchicht = schichtplanDb.freieSchichtSuchen(new Date()); 
+				//vom heutigen Tag aus mit arbeitsende und zeitslots
+				fstm = new FreieSchichtTableModel(freieSchicht);
+				verfügbarTabelle.setModel(fstm);
 				tcm = verfügbarTabelle.getColumnModel();
-				tcm.getColumn(1).setCellRenderer(new TermineCellRenderer());
-				tcm.getColumn(2).setCellRenderer(new TermineCellRenderer());
+				tcm.getColumn(1).setCellRenderer(new SchichtCellRenderer());
+				tcm.getColumn(2).setCellRenderer(new SchichtCellRenderer());
 				
 			} catch (ParseException ex) {
-				JOptionPane.showMessageDialog(TerminHinzufügenFrame.this, "Keine gültige Eingabe der Obstmenge");
+				JOptionPane.showMessageDialog(SchichtHinzufügenFrame.this, "Keine gültige Eingabe der Schicht");
 			}
 			
 		}
@@ -72,41 +71,40 @@ public class TerminHinzufügenFrame extends JFrame{
 	
 	private static final long serialVersionUID = 1L;
 	private Konfigurationswerte k = new Konfigurationswerte();
-	private TerminLogik terminlogik;
-	private ArrayList<Termin> freieTermine;
+	private ArrayList<Schicht> freieSchicht;
 	private JTextField txtmenge;
 	private JLabel dauer;
 	private JTextField txtdauer;
-	private FreieTermineTableModel fttm;
+	private SchichtplanDB schichtplanDb;
+	private FreieSchichtTableModel fstm;
 	private JTable verfügbarTabelle;
 	private JPanel titlepane;
-	private ListSelectionModel terminSelectionModel;
+	private ListSelectionModel schichtSelectionModel;
 	private TableColumnModel tcm;
-	private Date heute;
 
 	
-	public TerminHinzufügenFrame(){
+	public SchichtHinzufügenFrame(){
 		setBounds(350, 200, 300, 500);
-		setTitle("Neuer Termin");
+		setTitle("Neue Schicht");
 		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 		
-		terminlogik = new TerminLogik();
+		schichtplanDb = new SchichtplanDB();
 		setLayout(null);
 		
-		JLabel menge = new JLabel("Obstmenge in Zentner: ");
-		menge.setBounds(10, 10, 150, 20);
+		JLabel menge = new JLabel("Schicht: ");
+		menge.setBounds(10, 10, 100, 20);
 		add(menge);
 		
 		txtmenge = new JTextField();
 		txtmenge.setBounds(150, 10, 100, 20);
 		add(txtmenge);
 		
-		JButton dauerberechnen = new JButton("Termindauer berechnen");
+		JButton dauerberechnen = new JButton("Schichtdauer berechnen");
 		dauerberechnen.setBounds(25, 50, 200, 20);
 		dauerberechnen.addActionListener(new MyBerechnenHandler());
 		add(dauerberechnen);
 		
-		dauer = new JLabel("Presszeit in Minuten:");
+		dauer = new JLabel("Arbeitszeit in Minuten:");
 		dauer.setBounds(10, 90, 150, 20);
 		dauer.setEnabled(false);
 		add(dauer);
@@ -119,8 +117,8 @@ public class TerminHinzufügenFrame extends JFrame{
 		verfügbarTabelle = new JTable();
 		verfügbarTabelle.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
 		
-		terminSelectionModel = verfügbarTabelle.getSelectionModel();
-		terminSelectionModel.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+		schichtSelectionModel = verfügbarTabelle.getSelectionModel();
+		schichtSelectionModel.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		verfügbarTabelle.addMouseListener(new MyMouseListener());
 		
 		JScrollPane scrollpane = new JScrollPane(verfügbarTabelle);
@@ -132,34 +130,35 @@ public class TerminHinzufügenFrame extends JFrame{
 		titlepane.setEnabled(false);
 		add(titlepane);
 		
-		JButton spaeter = new JButton("Nächster Tag");
-		spaeter.addActionListener(new ActionListener(){
-			public void actionPerformed(ActionEvent e){
-				freieTermine = terminlogik.freieTermineSuchen(heute + 1);   						//nächsten Tag anzeigen
-				fttm = new FreieTermineTableModel(freieTermine);
-				verfügbarTabelle.setModel(fttm);
-			}
-		});
-		
 		setVisible(true);
 	}
 	
-	int berechneTermindauer(String s) throws ParseException{
+	int berechneSchichtdauer(String s) throws ParseException{
 		
 		int obstmenge = Integer.parseInt(s);
-		double dauer = obstmenge*5;
+		double dauer = obstmenge/10;
 		int zeitslot = k.getZeitslot();
-		if(dauer%zeitslot == 0){						
+		if(dauer%zeitslot == 0){
 			return (int) dauer;
-		} else{													//evtl. Dauer in vielfaches der Zeitslots umrechnen
+		} else{
 			int h = (int) dauer/zeitslot;
 			dauer = (h+1)*zeitslot;
 			return (int) dauer;
 		}
 	}
 	
+	private  int berechneAnzeigeSeite(int terminId){
+		for(int i = 1;i<= k.getAufteilung(); i++){
+			if(terminId<=k.getZeilenanzahlProSeite()*i){
+				int anzeigeseite = i;
+				return anzeigeseite;
+			}
+		}
+		return k.getAufteilung();
+		
+	}
 	
-	int getTerminlänge(){
+	int getSchichtlänge(){
 		String s = txtdauer.getText();
 		int dauer = 0;
 		try{
@@ -170,5 +169,5 @@ public class TerminHinzufügenFrame extends JFrame{
 		return dauer;
 	}
 	
-	
+
 }
