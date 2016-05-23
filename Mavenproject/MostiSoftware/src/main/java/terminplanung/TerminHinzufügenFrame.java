@@ -21,8 +21,6 @@ import javax.swing.JTextField;
 import javax.swing.ListSelectionModel;
 import javax.swing.table.TableColumnModel;
 
-import kundenverwaltung.Formats;
-
 public class TerminHinzufügenFrame extends JFrame{
 
 	class MyMouseListener extends MouseAdapter{
@@ -31,36 +29,36 @@ public class TerminHinzufügenFrame extends JFrame{
 				int zeile = terminSelectionModel.getMinSelectionIndex();
 				String datum = (String) fttm.getValueAt(zeile, 0);
 				int terminzeile = (Integer) fttm.getValueAt(zeile, 1);
-				Date d = heute;
-				try {
-					d = Formats.DATE_FORMAT.parse(datum);
-				} catch (ParseException e) {
-					e.printStackTrace();
-				}
-				int as = terminlogik.berechneAnzeigeSeite(terminzeile);
-				new TagFrame(d, as, TerminHinzufügenFrame.this);
+				Date d = terminhinzufügenLogik.formatieren(datum);
+				int as = terminhinzufügenLogik.berechneAnzeigeSeite(terminzeile);
+				new TagFrame(d, as, TerminHinzufügenFrame.this, länge);
 				TerminHinzufügenFrame.this.dispose();
 			}
 		}
 	}
+	//MVVM Pattern
 	
 	class MyBerechnenHandler implements ActionListener{
 		public void actionPerformed(ActionEvent e){
-			int länge = 0;
 			try {
 				String s = txtmenge.getText();
-				länge = berechneTermindauer(s);
-				dauer.setEnabled(true);
-				txtdauer.setEnabled(true);
-				txtdauer.setText(länge + "");
-				titlepane.setEnabled(true);
-				heute = new Date();
-				freieTermine = terminlogik.freieTermineSuchen(heute);   
-				fttm = new FreieTermineTableModel(freieTermine);
-				verfügbarTabelle.setModel(fttm);
-				tcm = verfügbarTabelle.getColumnModel();
-				tcm.getColumn(1).setCellRenderer(new TermineCellRenderer());
-				tcm.getColumn(2).setCellRenderer(new TermineCellRenderer());
+				if(s.equals("")){
+					JOptionPane.showMessageDialog(TerminHinzufügenFrame.this, "Bitte geben sie eine Obstmenge ein");
+				}else{
+					länge = terminhinzufügenLogik.berechneTermindauer(s);
+					dauer.setEnabled(true);
+					txtdauer.setEnabled(true);
+					txtdauer.setText(länge + "");
+					titlepane.setEnabled(true);
+					heute = new Date();
+					aktuellerTag = heute;									//Default initialisierung
+					freieTermine = terminhinzufügenLogik.freieTermineSuchen(heute);   
+					fttm = new FreieTermineTableModel(freieTermine, heute);
+					verfügbarTabelle.setModel(fttm);
+					tcm = verfügbarTabelle.getColumnModel();
+					tcm.getColumn(1).setCellRenderer(new TermineCellRenderer());
+					tcm.getColumn(2).setCellRenderer(new TermineCellRenderer());
+				}
 				
 			} catch (ParseException ex) {
 				JOptionPane.showMessageDialog(TerminHinzufügenFrame.this, "Keine gültige Eingabe der Obstmenge");
@@ -71,8 +69,7 @@ public class TerminHinzufügenFrame extends JFrame{
 	
 	
 	private static final long serialVersionUID = 1L;
-	private Konfigurationswerte k = new Konfigurationswerte();
-	private TerminLogik terminlogik;
+	private TerminHinzufügenLogik terminhinzufügenLogik;
 	private ArrayList<Termin> freieTermine;
 	private JTextField txtmenge;
 	private JLabel dauer;
@@ -83,6 +80,8 @@ public class TerminHinzufügenFrame extends JFrame{
 	private ListSelectionModel terminSelectionModel;
 	private TableColumnModel tcm;
 	private Date heute;
+	private Date aktuellerTag;
+	private int länge = 0;
 
 	
 	public TerminHinzufügenFrame(){
@@ -90,7 +89,7 @@ public class TerminHinzufügenFrame extends JFrame{
 		setTitle("Neuer Termin");
 		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 		
-		terminlogik = new TerminLogik();
+		terminhinzufügenLogik = new TerminHinzufügenLogik();
 		setLayout(null);
 		
 		JLabel menge = new JLabel("Obstmenge in Zentner: ");
@@ -135,40 +134,34 @@ public class TerminHinzufügenFrame extends JFrame{
 		JButton spaeter = new JButton("Nächster Tag");
 		spaeter.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e){
-				freieTermine = terminlogik.freieTermineSuchen(heute + 1);   						//nächsten Tag anzeigen
-				fttm = new FreieTermineTableModel(freieTermine);
+				aktuellerTag = terminhinzufügenLogik.nächstenTagBerechnen(aktuellerTag);
+				freieTermine = terminhinzufügenLogik.freieTermineSuchen(aktuellerTag);   						//nächsten Tag anzeigen
+				fttm = new FreieTermineTableModel(freieTermine, aktuellerTag);
 				verfügbarTabelle.setModel(fttm);
+				tcm = verfügbarTabelle.getColumnModel();
+				tcm.getColumn(1).setCellRenderer(new TermineCellRenderer());
+				tcm.getColumn(2).setCellRenderer(new TermineCellRenderer());
 			}
 		});
+		spaeter.setBounds(170, 350, 150, 30);
+		add(spaeter);
+		
+		JButton früher = new JButton("Vorheriger Tag");
+		früher.addActionListener(new ActionListener(){
+			public void actionPerformed(ActionEvent e){
+				aktuellerTag = terminhinzufügenLogik.vorherigenTagBerechnen(aktuellerTag);
+				freieTermine = terminhinzufügenLogik.freieTermineSuchen(aktuellerTag);   						//nächsten Tag anzeigen
+				fttm = new FreieTermineTableModel(freieTermine, aktuellerTag);
+				verfügbarTabelle.setModel(fttm);
+				tcm = verfügbarTabelle.getColumnModel();
+				tcm.getColumn(1).setCellRenderer(new TermineCellRenderer());
+				tcm.getColumn(2).setCellRenderer(new TermineCellRenderer());
+			}
+		});
+		früher.setBounds(10, 350, 150, 30);
+		add(früher);
 		
 		setVisible(true);
 	}
-	
-	int berechneTermindauer(String s) throws ParseException{
-		
-		int obstmenge = Integer.parseInt(s);
-		double dauer = obstmenge*5;
-		int zeitslot = k.getZeitslot();
-		if(dauer%zeitslot == 0){						
-			return (int) dauer;
-		} else{													//evtl. Dauer in vielfaches der Zeitslots umrechnen
-			int h = (int) dauer/zeitslot;
-			dauer = (h+1)*zeitslot;
-			return (int) dauer;
-		}
-	}
-	
-	
-	int getTerminlänge(){
-		String s = txtdauer.getText();
-		int dauer = 0;
-		try{
-			 dauer= Integer.parseInt(s);
-		} catch (Exception e){
-			e.printStackTrace();
-		}
-		return dauer;
-	}
-	
 	
 }

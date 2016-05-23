@@ -52,7 +52,7 @@ public class SchichtplanungsFrame extends JFrame{
 		schichtuebersicht.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e){
 				Date d = calendar.getDate();
-				new SchichtTagFrame(d, 1, null);
+				new SchichtTagFrame(d);
 			}
 		});
 		schichtuebersicht.setBounds(30, 360, 180, 30);

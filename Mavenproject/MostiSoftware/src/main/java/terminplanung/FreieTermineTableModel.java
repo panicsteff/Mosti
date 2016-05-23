@@ -12,10 +12,12 @@ public class FreieTermineTableModel extends AbstractTableModel {
 	private static final long serialVersionUID = 1L;
 	private ArrayList<Termin> freieTermine;
 	private ArrayList<Intervall> intervallListe;
+	private Date datum;
 
-	public FreieTermineTableModel(ArrayList<Termin> ft) {
+	public FreieTermineTableModel(ArrayList<Termin> ft, Date d) {
 		freieTermine = ft;
 		berechneLücken();
+		datum = d;
 
 	}
 
@@ -44,7 +46,7 @@ public class FreieTermineTableModel extends AbstractTableModel {
 	
 		switch (col) {
 		case 0:
-			return Formats.DATE_FORMAT.format(new Date());
+			return Formats.DATE_FORMAT.format(datum);
 		case 1:
 			return intervallListe.get(row).getStart();
 		case 2:

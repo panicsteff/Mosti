@@ -79,20 +79,6 @@ public class TerminLogik {
 		
 	}
 	
-	ArrayList<Termin> freieTermineSuchen(Date d){
-
-		ArrayList<Termin> freieTermine = termineLaden(d);
-		
-		for(int i = freieTermine.size()-1; i>=0; i--){									//von hinten beginnen, damits beim löschen keine überschneidungen gibt
-			if(freieTermine.get(i).getKundenId() != 0){
-				freieTermine.remove(i);
-			}
-		}
-		
-		return freieTermine;
-		
-	}
-	
 	boolean isFrueherEnabled(int anzeigeseite){
 		if(anzeigeseite == 1){
 			return false;

@@ -13,8 +13,13 @@ import kundenverwaltung.Formats;
 public class SchichtTagFrame extends JFrame{
 	
 	private static final long serialVersionUID = 1L;
+	private SchichtLogik schichtlogik;
+	private Date datum;
 
 	public SchichtTagFrame(Date d){
+		
+		schichtlogik = new SchichtLogik();
+		datum = d;
 		
 		setSize(400,250);
 		String title = Formats.DATE_FORMAT.format(d);
@@ -38,19 +43,20 @@ public class SchichtTagFrame extends JFrame{
 		presser.setFont(presser.getFont().deriveFont(16f));
 		add(presser);
 		
-		ArrayList<Schicht> liste = new ArrayList<Schicht>();
+		ArrayList<Schicht> liste = schichtlogik.schichtLaden(datum);
 		
-		for(int i = 0; i<4; i++){
-			Schicht s = new Schicht();
-			s.setSchichtId(i+1);
-			ArrayList<Integer> ids = new ArrayList<Integer>();
-			
-			for(int j=0; j<3; j++){
-				ids.add(5+i);
-			}
-			s.setMitarbeiterIds(ids);
-			liste.add(s);
-		}
+		
+//		for(int i = 0; i<4; i++){
+//			Schicht s = new Schicht();
+//			s.setSchichtId(i+1);
+//			ArrayList<Integer> ids = new ArrayList<Integer>();
+//			
+//			for(int j=0; j<3; j++){
+//				ids.add(5+i);
+//			}
+//			s.setMitarbeiterIds(ids);
+//			liste.add(s);
+//		}
 		
 		SchichtTableModel schichtmodel= new SchichtTableModel(liste);
 		JTable schichtplan = new JTable(schichtmodel);

@@ -35,6 +35,10 @@ public class SchichtTableModel extends AbstractTableModel {
 		return schichtliste.get(col).getMitarbeiter(row);	
 	}
 	
+	public boolean isCellEditable(int row, int col){
+		return true;
+	}
+	
 //	ArrayList<Schicht> getSchicht(int row, int anzahl){
 //		ArrayList<Schicht> liste = new ArrayList<Schicht>();
 //		for(int i=0; i<anzahl; i++){

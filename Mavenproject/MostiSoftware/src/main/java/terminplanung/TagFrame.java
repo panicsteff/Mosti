@@ -29,7 +29,6 @@ public class TagFrame extends JFrame {
 				if (parent == null) {
 					JOptionPane.showMessageDialog(null, "Termin bearbeiten");
 				} else {
-					int dauer = parent.getTerminlänge();
 					int anzahlZeitslots = dauer / k.getZeitslot();
 					int zeile = terminSelectionModel.getMaxSelectionIndex()
 							+ (anzeigeseite - 1) * k.getZeilenanzahlProSeite();
@@ -80,6 +79,7 @@ public class TagFrame extends JFrame {
 	private JTable tagesTabelle;
 	private Date datum;
 	private int anzeigeseite;
+	private int dauer;
 	private ListSelectionModel terminSelectionModel;
 	private TermineCellRenderer termineCellRenderer;
 	private TerminHinzufügenFrame parent;
@@ -87,10 +87,11 @@ public class TagFrame extends JFrame {
 	private JButton cmdFrueher;
 	private JButton cmdSpaeter;
 
-	TagFrame(Date d, int as, TerminHinzufügenFrame p) {
+	TagFrame(Date d, int as, TerminHinzufügenFrame p, int länge) {
 		parent = p;
 		datum = d;
 		anzeigeseite = as;
+		dauer = länge;
 
 		terminlogik = new TerminLogik();
 

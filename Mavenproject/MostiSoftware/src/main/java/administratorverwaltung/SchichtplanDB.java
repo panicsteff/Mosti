@@ -11,22 +11,24 @@ public class SchichtplanDB {
 
 	private Connection conn;
 	
-	ArrayList<Integer> schichtLaden(int schichtId){
+	ArrayList<Integer> schichtLaden(int schichtId, int mitarbeiteranzahl, int schichtenanzahl){
 		
 		ArrayList<Integer> mitarbeiterid = new ArrayList<Integer>();
-		Schicht schicht = new Schicht();
+		int schichtid_obergrenze = schichtId + schichtenanzahl -1;
 		
 		try {
 			conn = DriverManager
 					.getConnection("jdbc:ucanaccess://./Mosti-Datenkank.mdb");
 			Statement s = conn.createStatement();
 			ResultSet rs = s
-					.executeQuery("SELECT * FROM [schicht] Where id = " + schichtId);
-
+					.executeQuery("SELECT * FROM [schichtplan] Where id between " + schichtId + " and " + schichtid_obergrenze);
 			
 			while (rs.next()) {
-				Integer i = rs.getInt("Mitarbeiter");
-				mitarbeiterid.add(i);
+				for(int j=1; j<=mitarbeiteranzahl; j++){
+					Integer i = rs.getInt("Mitarbeiter" + j);
+					mitarbeiterid.add(i);
+				}
+					
 			}
 			s.close();
 
@@ -94,13 +96,9 @@ public class SchichtplanDB {
 			ResultSet rs = s.executeQuery("SELECT * FROM [Adminwerte] where id = 1");
 
 			while (rs.next()) {
-				Integer i = rs.getInt("Zeitslotlänge");
+				Integer i = rs.getInt("MitarbeiterProSchicht");
 				adminwerte.add(i);
-				i = rs.getInt("Arbeitsbeginn");
-				adminwerte.add(i);
-				i = rs.getInt("Arbeitsende");
-				adminwerte.add(i);
-				i = rs.getInt("AnzeigeAufteilung");
+				i = rs.getInt("SchichtenProTag");
 				adminwerte.add(i);
 			}
 			s.close();
