@@ -21,8 +21,6 @@ import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.table.TableColumn;
 
-import main.Angebote;
-
 
 public class LagerVerwaltungFrame extends JFrame {
 
@@ -36,11 +34,12 @@ public class LagerVerwaltungFrame extends JFrame {
 	private JMenuItem bearP;
 	static boolean hasChanged;
 	private JMenuItem miSpeichern;
-	Angebote a;
+	//Angebote a;
+	ProduktSortiment pSortiment;
 
 //	public LagerVerwaltungFrame(List<Produkt> a_auflistung, List<Produkt> z_auflistung) {
-	public LagerVerwaltungFrame(Angebote angebote) {
-		this.a = angebote;
+	public LagerVerwaltungFrame(ProduktSortiment p) {
+		this.pSortiment = p;
 		//pliste = a.getGesamtSortiment();
 //		aliste = a_auflistung;
 //		zliste = z_auflistung;
@@ -69,8 +68,8 @@ public class LagerVerwaltungFrame extends JFrame {
 
 			public void actionPerformed(ActionEvent e) {
 				try {
-					a.createSpecialLists();
-					a.printGesamtListe();
+					pSortiment.createSpecialLists();
+					pSortiment.printGesamtListe();
 					//a.produkteSpeichern();
 					
 				} catch (Exception ex) {
@@ -86,7 +85,7 @@ public class LagerVerwaltungFrame extends JFrame {
 
 		beenden.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent event) {
-				a.createSpecialLists();
+				pSortiment.createSpecialLists();
 //				a.produkteSpeichern();
 				dispose();
 			}
@@ -122,7 +121,7 @@ public class LagerVerwaltungFrame extends JFrame {
 		});
 		bearP.setEnabled(false);
 
-		lagerTableModel = new LagerTableModel(/*pliste*/a.getGesamtSortiment());
+		lagerTableModel = new LagerTableModel(/*pliste*/pSortiment.getGesamtSortiment());
 		//lagerTableModel = new LagerTableModel(aliste, zliste);
 		JTable ptabelle = new JTable(lagerTableModel);
 
@@ -178,7 +177,7 @@ public class LagerVerwaltungFrame extends JFrame {
 	private void addProdukt() {
 		//new ProduktHinzufuegenFrame(this, aliste, zliste);
 		//new ProduktHinzufuegenFrame(this, pliste);
-		new ProduktHinzufuegenFrame(this, a);
+		new ProduktHinzufuegenFrame(this, pSortiment);
 		printListe();
 		lagerTableModel.fireTableDataChanged();
 	}
@@ -186,7 +185,7 @@ public class LagerVerwaltungFrame extends JFrame {
 	private void deleteProdukt() {
 		int row = produktSelectionModel.getMinSelectionIndex();
 		Produkt p = lagerTableModel.getProdukt(row);
-		a.deleteProdukt(p);
+		pSortiment.deleteProdukt(p);
 //		if(aliste.contains(p)== true)
 //			aliste.remove(p);
 //		else
@@ -210,15 +209,15 @@ public class LagerVerwaltungFrame extends JFrame {
 //			}
 //			hasChanged = false;
 //		}
-		a.produkteAktualisieren();
+		pSortiment.updateProdukte();
 		printListe();
 		//lagerTableModel.fireTableRowsUpdated(0, (aliste != null? aliste.size() : 0)+(zliste != null? zliste.size() : 0)-1);
-		lagerTableModel.fireTableRowsUpdated(0, (a.getGesamtSortiment() != null? a.getGesamtSortiment().size() : 0));
+		lagerTableModel.fireTableRowsUpdated(0, (pSortiment.getGesamtSortiment() != null? pSortiment.getGesamtSortiment().size() : 0));
 	}
 	
-	Angebote getAngebote(){
-		return a;
-	}
+//	Angebote getAngebote(){
+//		return a;
+//	}
 	
 	private void printListe(){
 		System.out.println();
@@ -229,7 +228,7 @@ public class LagerVerwaltungFrame extends JFrame {
 //		for(Produkt p:zliste){
 //			System.out.print(p.getName());
 //		}
-		for(Produkt p:a.getGesamtSortiment()){
+		for(Produkt p: pSortiment.getGesamtSortiment()){
 			System.out.print(p.getName());
 		}
 		System.out.println();

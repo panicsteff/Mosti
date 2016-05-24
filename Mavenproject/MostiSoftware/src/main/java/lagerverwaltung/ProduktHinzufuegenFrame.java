@@ -14,7 +14,6 @@ import javax.swing.JLabel;
 import javax.swing.JTextField;
 import javax.swing.text.NumberFormatter;
 
-import main.Angebote;
 import kundenverwaltung.NullableFormatter;
 
 import com.sun.glass.ui.Pixels.Format;
@@ -34,14 +33,14 @@ class ProduktHinzufuegenFrame extends JDialog {
 //	private List<Produkt> aliste;
 //	private List<Produkt> zliste;
 	private List<Produkt> pliste;
-	private Angebote a;
+	private ProduktSortiment pSortiment;
 
 	//ProduktHinzufuegenFrame(JFrame parent, List<Produkt> a_auflistung, List<Produkt> z_auflistung) {
 	//ProduktHinzufuegenFrame(JFrame parent, List<Produkt> pliste) {
-		ProduktHinzufuegenFrame(JFrame parent, Angebote a) {
+		ProduktHinzufuegenFrame(JFrame parent, ProduktSortiment p) {
 
 		super(parent);
-		this.a = a;
+		this.pSortiment = p;
 		
 //		this.aliste = a_auflistung;
 //		this.zliste = z_auflistung;
@@ -89,7 +88,7 @@ class ProduktHinzufuegenFrame extends JDialog {
 					Integer.parseInt(txtUntergrenze.getText()), cBoxIsAbfuellmaterial.isSelected(), 0);
 			
 			//pliste.add(produkt);
-			a.addProdukt(produkt);
+			pSortiment.addProdukt(produkt);
 			
 //			if(produkt.isAbfüllmaterial()== true)
 //				aliste.add(produkt);

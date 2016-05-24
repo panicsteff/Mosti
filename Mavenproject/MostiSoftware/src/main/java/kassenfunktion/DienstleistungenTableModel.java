@@ -84,5 +84,14 @@ public class DienstleistungenTableModel extends AbstractTableModel {
 		sum = sum/100;
 		return sum;
 	}
+	
+	public int berechneGesamtLiterZahl(){
+		int sum = 0;
+		for (int i = 0; i < DLAnzahl; i++) {
+			sum = sum + (Integer)getValueAt(0, i);
+			System.out.println((Integer)getValueAt(0, i));
+		}
+		return sum;
+	}
 
 }
