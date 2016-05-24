@@ -4,10 +4,10 @@ package main;
 import java.util.ArrayList;
 import java.util.List;
 
-import lagerverwaltung.LagerDB;
+import persistenz.DienstleistungenDB;
+import persistenz.LagerDB;
 import lagerverwaltung.Produkt;
 import dienstleistungenverwaltung.Dienstleistung;
-import dienstleistungenverwaltung.DienstleistungenDB;
 
 public class Angebote {
 

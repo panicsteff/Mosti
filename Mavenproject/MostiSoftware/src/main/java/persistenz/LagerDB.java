@@ -1,5 +1,5 @@
 
-package lagerverwaltung;
+package persistenz;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -9,6 +9,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 
 import kundenverwaltung.Kunde;
+import lagerverwaltung.Produkt;
 
 public class LagerDB {
 

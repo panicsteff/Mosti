@@ -1,29 +1,31 @@
 package trester;
 
-import verkaufsverwaltung.Kundeneinkäufe;
-
 public class Tresterabrechnung {
 	
-	private Kundeneinkäufe kundeneinkäufe;
 	private int gesamtLiter;
 	private double preis;
+	Tresterverwaltung tv;
 	
-	public Tresterabrechnung(Kundeneinkäufe k){
-		this.kundeneinkäufe = k;
-		gesamtLiter = berechneGesamtLiter();
-		setPreis(berechnePreis());
+	public Tresterabrechnung(Tresterverwaltung tv, int literzahl){
+		//this.kundeneinkäufe = k;
+//		gesamtLiter = berechneGesamtLiter();
+//		setPreis(berechnePreis());
+		this.tv = tv;
+		gesamtLiter = literzahl;
+		preis = berechnePreis();
 	}
 	
-	private int berechneGesamtLiter(){
-		int total = 0;
-		for(int i = 0; i < kundeneinkäufe.getSize(); i++){
-			total = total + kundeneinkäufe.getEinkauf(i).getLiterzahl();
-		}
-		return total;
-	}
+//	private int berechneGesamtLiter(){
+//		int total = 0;
+//		for(int i = 0; i < kundeneinkäufe.getSize(); i++){
+//			total = total + kundeneinkäufe.getEinkauf(i).getLiterzahl();
+//		}
+//		return total;
+//	}
 	
 	private double berechnePreis(){
-		return gesamtLiter * 1.00;
+		//return gesamtLiter * 1.00;
+		return (getLiterzahl()/1000) * tv.getPreisPro1000L();
 	}
 
 	public double getPreis() {
