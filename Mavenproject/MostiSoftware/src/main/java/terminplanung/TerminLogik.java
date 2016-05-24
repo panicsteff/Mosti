@@ -15,6 +15,9 @@ public class TerminLogik {
 		terminDb = new TerminDB();
 	}
 	
+	int getZeilenAnzahlProSeite(){
+		return k.getZeilenanzahlProSeite();
+	}
 	
 	private ArrayList<Termin> zahlenNachTermine(ArrayList<Integer> terminzahlen) {
 
@@ -79,22 +82,6 @@ public class TerminLogik {
 		
 	}
 	
-	boolean isFrueherEnabled(int anzeigeseite){
-		if(anzeigeseite == 1){
-			return false;
-		} else{
-			return true;
-		}	
-	}
-	
-	boolean isSpaeterEnabled(int anzeigeseite){
-		if(anzeigeseite == k.getAufteilung()){
-			return false;
-		} else{
-			return true;
-		}	
-	}
-	
 	ArrayList<Integer> kundenIDLaden(String eingabe){
 		return terminDb.kundenIdLaden(eingabe);
 	}
@@ -113,6 +100,21 @@ public class TerminLogik {
 		return i+1;
 	}
 	
+	String terminNachUhrzeit(int terminId) {
+		
+		int stunde = 0;
+		int minuten = k.getArbeitsbeginn() + (terminId-1) * k.getZeitslot();			//terminid-1 sagt was an zeit schon vergangen ist
+		while (minuten - 60 >= 0) {
+			minuten -= 60;
+			stunde++;
+		}
+
+		if (minuten < 10) {
+			return stunde + ":0" + minuten;
+		}
+
+		return stunde + ":" + minuten;
+	}
 	
 	
 }

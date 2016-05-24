@@ -8,10 +8,10 @@ import javax.swing.table.DefaultTableCellRenderer;
 public class KundenNameCellRenderer extends DefaultTableCellRenderer.UIResource{
 	
 	private static final long serialVersionUID = 1L;
-	private TerminDB termindb;
+	private TerminLogik terminlogik;
 	
 	public KundenNameCellRenderer(){
-		termindb = new TerminDB();
+		terminlogik = new TerminLogik();
 	}
 
 	public Component getTableCellRendererComponent(JTable table,
@@ -20,7 +20,7 @@ public class KundenNameCellRenderer extends DefaultTableCellRenderer.UIResource{
 			isSelected, cellHasFocus, row, col);
 			
 			int kundenId = (Integer) value;
-			String name = termindb.kundenNamenLaden(kundenId);
+			String name = terminlogik.kundenNamenLaden(kundenId);
 			setText(name);
 			return this;
 			

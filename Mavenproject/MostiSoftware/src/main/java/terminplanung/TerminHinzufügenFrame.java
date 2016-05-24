@@ -67,6 +67,33 @@ public class TerminHinzufügenFrame extends JFrame{
 		}
 	}
 	
+	class MyFrüherHandler implements ActionListener{
+
+		public void actionPerformed(ActionEvent e) {
+			aktuellerTag = terminhinzufügenLogik.vorherigenTagBerechnen(aktuellerTag);
+			freieTermine = terminhinzufügenLogik.freieTermineSuchen(aktuellerTag);   						//nächsten Tag anzeigen
+			fttm = new FreieTermineTableModel(freieTermine, aktuellerTag);
+			verfügbarTabelle.setModel(fttm);
+			tcm = verfügbarTabelle.getColumnModel();
+			tcm.getColumn(1).setCellRenderer(new TermineCellRenderer());
+			tcm.getColumn(2).setCellRenderer(new TermineCellRenderer());
+		}
+	}
+	
+	class MySpäterHandler implements ActionListener{
+
+		public void actionPerformed(ActionEvent e) {
+			aktuellerTag = terminhinzufügenLogik.nächstenTagBerechnen(aktuellerTag);
+			freieTermine = terminhinzufügenLogik.freieTermineSuchen(aktuellerTag);   						//nächsten Tag anzeigen
+			fttm = new FreieTermineTableModel(freieTermine, aktuellerTag);
+			verfügbarTabelle.setModel(fttm);
+			tcm = verfügbarTabelle.getColumnModel();
+			tcm.getColumn(1).setCellRenderer(new TermineCellRenderer());
+			tcm.getColumn(2).setCellRenderer(new TermineCellRenderer());
+		}
+		
+	}
+	
 	
 	private static final long serialVersionUID = 1L;
 	private TerminHinzufügenLogik terminhinzufügenLogik;
@@ -132,32 +159,12 @@ public class TerminHinzufügenFrame extends JFrame{
 		add(titlepane);
 		
 		JButton spaeter = new JButton("Nächster Tag");
-		spaeter.addActionListener(new ActionListener(){
-			public void actionPerformed(ActionEvent e){
-				aktuellerTag = terminhinzufügenLogik.nächstenTagBerechnen(aktuellerTag);
-				freieTermine = terminhinzufügenLogik.freieTermineSuchen(aktuellerTag);   						//nächsten Tag anzeigen
-				fttm = new FreieTermineTableModel(freieTermine, aktuellerTag);
-				verfügbarTabelle.setModel(fttm);
-				tcm = verfügbarTabelle.getColumnModel();
-				tcm.getColumn(1).setCellRenderer(new TermineCellRenderer());
-				tcm.getColumn(2).setCellRenderer(new TermineCellRenderer());
-			}
-		});
+		spaeter.addActionListener(new MySpäterHandler());
 		spaeter.setBounds(170, 350, 150, 30);
 		add(spaeter);
 		
 		JButton früher = new JButton("Vorheriger Tag");
-		früher.addActionListener(new ActionListener(){
-			public void actionPerformed(ActionEvent e){
-				aktuellerTag = terminhinzufügenLogik.vorherigenTagBerechnen(aktuellerTag);
-				freieTermine = terminhinzufügenLogik.freieTermineSuchen(aktuellerTag);   						//nächsten Tag anzeigen
-				fttm = new FreieTermineTableModel(freieTermine, aktuellerTag);
-				verfügbarTabelle.setModel(fttm);
-				tcm = verfügbarTabelle.getColumnModel();
-				tcm.getColumn(1).setCellRenderer(new TermineCellRenderer());
-				tcm.getColumn(2).setCellRenderer(new TermineCellRenderer());
-			}
-		});
+		früher.addActionListener(new MyFrüherHandler());
 		früher.setBounds(10, 350, 150, 30);
 		add(früher);
 		

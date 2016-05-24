@@ -29,40 +29,22 @@ public class TagFrame extends JFrame {
 				if (parent == null) {
 					JOptionPane.showMessageDialog(null, "Termin bearbeiten");
 				} else {
-					int anzahlZeitslots = dauer / k.getZeitslot();
-					int zeile = terminSelectionModel.getMaxSelectionIndex()
-							+ (anzeigeseite - 1) * k.getZeilenanzahlProSeite();
-
-					if (zeile + anzahlZeitslots > k.getZeilenanzahlProSeite()
-							* k.getAufteilung()) {
+					int anzahlZeitslots = tagframelogik.berechneAnzahlZeitslots(dauer);
+					int zeile = tagframelogik.getZeile(terminSelectionModel.getMaxSelectionIndex(), anzeigeseite);
+					if (zeile + anzahlZeitslots > tagframelogik.anzahlAlleTermine()) {
 						JOptionPane.showMessageDialog(TagFrame.this,
-								"Termin dauert zu lange");
+								"Termin dauert zu lange. Tag ist schon vorbei");
 					} else {
 
-						ArrayList<Termin> termine = termineTableModel
-								.getTermine(zeile, anzahlZeitslots);
+						ArrayList<Termin> termine = termineTableModel.getTermine(zeile, anzahlZeitslots);
 						String uhrzeit = termineCellRenderer.getText();
-						for (Termin t : termine) {
-							if (t.getKundenId() != 0) {
-								JOptionPane
-										.showMessageDialog(TagFrame.this,
-												"Nicht genug Zeit für einen Termin dieser Länge verfügbar");
-								frei = false;
-								break;
-							}
-						}
+						frei = tagframelogik.istTerminFrei(termine);
 						if (frei == true) {
 							new TerminErstellenDialog(dauer, datum, termine,
 									uhrzeit);
-							termineTableModel.fireTableRowsUpdated(zeile, zeile
-									+ dauer / k.getZeitslot());
-							terminSelectionModel.setSelectionInterval(zeile,
-									zeile + dauer / k.getZeitslot()); // Damit
-																		// anzeige
-																		// aktualisiert
-																		// wird
-							terminlogik.termineSpeichern(
-									termineTableModel.getAlleTermine(), datum);
+							termineTableModel.fireTableRowsUpdated(zeile, zeile + tagframelogik.berechneAnzahlZeitslots(dauer));
+							terminSelectionModel.setSelectionInterval(zeile, zeile + tagframelogik.berechneAnzahlZeitslots(dauer)); // Damit anzeige aktualisiert wird
+							tagframelogik.termineSpeichern(termineTableModel.getAlleTermine(), datum);
 						}
 					}
 				}
@@ -70,12 +52,39 @@ public class TagFrame extends JFrame {
 			}
 		}
 	}
+	
+	class MySpäterHandler implements ActionListener{
+
+		public void actionPerformed(ActionEvent arg0) {
+			anzeigeseite++;
+			boolean enabled = tagframelogik.isSpaeterEnabled(anzeigeseite);
+			cmdSpaeter.setEnabled(enabled);
+			boolean enabledf = tagframelogik.isFrueherEnabled(anzeigeseite);
+			cmdFrueher.setEnabled(enabledf);
+			termineTableModel.erhoeheAnzeigeseite();
+			termineTableModel.fireTableDataChanged();
+		}
+		
+	}
+	
+	class MyFrüherHandler implements ActionListener{
+
+		public void actionPerformed(ActionEvent e) {
+			anzeigeseite--;
+			boolean enabled = tagframelogik.isFrueherEnabled(anzeigeseite);
+			cmdFrueher.setEnabled(enabled);
+			boolean enableds = tagframelogik.isSpaeterEnabled(anzeigeseite);
+			cmdSpaeter.setEnabled(enableds);
+			termineTableModel.erniedrigeAnzeigeseite();
+			termineTableModel.fireTableDataChanged();
+		}
+	}
 
 	private static final long serialVersionUID = 1L;
-	private Konfigurationswerte k = new Konfigurationswerte();
 	private ArrayList<Termin> terminliste;
 	private TermineTableModel termineTableModel;
 	private TerminLogik terminlogik;
+	private TagFrameLogik tagframelogik;
 	private JTable tagesTabelle;
 	private Date datum;
 	private int anzeigeseite;
@@ -83,7 +92,6 @@ public class TagFrame extends JFrame {
 	private ListSelectionModel terminSelectionModel;
 	private TermineCellRenderer termineCellRenderer;
 	private TerminHinzufügenFrame parent;
-
 	private JButton cmdFrueher;
 	private JButton cmdSpaeter;
 
@@ -94,6 +102,7 @@ public class TagFrame extends JFrame {
 		dauer = länge;
 
 		terminlogik = new TerminLogik();
+		tagframelogik = new TagFrameLogik();
 
 		setSize(500, 800);
 		String title = Formats.DATE_FORMAT.format(datum);
@@ -101,7 +110,7 @@ public class TagFrame extends JFrame {
 		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 		setLayout(null);
 
-		terminliste = terminlogik.termineLaden(datum);
+		terminliste = tagframelogik.termineLaden(datum);
 
 		termineTableModel = new TermineTableModel(terminliste, anzeigeseite);
 		tagesTabelle = new JTable(termineTableModel);
@@ -127,37 +136,16 @@ public class TagFrame extends JFrame {
 		cmdFrueher = new JButton("Früher");
 		cmdFrueher.setBounds(150, 430, 80, 20);
 		add(cmdFrueher);
-		boolean enabledf = terminlogik.isFrueherEnabled(anzeigeseite);
+		boolean enabledf = tagframelogik.isFrueherEnabled(anzeigeseite);
 		cmdFrueher.setEnabled(enabledf);
-		cmdFrueher.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				anzeigeseite--;
-				boolean enabled = terminlogik.isFrueherEnabled(anzeigeseite);
-				cmdFrueher.setEnabled(enabled);
-				boolean enableds = terminlogik.isSpaeterEnabled(anzeigeseite);
-				cmdSpaeter.setEnabled(enableds);
-				termineTableModel.erniedrigeAnzeigeseite();
-				termineTableModel.fireTableDataChanged();
-			}
-		});
+		cmdFrueher.addActionListener(new MyFrüherHandler());
 
 		cmdSpaeter = new JButton("Später");
 		cmdSpaeter.setBounds(260, 430, 80, 20);
 		add(cmdSpaeter);
-		boolean enabled = terminlogik.isSpaeterEnabled(anzeigeseite);
+		boolean enabled = tagframelogik.isSpaeterEnabled(anzeigeseite);
 		cmdSpaeter.setEnabled(enabled);
-		cmdSpaeter.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				anzeigeseite++;
-				boolean enabled = terminlogik.isSpaeterEnabled(anzeigeseite);
-				cmdSpaeter.setEnabled(enabled);
-				boolean enabledf = terminlogik.isFrueherEnabled(anzeigeseite);
-				cmdFrueher.setEnabled(enabledf);
-				termineTableModel.erhoeheAnzeigeseite();
-				termineTableModel.fireTableDataChanged();
-
-			}
-		});
+		cmdSpaeter.addActionListener(new MySpäterHandler());
 
 		setVisible(true);
 
