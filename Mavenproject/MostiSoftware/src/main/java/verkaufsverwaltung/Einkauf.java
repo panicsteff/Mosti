@@ -1,17 +1,24 @@
 package verkaufsverwaltung;
 
 import java.util.ArrayList;
+import java.util.Date;
+
+import kundenverwaltung.Kunde;
 
 public class Einkauf {
 
 	private ArrayList<Einkaufsposition> einkaufsliste;
 	private int literzahl;
 	private double total;
+	private Kunde kunde;
+	private Date date;
 
-	public Einkauf() {
+	public Einkauf(Kunde kunde) {
+		this.kunde = kunde;
+		date = new Date();
 		einkaufsliste = new ArrayList<Einkaufsposition>();
 		setLiterzahl(0);
-		total = 0;
+		setSumme(0);
 	}
 
 	public void addEinkauf(Einkaufsposition position) {

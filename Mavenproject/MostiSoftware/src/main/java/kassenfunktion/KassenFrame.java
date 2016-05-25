@@ -16,7 +16,10 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 
+import kundenverwaltung.Kunde;
 import lagerverwaltung.Produkt;
+import lagerverwaltung.ProduktSortiment;
+import dienstleistungenverwaltung.DLSortiment;
 import dienstleistungenverwaltung.Dienstleistung;
 import trester.Tresterabrechnung;
 import verkaufsverwaltung.Einkauf;
@@ -44,15 +47,14 @@ public class KassenFrame extends JFrame {
 	private Einkaufsposition DLposition;
 	private Einkaufsposition produktPosition;
 	private int literzahl;
+	private Kunde kunde;
 
-	public KassenFrame(ArrayList<Dienstleistung> dienstleistungen,
-			ArrayList<Produkt> abfüllProduktSortiment,
-			ArrayList<Produkt> zusatzProduktSortiment,
+	public KassenFrame(DLSortiment dlsortiment,ProduktSortiment psortiment,
 			Kundeneinkäufe kundeneinkäufe) {
 
-		this.aliste = abfüllProduktSortiment;
-		this.zliste = zusatzProduktSortiment;
-		this.dienstleistungen = dienstleistungen;
+		aliste = psortiment.getAbfuellSortiment();
+		zliste = psortiment.getZProduktSortiment();
+		dienstleistungen = dlsortiment.getDLSortiment();
 		this.kundeneinkäufe = kundeneinkäufe;
 
 		initVerkaufsmengen();
@@ -67,10 +69,10 @@ public class KassenFrame extends JFrame {
 		dienstTableModel = new DienstleistungenTableModel(dienstleistungen);
 		JTable dienstTable = new JTable(dienstTableModel);
 
-		abfüllTableModel = new ProduktTableModel(abfüllProduktSortiment);
+		abfüllTableModel = new ProduktTableModel(aliste);
 		JTable abfüllTable = new JTable(abfüllTableModel);
 
-		zusatzTableModel = new ProduktTableModel(zusatzProduktSortiment);
+		zusatzTableModel = new ProduktTableModel(zliste);
 		JTable zusatzTable = new JTable(zusatzTableModel);
 
 		JScrollPane tableContainer1 = new JScrollPane(dienstTable);
@@ -150,13 +152,10 @@ public class KassenFrame extends JFrame {
 	}
 
 	private double berechneGesamtTotal() {
-
 		return (dienstTableModel.berechneTeilpreis() + 
 				abfüllTableModel.berechneTeilpreis() + 
 				zusatzTableModel.berechneTeilpreis());
 	}
-
-	
 
 	private void initVerkaufsmengen() {
 		for (Dienstleistung d : dienstleistungen) {
@@ -178,7 +177,7 @@ public class KassenFrame extends JFrame {
 	private class EinkaufAbschließenHandler implements ActionListener {
 
 		public void actionPerformed(ActionEvent arg0) {
-			einkauf = new Einkauf(); //
+			einkauf = new Einkauf(kunde); //
 			dlZuEinkauf(dienstleistungen); // gekaufte DL hinzufügen
 			produkteZuEinkauf(aliste); // gekaufte Abfüllmaterialien hinzufügen
 			produkteZuEinkauf(zliste); // gekaufte Zusatzprodukte hinzufügen
@@ -190,11 +189,9 @@ public class KassenFrame extends JFrame {
 			
 			System.out.println("Einkauf abgeschlossen");
 			kundeneinkäufe.printKundeneinkäufe();
-			Tresterabrechnung tA = new Tresterabrechnung(kundeneinkäufe);
-			tA.printTresterAbrechnung();
-			
+			//Tresterabrechnung tA = new Tresterabrechnung(kundeneinkäufe);
+			//tA.printTresterAbrechnung();
 			dispose();
-
 		}
 	}
 
