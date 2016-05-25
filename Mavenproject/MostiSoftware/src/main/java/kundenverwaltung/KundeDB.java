@@ -13,7 +13,7 @@ public class KundeDB {
 	Connection conn;
 	ArrayList<Kunde> kundenliste;
 
-	ArrayList<Kunde> kundenLaden() throws FileNotFoundException{
+	public ArrayList<Kunde> kundenLaden() throws FileNotFoundException{
 
 		kundenliste = new ArrayList<Kunde>();
 

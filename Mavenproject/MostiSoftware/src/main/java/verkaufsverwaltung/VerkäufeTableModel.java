@@ -84,7 +84,8 @@ class VerkäufeTableModel extends AbstractTableModel {
 		for (int i = 0; i < getRowCount(); i++) {
 			sum = sum
 					+ ((Integer) (getValueAt(i, 2)) * vliste.get(i)
-							.getPreis());
+							.getPreis())+ ((Integer) (getValueAt(i, 3)) * vliste.get(i)
+									.getPreis());
 //			System.out.println((Integer) (getValueAt(0, i)) + " und "
 //					+ vliste.get(i).getPreis());
 

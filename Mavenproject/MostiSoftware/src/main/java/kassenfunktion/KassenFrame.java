@@ -5,7 +5,13 @@ import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.FileNotFoundException;
+import java.text.DateFormat;
 import java.util.ArrayList;
+
+
+
+
 import java.util.Date;
 
 import javax.swing.BorderFactory;
@@ -16,17 +22,19 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
+import javax.swing.ListSelectionModel;
 
 import kundenverwaltung.Kunde;
+import kundenverwaltung.KundeDB;
 import lagerverwaltung.Produkt;
 import lagerverwaltung.ProduktSortiment;
-import dienstleistungenverwaltung.DLSortiment;
-import dienstleistungenverwaltung.Dienstleistung;
+import verkaufsverwaltung.Kundeneinkäufe;
 import verkaufsverwaltung.Verkauf;
 import verkaufsverwaltung.Verkaufsposition;
-import verkaufsverwaltung.Kundeneinkäufe;
 import verkaufsverwaltung.Verkaufsverwaltung;
 import verkaufsverwaltung.VerkäufeFrame;
+import dienstleistungenverwaltung.DLSortiment;
+import dienstleistungenverwaltung.Dienstleistung;
 
 public class KassenFrame extends JFrame {
 
@@ -38,6 +46,9 @@ public class KassenFrame extends JFrame {
 	private ProduktTableModel zusatzTableModel;
 	private ProduktTableModel abfüllTableModel;
 	private DienstleistungenTableModel dienstTableModel;
+	private ListSelectionModel kassenSelectionModel1;
+	private ListSelectionModel kassenSelectionModel2;
+	private ListSelectionModel kassenSelectionModel3;
 	private JLabel label;
 	private double total;
 	private JTextField totalText;
@@ -45,13 +56,13 @@ public class KassenFrame extends JFrame {
 	private ArrayList<Produkt> zliste;
 	private ArrayList<Dienstleistung> dienstleistungen;
 	private Verkauf einkauf;
-	private Kundeneinkäufe kundeneinkäufe;
 	private Verkaufsposition DLposition;
 	private Verkaufsposition produktPosition;
 	private int literzahl;
 	private Kunde kunde;
 	private ArrayList<Verkaufsposition> einkaufsliste;
 	private Verkaufsverwaltung vVerwaltung;
+	private KundeDB kundeDB; //nur zum Test
 
 	public KassenFrame(DLSortiment dlsortiment,ProduktSortiment psortiment,
 			Verkaufsverwaltung verkaufsverwaltung) {
@@ -60,6 +71,8 @@ public class KassenFrame extends JFrame {
 		zliste = psortiment.getZProduktSortiment();
 		dienstleistungen = dlsortiment.getDLSortiment();
 		this.vVerwaltung = verkaufsverwaltung;
+		
+		kundeDB = new KundeDB(); //nur zum Test
 
 		initVerkaufsmengen();
 
@@ -128,6 +141,18 @@ public class KassenFrame extends JFrame {
 		buttonPanel.add(aktualisiereSummeButton);
 		buttonPanel.add(abschlussButton);
 		contentPanel.add(buttonPanel);
+		
+		kassenSelectionModel1 = dienstTable.getSelectionModel();
+		kassenSelectionModel1
+				.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+		
+		kassenSelectionModel2 = abfüllTable.getSelectionModel();
+		kassenSelectionModel2
+				.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+		
+		kassenSelectionModel3 = zusatzTable.getSelectionModel();
+		kassenSelectionModel3
+				.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 
 		JPanel titlepane = new JPanel();
 		titlepane.setBorder(BorderFactory.createTitledBorder(
@@ -178,20 +203,34 @@ public class KassenFrame extends JFrame {
 	private class EinkaufAbschließenHandler implements ActionListener {
 
 		public void actionPerformed(ActionEvent arg0) {
-			
+			einkaufsliste = new ArrayList<Verkaufsposition>();
 			dlZuEinkauf(dienstleistungen); // gekaufte DL hinzufügen
 			produkteZuEinkauf(aliste); // gekaufte Abfüllmaterialien hinzufügen
 			produkteZuEinkauf(zliste); // gekaufte Zusatzprodukte hinzufügen
+			new VerkäufeFrame(einkaufsliste);
 			
-			einkauf = new Verkauf(kunde, new Date(), einkaufsliste);
+			try {
+				kunde = kundeDB.kundenLaden().get(2);
+				System.out.println("KundenID: " +kunde.getKundenID());
+			} catch (FileNotFoundException e) {
+				// TODO Auto-generated catch block
+				System.out.println("Fehler dB");
+				e.printStackTrace();
+			}
+			
+			java.util.Date datum = new Date();
+			java.sql.Date d = new java.sql.Date(datum.getTime());
+			System.out.println(d.getTime());
+			einkauf = new Verkauf(kunde, d, einkaufsliste);
+			vVerwaltung.addVerkauf(einkauf);
 
-			total = berechneGesamtTotal();
-			einkauf.setSumme(total);
-			einkauf.setLiterzahl(literzahl);
-			kundeneinkäufe.addEinkauf(einkauf);
+//			total = berechneGesamtTotal();
+//			einkauf.setSumme(total);
+//			einkauf.setLiterzahl(literzahl);
 			
 			System.out.println("Einkauf abgeschlossen");
 			new VerkäufeFrame(einkaufsliste);
+			
 			//kundeneinkäufe.printKundeneinkäufe();
 			//Tresterabrechnung tA = new Tresterabrechnung(kundeneinkäufe);
 			//tA.printTresterAbrechnung();
@@ -207,7 +246,7 @@ public class KassenFrame extends JFrame {
 				p.setVorratsmenge(p.getVorratsmenge()-p.getVerkaufsMenge());
 				//einkauf.addEinkaufsposition(produktPosition);
 				einkaufsliste.add(produktPosition);
-				p.printEinkaufsposition();
+				p.printVerkaufsposition();
 			}
 		}
 	}
@@ -215,14 +254,14 @@ public class KassenFrame extends JFrame {
 	private void dlZuEinkauf(ArrayList<Dienstleistung> liste) {
 		literzahl = 0;
 		for (Dienstleistung d : liste) {
-			if (d.getVerkaufsMenge() > 0) {
+			if (d.getLiterzahl() > 0) {
 				DLposition = new Verkaufsposition(d.getName(), d.getPreis(),
 						d.getVerkaufsMenge(), d.getLiterzahl()
 						);
 				//einkauf.addEinkaufsposition(DLposition);
 				einkaufsliste.add(DLposition);
-				literzahl = literzahl + d.getVerkaufsMenge();
-				d.printEinkaufsposition();
+				literzahl = literzahl + d.getLiterzahl();
+				d.printVerkaufsposition();
 			}
 		}
 	}

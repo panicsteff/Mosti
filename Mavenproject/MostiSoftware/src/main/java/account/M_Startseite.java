@@ -15,7 +15,7 @@ import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 import javax.swing.JSeparator;
 
-import kassenfunktion.KassenfunktionFrame;
+import kassenfunktion.KassenFrame;
 import kundenverwaltung.KundenVerwaltung;
 import lagerverwaltung.LagerVerwaltungFrame;
 import lagerverwaltung.ProduktSortiment;
@@ -23,8 +23,8 @@ import mitarbeiterverwaltung.MitarbeiterVerwaltung;
 import terminplanung.TerminplanungsFrame;
 import trester.TresterFrame;
 import trester.Tresterverwaltung;
-import verkaufsverwaltung.GroberEinkauf;
 import verkaufsverwaltung.Kundeneinkäufe;
+import verkaufsverwaltung.Verkaufsverwaltung;
 import dienstleistungenverwaltung.DLSortiment;
 import dienstleistungenverwaltung.DLVerwaltungFrame;
 
@@ -37,12 +37,10 @@ public class M_Startseite extends JFrame {
 	Kundeneinkäufe kundeneinkäufe;
 	DLSortiment dlSorti;
 	ProduktSortiment pSorti;
-	GroberEinkauf groberEinkauf;
 
 	public M_Startseite() {
 		dlSorti = new DLSortiment(); 
 		pSorti = new ProduktSortiment();
-		groberEinkauf = new GroberEinkauf(); //Singleton für bestimmtes Datum?
 		
 		setTitle("Startseite");
 		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
@@ -66,7 +64,7 @@ public class M_Startseite extends JFrame {
 
 		kassenButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				KassenfunktionFrame k = new KassenfunktionFrame(dlSorti,pSorti, groberEinkauf);
+				KassenFrame k = new KassenFrame(dlSorti,pSorti, new Verkaufsverwaltung());
 			}
 		});
 
@@ -90,7 +88,7 @@ public class M_Startseite extends JFrame {
 		mDatei.add(abrechnen);
 		abrechnen.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				KassenfunktionFrame a = new KassenfunktionFrame(dlSorti, pSorti, groberEinkauf);
+				KassenFrame k = new KassenFrame(dlSorti,pSorti, new Verkaufsverwaltung());
 			}
 		});
 

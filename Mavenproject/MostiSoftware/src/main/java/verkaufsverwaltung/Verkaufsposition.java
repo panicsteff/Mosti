@@ -44,9 +44,9 @@ public class Verkaufsposition {
 		this.verkaufsMenge = verkaufsMenge;
 	}
 	
-	public void printEinkaufsposition() {
+	public void printVerkaufsposition() {
 		System.out.println("Einkaufsdrum: " + getName() + "  Anzahl: "
-				+ getVerkaufsMenge() + " a " + getPreis() + " €");
+				+ getVerkaufsMenge() +" bzw. Literzahl: " + getLiterzahl() + " a " + getPreis() + " €");
 	}
 
 
