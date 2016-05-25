@@ -15,13 +15,17 @@ import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 import javax.swing.JSeparator;
 
-import kassenfunktion.KassenFrame;
+import kassenfunktion.KassenfunktionFrame;
 import kundenverwaltung.KundenVerwaltung;
 import lagerverwaltung.LagerVerwaltungFrame;
-import main.Angebote;
+import lagerverwaltung.ProduktSortiment;
 import mitarbeiterverwaltung.MitarbeiterVerwaltung;
 import terminplanung.TerminplanungsFrame;
+import trester.TresterFrame;
+import trester.Tresterverwaltung;
+import verkaufsverwaltung.GroberEinkauf;
 import verkaufsverwaltung.Kundeneinkäufe;
+import dienstleistungenverwaltung.DLSortiment;
 import dienstleistungenverwaltung.DLVerwaltungFrame;
 
 public class M_Startseite extends JFrame {
@@ -30,12 +34,16 @@ public class M_Startseite extends JFrame {
 	JMenuBar mbar;
 	JMenu mDatei;
 	JMenuItem abrechnen;
-	Angebote angebote;
 	Kundeneinkäufe kundeneinkäufe;
+	DLSortiment dlSorti;
+	ProduktSortiment pSorti;
+	GroberEinkauf groberEinkauf;
 
-	public M_Startseite(Angebote a, Kundeneinkäufe k) {
-		angebote = a;
-		kundeneinkäufe = k;
+	public M_Startseite() {
+		dlSorti = new DLSortiment(); 
+		pSorti = new ProduktSortiment();
+		groberEinkauf = new GroberEinkauf(); //Singleton für bestimmtes Datum?
+		
 		setTitle("Startseite");
 		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 		setBounds(500, 200, 500, 500);
@@ -58,27 +66,19 @@ public class M_Startseite extends JFrame {
 
 		kassenButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				KassenFrame a = new KassenFrame(angebote.getDLSortiment(),angebote.getAbfuellSortiment(), angebote.getZProduktSortiment(),kundeneinkäufe);
+				KassenfunktionFrame k = new KassenfunktionFrame(dlSorti,pSorti, groberEinkauf);
 			}
 		});
 
 		lagerButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-//				ArrayList<Produkt> p = new ArrayList<Produkt>();
-//				Produkt p1 = new Produkt("5L Box", 1.00, 10, 200, true);
-//				Produkt p2 = new Produkt("10L Box", 2.00, 100, 200, true);
-//				Produkt p3 = new Produkt("10L Box", 2.00, 100, 200, true);
-//				p.add(p1);
-//				p.add(p2);
-//				p.add(p3);
-				//LagerVerwaltungFrame l = new LagerVerwaltungFrame(angebote.getAbfuellSortiment(), angebote.getZProduktSortiment());
-				LagerVerwaltungFrame l = new LagerVerwaltungFrame(angebote);
+				LagerVerwaltungFrame l = new LagerVerwaltungFrame(pSorti);
 			}
 		});
 		
 		dlButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				DLVerwaltungFrame dl = new DLVerwaltungFrame(angebote);
+				DLVerwaltungFrame dl = new DLVerwaltungFrame(dlSorti);
 			}
 		});
 
@@ -90,7 +90,7 @@ public class M_Startseite extends JFrame {
 		mDatei.add(abrechnen);
 		abrechnen.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				KassenFrame a = new KassenFrame(angebote.getDLSortiment(),angebote.getAbfuellSortiment(), angebote.getZProduktSortiment(), kundeneinkäufe);
+				KassenfunktionFrame a = new KassenfunktionFrame(dlSorti, pSorti, groberEinkauf);
 			}
 		});
 
@@ -120,6 +120,16 @@ public class M_Startseite extends JFrame {
 		cmdMitarbeiter.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e){
 				new MitarbeiterVerwaltung();
+			}
+		});
+		
+		JMenu trester = new JMenu("Tresterverwaltung");
+		mbar.add(trester);
+		JMenuItem tresteritem = new JMenuItem("Tresterpreis bearbeiten");
+		trester.add(tresteritem);
+		tresteritem.addActionListener(new ActionListener(){
+			public void actionPerformed(ActionEvent e){
+				new TresterFrame(new Tresterverwaltung());
 			}
 		});
 		

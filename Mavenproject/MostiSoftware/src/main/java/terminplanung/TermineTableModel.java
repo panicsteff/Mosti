@@ -9,13 +9,13 @@ public class TermineTableModel extends AbstractTableModel {
 	private static final long serialVersionUID = 1L;
 	private ArrayList<Termin> terminliste;
 	private int anzeigeseite;
-	private Konfigurationswerte k;
+	private TerminLogik terminlogik;
 	
 
 	TermineTableModel(ArrayList<Termin> terminliste, int as) {
 		this.terminliste = terminliste;
-		anzeigeseite = as;
-		k = new Konfigurationswerte();  
+		anzeigeseite = as; 
+		terminlogik = new TerminLogik();
 	}
 
 	public String getColumnName(int col){
@@ -32,12 +32,12 @@ public class TermineTableModel extends AbstractTableModel {
 	}
 
 	public int getRowCount() {
-		return k.getZeilenanzahlProSeite();
+		return terminlogik.getZeilenAnzahlProSeite();
 	}
 
 	public Object getValueAt(int row, int col) {
 		
-		int reihe = (anzeigeseite - 1) * k.getZeilenanzahlProSeite() + row;
+		int reihe = (anzeigeseite - 1) * terminlogik.getZeilenAnzahlProSeite() + row;
 		
 		switch (col) {
 		case 0:

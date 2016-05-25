@@ -16,8 +16,6 @@ import javax.swing.text.NumberFormatter;
 
 import kundenverwaltung.NullableFormatter;
 import lagerverwaltung.FoFormat;
-import main.Angebote;
-
 import com.sun.glass.ui.Pixels.Format;
 
 @SuppressWarnings("serial")
@@ -27,13 +25,14 @@ class DLHinzufuegenFrame extends JDialog {
 	private JFormattedTextField txtPreis;
 	private Dienstleistung dienstleistung;
 	private Format format;
-	private Angebote a;
+	//private Angebote a;
+	private DLSortiment dlSortiment;
 
-	DLHinzufuegenFrame(JFrame parent, Angebote a) {
+	DLHinzufuegenFrame(JFrame parent, DLSortiment d) {
 
 		super(parent);
 
-		this.a = a;
+		this.dlSortiment = d;
 
 		setTitle("Neue Dienstleistung erstellen");
 		setSize(350, 250);
@@ -65,7 +64,7 @@ class DLHinzufuegenFrame extends JDialog {
 
 		public void actionPerformed(ActionEvent arg0) {
 			dienstleistung = new Dienstleistung(txtName.getText(), Double.parseDouble(txtPreis.getText()),0);
-			a.addDienstleistung(dienstleistung);
+			dlSortiment.addDienstleistung(dienstleistung);
 			dispose();
 		}
 	}

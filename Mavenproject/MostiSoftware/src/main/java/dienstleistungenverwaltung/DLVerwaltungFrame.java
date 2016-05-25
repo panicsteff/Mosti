@@ -23,7 +23,6 @@ import javax.swing.table.TableColumn;
 
 import lagerverwaltung.PreisCellRenderer;
 import lagerverwaltung.Produkt;
-import main.Angebote;
 
 
 	@SuppressWarnings("serial")
@@ -33,10 +32,10 @@ import main.Angebote;
 		private ListSelectionModel dlSelectionModel;
 		//private List<Dienstleistung> pliste;
 		private JMenuItem bearDL;
-		private Angebote a;
+		private DLSortiment dlSortiment;
 
-		public DLVerwaltungFrame (Angebote angebote) {
-			this.a = angebote;
+		public DLVerwaltungFrame (DLSortiment d) {
+			this.dlSortiment = d;
 			//pliste = auflistung;
 
 			setTitle("Dienstleistungen verwalten");
@@ -88,7 +87,7 @@ import main.Angebote;
 			});
 			bearDL.setEnabled(false);
 
-			dlTableModel = new DLTableModel(a.getDLSortiment());
+			dlTableModel = new DLTableModel(dlSortiment.getDLSortiment());
 			JTable dlTabelle = new JTable(dlTableModel);
 
 			dlSelectionModel = dlTabelle.getSelectionModel();
@@ -135,21 +134,21 @@ import main.Angebote;
 		}
 
 		private void addDL() {
-			new DLHinzufuegenFrame(this, a);
+			new DLHinzufuegenFrame(this, dlSortiment);
 			dlTableModel.fireTableDataChanged();
 		}
 		
 		private void deleteDL() {
 			int row = dlSelectionModel.getMinSelectionIndex();
 			Dienstleistung d = dlTableModel.getDienstleistung(row);
-			a.deleteDienstleistung(d);
+			dlSortiment.deleteDienstleistung(d);
 			dlTableModel.fireTableDataChanged();
 		}
 
 		private void bearbeiteDL() {
 			int row = dlSelectionModel.getMinSelectionIndex();
 			new DLBearbeitenFrame(this, dlTableModel.getDienstleistung(row));
-			a.dienstleistungenAktualisieren();
+			dlSortiment.dienstleistungenAktualisieren();
 			dlTableModel.fireTableRowsUpdated(row, row);
 		}
 
