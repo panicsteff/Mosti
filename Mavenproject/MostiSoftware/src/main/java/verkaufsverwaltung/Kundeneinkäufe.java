@@ -4,17 +4,17 @@ import java.util.ArrayList;
 
 public class Kundeneinkäufe {
 	
-	private ArrayList<Einkauf> kundeneinkäufe;
+	private ArrayList<Verkauf> kundeneinkäufe;
 	
 	public Kundeneinkäufe (){
-		kundeneinkäufe = new ArrayList<Einkauf>();
+		kundeneinkäufe = new ArrayList<Verkauf>();
 	}
 	
-	public void addEinkauf(Einkauf e){
+	public void addEinkauf(Verkauf e){
 		kundeneinkäufe.add(e);
 	}
 	
-	public Einkauf getEinkauf(int index){
+	public Verkauf getEinkauf(int index){
 		return kundeneinkäufe.get(index);
 	}
 	
@@ -26,7 +26,7 @@ public class Kundeneinkäufe {
 	
 	public void printKundeneinkäufe(){
 		int count = 1;
-		for(Einkauf e: kundeneinkäufe){
+		for(Verkauf e: kundeneinkäufe){
 			System.out.print(count++ + ": ");
 			e.printEinkauf();
 		}

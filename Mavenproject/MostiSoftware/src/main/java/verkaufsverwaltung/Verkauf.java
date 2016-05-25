@@ -5,7 +5,7 @@ import java.util.Date;
 
 import kundenverwaltung.Kunde;
 
-public class Einkauf {
+public class Verkauf {
 
 	private ArrayList<Verkaufsposition> einkaufsliste;
 	private int literzahl;
@@ -21,7 +21,7 @@ public class Einkauf {
 //		setSumme(0);
 //	}
 	
-	public Einkauf(Kunde kunde, Date date, ArrayList<Verkaufsposition> liste) {
+	public Verkauf(Kunde kunde, Date date, ArrayList<Verkaufsposition> liste) {
 		this.setKunde(kunde);
 		setVerkaufsDatum(date);
 		einkaufsliste = liste;
@@ -33,19 +33,27 @@ public class Einkauf {
 		einkaufsliste.add(position);
 		//total = total + position.getVerkaufsMenge()*position.getPreis();
 	}
+	
+	public Verkaufsposition getVerkaufsposition(int index){
+		return einkaufsliste.get(index);
+	}
+	
+	public int getListengröße(){
+		return einkaufsliste.size();
+	}
 
 	public void printEinkauf() {
 		for (Verkaufsposition e : einkaufsliste) {
 				System.out.print(e.getVerkaufsMenge() + "x " + e.getName()+ ", ");
 		}
-		System.out.println(" für insgesamt " + getsumme()+ " €");
+		System.out.println(" für insgesamt " + getSumme()+ " €");
 	}
 
 	public void setSumme(double total) {
 		this.total = total;
 	}
 
-	public double getsumme() {
+	public double getSumme() {
 		return total;
 	}
 

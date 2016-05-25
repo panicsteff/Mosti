@@ -7,24 +7,32 @@ import kundenverwaltung.Kunde;
 import persistenz.VerkäufeDB;
 
 public class Verkaufsverwaltung {
-	
-	private Einkauf einkauf;
+
+	private Verkauf verkauf;
 	private ArrayList<Verkaufsposition> einkaufsliste;
 	private VerkäufeDB verkäufeDB;
-	
-	public Verkaufsverwaltung(){
+
+	public Verkaufsverwaltung() {
 		verkäufeDB = new VerkäufeDB();
-		
+
 	}
-	
-	public Einkauf ladeKundeneinkauf(Kunde kunde, Date date){
+
+	public Verkauf ladeKundeneinkauf(Kunde kunde, Date date) {
 		einkaufsliste = verkäufeDB.einkaufLaden(kunde, date);
-		einkauf = new Einkauf(kunde, date, einkaufsliste);
-		return einkauf;
+		verkauf = new Verkauf(kunde, date, einkaufsliste);
+		return verkauf;
 	}
-	
-	public ArrayList<Verkaufsposition> ladeAlleEinkäufeVonKunde(Kunde kunde){
+
+	public ArrayList<Verkaufsposition> ladeAlleEinkäufeVonKunde(Kunde kunde) {
 		return verkäufeDB.alleEinkäufeVonKundeLaden(kunde);
+	}
+
+	public void addVerkauf(Verkauf verkauf) {
+		verkäufeDB.kundeneinkaufHinzufügen(verkauf);
+	}
+
+	public ArrayList<Verkaufsposition> ladeTagesVerkäufe(Date date) {
+		return verkäufeDB.tagesVerkäufeLaden(date);
 	}
 
 }

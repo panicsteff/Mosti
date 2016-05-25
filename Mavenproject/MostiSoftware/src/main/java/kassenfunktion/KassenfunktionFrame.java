@@ -19,7 +19,7 @@ import javax.swing.JTextField;
 import lagerverwaltung.Produkt;
 import lagerverwaltung.ProduktSortiment;
 import trester.Tresterabrechnung;
-import verkaufsverwaltung.Einkauf;
+import verkaufsverwaltung.Verkauf;
 import verkaufsverwaltung.Verkaufsposition;
 import verkaufsverwaltung.GroberEinkauf;
 import verkaufsverwaltung.Kundeneinkäufe;

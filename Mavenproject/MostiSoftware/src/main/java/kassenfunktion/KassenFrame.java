@@ -22,10 +22,11 @@ import lagerverwaltung.Produkt;
 import lagerverwaltung.ProduktSortiment;
 import dienstleistungenverwaltung.DLSortiment;
 import dienstleistungenverwaltung.Dienstleistung;
-import trester.Tresterabrechnung;
-import verkaufsverwaltung.Einkauf;
+import verkaufsverwaltung.Verkauf;
 import verkaufsverwaltung.Verkaufsposition;
 import verkaufsverwaltung.Kundeneinkäufe;
+import verkaufsverwaltung.Verkaufsverwaltung;
+import verkaufsverwaltung.VerkäufeFrame;
 
 public class KassenFrame extends JFrame {
 
@@ -43,21 +44,22 @@ public class KassenFrame extends JFrame {
 	private ArrayList<Produkt> aliste;
 	private ArrayList<Produkt> zliste;
 	private ArrayList<Dienstleistung> dienstleistungen;
-	private Einkauf einkauf;
+	private Verkauf einkauf;
 	private Kundeneinkäufe kundeneinkäufe;
 	private Verkaufsposition DLposition;
 	private Verkaufsposition produktPosition;
 	private int literzahl;
 	private Kunde kunde;
 	private ArrayList<Verkaufsposition> einkaufsliste;
+	private Verkaufsverwaltung vVerwaltung;
 
 	public KassenFrame(DLSortiment dlsortiment,ProduktSortiment psortiment,
-			Kundeneinkäufe kundeneinkäufe) {
+			Verkaufsverwaltung verkaufsverwaltung) {
 
 		aliste = psortiment.getAbfuellSortiment();
 		zliste = psortiment.getZProduktSortiment();
 		dienstleistungen = dlsortiment.getDLSortiment();
-		this.kundeneinkäufe = kundeneinkäufe;
+		this.vVerwaltung = verkaufsverwaltung;
 
 		initVerkaufsmengen();
 
@@ -146,7 +148,6 @@ public class KassenFrame extends JFrame {
 	private class AktualisiereSummeHandler implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
 			total = berechneGesamtTotal();
-			// System.out.println(total);
 			totalText.setText(String.valueOf(total));
 		}
 	}
@@ -182,7 +183,7 @@ public class KassenFrame extends JFrame {
 			produkteZuEinkauf(aliste); // gekaufte Abfüllmaterialien hinzufügen
 			produkteZuEinkauf(zliste); // gekaufte Zusatzprodukte hinzufügen
 			
-			einkauf = new Einkauf(kunde, new Date(), einkaufsliste);
+			einkauf = new Verkauf(kunde, new Date(), einkaufsliste);
 
 			total = berechneGesamtTotal();
 			einkauf.setSumme(total);
@@ -190,7 +191,8 @@ public class KassenFrame extends JFrame {
 			kundeneinkäufe.addEinkauf(einkauf);
 			
 			System.out.println("Einkauf abgeschlossen");
-			kundeneinkäufe.printKundeneinkäufe();
+			new VerkäufeFrame(einkaufsliste);
+			//kundeneinkäufe.printKundeneinkäufe();
 			//Tresterabrechnung tA = new Tresterabrechnung(kundeneinkäufe);
 			//tA.printTresterAbrechnung();
 			dispose();
