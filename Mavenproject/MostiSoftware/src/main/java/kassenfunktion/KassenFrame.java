@@ -6,6 +6,7 @@ import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
+import java.util.Date;
 
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
@@ -101,8 +102,6 @@ public class KassenFrame extends JFrame {
 		summePanel.setLayout(new FlowLayout(FlowLayout.RIGHT));
 		summePanel.add(new JLabel("Gesamtsumme in Euro: "));
 
-		
-
 		totalText = new JTextField(13);
 		totalText.setHorizontalAlignment(JTextField.RIGHT);
 		totalText.setEditable(false);
@@ -177,7 +176,7 @@ public class KassenFrame extends JFrame {
 	private class EinkaufAbschließenHandler implements ActionListener {
 
 		public void actionPerformed(ActionEvent arg0) {
-			einkauf = new Einkauf(kunde); //
+			einkauf = new Einkauf(kunde, new Date()); //
 			dlZuEinkauf(dienstleistungen); // gekaufte DL hinzufügen
 			produkteZuEinkauf(aliste); // gekaufte Abfüllmaterialien hinzufügen
 			produkteZuEinkauf(zliste); // gekaufte Zusatzprodukte hinzufügen
@@ -201,7 +200,7 @@ public class KassenFrame extends JFrame {
 				produktPosition = new Einkaufsposition(p.getName(),
 						p.getPreis(), p.getVerkaufsMenge());
 				p.setVorratsmenge(p.getVorratsmenge()-p.getVerkaufsMenge());
-				einkauf.addEinkauf(produktPosition);
+				einkauf.addEinkaufsposition(produktPosition);
 				p.printEinkaufsposition();
 			}
 		}
@@ -213,7 +212,7 @@ public class KassenFrame extends JFrame {
 			if (d.getVerkaufsMenge() > 0) {
 				DLposition = new Einkaufsposition(d.getName(), d.getPreis(),
 						d.getVerkaufsMenge());
-				einkauf.addEinkauf(DLposition);
+				einkauf.addEinkaufsposition(DLposition);
 				literzahl = literzahl + d.getVerkaufsMenge();
 				d.printEinkaufsposition();
 			}

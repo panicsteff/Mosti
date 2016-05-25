@@ -77,7 +77,7 @@ public class Kunde {
 		this.telefonnummer = telefonnummer;
 	}
 
-	int getKundenID() {
+	public int getKundenID() {
 		return kundenID;
 	}
 
