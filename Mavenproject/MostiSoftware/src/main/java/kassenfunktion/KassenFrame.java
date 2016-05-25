@@ -24,7 +24,7 @@ import dienstleistungenverwaltung.DLSortiment;
 import dienstleistungenverwaltung.Dienstleistung;
 import trester.Tresterabrechnung;
 import verkaufsverwaltung.Einkauf;
-import verkaufsverwaltung.Einkaufsposition;
+import verkaufsverwaltung.Verkaufsposition;
 import verkaufsverwaltung.Kundeneinkäufe;
 
 public class KassenFrame extends JFrame {
@@ -45,11 +45,11 @@ public class KassenFrame extends JFrame {
 	private ArrayList<Dienstleistung> dienstleistungen;
 	private Einkauf einkauf;
 	private Kundeneinkäufe kundeneinkäufe;
-	private Einkaufsposition DLposition;
-	private Einkaufsposition produktPosition;
+	private Verkaufsposition DLposition;
+	private Verkaufsposition produktPosition;
 	private int literzahl;
 	private Kunde kunde;
-	private ArrayList<Einkaufsposition> einkaufsliste;
+	private ArrayList<Verkaufsposition> einkaufsliste;
 
 	public KassenFrame(DLSortiment dlsortiment,ProduktSortiment psortiment,
 			Kundeneinkäufe kundeneinkäufe) {
@@ -200,7 +200,7 @@ public class KassenFrame extends JFrame {
 	private void produkteZuEinkauf(ArrayList<Produkt> liste) {
 		for (Produkt p : liste) {
 			if (p.getVerkaufsMenge() > 0) {
-				produktPosition = new Einkaufsposition(p.getName(),
+				produktPosition = new Verkaufsposition(p.getName(),
 						p.getPreis(), p.getVerkaufsMenge(), p.getLiterzahl());
 				p.setVorratsmenge(p.getVorratsmenge()-p.getVerkaufsMenge());
 				//einkauf.addEinkaufsposition(produktPosition);
@@ -214,7 +214,7 @@ public class KassenFrame extends JFrame {
 		literzahl = 0;
 		for (Dienstleistung d : liste) {
 			if (d.getVerkaufsMenge() > 0) {
-				DLposition = new Einkaufsposition(d.getName(), d.getPreis(),
+				DLposition = new Verkaufsposition(d.getName(), d.getPreis(),
 						d.getVerkaufsMenge(), d.getLiterzahl()
 						);
 				//einkauf.addEinkaufsposition(DLposition);

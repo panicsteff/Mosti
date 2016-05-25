@@ -7,21 +7,21 @@ import kundenverwaltung.Kunde;
 
 public class Einkauf {
 
-	private ArrayList<Einkaufsposition> einkaufsliste;
+	private ArrayList<Verkaufsposition> einkaufsliste;
 	private int literzahl;
 	private double total;
 	private Kunde kunde;
 	private Date date;
 
-	public Einkauf(Kunde kunde, Date date) {
-		this.setKunde(kunde);
-		setVerkaufsDatum(date);
-		einkaufsliste = new ArrayList<Einkaufsposition>();
-		setLiterzahl(0);
-		setSumme(0);
-	}
+//	public Einkauf(Kunde kunde, Date date) {
+//		this.setKunde(kunde);
+//		setVerkaufsDatum(date);
+//		einkaufsliste = new ArrayList<Einkaufsposition>();
+//		setLiterzahl(0);
+//		setSumme(0);
+//	}
 	
-	public Einkauf(Kunde kunde, Date date, ArrayList<Einkaufsposition> liste) {
+	public Einkauf(Kunde kunde, Date date, ArrayList<Verkaufsposition> liste) {
 		this.setKunde(kunde);
 		setVerkaufsDatum(date);
 		einkaufsliste = liste;
@@ -29,13 +29,13 @@ public class Einkauf {
 //		setSumme(0);
 	}
 
-	public void addEinkaufsposition(Einkaufsposition position) {
+	public void addEinkaufsposition(Verkaufsposition position) {
 		einkaufsliste.add(position);
 		//total = total + position.getVerkaufsMenge()*position.getPreis();
 	}
 
 	public void printEinkauf() {
-		for (Einkaufsposition e : einkaufsliste) {
+		for (Verkaufsposition e : einkaufsliste) {
 				System.out.print(e.getVerkaufsMenge() + "x " + e.getName()+ ", ");
 		}
 		System.out.println(" für insgesamt " + getsumme()+ " €");

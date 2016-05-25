@@ -20,7 +20,7 @@ import lagerverwaltung.Produkt;
 import lagerverwaltung.ProduktSortiment;
 import trester.Tresterabrechnung;
 import verkaufsverwaltung.Einkauf;
-import verkaufsverwaltung.Einkaufsposition;
+import verkaufsverwaltung.Verkaufsposition;
 import verkaufsverwaltung.GroberEinkauf;
 import verkaufsverwaltung.Kundeneinkäufe;
 import dienstleistungenverwaltung.DLSortiment;

@@ -9,7 +9,7 @@ import persistenz.VerkäufeDB;
 public class Verkaufsverwaltung {
 	
 	private Einkauf einkauf;
-	private ArrayList<Einkaufsposition> einkaufsliste;
+	private ArrayList<Verkaufsposition> einkaufsliste;
 	private VerkäufeDB verkäufeDB;
 	
 	public Verkaufsverwaltung(){
@@ -23,7 +23,7 @@ public class Verkaufsverwaltung {
 		return einkauf;
 	}
 	
-	public ArrayList<Einkaufsposition> ladeAlleEinkäufeVonKunde(Kunde kunde){
+	public ArrayList<Verkaufsposition> ladeAlleEinkäufeVonKunde(Kunde kunde){
 		return verkäufeDB.alleEinkäufeVonKundeLaden(kunde);
 	}
 

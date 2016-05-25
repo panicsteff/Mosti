@@ -10,7 +10,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 
 import kundenverwaltung.Kunde;
-import verkaufsverwaltung.Einkaufsposition;
+import verkaufsverwaltung.Verkaufsposition;
 import dienstleistungenverwaltung.Dienstleistung;
 
 public class VerkäufeDB {
@@ -18,9 +18,9 @@ public class VerkäufeDB {
 		Connection conn;
 		
 		
-	public ArrayList<Einkaufsposition> einkaufLaden(Kunde kunde, Date date){
+	public ArrayList<Verkaufsposition> einkaufLaden(Kunde kunde, Date date){
 			
-			ArrayList<Einkaufsposition> einkaufsliste = new ArrayList<Einkaufsposition>();
+			ArrayList<Verkaufsposition> einkaufsliste = new ArrayList<Verkaufsposition>();
 			
 			try {
 				conn = DriverManager
@@ -37,7 +37,7 @@ public class VerkäufeDB {
 					int menge = rs.getInt("verkaufsmenge");
 					int literzahl = rs.getInt("literzahl");
 					
-					Einkaufsposition einkaufsposition = new Einkaufsposition(name, preis, menge, literzahl);
+					Verkaufsposition einkaufsposition = new Verkaufsposition(name, preis, menge, literzahl);
 					einkaufsliste.add(einkaufsposition);
 				}
 				s.close();
@@ -49,8 +49,8 @@ public class VerkäufeDB {
 			return einkaufsliste;
 		}
 	
-	public ArrayList<Einkaufsposition> alleEinkäufeVonKundeLaden(Kunde kunde){
-		ArrayList<Einkaufsposition> einkaufsliste = new ArrayList<Einkaufsposition>();
+	public ArrayList<Verkaufsposition> alleEinkäufeVonKundeLaden(Kunde kunde){
+		ArrayList<Verkaufsposition> einkaufsliste = new ArrayList<Verkaufsposition>();
 		try {
 			conn = DriverManager
 					.getConnection("jdbc:ucanaccess://./Mosti-Datenkank.mdb");
@@ -64,7 +64,7 @@ public class VerkäufeDB {
 				int menge = rs.getInt("verkaufsmenge");
 				int literzahl = rs.getInt("literzahl");
 				
-				Einkaufsposition einkaufsposition = new Einkaufsposition(name, preis, menge, literzahl);
+				Verkaufsposition einkaufsposition = new Verkaufsposition(name, preis, menge, literzahl);
 				einkaufsliste.add(einkaufsposition);
 			}
 			s.close();

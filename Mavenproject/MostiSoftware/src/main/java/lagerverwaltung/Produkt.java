@@ -2,18 +2,18 @@ package lagerverwaltung;
 
 import javax.swing.JOptionPane;
 
-import verkaufsverwaltung.Einkaufsposition;
+import verkaufsverwaltung.Verkaufsposition;
 
-public class Produkt extends Einkaufsposition {
+public class Produkt extends Verkaufsposition {
 
 	private int vorratsmenge;
 	private int untergrenze;
 	private boolean isAbfüllmaterial;
-	private final static int literzahl = 0;
+	private static final int liter = 0;
 
 	public Produkt(String name, double preis, int menge, int untergrenze,
 			boolean isA, int verkaufsmenge) {
-		super(name, preis, verkaufsmenge, literzahl);
+		super(name, preis, verkaufsmenge, liter);
 		this.setVorratsmenge(menge);
 		this.setUntergrenze(untergrenze);
 		this.setAbfüllmaterial(isA);
@@ -32,6 +32,10 @@ public class Produkt extends Einkaufsposition {
 							+ " wurde soeben unterschritten.", "Warnung",
 					JOptionPane.WARNING_MESSAGE);
 		}
+	}
+	
+	public void setLiterzahl(int literzahl) {
+		super.setLiterzahl(liter);
 	}
 
 	public int getUntergrenze() {

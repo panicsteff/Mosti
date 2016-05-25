@@ -1,6 +1,6 @@
 package verkaufsverwaltung;
 
-public class Einkaufsposition {
+public class Verkaufsposition {
 	
 	private String name;
 	private double preis;
@@ -8,7 +8,7 @@ public class Einkaufsposition {
 	private int literzahl;
 
 
-	public Einkaufsposition(String name, double preis, int verkaufsmenge, int literzahl) {
+	public Verkaufsposition(String name, double preis, int verkaufsmenge, int literzahl) {
 		this.setName(name);
 		this.setPreis(preis);
 		this.setVerkaufsMenge(verkaufsmenge);
@@ -39,7 +39,6 @@ public class Einkaufsposition {
 	public int getVerkaufsMenge() {
 		return verkaufsMenge;
 	}
-
 
 	public void setVerkaufsMenge(int verkaufsMenge) {
 		this.verkaufsMenge = verkaufsMenge;
