@@ -36,7 +36,7 @@ public class DienstleistungenTableModel extends AbstractTableModel {
 
 	public Object getValueAt(int row, int col) {
 		if (col >= 0 && col < DLAnzahl) {
-			return dienstleistungen.get(col).getVerkaufsMenge();
+			return dienstleistungen.get(col).getLiterzahl();
 		} else
 			return null;
 	}
@@ -48,7 +48,7 @@ public class DienstleistungenTableModel extends AbstractTableModel {
 			return;
 		}
 		if (col >= 0 && col < DLAnzahl) {
-			dienstleistungen.get(col).setVerkaufsMenge((Integer) eintrag);
+			dienstleistungen.get(col).setLiterzahl((Integer) eintrag);
 		}
 		this.fireTableDataChanged();
 

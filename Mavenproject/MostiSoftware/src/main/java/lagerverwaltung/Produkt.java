@@ -9,10 +9,11 @@ public class Produkt extends Einkaufsposition {
 	private int vorratsmenge;
 	private int untergrenze;
 	private boolean isAbfüllmaterial;
+	private final static int literzahl = 0;
 
 	public Produkt(String name, double preis, int menge, int untergrenze,
 			boolean isA, int verkaufsmenge) {
-		super(name, preis, verkaufsmenge);
+		super(name, preis, verkaufsmenge, literzahl);
 		this.setVorratsmenge(menge);
 		this.setUntergrenze(untergrenze);
 		this.setAbfüllmaterial(isA);

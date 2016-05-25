@@ -49,6 +49,7 @@ public class KassenFrame extends JFrame {
 	private Einkaufsposition produktPosition;
 	private int literzahl;
 	private Kunde kunde;
+	private ArrayList<Einkaufsposition> einkaufsliste;
 
 	public KassenFrame(DLSortiment dlsortiment,ProduktSortiment psortiment,
 			Kundeneinkäufe kundeneinkäufe) {
@@ -158,8 +159,8 @@ public class KassenFrame extends JFrame {
 
 	private void initVerkaufsmengen() {
 		for (Dienstleistung d : dienstleistungen) {
-			if (d.getVerkaufsMenge() != 0)
-				d.setVerkaufsMenge(0);
+			if (d.getLiterzahl() != 0)
+				d.setLiterzahl(0);
 		}
 
 		for (Produkt p : aliste) {
@@ -176,10 +177,12 @@ public class KassenFrame extends JFrame {
 	private class EinkaufAbschließenHandler implements ActionListener {
 
 		public void actionPerformed(ActionEvent arg0) {
-			einkauf = new Einkauf(kunde, new Date()); //
+			
 			dlZuEinkauf(dienstleistungen); // gekaufte DL hinzufügen
 			produkteZuEinkauf(aliste); // gekaufte Abfüllmaterialien hinzufügen
 			produkteZuEinkauf(zliste); // gekaufte Zusatzprodukte hinzufügen
+			
+			einkauf = new Einkauf(kunde, new Date(), einkaufsliste);
 
 			total = berechneGesamtTotal();
 			einkauf.setSumme(total);
@@ -198,9 +201,10 @@ public class KassenFrame extends JFrame {
 		for (Produkt p : liste) {
 			if (p.getVerkaufsMenge() > 0) {
 				produktPosition = new Einkaufsposition(p.getName(),
-						p.getPreis(), p.getVerkaufsMenge());
+						p.getPreis(), p.getVerkaufsMenge(), p.getLiterzahl());
 				p.setVorratsmenge(p.getVorratsmenge()-p.getVerkaufsMenge());
-				einkauf.addEinkaufsposition(produktPosition);
+				//einkauf.addEinkaufsposition(produktPosition);
+				einkaufsliste.add(produktPosition);
 				p.printEinkaufsposition();
 			}
 		}
@@ -211,8 +215,10 @@ public class KassenFrame extends JFrame {
 		for (Dienstleistung d : liste) {
 			if (d.getVerkaufsMenge() > 0) {
 				DLposition = new Einkaufsposition(d.getName(), d.getPreis(),
-						d.getVerkaufsMenge());
-				einkauf.addEinkaufsposition(DLposition);
+						d.getVerkaufsMenge(), d.getLiterzahl()
+						);
+				//einkauf.addEinkaufsposition(DLposition);
+				einkaufsliste.add(DLposition);
 				literzahl = literzahl + d.getVerkaufsMenge();
 				d.printEinkaufsposition();
 			}

@@ -35,8 +35,9 @@ public class VerkäufeDB {
 					String name = rs.getString("verkaufsposition");
 					Double preis = rs.getDouble("einzelpreis");
 					int menge = rs.getInt("verkaufsmenge");
+					int literzahl = rs.getInt("literzahl");
 					
-					Einkaufsposition einkaufsposition = new Einkaufsposition(name, preis, menge);
+					Einkaufsposition einkaufsposition = new Einkaufsposition(name, preis, menge, literzahl);
 					einkaufsliste.add(einkaufsposition);
 				}
 				s.close();
@@ -59,10 +60,11 @@ public class VerkäufeDB {
 
 			while (rs.next()) {
 				String name = rs.getString("verkaufsposition");
-				Double preis = rs.getDouble("verkaufspreis");
+				Double preis = rs.getDouble("einzelpreis");
 				int menge = rs.getInt("verkaufsmenge");
+				int literzahl = rs.getInt("literzahl");
 				
-				Einkaufsposition einkaufsposition = new Einkaufsposition(name, preis, menge);
+				Einkaufsposition einkaufsposition = new Einkaufsposition(name, preis, menge, literzahl);
 				einkaufsliste.add(einkaufsposition);
 			}
 			s.close();

@@ -5,12 +5,14 @@ public class Einkaufsposition {
 	private String name;
 	private double preis;
 	private int verkaufsMenge;
+	private int literzahl;
 
 
-	public Einkaufsposition(String name, double preis, int verkaufsmenge) {
+	public Einkaufsposition(String name, double preis, int verkaufsmenge, int literzahl) {
 		this.setName(name);
 		this.setPreis(preis);
 		this.setVerkaufsMenge(verkaufsmenge);
+		this.setLiterzahl(literzahl);
 	}
 
 
@@ -46,6 +48,16 @@ public class Einkaufsposition {
 	public void printEinkaufsposition() {
 		System.out.println("Einkaufsdrum: " + getName() + "  Anzahl: "
 				+ getVerkaufsMenge() + " a " + getPreis() + " €");
+	}
+
+
+	public int getLiterzahl() {
+		return literzahl;
+	}
+
+
+	public void setLiterzahl(int literzahl) {
+		this.literzahl = literzahl;
 	}
 
 }
