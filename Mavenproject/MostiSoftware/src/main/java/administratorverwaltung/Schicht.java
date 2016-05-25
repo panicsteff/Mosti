@@ -15,8 +15,8 @@ public class Schicht {
 		return mitarbeiterIds;
 	}
 
-	void setMitarbeiterIds(ArrayList<Integer> IDs){
-		mitarbeiterIds = IDs;
+	void setMitarbeiterIds(ArrayList<Integer> mitarbeiterId){
+		mitarbeiterIds = mitarbeiterId;
 	}
 	
 	int getMitarbeiter(int pos){

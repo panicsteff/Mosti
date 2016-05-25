@@ -30,7 +30,7 @@ public class SchichtErstellenDialog extends JDialog{
 		public void actionPerformed(ActionEvent e){
 			
 			for(Schicht s: schichtliste){
-				s.setMitarbeiterId(mitarbeiterId);
+				s.setMitarbeiterIds(mitarbeiterId);
 			}
 			SchichtErstellenDialog.this.dispose();
 			
@@ -45,7 +45,7 @@ public class SchichtErstellenDialog extends JDialog{
 	private ArrayList<Schicht> schichtliste;
 	private SchichtplanDB schichtDb;
 	private String eingabe = "";
-	private int mitarbeiterId;
+	private ArrayList<Integer> mitarbeiterId;
 
 	public SchichtErstellenDialog(int dauer, Date date, ArrayList<Schicht> s, String uhrzeitAnzeige){
 				
@@ -61,8 +61,8 @@ public class SchichtErstellenDialog extends JDialog{
 		JPanel content = new JPanel();
 		content.setLayout(new GridLayout(5,2));
 		
-		JLabel kunde = new JLabel("Kunde:");
-		kunde.setFont(kunde.getFont().deriveFont(16f));
+		JLabel mitarbeiter = new JLabel("Mitarbeiter:");
+		mitarbeiter.setFont(mitarbeiter.getFont().deriveFont(16f));
 		mitarbeitertxt = new JTextField();
 		mitarbeitertxt.setFont(mitarbeitertxt.getFont().deriveFont(16f));
 		mitarbeitertxt.addKeyListener(new MyKeyListener());
@@ -86,7 +86,7 @@ public class SchichtErstellenDialog extends JDialog{
 		speichern.addActionListener(new MyOkListener());
 		
 		
-		content.add(kunde);
+		content.add(mitarbeiter);
 		content.add(mitarbeitertxt);
 		content.add(datum);
 		content.add(datumtxt);

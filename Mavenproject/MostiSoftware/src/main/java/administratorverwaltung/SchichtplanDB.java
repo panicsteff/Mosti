@@ -47,7 +47,7 @@ public class SchichtplanDB {
 			PreparedStatement s=null;
 			
 			for(int i=0; i<schichtIdListe.size(); i++){
-				s = conn.prepareStatement("Update termine set Tag" + laufenderTag + " = ? where id = ?");
+				s = conn.prepareStatement("Update schicht set Tag" + laufenderTag + " = ? where id = ?");
 				s.setInt(1, mitarbeiterIdListe.get(i));
 				s.setInt(2, schichtIdListe.get(i));
 				
@@ -62,9 +62,9 @@ public class SchichtplanDB {
 		}
 	}
 
-	String mitarbeiterNamenLaden(int mitarbeiterId) {
+	ArrayList<String> mitarbeiterNamenLaden(int mitarbeiterId) {
 
-		String name = new String();
+		ArrayList<String> name = new ArrayList<String>();
 		try {
 			conn = DriverManager
 					.getConnection("jdbc:ucanaccess://./Mosti-Datenkank.mdb");
@@ -114,9 +114,9 @@ public class SchichtplanDB {
 	
 	
 
-	int mitarbeiterIdLaden(String name){
+	ArrayList<Integer> mitarbeiterIdLaden(String name){
 		
-		int mitarbeiterId = 0;
+		ArrayList<Integer> mitarbeiterId = new ArrayList<Integer>();
 		
 		try {
 			conn = DriverManager
@@ -125,7 +125,8 @@ public class SchichtplanDB {
 			ResultSet rs = s.executeQuery("SELECT * FROM [mitarbeiter] where nachname like '" + name + "%'");
 
 			while(rs.next()){
-				mitarbeiterId= rs.getInt("ID");
+				Integer i = rs.getInt("ID");
+				mitarbeiterId.add(i);
 			}
 			
 			s.close();
