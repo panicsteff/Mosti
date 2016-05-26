@@ -24,6 +24,7 @@ import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.ListSelectionModel;
 
+import kundenverwaltung.Formats;
 import kundenverwaltung.Kunde;
 import kundenverwaltung.KundeDB;
 import lagerverwaltung.Produkt;
@@ -217,10 +218,10 @@ public class KassenFrame extends JFrame {
 				System.out.println("Fehler dB");
 				e.printStackTrace();
 			}
-			
+
 			java.util.Date datum = new Date();
 			java.sql.Date d = new java.sql.Date(datum.getTime());
-			System.out.println(d.getTime());
+			System.out.println(d);
 			einkauf = new Verkauf(kunde, d, einkaufsliste);
 			vVerwaltung.addVerkauf(einkauf);
 

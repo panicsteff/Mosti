@@ -1,7 +1,7 @@
 package verkaufsverwaltung;
 
+import java.sql.Date;
 import java.util.ArrayList;
-import java.util.Date;
 
 import kundenverwaltung.Kunde;
 
