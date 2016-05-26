@@ -11,6 +11,7 @@ public class DLSortiment {
 	public DLSortiment() {
 		dldb = new DienstleistungenDB(); 
 		dliste = dldb.dienstleistungenLaden();
+		printDLSortiment();
 	}
 	
 	void addDienstleistung(Dienstleistung d) {

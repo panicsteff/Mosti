@@ -27,7 +27,7 @@ public class Kunde {
 		
 	}
 	
-	String getNachname(){
+	public String getNachname(){
 		return nachname;
 	}
 	

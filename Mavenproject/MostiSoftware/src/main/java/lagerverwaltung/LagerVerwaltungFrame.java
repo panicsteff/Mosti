@@ -175,8 +175,6 @@ public class LagerVerwaltungFrame extends JFrame {
 	}
 	
 	private void addProdukt() {
-		//new ProduktHinzufuegenFrame(this, aliste, zliste);
-		//new ProduktHinzufuegenFrame(this, pliste);
 		new ProduktHinzufuegenFrame(this, pSortiment);
 		printListe();
 		lagerTableModel.fireTableDataChanged();

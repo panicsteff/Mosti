@@ -27,8 +27,8 @@ public class VerkäufeDB {
 			Statement s = conn.createStatement();
 			ResultSet rs = s
 					.executeQuery("SELECT * FROM [verkäufe] WHERE kundenid = "
-							+ kunde.getKundenID() + "AND verkaufsdatum = "
-							+ date + "");
+							+ kunde.getKundenID() + "AND verkaufsdatum ="
+									+ "BETWEEN{ts '"+date+" 00:00:00'} AND {ts '"+date+" 23:59:59'} ");
 
 			while (rs.next()) {
 				String name = rs.getString("verkaufsposition");
@@ -85,20 +85,17 @@ public class VerkäufeDB {
 			conn = DriverManager
 					.getConnection("jdbc:ucanaccess://./Mosti-Datenkank.mdb");
 			PreparedStatement s = null;
-			System.out.println("bis zur DB vorgedrungen");
-			int count = 0;
 			for (int i = 0; i < v.getListengröße(); i++) {
 			s = conn.prepareStatement("insert into verkäufe (verkaufsposition, verkaufsmenge, literzahl, verkaufsdatum, einzelpreis, kundenid) values "
 					+ "( '"
 					+ v.getVerkaufsposition(i).getName() + "', " + v.getVerkaufsposition(i).getVerkaufsMenge()
-					+ ", " + v.getVerkaufsposition(i).getLiterzahl() + ", " + v.getVerkaufsDatum()
-					+ ", " + v.getVerkaufsposition(i).getPreis()+ ", " + v.getKunde().getKundenID()+ ")");
+					+ ", " + v.getVerkaufsposition(i).getLiterzahl() + ", {ts '" +v.getVerkaufsDatum()+ " 00:00:00'} ,"
+					 + v.getVerkaufsposition(i).getPreis()+ ", " + v.getKunde().getKundenID()+ ")");
 
 			s.executeUpdate();
-			System.out.println("Zähler " + i);
 			}
 			s.close();
-			System.out.println("nach dem gedöns");
+			System.out.println("Einkauf von Kunde "+v.getKunde().getNachname() + " wurde abgespeichert.");
 
 		} catch (Exception e) {
 			System.out.println(e);
@@ -116,7 +113,7 @@ public class VerkäufeDB {
 			ResultSet rs = s
 //					.executeQuery("SELECT * FROM [verkäufe] WHERE verkaufsdatum = "
 //							+ date + "");
-					.executeQuery("SELECT * FROM [verkäufe] WHERE verkaufsdatum = '26.05.2016'");
+					.executeQuery("SELECT * FROM [verkäufe] WHERE verkaufsdatum BETWEEN{ts '"+date+" 00:00:00'} AND {ts '"+date+" 23:59:59'}");
 			System.out.println("YEEES");
 
 			while (rs.next()) {

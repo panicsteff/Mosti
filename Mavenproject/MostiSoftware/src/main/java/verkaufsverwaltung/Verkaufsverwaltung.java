@@ -14,7 +14,6 @@ public class Verkaufsverwaltung {
 
 	public Verkaufsverwaltung() {
 		verkäufeDB = new VerkäufeDB();
-
 	}
 
 	public Verkauf ladeKundeneinkauf(Kunde kunde, Date date) {

@@ -43,24 +43,23 @@ public class DienstleistungenDB {
 			
 			return dienstleistungenliste;
 		}
+	
+	public void dlUpdaten(ArrayList<Dienstleistung> dliste) {
 
-	public void dlUpdaten (ArrayList<Dienstleistung> dliste){
-		
 		try {
 			conn = DriverManager
 					.getConnection("jdbc:ucanaccess://./Mosti-Datenkank.mdb");
-			PreparedStatement s=null;
-			
-			for(int i=0; i<dliste.size(); i++){
-				s = conn.prepareStatement("Update dienstleistungen set dlname = ?, preisProLiter = ? where id = ? ");
-				s.setString(1, dliste.get(i).getName());
-				s.setDouble(2, dliste.get(i).getPreis());
-				s.setInt(3, i);
-				
-				s.executeUpdate();
-				
-			}
+			PreparedStatement s = null;
+			int i = 1;
 
+			for (Dienstleistung d : dliste) {
+				s = conn.prepareStatement("update dienstleistungen set dlname = ?, preisproliter= ? where id = ? ");
+				s.setString(1, d.getName());
+				s.setDouble(2, d.getPreis());
+				s.setInt(3, i++);
+
+				s.executeUpdate();
+			}
 			s.close();
 
 		} catch (Exception e) {
