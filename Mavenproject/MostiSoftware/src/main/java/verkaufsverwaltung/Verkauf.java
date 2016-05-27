@@ -12,14 +12,6 @@ public class Verkauf {
 	private double total;
 	private Kunde kunde;
 	private Date date;
-
-//	public Einkauf(Kunde kunde, Date date) {
-//		this.setKunde(kunde);
-//		setVerkaufsDatum(date);
-//		einkaufsliste = new ArrayList<Einkaufsposition>();
-//		setLiterzahl(0);
-//		setSumme(0);
-//	}
 	
 	public Verkauf(Kunde kunde, Date date, ArrayList<Verkaufsposition> liste) {
 		this.setKunde(kunde);
@@ -36,6 +28,10 @@ public class Verkauf {
 	
 	public Verkaufsposition getVerkaufsposition(int index){
 		return einkaufsliste.get(index);
+	}
+	
+	public ArrayList<Verkaufsposition> getVerkäufeListe(){
+		return einkaufsliste;
 	}
 	
 	public int getListengröße(){

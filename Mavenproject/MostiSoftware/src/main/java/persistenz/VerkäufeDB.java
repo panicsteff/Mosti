@@ -17,7 +17,7 @@ public class VerkäufeDB {
 
 	Connection conn;
 
-	public ArrayList<Verkaufsposition> einkaufLaden(Kunde kunde, Date date) {
+	public ArrayList<Verkaufsposition> kundeneinkaufLaden(Kunde kunde, Date date) {
 
 		ArrayList<Verkaufsposition> einkaufsliste = new ArrayList<Verkaufsposition>();
 
@@ -111,9 +111,99 @@ public class VerkäufeDB {
 			Statement s = conn.createStatement();
 			System.out.println("1. Schritt");
 			ResultSet rs = s
-//					.executeQuery("SELECT * FROM [verkäufe] WHERE verkaufsdatum = "
-//							+ date + "");
 					.executeQuery("SELECT * FROM [verkäufe] WHERE verkaufsdatum BETWEEN{ts '"+date+" 00:00:00'} AND {ts '"+date+" 23:59:59'}");
+			System.out.println("YEEES");
+
+			while (rs.next()) {
+				String name = rs.getString("verkaufsposition");
+				Double preis = rs.getDouble("einzelpreis");
+				int menge = rs.getInt("verkaufsmenge");
+				int literzahl = rs.getInt("literzahl");
+
+				Verkaufsposition einkaufsposition = new Verkaufsposition(name,
+						preis, menge, literzahl);
+				einkaufsliste.add(einkaufsposition);
+			}
+			s.close();
+
+		} catch (Exception e) {
+			System.out.println(e);
+		}
+
+		return einkaufsliste;
+	}
+	
+	public ArrayList<Verkaufsposition> kundeneinkäufeZeitraumLaden(Kunde kunde, Date date1, Date date2) {
+
+		ArrayList<Verkaufsposition> einkaufsliste = new ArrayList<Verkaufsposition>();
+
+		try {
+			conn = DriverManager
+					.getConnection("jdbc:ucanaccess://./Mosti-Datenkank.mdb");
+			Statement s = conn.createStatement();
+			ResultSet rs = s
+					.executeQuery("SELECT * FROM [verkäufe] WHERE kundenid = "
+							+ kunde.getKundenID() + "AND verkaufsdatum ="
+									+ "BETWEEN{ts '"+date1+" 00:00:00'} AND {ts '"+date2+" 23:59:59'} ");
+
+			while (rs.next()) {
+				String name = rs.getString("verkaufsposition");
+				Double preis = rs.getDouble("einzelpreis");
+				int menge = rs.getInt("verkaufsmenge");
+				int literzahl = rs.getInt("literzahl");
+
+				Verkaufsposition einkaufsposition = new Verkaufsposition(name,
+						preis, menge, literzahl);
+				einkaufsliste.add(einkaufsposition);
+			}
+			s.close();
+
+		} catch (Exception e) {
+			System.out.println(e);
+		}
+
+		return einkaufsliste;
+	}
+	
+	public ArrayList<Verkaufsposition> VerkäufeZeitraumLaden(Date date1, Date date2) {
+		ArrayList<Verkaufsposition> einkaufsliste = new ArrayList<Verkaufsposition>();
+		try {
+			conn = DriverManager
+					.getConnection("jdbc:ucanaccess://./Mosti-Datenkank.mdb");
+			Statement s = conn.createStatement();
+			System.out.println("1. Schritt");
+			ResultSet rs = s
+					.executeQuery("SELECT * FROM [verkäufe] WHERE verkaufsdatum BETWEEN{ts '"+date1+" 00:00:00'} AND {ts '"+date2+" 23:59:59'}");
+			System.out.println("YEEES");
+
+			while (rs.next()) {
+				String name = rs.getString("verkaufsposition");
+				Double preis = rs.getDouble("einzelpreis");
+				int menge = rs.getInt("verkaufsmenge");
+				int literzahl = rs.getInt("literzahl");
+
+				Verkaufsposition einkaufsposition = new Verkaufsposition(name,
+						preis, menge, literzahl);
+				einkaufsliste.add(einkaufsposition);
+			}
+			s.close();
+
+		} catch (Exception e) {
+			System.out.println(e);
+		}
+
+		return einkaufsliste;
+	}
+	
+	public ArrayList<Verkaufsposition> alleVerkäufeLaden() {
+		ArrayList<Verkaufsposition> einkaufsliste = new ArrayList<Verkaufsposition>();
+		try {
+			conn = DriverManager
+					.getConnection("jdbc:ucanaccess://./Mosti-Datenkank.mdb");
+			Statement s = conn.createStatement();
+			System.out.println("1. Schritt");
+			ResultSet rs = s
+					.executeQuery("SELECT * FROM [verkäufe]");
 			System.out.println("YEEES");
 
 			while (rs.next()) {
@@ -161,23 +251,6 @@ public class VerkäufeDB {
 		}
 	}
 
-	public void dienstleistungLöschen(Dienstleistung d) {
-
-		try {
-			conn = DriverManager
-					.getConnection("jdbc:ucanaccess://./Mosti-Datenkank.mdb");
-			PreparedStatement s = null;
-
-			s = conn.prepareStatement("delete from dienstleistungen where dlname = '"
-					+ d.getName() + "' ");
-
-			s.executeUpdate();
-			s.close();
-
-		} catch (Exception e) {
-			System.out.println(e);
-		}
-	}
 	
 	
 

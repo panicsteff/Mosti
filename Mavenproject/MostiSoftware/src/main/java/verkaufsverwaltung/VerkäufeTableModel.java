@@ -22,7 +22,7 @@ class VerkäufeTableModel extends AbstractTableModel {
 		case 0:
 			return "Name";
 		case 1:
-			return "Preis pro Stück [€]";
+			return "Preis pro Stück/Liter [€]";
 		case 2:
 			return "Verkaufsmenge";
 		case 3:

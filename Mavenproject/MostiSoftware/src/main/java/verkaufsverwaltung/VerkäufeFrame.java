@@ -92,33 +92,33 @@ public class VerkäufeFrame extends JFrame {
 
 	}
 
-	public static void main(String[] args) {
-		ArrayList<Verkaufsposition> vliste = new ArrayList<Verkaufsposition>();
-		Verkaufsposition v1 = new Verkaufsposition("Quittensaft", 1.00, 0, 200);
-		Verkaufsposition v2 = new Verkaufsposition("Apfelsaft", 1.00, 0, 150);
-		Verkaufsposition v3 = new Verkaufsposition("Turbohefe", 1.00, 10, 0);
-		Verkaufsposition v4 = new Verkaufsposition("5L-Beutel", 1.00, 40, 0);
-		vliste.add(v1);
-		vliste.add(v2);
-		vliste.add(v3);
-		vliste.add(v4);
-		Verkaufsposition v5 = new Verkaufsposition("Quittensaft", 1.00, 0, 200);
-		Verkaufsposition v6 = new Verkaufsposition("Apfelsaft", 1.00, 0, 150);
-		Verkaufsposition v7 = new Verkaufsposition("Turbohefe", 1.00, 10, 0);
-		Verkaufsposition v8 = new Verkaufsposition("5L-Beutel", 1.00, 40, 0);
-		vliste.add(v5);
-		vliste.add(v6);
-		vliste.add(v7);
-		vliste.add(v8);
-		Verkaufsposition v9 = new Verkaufsposition("Quittensaft", 1.00, 0, 200);
-		Verkaufsposition v10 = new Verkaufsposition("Apfelsaft", 1.00, 0, 150);
-		Verkaufsposition v11 = new Verkaufsposition("Turbohefe", 1.00, 10, 0);
-		Verkaufsposition v12 = new Verkaufsposition("5L-Beutel", 1.00, 40, 0);
-		vliste.add(v9);
-		vliste.add(v10);
-		vliste.add(v11);
-		vliste.add(v12);
-
-		VerkäufeFrame vFrame = new VerkäufeFrame(vliste);
-	}
+//	public static void main(String[] args) {
+//		ArrayList<Verkaufsposition> vliste = new ArrayList<Verkaufsposition>();
+//		Verkaufsposition v1 = new Verkaufsposition("Quittensaft", 1.00, 0, 200);
+//		Verkaufsposition v2 = new Verkaufsposition("Apfelsaft", 1.00, 0, 150);
+//		Verkaufsposition v3 = new Verkaufsposition("Turbohefe", 1.00, 10, 0);
+//		Verkaufsposition v4 = new Verkaufsposition("5L-Beutel", 1.00, 40, 0);
+//		vliste.add(v1);
+//		vliste.add(v2);
+//		vliste.add(v3);
+//		vliste.add(v4);
+//		Verkaufsposition v5 = new Verkaufsposition("Quittensaft", 1.00, 0, 200);
+//		Verkaufsposition v6 = new Verkaufsposition("Apfelsaft", 1.00, 0, 150);
+//		Verkaufsposition v7 = new Verkaufsposition("Turbohefe", 1.00, 10, 0);
+//		Verkaufsposition v8 = new Verkaufsposition("5L-Beutel", 1.00, 40, 0);
+//		vliste.add(v5);
+//		vliste.add(v6);
+//		vliste.add(v7);
+//		vliste.add(v8);
+//		Verkaufsposition v9 = new Verkaufsposition("Quittensaft", 1.00, 0, 200);
+//		Verkaufsposition v10 = new Verkaufsposition("Apfelsaft", 1.00, 0, 150);
+//		Verkaufsposition v11 = new Verkaufsposition("Turbohefe", 1.00, 10, 0);
+//		Verkaufsposition v12 = new Verkaufsposition("5L-Beutel", 1.00, 40, 0);
+//		vliste.add(v9);
+//		vliste.add(v10);
+//		vliste.add(v11);
+//		vliste.add(v12);
+//
+//		VerkäufeFrame vFrame = new VerkäufeFrame(vliste);
+//	}
 }
