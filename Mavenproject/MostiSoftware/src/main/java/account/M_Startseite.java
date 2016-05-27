@@ -24,6 +24,7 @@ import terminplanung.TerminplanungsFrame;
 import trester.TresterFrame;
 import trester.Tresterverwaltung;
 import verkaufsverwaltung.Verkaufsverwaltung;
+import verkaufsverwaltung.Verkaufsübersicht;
 import dienstleistungenverwaltung.DLSortiment;
 import dienstleistungenverwaltung.DLVerwaltungFrame;
 
@@ -52,11 +53,13 @@ public class M_Startseite extends JFrame {
 		lagerButton.setIcon(new ImageIcon("./src/karre.jpg"));
 		JButton dlButton = new JButton();
 		dlButton.setIcon(new ImageIcon("./src/apple.png"));
+		JButton übersichtButton = new JButton();
+		übersichtButton.setIcon(new ImageIcon("./src/übersicht.png"));
 
 		panel.add(kassenButton);
 		panel.add(lagerButton);
 		panel.add(dlButton);
-		panel.add(new JLabel("andere funktion"));
+		panel.add(übersichtButton);
 		panel.add(new JLabel("andere funktion"));
 		panel.add(new JLabel("andere funktion"));
 
@@ -75,6 +78,12 @@ public class M_Startseite extends JFrame {
 		dlButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				DLVerwaltungFrame dl = new DLVerwaltungFrame(dlSorti);
+			}
+		});
+		
+		übersichtButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				Verkaufsübersicht v = new Verkaufsübersicht();
 			}
 		});
 

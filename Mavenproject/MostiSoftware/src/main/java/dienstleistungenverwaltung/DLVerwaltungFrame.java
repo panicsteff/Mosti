@@ -11,6 +11,7 @@ import javax.swing.JFrame;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
@@ -28,6 +29,7 @@ import lagerverwaltung.PreisCellRenderer;
 		private DLTableModel dlTableModel;
 		private ListSelectionModel dlSelectionModel;
 		private JMenuItem bearDL;
+		private JMenuItem loescheDL;
 		private DLSortiment dlSortiment;
 
 		public DLVerwaltungFrame (DLSortiment d) {
@@ -60,7 +62,7 @@ import lagerverwaltung.PreisCellRenderer;
 			bearDL = new JMenuItem("Dienstleistung bearbeiten");
 			bearbeiten.add(bearDL);
 			bearbeiten.addSeparator();
-			JMenuItem loescheDL = new JMenuItem("Dienstleistung löschen");
+			loescheDL = new JMenuItem("Dienstleistung löschen");
 			bearbeiten.add(loescheDL);
 
 			newDL.addActionListener(new ActionListener() {
@@ -81,6 +83,7 @@ import lagerverwaltung.PreisCellRenderer;
 				}
 			});
 			bearDL.setEnabled(false);
+			loescheDL.setEnabled(false);
 
 			dlTableModel = new DLTableModel(dlSortiment.getDLSortiment());
 			JTable dlTabelle = new JTable(dlTableModel);
@@ -92,10 +95,16 @@ import lagerverwaltung.PreisCellRenderer;
 					.addListSelectionListener(new ListSelectionListener() {
 
 						public void valueChanged(ListSelectionEvent listevent) {
-							if (listevent.getFirstIndex() == -1)
+							if (listevent.getFirstIndex() == -1){
 								bearDL.setEnabled(false);
-							else
+								loescheDL.setEnabled(false);
+								}
+							else{
 								bearDL.setEnabled(true);
+								loescheDL.setEnabled(true);
+								
+							}
+								
 						}
 
 					});
@@ -136,6 +145,10 @@ import lagerverwaltung.PreisCellRenderer;
 		private void deleteDL() {
 			int row = dlSelectionModel.getMinSelectionIndex();
 			Dienstleistung d = dlTableModel.getDienstleistung(row);
+			int result = JOptionPane.showConfirmDialog(this, "Möchten Sie die Dienstleistung \"" + d.getName() + "\" wirklich löschen?",
+					"Frage", JOptionPane.YES_NO_OPTION);
+			if (result != JOptionPane.YES_OPTION)
+				return;
 			dlSortiment.deleteDienstleistung(d);
 			dlTableModel.fireTableDataChanged();
 		}
