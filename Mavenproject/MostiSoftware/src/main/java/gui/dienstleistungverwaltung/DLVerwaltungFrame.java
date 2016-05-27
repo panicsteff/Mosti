@@ -20,9 +20,9 @@ import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.table.TableColumn;
 
-import dienstleistungenverwaltung.DLSortiment;
-import dienstleistungenverwaltung.Dienstleistung;
-import lagerverwaltung.PreisCellRenderer;
+import logik.dienstleistungverwaltung.DLSortiment;
+import logik.dienstleistungverwaltung.Dienstleistung;
+import logik.produktverwaltung.PreisCellRenderer;
 
 
 	@SuppressWarnings("serial")

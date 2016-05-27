@@ -4,7 +4,7 @@ import java.util.List;
 
 import javax.swing.table.AbstractTableModel;
 
-import dienstleistungenverwaltung.Dienstleistung;
+import logik.dienstleistungverwaltung.Dienstleistung;
 
 @SuppressWarnings("serial")
 class DLTableModel extends AbstractTableModel{

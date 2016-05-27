@@ -1,4 +1,4 @@
-package lagerverwaltung;
+package logik.produktverwaltung;
 
 import java.awt.Component;
 import java.text.DecimalFormat;
@@ -8,14 +8,13 @@ import javax.swing.JTable;
 import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableCellRenderer;
 
-public class PreisCellRenderer extends DefaultTableCellRenderer.UIResource {
+public class MengeCellRenderer extends DefaultTableCellRenderer.UIResource {
 
-	
 	private static final long serialVersionUID = 1L;
 	private Format format;
 
-	public PreisCellRenderer() {
-		format = new DecimalFormat("###0.00 €");
+	public MengeCellRenderer() {
+		format = new DecimalFormat("###0");
 		setHorizontalAlignment(SwingConstants.RIGHT);
 	}
 
@@ -24,10 +23,13 @@ public class PreisCellRenderer extends DefaultTableCellRenderer.UIResource {
 		super.getTableCellRendererComponent(table, value, isselected, hasfocus,
 				row, column);
 
-		double gehalt = (Double) value;
-		String s = format.format(gehalt);
+		Integer menge = (Integer) value;
+		String s = format.format(menge);
 		setText(s);
 		return this;
 	}
 
 }
+
+
+

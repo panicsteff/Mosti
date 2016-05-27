@@ -21,10 +21,10 @@ import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.table.TableColumn;
 
-import lagerverwaltung.MengeCellRenderer;
-import lagerverwaltung.PreisCellRenderer;
-import lagerverwaltung.Produkt;
-import lagerverwaltung.ProduktSortiment;
+import logik.produktverwaltung.MengeCellRenderer;
+import logik.produktverwaltung.PreisCellRenderer;
+import logik.produktverwaltung.Produkt;
+import logik.produktverwaltung.ProduktSortiment;
 
 public class LagerVerwaltungFrame extends JFrame {
 

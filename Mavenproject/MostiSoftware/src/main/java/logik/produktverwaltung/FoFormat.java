@@ -1,4 +1,4 @@
-package lagerverwaltung;
+package logik.produktverwaltung;
 
 import java.text.DecimalFormat;
 

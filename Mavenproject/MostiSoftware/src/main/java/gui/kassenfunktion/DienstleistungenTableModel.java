@@ -1,10 +1,11 @@
-package kassenfunktion;
+package gui.kassenfunktion;
 
 import java.util.ArrayList;
 
 import javax.swing.JOptionPane;
 import javax.swing.table.AbstractTableModel;
-import dienstleistungenverwaltung.Dienstleistung;
+
+import logik.dienstleistungverwaltung.Dienstleistung;
 
 public class DienstleistungenTableModel extends AbstractTableModel {
 

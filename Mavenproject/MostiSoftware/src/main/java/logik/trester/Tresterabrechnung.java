@@ -1,4 +1,5 @@
-package trester;
+package logik.trester;
+
 
 public class Tresterabrechnung {
 	

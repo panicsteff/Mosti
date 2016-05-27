@@ -1,11 +1,12 @@
 package kassenfunktionTest;
 
+import gui.kassenfunktion.DienstleistungenTableModel;
+import gui.kassenfunktion.ProduktTableModel;
+
 import java.util.ArrayList;
 
-import dienstleistungenverwaltung.Dienstleistung;
-import kassenfunktion.DienstleistungenTableModel;
-import kassenfunktion.ProduktTableModel;
-import lagerverwaltung.Produkt;
+import logik.dienstleistungverwaltung.Dienstleistung;
+import logik.produktverwaltung.Produkt;
 
 public class AbrechnungsrahmenTest {
 

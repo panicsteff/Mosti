@@ -17,14 +17,14 @@ import javax.swing.ListCellRenderer;
 import javax.swing.ListSelectionModel;
 import javax.swing.text.DateFormatter;
 
-import verkaufsverwaltung.Verkaufsverwaltung;
-import verkaufsverwaltung.ÜbersichtButtonGroup;
-import verkaufsverwaltung.ÜbersichtButtonModel;
 import kundenverwaltung.Formats;
 import kundenverwaltung.Kunde;
 import kundenverwaltung.KundeListCellRenderer;
 import kundenverwaltung.KundeListModel;
 import kundenverwaltung.NullableFormatter;
+import logik.verkaufsverwaltung.Verkaufsverwaltung;
+import logik.verkaufsverwaltung.ÜbersichtButtonGroup;
+import logik.verkaufsverwaltung.ÜbersichtButtonModel;
 
 @SuppressWarnings("serial")
 public class Verkaufsübersicht extends JFrame {

@@ -1,6 +1,7 @@
-package dienstleistungenverwaltung;
+package logik.dienstleistungverwaltung;
 
 import java.util.ArrayList;
+
 import persistenz.DienstleistungenDB;
 
 public class DLSortiment {

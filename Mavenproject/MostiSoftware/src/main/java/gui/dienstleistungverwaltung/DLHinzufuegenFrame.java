@@ -15,12 +15,11 @@ import javax.swing.JTextField;
 import javax.swing.text.NumberFormatter;
 
 import kundenverwaltung.NullableFormatter;
-import lagerverwaltung.FoFormat;
+import logik.dienstleistungverwaltung.DLSortiment;
+import logik.dienstleistungverwaltung.Dienstleistung;
+import logik.produktverwaltung.FoFormat;
 
 import com.sun.glass.ui.Pixels.Format;
-
-import dienstleistungenverwaltung.DLSortiment;
-import dienstleistungenverwaltung.Dienstleistung;
 
 @SuppressWarnings("serial")
 class DLHinzufuegenFrame extends JDialog {

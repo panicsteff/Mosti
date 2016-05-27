@@ -1,8 +1,8 @@
-package lagerverwaltung;
+package logik.produktverwaltung;
 
 import javax.swing.JOptionPane;
 
-import verkaufsverwaltung.Verkaufsposition;
+import logik.verkaufsverwaltung.Verkaufsposition;
 
 public class Produkt extends Verkaufsposition {
 

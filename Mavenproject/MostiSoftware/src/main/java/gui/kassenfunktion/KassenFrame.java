@@ -1,4 +1,4 @@
-package kassenfunktion;
+package gui.kassenfunktion;
 
 import gui.verkauf.VerkäufeFrame;
 
@@ -29,13 +29,13 @@ import javax.swing.ListSelectionModel;
 import kundenverwaltung.Formats;
 import kundenverwaltung.Kunde;
 import kundenverwaltung.KundeDB;
-import lagerverwaltung.Produkt;
-import lagerverwaltung.ProduktSortiment;
-import verkaufsverwaltung.Verkauf;
-import verkaufsverwaltung.Verkaufsposition;
-import verkaufsverwaltung.Verkaufsverwaltung;
-import dienstleistungenverwaltung.DLSortiment;
-import dienstleistungenverwaltung.Dienstleistung;
+import logik.dienstleistungverwaltung.DLSortiment;
+import logik.dienstleistungverwaltung.Dienstleistung;
+import logik.produktverwaltung.Produkt;
+import logik.produktverwaltung.ProduktSortiment;
+import logik.verkaufsverwaltung.Verkauf;
+import logik.verkaufsverwaltung.Verkaufsposition;
+import logik.verkaufsverwaltung.Verkaufsverwaltung;
 
 public class KassenFrame extends JFrame {
 

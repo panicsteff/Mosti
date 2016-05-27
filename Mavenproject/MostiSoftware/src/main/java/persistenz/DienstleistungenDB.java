@@ -8,8 +8,8 @@ import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
 
-import dienstleistungenverwaltung.Dienstleistung;
-import lagerverwaltung.Produkt;
+import logik.dienstleistungverwaltung.Dienstleistung;
+import logik.produktverwaltung.Produkt;
 
 public class DienstleistungenDB {
 		

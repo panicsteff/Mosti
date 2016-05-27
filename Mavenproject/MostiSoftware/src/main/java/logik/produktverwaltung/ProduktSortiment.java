@@ -1,4 +1,4 @@
-package lagerverwaltung;
+package logik.produktverwaltung;
 
 import java.util.ArrayList;
 import java.util.List;

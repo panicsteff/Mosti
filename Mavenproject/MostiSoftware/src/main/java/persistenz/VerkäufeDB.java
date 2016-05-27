@@ -9,9 +9,9 @@ import java.sql.Statement;
 import java.util.ArrayList;
 
 import kundenverwaltung.Kunde;
-import verkaufsverwaltung.Verkauf;
-import verkaufsverwaltung.Verkaufsposition;
-import dienstleistungenverwaltung.Dienstleistung;
+import logik.dienstleistungverwaltung.Dienstleistung;
+import logik.verkaufsverwaltung.Verkauf;
+import logik.verkaufsverwaltung.Verkaufsposition;
 
 public class VerkäufeDB {
 

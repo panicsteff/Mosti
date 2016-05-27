@@ -14,8 +14,8 @@ import javax.swing.JTextField;
 import javax.swing.text.NumberFormatter;
 
 import kundenverwaltung.NullableFormatter;
-import lagerverwaltung.FoFormat;
-import lagerverwaltung.Produkt;
+import logik.produktverwaltung.FoFormat;
+import logik.produktverwaltung.Produkt;
 
 @SuppressWarnings("serial")
 class ProduktBearbeitenFrame extends JDialog {

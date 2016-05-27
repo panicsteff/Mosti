@@ -1,4 +1,4 @@
-package verkaufsverwaltung;
+package logik.verkaufsverwaltung;
 
 import java.sql.Date;
 import java.util.ArrayList;

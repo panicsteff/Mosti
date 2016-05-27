@@ -2,7 +2,9 @@
 package account;
 
 import gui.dienstleistungverwaltung.DLVerwaltungFrame;
+import gui.kassenfunktion.KassenFrame;
 import gui.produktverwaltung.LagerVerwaltungFrame;
+import gui.trester.TresterFrame;
 import gui.verkauf.Verkaufsübersicht;
 
 import java.awt.GridLayout;
@@ -19,15 +21,13 @@ import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 import javax.swing.JSeparator;
 
-import kassenfunktion.KassenFrame;
 import kundenverwaltung.KundenVerwaltung;
-import lagerverwaltung.ProduktSortiment;
+import logik.dienstleistungverwaltung.DLSortiment;
+import logik.produktverwaltung.ProduktSortiment;
+import logik.trester.Tresterverwaltung;
+import logik.verkaufsverwaltung.Verkaufsverwaltung;
 import mitarbeiterverwaltung.MitarbeiterVerwaltung;
 import terminplanung.TerminplanungsFrame;
-import trester.TresterFrame;
-import trester.Tresterverwaltung;
-import verkaufsverwaltung.Verkaufsverwaltung;
-import dienstleistungenverwaltung.DLSortiment;
 
 public class M_Startseite extends JFrame {
 

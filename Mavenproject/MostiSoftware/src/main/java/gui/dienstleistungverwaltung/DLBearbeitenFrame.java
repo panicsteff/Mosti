@@ -13,9 +13,9 @@ import javax.swing.JLabel;
 import javax.swing.JTextField;
 import javax.swing.text.NumberFormatter;
 
-import dienstleistungenverwaltung.Dienstleistung;
 import kundenverwaltung.NullableFormatter;
-import lagerverwaltung.FoFormat;
+import logik.dienstleistungverwaltung.Dienstleistung;
+import logik.produktverwaltung.FoFormat;
 
 
 class DLBearbeitenFrame extends JDialog {

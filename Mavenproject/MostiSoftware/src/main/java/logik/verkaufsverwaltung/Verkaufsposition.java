@@ -1,4 +1,4 @@
-package verkaufsverwaltung;
+package logik.verkaufsverwaltung;
 
 public class Verkaufsposition {
 	

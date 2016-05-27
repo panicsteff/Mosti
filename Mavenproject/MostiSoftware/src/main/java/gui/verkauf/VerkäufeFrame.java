@@ -17,8 +17,8 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.TableColumn;
 
-import verkaufsverwaltung.Verkaufsposition;
-import lagerverwaltung.PreisCellRenderer;
+import logik.produktverwaltung.PreisCellRenderer;
+import logik.verkaufsverwaltung.Verkaufsposition;
 
 @SuppressWarnings("serial")
 public class VerkäufeFrame extends JFrame {

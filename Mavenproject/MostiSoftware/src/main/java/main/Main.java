@@ -3,8 +3,8 @@ package main;
 import java.util.ArrayList;
 import java.util.Date;
 
+import logik.verkaufsverwaltung.Verkaufsposition;
 import persistenz.VerkäufeDB;
-import verkaufsverwaltung.Verkaufsposition;
 import account.M_Startseite;
 
 public class Main {

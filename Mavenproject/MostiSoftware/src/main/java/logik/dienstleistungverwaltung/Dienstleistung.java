@@ -1,6 +1,6 @@
-package dienstleistungenverwaltung;
+package logik.dienstleistungverwaltung;
 
-import verkaufsverwaltung.Verkaufsposition;
+import logik.verkaufsverwaltung.Verkaufsposition;
 
 public class Dienstleistung extends Verkaufsposition {
 	

@@ -1,4 +1,4 @@
-package verkaufsverwaltung;
+package logik.verkaufsverwaltung;
 import javax.swing.JToggleButton;
 
 @SuppressWarnings("serial")
