@@ -9,6 +9,7 @@ import javax.swing.JDialog;
 import javax.swing.JFormattedTextField;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextField;
@@ -31,13 +32,26 @@ public class KundeBearbeitenDialog extends JDialog{
 		}
 		
 		public void actionPerformed(ActionEvent e){
-			kunde.setNachname(beautify(txtNachname.getText()));
-			kunde.setVorname(beautify(txtVorname.getText()));
-			kunde.setStrasse(beautify(txtStrasse.getText()));
-			kunde.setPlz((String)txtPlz.getValue());
-			kunde.setWohnort(beautify(txtWohnort.getText()));
-			kunde.setTel(beautify(txtTel.getText()));
-			dispose();
+			int antwort = JOptionPane.showConfirmDialog(KundeBearbeitenDialog.this, "Wollen sie wirklich speichern?");
+			if(antwort == JOptionPane.OK_OPTION){
+				kunde.setNachname(beautify(txtNachname.getText()));
+				kunde.setVorname(beautify(txtVorname.getText()));
+				kunde.setStrasse(beautify(txtStrasse.getText()));
+				kunde.setPlz((String)txtPlz.getValue());
+				kunde.setWohnort(beautify(txtWohnort.getText()));
+				kunde.setTel(beautify(txtTel.getText()));
+				dispose();
+			}
+			if(antwort == JOptionPane.NO_OPTION){
+				dispose();
+			}
+			if(antwort == JOptionPane.CANCEL_OPTION){
+				;
+			}
+			if(antwort == JOptionPane.CLOSED_OPTION){
+				;
+			}
+			
 		}
 	}
 	

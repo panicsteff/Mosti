@@ -10,9 +10,12 @@ import javax.swing.JDialog;
 import javax.swing.JFormattedTextField;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextField;
+
+import kundenverwaltung.KundeBearbeitenDialog;
 
 public class MitarbeiterBearbeitenDialog extends JDialog {
 
@@ -32,15 +35,27 @@ public class MitarbeiterBearbeitenDialog extends JDialog {
 		}
 		
 		public void actionPerformed(ActionEvent e){
-			mitarbeiter.setNachname(beautify(txtNachname.getText()));
-			mitarbeiter.setVorname(beautify(txtVorname.getText()));
-			mitarbeiter.setStrasse(beautify(txtStrasse.getText()));
-			mitarbeiter.setHausnummer(beautify(txtHausnummer.getText()));
-			mitarbeiter.setPlz((String)txtPlz.getValue());
-			mitarbeiter.setStadt(beautify(txtStadt.getText()));
-			mitarbeiter.setTelefonnummer(beautify(txtTel.getText()));
-			mitarbeiter.setBenutzername(beautify(txtBenutzername.getText()));
-			dispose();
+			int antwort = JOptionPane.showConfirmDialog(MitarbeiterBearbeitenDialog.this, "Wollen sie wirklich speichern?");
+			if(antwort == JOptionPane.OK_OPTION){
+				mitarbeiter.setNachname(beautify(txtNachname.getText()));
+				mitarbeiter.setVorname(beautify(txtVorname.getText()));
+				mitarbeiter.setStrasse(beautify(txtStrasse.getText()));
+				mitarbeiter.setHausnummer(beautify(txtHausnummer.getText()));
+				mitarbeiter.setPlz((String)txtPlz.getValue());
+				mitarbeiter.setStadt(beautify(txtStadt.getText()));
+				mitarbeiter.setTelefonnummer(beautify(txtTel.getText()));
+				mitarbeiter.setBenutzername(beautify(txtBenutzername.getText()));
+				dispose();
+			}
+			if(antwort == JOptionPane.NO_OPTION){
+				dispose();
+			}
+			if(antwort == JOptionPane.CANCEL_OPTION){
+				;
+			}
+			if(antwort == JOptionPane.CLOSED_OPTION){
+				;
+			}
 		}
 	}
 	

@@ -20,7 +20,6 @@ public class KundeDB {
 		try {
 
 			conn = DriverManager
-					//.getConnection("jdbc:ucanaccess://C:/Users/Katharina/Desktop/Mosti/Mavenproject/MostiSoftware/Mosti-Datenkank.mdb");
 			.getConnection("jdbc:ucanaccess://./Mosti-Datenkank.mdb");
 			Statement s = conn.createStatement();
 			ResultSet rs = s.executeQuery("Select * from [kunden]");
@@ -50,7 +49,6 @@ public class KundeDB {
 
 		try {
 			conn = DriverManager
-					//.getConnection("jdbc:ucanaccess://C:/Users/Katharina/Desktop/Mosti/Mavenproject/MostiSoftware/Mosti-Datenkank.mdb");
 					.getConnection("jdbc:ucanaccess://./Mosti-Datenkank.mdb");
 			PreparedStatement s = null;
 			
@@ -78,5 +76,41 @@ public class KundeDB {
 			System.out.println(e);
 		}
 
+	}
+	
+	public void kundeEinfügen(Kunde k){
+		
+		try{
+			conn = DriverManager.getConnection("jdbc:ucanaccess://./Mosti-Datenkank.mdb");
+			PreparedStatement s = conn.prepareStatement("Insert into kunden (Nachname, Vorname, Strasse, Plz, Wohnort, Telefonnummer) VALUES (?, ?, ?, ?, ?, ?)");
+			
+			s.setString(1, k.getNachname());
+			s.setString(2, k.getVorname());
+			s.setString(3, k.getStrasse());
+			s.setString(4, k.getPlz());
+			s.setString(5, k.getWohnort());
+			s.setString(6, k.getTel());
+			
+			s.executeUpdate();
+			s.close();
+			
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+	}
+	
+	public void kundeLöschen(int id){
+		
+		try{
+			conn = DriverManager.getConnection("jdbc:ucanaccess://./Mosti-Datenkank.mdb");
+			PreparedStatement s = conn.prepareStatement("Delete from kunden where id =?");
+			s.setInt(1, id);
+			
+			s.executeUpdate();
+			s.close();
+			
+		}catch(Exception e){
+			e.printStackTrace();
+		}
 	}
 }

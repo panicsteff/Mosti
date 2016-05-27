@@ -83,20 +83,18 @@ public class MitarbeiterDB {
 		try {
 			conn = DriverManager
 					.getConnection("jdbc:ucanaccess://./Mosti-Datenkank.mdb");
-			PreparedStatement s = null;
-
-			/*s = conn.prepareStatement("INSERT INTO mitarbeiter("
-					+ "vorname, nachname, strasse, hausnummer, plz, Stadt, telefonnummer, benutzername) "
-					+ "VALUES(" + mitarbeiter.getVorname() + ","
-					+ mitarbeiter.getNachname() + "," + mitarbeiter.getStrasse() + ","
-					+ mitarbeiter.getHausnummer() + "," + mitarbeiter.getPlz() + "," 
-					+ mitarbeiter.getStadt() + ","  + mitarbeiter.getTelefonnummer()
-					+ "," + mitarbeiter.getBenutzername()
-					+ ")");*/
+			PreparedStatement s = conn.prepareStatement("INSERT into mitarbeiter (Nachname, Vorname, Strasse, hausnummer, plz, Stadt, telefonnummer, benutzername) "
+					+ "VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
 			
-			s = conn.prepareStatement("INSERT INTO mitarbeiter("
-					+ "vorname, nachname, strasse, hausnummer, plz, Stadt, telefonnummer, benutzername) "
-				+ "VALUES(Kathi, Siegl, Eichertweg, 33, 93437, Furth im Wald, 099733597, kathi );");
+			s.setString(1, mitarbeiter.getNachname());
+			s.setString(2, mitarbeiter.getVorname());
+			s.setString(3, mitarbeiter.getStrasse());
+			s.setString(4, mitarbeiter.getHausnummer());
+			s.setString(5, mitarbeiter.getPlz());
+			s.setString(6, mitarbeiter.getStadt());
+			s.setString(7, mitarbeiter.getTelefonnummer());
+			s.setString(8, mitarbeiter.getBenutzername());
+
 			
 			s.executeUpdate();
 			s.close();
@@ -105,5 +103,20 @@ public class MitarbeiterDB {
 			e.printStackTrace();
 		}
 
+	}
+	
+	public void mitarbeiterLöschen(int mitarbeiterId){
+		
+		try{
+			conn = DriverManager.getConnection("jdbc:ucanaccess://./Mosti-Datenkank.mdb");
+			PreparedStatement s = conn.prepareStatement("Delete from mitarbeiter where Id = ?");
+			
+			s.setInt(1, mitarbeiterId);
+			s.executeUpdate();
+			s.close();
+			
+		}catch(Exception e){
+			e.printStackTrace();
+		}
 	}
 }

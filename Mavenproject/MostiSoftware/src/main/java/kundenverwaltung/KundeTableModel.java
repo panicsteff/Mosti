@@ -62,4 +62,8 @@ public class KundeTableModel extends AbstractTableModel{
 	Kunde getKunde(int row){
 		return kunden.get(row);
 	}
+	
+	void deletKunde(Kunde k){
+		kunden.remove(k);
+	}
 }

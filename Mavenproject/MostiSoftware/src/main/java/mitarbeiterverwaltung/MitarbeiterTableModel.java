@@ -7,7 +7,7 @@ import javax.swing.table.AbstractTableModel;
 public class MitarbeiterTableModel extends AbstractTableModel {
 
 	private static final long serialVersionUID = 1L;
-	private static ArrayList<Mitarbeiter> mitarbeitern;
+	private ArrayList<Mitarbeiter> mitarbeitern;
 
 	
 	public Class<?> getColumnClass(int col){
@@ -52,7 +52,7 @@ public class MitarbeiterTableModel extends AbstractTableModel {
 		}
 	}
 	
-	static ArrayList<Mitarbeiter> getMitarbeiter(){
+	ArrayList<Mitarbeiter> getMitarbeiter(){
 		return mitarbeitern;
 	}
 	
@@ -62,5 +62,9 @@ public class MitarbeiterTableModel extends AbstractTableModel {
 	
 	Mitarbeiter getMitarbeiter(int row){
 		return mitarbeitern.get(row);
+	}
+	
+	void deleteMitarbeiter(Mitarbeiter m){
+		mitarbeitern.remove(m);
 	}
 }

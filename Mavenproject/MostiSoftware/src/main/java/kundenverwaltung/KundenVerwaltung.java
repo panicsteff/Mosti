@@ -13,7 +13,6 @@ import javax.swing.JFrame;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JSeparator;
@@ -30,7 +29,6 @@ public class KundenVerwaltung extends JFrame {
 	private JMenuItem miKundeBearbeiten;
 	private JMenuItem miKundeHinzufuegen;
 	private JMenuItem miKundeLoeschen;
-	private JMenuItem miSpeichern;
 	private KundeDB kundeDb;
 
 	public KundenVerwaltung() {
@@ -47,47 +45,17 @@ public class KundenVerwaltung extends JFrame {
 		JMenuItem mi;
 
 		menubar.add(menu = new JMenu("Datei"));
-
-		menu.add(mi = new JMenuItem("Kundenstamm öffnen"));
-		mi.addActionListener(new ActionListener() {
-
-			public void actionPerformed(ActionEvent e) {
-
-				try {
-					ArrayList<Kunde> kundenliste = kundeDb.kundenLaden();
-					kundeTableModel.setKunden(kundenliste);
-					kundeTableModel.fireTableDataChanged();
-					miSpeichern.setEnabled(true);
-				} catch (FileNotFoundException ex) {
-					JOptionPane.showMessageDialog(KundenVerwaltung.this,
-							"Pfad zur Datenbank fehlerhaft");
-				} catch (Exception ex){
-					System.out.println(ex);
-				}
-
-			}
-		});
 		
 		miKundeLoeschen = new JMenuItem("Kunde löschen");
 		miKundeLoeschen.setEnabled(false);
 		menu.add(miKundeLoeschen);
 		miKundeLoeschen.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e){
-				editKunde();
-			}
-		});
-
-		miSpeichern = new JMenuItem("Kundenstamm speichern");
-		miSpeichern.setEnabled(false);
-		menu.add(miSpeichern);
-		miSpeichern.addActionListener(new ActionListener() {
-
-			public void actionPerformed(ActionEvent e) {
-				try {
-					kundeDb.kundenSpeichern(kundeTableModel.getKunden());
-				} catch (Exception ex) {
-					System.out.println(e);
-				}
+				int pos = kundeSelectionModel.getMinSelectionIndex();
+				Kunde k = kundeTableModel.getKunde(pos);
+				kundeDb.kundeLöschen(k.getKundenID());
+				kundeTableModel.deletKunde(k);
+				kundeTableModel.fireTableRowsDeleted(pos, pos);
 			}
 		});
 
@@ -98,7 +66,8 @@ public class KundenVerwaltung extends JFrame {
 		menu.add(miKundeHinzufuegen);
 		miKundeHinzufuegen.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e){
-				editKunde();
+				new KundeHinzufügenFrame(KundenVerwaltung.this, kundeTableModel.getKunden());
+				kundeTableModel.fireTableDataChanged();
 			}
 		});
 		
@@ -121,6 +90,13 @@ public class KundenVerwaltung extends JFrame {
 		});
 
 		kundeTableModel = new KundeTableModel();
+		ArrayList<Kunde> kundenliste = new ArrayList<Kunde>();
+		try {
+			kundenliste = kundeDb.kundenLaden();
+		} catch (FileNotFoundException e1) {
+			e1.printStackTrace();
+		}
+		kundeTableModel.setKunden(kundenliste);
 		JTable table = new JTable(kundeTableModel);
 		kundeSelectionModel = table.getSelectionModel();
 		table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
@@ -130,8 +106,10 @@ public class KundenVerwaltung extends JFrame {
 					public void valueChanged(ListSelectionEvent lsevent) {
 						if (lsevent.getFirstIndex() == -1) {
 							miKundeBearbeiten.setEnabled(false);
+							miKundeLoeschen.setEnabled(false);
 						} else {
 							miKundeBearbeiten.setEnabled(true);
+							miKundeLoeschen.setEnabled(true);
 						}
 					}
 				});
@@ -161,6 +139,11 @@ public class KundenVerwaltung extends JFrame {
 		int row = kundeSelectionModel.getMinSelectionIndex();
 		new KundeBearbeitenDialog(this, kundeTableModel.getKunde(row));
 		kundeTableModel.fireTableRowsUpdated(row, row);
+		kundeDb.kundenSpeichern(kundeTableModel.getKunden());
+	}
+	
+	public static void main(String[] avgs){
+		new KundenVerwaltung();
 	}
 
 

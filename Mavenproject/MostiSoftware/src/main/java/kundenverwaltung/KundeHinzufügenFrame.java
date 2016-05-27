@@ -1,4 +1,4 @@
-package mitarbeiterverwaltung;
+package kundenverwaltung;
 
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
@@ -11,38 +11,35 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 
-public class MitarbeiterHinzufügenFrame extends JDialog {
-	
-	private static final long serialVersionUID = 1L;
+
+
+public class KundeHinzufügenFrame extends JDialog{
+
+private static final long serialVersionUID = 1L;
 	
 	private JTextField txtNachname;
 	private JTextField txtVorname;
-	private JTextField txtStrasse;
-	private JTextField txtHausnummer;
+	private JTextField txtStrasse;;
 	private JTextField txtPlz;
 	private JTextField txtStadt;
 	private JTextField txtTelefonnummer;
-	private JTextField txtBenutzername;
-	private Mitarbeiter mitarbeiter;
-	private List<Mitarbeiter> liste;
-	private MitarbeiterDB mdb =  new MitarbeiterDB();
+	private Kunde kunde;
+	private List<Kunde> liste;
+	private KundeDB kdb = new KundeDB();
 	
 	
-	
-	
-
-	MitarbeiterHinzufügenFrame (JFrame parent, List<Mitarbeiter> auflistung){
+	KundeHinzufügenFrame (JFrame parent, List<Kunde> auflistung){
 		super(parent);
 		
 		liste = auflistung;
 		setModal(true);
 		
 		
-		setTitle("Neuen Mitarbeiter hinzufügen");
+		setTitle("Neuen Kunden hinzufügen");
 		setSize(350,250);
 		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 		
-		setLayout(new GridLayout(9,2));
+		setLayout(new GridLayout(7,2));
 		
 		add(new JLabel("Nachname: "));
 		add(txtNachname = new JTextField());
@@ -53,9 +50,6 @@ public class MitarbeiterHinzufügenFrame extends JDialog {
 		add(new JLabel("Straße: "));
 		add(txtStrasse = new JTextField());
 		
-		add(new JLabel("Hausnummer: "));
-		add(txtHausnummer = new JTextField());
-		
 		add(new JLabel("PLZ: "));
 		add(txtPlz = new JTextField());
 		
@@ -64,9 +58,6 @@ public class MitarbeiterHinzufügenFrame extends JDialog {
 		
 		add(new JLabel("Telefonnummer: "));
 		add(txtTelefonnummer = new JTextField());
-		
-		add(new JLabel("Benutzername: "));
-		add(txtBenutzername = new JTextField());
 		
 		JButton okButton = new JButton("OK");
 		okButton.addActionListener(new MyOKHandler());
@@ -83,12 +74,10 @@ public class MitarbeiterHinzufügenFrame extends JDialog {
 	private class MyOKHandler implements ActionListener{
 		
 		public void actionPerformed(ActionEvent arg0){
-			mitarbeiter = new Mitarbeiter(txtNachname.getText(), txtVorname.getText(), 
-										  txtStrasse.getText(), txtHausnummer.getText(), 
-										  txtPlz.getText(), txtStadt.getText(), txtTelefonnummer.getText(),
-										  0, txtBenutzername.getText());
-			liste.add(mitarbeiter);
-			mdb.mitarbeiterEinfügen(mitarbeiter);
+			kunde = new Kunde(txtNachname.getText(), txtVorname.getText(), 
+										  txtStrasse.getText(), txtPlz.getText(), txtStadt.getText(), txtTelefonnummer.getText(), 0);
+			liste.add(kunde);
+			kdb.kundeEinfügen(kunde);
 			dispose();
 		}
 	}

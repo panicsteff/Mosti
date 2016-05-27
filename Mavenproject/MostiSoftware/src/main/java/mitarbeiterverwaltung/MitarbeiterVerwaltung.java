@@ -13,7 +13,6 @@ import javax.swing.JFrame;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JSeparator;
@@ -25,14 +24,13 @@ import javax.swing.event.ListSelectionListener;
 
 public class MitarbeiterVerwaltung extends JFrame {
 	
-	private static final long serialVersionUID = 1L;  // ??? 
+	private static final long serialVersionUID = 1L;  
 	private MitarbeiterTableModel mitarbeiterTableModel;
 	private ListSelectionModel mitarbeiterSelectionModel;
 	private JMenuItem miMitarbeiterHinzufügen;
 	private JMenuItem miMitarbeiterBearbeiten;
 	private JMenuItem miMitarbeiterLoeschen;
-	private JMenuItem miSpeichern;
-	private MitarbeiterDB mitarbeiterDb; // mach ma des a mit DB ?? 
+	private MitarbeiterDB mitarbeiterDb; 
 
 
 	public MitarbeiterVerwaltung() {
@@ -49,44 +47,6 @@ public class MitarbeiterVerwaltung extends JFrame {
 		JMenuItem mi;
 
 		menubar.add(menu = new JMenu("Datei"));
-
-		menu.add(mi = new JMenuItem("Mitarbeiterliste öffnen"));
-		mi.addActionListener(new ActionListener() {
-
-			public void actionPerformed(ActionEvent e) {
-
-				try {
-					ArrayList<Mitarbeiter> mitarbeiterliste = mitarbeiterDb.mitarbeiterLaden();
-					mitarbeiterTableModel.setMitarbeiter(mitarbeiterliste);
-					mitarbeiterTableModel.fireTableDataChanged();
-					miSpeichern.setEnabled(true);
-					miMitarbeiterHinzufügen.setEnabled(true);		
-					miMitarbeiterLoeschen.setEnabled(true);
-					
-				} catch (FileNotFoundException ex) {
-					JOptionPane.showMessageDialog(MitarbeiterVerwaltung.this,
-							"Pfad zur Datenbank fehlerhaft");
-				} catch (Exception ex){
-					System.out.println(ex);
-				}
-
-			}
-		});
-
-		miSpeichern = new JMenuItem("Mitarbeiterliste speichern");
-		miSpeichern.setEnabled(false);
-		menu.add(miSpeichern);
-		miSpeichern.addActionListener(new ActionListener() {
-
-			public void actionPerformed(ActionEvent e) {
-				try {
-					mitarbeiterDb.mitarbeiterSpeichern(mitarbeiterTableModel.getMitarbeiter());
-				} catch (Exception ex) {
-					System.out.println(e);
-				}
-			}
-		});
-		
 		
 		menu.add(new JSeparator());
 
@@ -100,11 +60,10 @@ public class MitarbeiterVerwaltung extends JFrame {
 		menubar.add(menu = new JMenu("Bearbeiten"));
 		
 		miMitarbeiterHinzufügen = new JMenuItem("Neuen Mitarbeiter hinzufügen");
-		miMitarbeiterHinzufügen.setEnabled(false);
 		menu.add(miMitarbeiterHinzufügen);
 		miMitarbeiterHinzufügen.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e){
-				new MitarbeiterHinzufügenFrame(MitarbeiterVerwaltung.this, MitarbeiterTableModel.getMitarbeiter());
+				new MitarbeiterHinzufügenFrame(MitarbeiterVerwaltung.this, mitarbeiterTableModel.getMitarbeiter());
 				mitarbeiterTableModel.fireTableDataChanged();
 			}
 		});
@@ -115,6 +74,7 @@ public class MitarbeiterVerwaltung extends JFrame {
 		miMitarbeiterBearbeiten.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				editMitarbeiter();
+				mitarbeiterDb.mitarbeiterSpeichern(mitarbeiterTableModel.getMitarbeiter());
 			}
 		});
 		
@@ -123,13 +83,23 @@ public class MitarbeiterVerwaltung extends JFrame {
 		menu.add(miMitarbeiterLoeschen);
 		miMitarbeiterLoeschen.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e){
-				//deleteMitarbeiter();
+				int pos = mitarbeiterSelectionModel.getMinSelectionIndex();
+				Mitarbeiter m = mitarbeiterTableModel.getMitarbeiter(pos);
+				mitarbeiterDb.mitarbeiterLöschen(m.getMitarbeiterID());
+				mitarbeiterTableModel.deleteMitarbeiter(m);
+				mitarbeiterTableModel.fireTableRowsDeleted(pos, pos);
 			}
 		});
 
 		
-
+		ArrayList<Mitarbeiter> mitarbeiterliste = new ArrayList<Mitarbeiter>();
+		try {
+			mitarbeiterliste = mitarbeiterDb.mitarbeiterLaden();
+		} catch (FileNotFoundException e1) {
+			e1.printStackTrace();
+		}
 		mitarbeiterTableModel = new MitarbeiterTableModel();
+		mitarbeiterTableModel.setMitarbeiter(mitarbeiterliste);
 		JTable table = new JTable(mitarbeiterTableModel);
 		mitarbeiterSelectionModel = table.getSelectionModel();
 		table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
@@ -139,8 +109,10 @@ public class MitarbeiterVerwaltung extends JFrame {
 					public void valueChanged(ListSelectionEvent lsevent) {
 						if (lsevent.getFirstIndex() == -1) {
 							miMitarbeiterBearbeiten.setEnabled(false);
+							miMitarbeiterLoeschen.setEnabled(false);
 						} else {
 							miMitarbeiterBearbeiten.setEnabled(true);
+							miMitarbeiterLoeschen.setEnabled(true);
 						}
 					}
 				});

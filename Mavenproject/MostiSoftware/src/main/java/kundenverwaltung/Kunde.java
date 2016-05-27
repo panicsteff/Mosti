@@ -1,6 +1,5 @@
 package kundenverwaltung;
 
-import java.util.Date;
 
 public class Kunde {
 	private String nachname;
