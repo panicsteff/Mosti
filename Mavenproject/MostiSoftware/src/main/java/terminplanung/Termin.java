@@ -1,6 +1,6 @@
 package terminplanung;
 
-import kundenverwaltung.Kunde;
+import java.sql.Date;
 
 
 
@@ -8,7 +8,9 @@ public class Termin {
 
 	private int kundenId;
 	private int terminId;
-	private Kunde kunde;
+	private Date datum;
+	private int anzahlZeitslots;
+	private int uhrzeit;
 	
 	
 	int getKundenId(){
@@ -27,13 +29,32 @@ public class Termin {
 		this.terminId = terminId;
 	}
 
-	public Kunde getKunde() {
-		return kunde;
+	public Date getDatum() {
+		return datum;
 	}
 
-	public void setKunde(Kunde kunde) {
-		this.kunde = kunde;
+	public void setDatum(Date uhrzeit) {
+		this.datum = uhrzeit;
 	}
+
+	public int getAnzahlZeitslots() {
+		return anzahlZeitslots;
+	}
+
+	public void setAnzahlZeitslots(int anzahlZeitslots) {
+		this.anzahlZeitslots = anzahlZeitslots;
+	}
+
+	public int getUhrzeit() {
+		return uhrzeit;
+	}
+
+	public void setUhrzeit(int uhrzeit) {
+		this.uhrzeit = uhrzeit;
+	}
+	
+	
+
 
 
 }

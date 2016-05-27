@@ -1,9 +1,8 @@
 package terminplanung;
 
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.GregorianCalendar;
+import java.sql.Date;
+
 
 public class TerminLogik {
 
@@ -19,66 +18,69 @@ public class TerminLogik {
 		return k.getZeilenanzahlProSeite();
 	}
 	
-	private ArrayList<Termin> zahlenNachTermine(ArrayList<Integer> terminzahlen) {
-
-		ArrayList<Termin> terminliste = new ArrayList<Termin>();
+	private ArrayList<Termin> inVolleTerminListe(ArrayList<Termin> alteTerminliste){
+		alteTerminliste = termineSortieren(alteTerminliste);
 		
-		for(int i = 0; i < terminzahlen.size(); i++){
-			Termin t = new Termin();
-			t.setKundenId(terminzahlen.get(i));
-			t.setTerminId(i+1);									//ID zählung beginnt bei 1!!!
-			terminliste.add(t);
+		ArrayList<Termin> neueTerminliste = new ArrayList<Termin>();
+		int i;
+		int j;
+		for(i = 0, j = k.getArbeitsbeginn(); j<k.getArbeitsende(); j = j+k.getZeitslot()){
+				if(i<alteTerminliste.size() && alteTerminliste.get(i).getUhrzeit() == j){
+					Termin t = alteTerminliste.get(i);
+					for(int l = 0; l < t.getAnzahlZeitslots(); l++){
+						t = new Termin();
+						t.setAnzahlZeitslots(alteTerminliste.get(i).getAnzahlZeitslots());
+						t.setDatum(alteTerminliste.get(i).getDatum());
+						t.setKundenId(alteTerminliste.get(i).getKundenId());
+						t.setUhrzeit(j);
+						neueTerminliste.add(t);
+						j = j+k.getZeitslot();
+					}
+					j = j-k.getZeitslot();
+					i++;
+				}else{
+					Termin t = new Termin();
+					t.setKundenId(0);
+					t.setUhrzeit(j);									//is des sinnvoll?
+					neueTerminliste.add(t);
+				}
+		}
+		return neueTerminliste;
+	}
+
+	private ArrayList<Termin> termineSortieren(ArrayList<Termin> terminliste) {
+		int i;
+		int j;
+		int min;
+		int minstelle;
+		for (i = 0; i < terminliste.size(); i++) {
+			min = terminliste.get(i).getUhrzeit();
+			minstelle = i;
+			for (j = i; j < terminliste.size(); j++) {
+				if (terminliste.get(j).getUhrzeit() < min) {
+					min = terminliste.get(j).getUhrzeit();
+					minstelle = j;
+				}
+			}
+			Termin h = terminliste.get(i);
+			terminliste.set(i, terminliste.get(minstelle));
+			terminliste.set(minstelle, h);
 		}
 		
 		return terminliste;
 	}
-	
-	private ArrayList<Integer> kundenIDfiltern(ArrayList<Termin> terminliste){
-		ArrayList<Integer> zahlenliste = new ArrayList<Integer>();
-		
-		for(int i=0; i<terminliste.size(); i++){
-			int kundenid = terminliste.get(i).getKundenId();
-			zahlenliste.add(kundenid);
-		}
-		
-		return zahlenliste;
-	}
-	
-	private ArrayList<Integer> terminIDfiltern(ArrayList<Termin> terminliste){
-		ArrayList<Integer> terminIdListe = new ArrayList<Integer>();
-		
-		for(int i=0; i<terminliste.size(); i++){
-			int terminid = terminliste.get(i).getTerminId();
-			terminIdListe.add(terminid);
-		}
-		
-		return terminIdListe;
-	}
 
-	ArrayList<Termin> termineLaden(Date datum){
-	
-		int obergrenze = (k.getArbeitsende() - k.getArbeitsbeginn()) / k.getZeitslot();
-		Calendar calendar = new GregorianCalendar();
-		calendar.setTime(datum);
-		int laufenderTag = calendar.get(Calendar.DAY_OF_YEAR); 
+	ArrayList<Termin> termineLaden(long d){
 		
-		ArrayList<Integer> terminzahlen = terminDb.termineLaden(obergrenze, laufenderTag);
-		ArrayList<Termin> terminliste = zahlenNachTermine(terminzahlen);
-		
+		Date datum = new Date(d);
+		ArrayList<Termin> terminliste = terminDb.termineLaden(datum);
+		terminliste = inVolleTerminListe(terminliste);
 		return terminliste;
 		
 	}
 	
-	void termineSpeichern(ArrayList<Termin> terminliste, Date datum){
-		
-		ArrayList<Integer> kundenIdListe = kundenIDfiltern(terminliste);
-		ArrayList<Integer> terminIdListe = terminIDfiltern(terminliste);
-		
-		Calendar calendar = new GregorianCalendar();
-		calendar.setTime(datum);
-		int laufenderTag = calendar.get(Calendar.DAY_OF_YEAR); 
-		
-		terminDb.termineSpeichern(terminIdListe, kundenIdListe, laufenderTag);
+	void termineSpeichern(int kundenId, int anzahlZeitslot, Date datum, int beginn){
+		terminDb.termineSpeichern(kundenId, anzahlZeitslot, datum, beginn);
 		
 	}
 	
@@ -90,7 +92,8 @@ public class TerminLogik {
 		return terminDb.kundenNamenLaden(id);
 	}
 	
-	int berechneAnzeigeSeite(int zeile){
+	int berechneAnzeigeSeite(int uhrzeit){
+		int zeile = (uhrzeit - k.getArbeitsbeginn())/k.getZeitslot() + 1;    //EInsbasierte Indexzählung 
 		int i;
 		for(i=0; i<=k.getAufteilung(); i++){
 			if((i+1)*k.getZeilenanzahlProSeite() >= zeile){
@@ -100,21 +103,16 @@ public class TerminLogik {
 		return i+1;
 	}
 	
-	String terminNachUhrzeit(int terminId) {
+	String terminNachUhrzeit(int uhrzeit) {
 		
-		int stunde = 0;
-		int minuten = k.getArbeitsbeginn() + (terminId-1) * k.getZeitslot();			//terminid-1 sagt was an zeit schon vergangen ist
-		while (minuten - 60 >= 0) {
-			minuten -= 60;
-			stunde++;
+		int stunde = uhrzeit/60;
+		int minute = uhrzeit%60;
+		
+		if(minute<10){
+			return stunde + ":0" + minute;
 		}
-
-		if (minuten < 10) {
-			return stunde + ":0" + minuten;
-		}
-
-		return stunde + ":" + minuten;
+		
+		return stunde + ":" + minute;
 	}
-	
 	
 }

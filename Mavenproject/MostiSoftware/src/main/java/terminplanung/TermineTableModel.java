@@ -41,7 +41,7 @@ public class TermineTableModel extends AbstractTableModel {
 		
 		switch (col) {
 		case 0:
-			return terminliste.get(reihe).getTerminId();				
+			return terminliste.get(reihe).getUhrzeit();				
 			
 		case 1:
 			return terminliste.get(reihe).getKundenId();

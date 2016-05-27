@@ -172,7 +172,7 @@ public class TerminErstellenDialog extends JDialog {
 
 	}
 
-	public static void main(String[] acgs) {
+	public static void main(String[] avgs) {
 
 		new TerminErstellenDialog(5, new Date(), null, "Hallo");
 	}

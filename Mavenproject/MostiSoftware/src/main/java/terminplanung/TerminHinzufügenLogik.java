@@ -17,30 +17,31 @@ public class TerminHinzufügenLogik {
 		k = new Konfigurationswerte();
 	}
 
-	Date nächstenTagBerechnen(Date d){
+	long nächstenTagBerechnen(long datum){
 		GregorianCalendar calendar = new GregorianCalendar();
-		calendar.setTime(d);
+		calendar.setTimeInMillis(datum);
 		
 		calendar.add(GregorianCalendar.DATE, 1);
 		Date neuesDatum = calendar.getTime();
 		
-		return neuesDatum;
+		return neuesDatum.getTime();
 	}
 	
-	Date vorherigenTagBerechnen(Date d){
+	long vorherigenTagBerechnen(long datum){
+		
 		GregorianCalendar calendar = new GregorianCalendar();
-		calendar.setTime(d);
+		calendar.setTimeInMillis(datum);
 		
 		calendar.add(GregorianCalendar.DATE, -1);
 		Date neuesDatum = calendar.getTime();
 		
-		return neuesDatum;
+		return neuesDatum.getTime();
 	}
 	
 	
-	ArrayList<Termin> freieTermineSuchen(Date d){
+	ArrayList<Termin> freieTermineSuchen(long datum){
 
-		ArrayList<Termin> freieTermine = terminlogik.termineLaden(d);
+		ArrayList<Termin> freieTermine = terminlogik.termineLaden(datum);
 		
 		for(int i = freieTermine.size()-1; i>=0; i--){									//von hinten beginnen, damits beim löschen keine überschneidungen gibt
 			if(freieTermine.get(i).getKundenId() != 0){
@@ -69,15 +70,15 @@ public class TerminHinzufügenLogik {
 		}
 	}
 	
-	Date formatieren(String datum){
-		Date d = new Date();
+	long formatieren(String datum){
 		
+		Date d= new Date();
 		try {
 			d = Formats.DATE_FORMAT.parse(datum);
 		} catch (ParseException e) {
 			e.printStackTrace();
 		}
-		return d;
+		return d.getTime();
 	}
 	
 }

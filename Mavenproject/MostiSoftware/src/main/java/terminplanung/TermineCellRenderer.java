@@ -20,8 +20,8 @@ public class TermineCellRenderer extends DefaultTableCellRenderer.UIResource{
 			super.getTableCellRendererComponent(table, value,
 			isSelected, cellHasFocus, row, col);
 			
-			int terminid = (Integer) value;
-			String s = terminlogik.terminNachUhrzeit(terminid);
+			int uhrzeit = (Integer) value;
+			String s = terminlogik.terminNachUhrzeit(uhrzeit);
 			setText(s);
 			return this;
 	}

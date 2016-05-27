@@ -24,7 +24,8 @@ public class TerminplanungsFrame extends JFrame{
 		neuerTermin.setBounds(230, 360, 180, 30);
 		neuerTermin.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e){
-				new TerminHinzufügenFrame();
+				Date d = calendar.getDate();
+				new TerminHinzufügenFrame(d.getTime());
 			}
 		});
 		add(neuerTermin);
@@ -40,7 +41,7 @@ public class TerminplanungsFrame extends JFrame{
 		terminuebersicht.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e){
 				Date d = calendar.getDate();
-				new TagFrame(d, 1, null,0);
+				new TagFrame(d.getTime(), 1, null,0);
 			}
 		});
 		terminuebersicht.setBounds(30, 360, 180, 30);

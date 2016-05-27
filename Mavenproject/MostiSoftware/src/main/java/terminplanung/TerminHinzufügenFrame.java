@@ -7,7 +7,7 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.text.ParseException;
 import java.util.ArrayList;
-import java.util.Date;
+import java.sql.Date;
 
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
@@ -28,9 +28,9 @@ public class TerminHinzufügenFrame extends JFrame{
 			if (event.getClickCount() == 2) {
 				int zeile = terminSelectionModel.getMinSelectionIndex();
 				String datum = (String) fttm.getValueAt(zeile, 0);
-				int terminzeile = (Integer) fttm.getValueAt(zeile, 1);
-				Date d = terminhinzufügenLogik.formatieren(datum);
-				int as = terminhinzufügenLogik.berechneAnzeigeSeite(terminzeile);
+				int terminuhrzeit = (Integer) fttm.getValueAt(zeile, 1);
+				long d = terminhinzufügenLogik.formatieren(datum);
+				int as = terminhinzufügenLogik.berechneAnzeigeSeite(terminuhrzeit);
 				new TagFrame(d, as, TerminHinzufügenFrame.this, länge);
 				TerminHinzufügenFrame.this.dispose();
 			}
@@ -50,9 +50,10 @@ public class TerminHinzufügenFrame extends JFrame{
 					txtdauer.setEnabled(true);
 					txtdauer.setText(länge + "");
 					titlepane.setEnabled(true);
-					heute = new Date();
+					spaeter.setEnabled(true);
+					frueher.setEnabled(true);
 					aktuellerTag = heute;									//Default initialisierung
-					freieTermine = terminhinzufügenLogik.freieTermineSuchen(heute);   
+					freieTermine = terminhinzufügenLogik.freieTermineSuchen(heute.getTime());   
 					fttm = new FreieTermineTableModel(freieTermine, heute);
 					verfügbarTabelle.setModel(fttm);
 					tcm = verfügbarTabelle.getColumnModel();
@@ -70,8 +71,8 @@ public class TerminHinzufügenFrame extends JFrame{
 	class MyFrüherHandler implements ActionListener{
 
 		public void actionPerformed(ActionEvent e) {
-			aktuellerTag = terminhinzufügenLogik.vorherigenTagBerechnen(aktuellerTag);
-			freieTermine = terminhinzufügenLogik.freieTermineSuchen(aktuellerTag);   						//nächsten Tag anzeigen
+			aktuellerTag = new Date(terminhinzufügenLogik.vorherigenTagBerechnen(aktuellerTag.getTime()));
+			freieTermine = terminhinzufügenLogik.freieTermineSuchen(aktuellerTag.getTime());   						//nächsten Tag anzeigen
 			fttm = new FreieTermineTableModel(freieTermine, aktuellerTag);
 			verfügbarTabelle.setModel(fttm);
 			tcm = verfügbarTabelle.getColumnModel();
@@ -83,8 +84,8 @@ public class TerminHinzufügenFrame extends JFrame{
 	class MySpäterHandler implements ActionListener{
 
 		public void actionPerformed(ActionEvent e) {
-			aktuellerTag = terminhinzufügenLogik.nächstenTagBerechnen(aktuellerTag);
-			freieTermine = terminhinzufügenLogik.freieTermineSuchen(aktuellerTag);   						//nächsten Tag anzeigen
+			aktuellerTag = new Date(terminhinzufügenLogik.nächstenTagBerechnen(aktuellerTag.getTime()));
+			freieTermine = terminhinzufügenLogik.freieTermineSuchen(aktuellerTag.getTime());   						//nächsten Tag anzeigen
 			fttm = new FreieTermineTableModel(freieTermine, aktuellerTag);
 			verfügbarTabelle.setModel(fttm);
 			tcm = verfügbarTabelle.getColumnModel();
@@ -104,6 +105,8 @@ public class TerminHinzufügenFrame extends JFrame{
 	private FreieTermineTableModel fttm;
 	private JTable verfügbarTabelle;
 	private JPanel titlepane;
+	private JButton spaeter;
+	private JButton frueher;
 	private ListSelectionModel terminSelectionModel;
 	private TableColumnModel tcm;
 	private Date heute;
@@ -111,12 +114,13 @@ public class TerminHinzufügenFrame extends JFrame{
 	private int länge = 0;
 
 	
-	public TerminHinzufügenFrame(){
+	public TerminHinzufügenFrame(long date){
 		setBounds(350, 200, 300, 500);
 		setTitle("Neuer Termin");
 		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 		
 		terminhinzufügenLogik = new TerminHinzufügenLogik();
+		heute = new Date(date);
 		setLayout(null);
 		
 		JLabel menge = new JLabel("Obstmenge in Zentner: ");
@@ -158,15 +162,17 @@ public class TerminHinzufügenFrame extends JFrame{
 		titlepane.setEnabled(false);
 		add(titlepane);
 		
-		JButton spaeter = new JButton("Nächster Tag");
+		spaeter = new JButton("Nächster Tag");
 		spaeter.addActionListener(new MySpäterHandler());
 		spaeter.setBounds(170, 350, 150, 30);
+		spaeter.setEnabled(false);
 		add(spaeter);
 		
-		JButton früher = new JButton("Vorheriger Tag");
-		früher.addActionListener(new MyFrüherHandler());
-		früher.setBounds(10, 350, 150, 30);
-		add(früher);
+		frueher = new JButton("Vorheriger Tag");
+		frueher.addActionListener(new MyFrüherHandler());
+		frueher.setBounds(10, 350, 150, 30);
+		frueher.setEnabled(false);
+		add(frueher);
 		
 		setVisible(true);
 	}

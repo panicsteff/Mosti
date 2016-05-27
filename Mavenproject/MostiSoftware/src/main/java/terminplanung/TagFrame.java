@@ -5,7 +5,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
-import java.util.Date;
+import java.sql.Date;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -42,9 +42,9 @@ public class TagFrame extends JFrame {
 						if (frei == true) {
 							new TerminErstellenDialog(dauer, datum, termine,
 									uhrzeit);
-							termineTableModel.fireTableRowsUpdated(zeile, zeile + tagframelogik.berechneAnzahlZeitslots(dauer));
-							terminSelectionModel.setSelectionInterval(zeile, zeile + tagframelogik.berechneAnzahlZeitslots(dauer)); // Damit anzeige aktualisiert wird
-							tagframelogik.termineSpeichern(termineTableModel.getAlleTermine(), datum);
+							termineTableModel.fireTableRowsUpdated(zeile, zeile + anzahlZeitslots);
+							terminSelectionModel.setSelectionInterval(zeile, zeile + anzahlZeitslots); // Damit anzeige aktualisiert wird
+							tagframelogik.termineSpeichern(termine.get(0).getKundenId(), anzahlZeitslots, datum, termine.get(0).getUhrzeit() );
 						}
 					}
 				}
@@ -83,8 +83,7 @@ public class TagFrame extends JFrame {
 	private static final long serialVersionUID = 1L;
 	private ArrayList<Termin> terminliste;
 	private TermineTableModel termineTableModel;
-	private TerminLogik terminlogik;
-	private TagFrameLogik tagframelogik;
+	private TagFrameController tagframelogik;
 	private JTable tagesTabelle;
 	private Date datum;
 	private int anzeigeseite;
@@ -95,14 +94,13 @@ public class TagFrame extends JFrame {
 	private JButton cmdFrueher;
 	private JButton cmdSpaeter;
 
-	TagFrame(Date d, int as, TerminHinzufügenFrame p, int länge) {
+	TagFrame(long d, int as, TerminHinzufügenFrame p, int länge) {
 		parent = p;
-		datum = d;
+		datum = new Date(d);
 		anzeigeseite = as;
 		dauer = länge;
 
-		terminlogik = new TerminLogik();
-		tagframelogik = new TagFrameLogik();
+		tagframelogik = new TagFrameController();
 
 		setSize(500, 800);
 		String title = Formats.DATE_FORMAT.format(datum);
