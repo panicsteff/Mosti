@@ -1,4 +1,4 @@
-package lagerverwaltung;
+package gui.produktverwaltung;
 
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
@@ -15,6 +15,9 @@ import javax.swing.JTextField;
 import javax.swing.text.NumberFormatter;
 
 import kundenverwaltung.NullableFormatter;
+import lagerverwaltung.FoFormat;
+import lagerverwaltung.Produkt;
+import lagerverwaltung.ProduktSortiment;
 
 import com.sun.glass.ui.Pixels.Format;
 

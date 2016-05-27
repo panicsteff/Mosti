@@ -21,7 +21,7 @@ public class ProduktSortiment {
 	}
 	
 	
-	void createSpecialLists() {
+	public void createSpecialLists() {
 		zProduktSortiment = new ArrayList<Produkt>();
 		abfuellSortiment = new ArrayList<Produkt>();
 		if(gesamtProduktSortiment.size() > 0){
@@ -33,19 +33,19 @@ public class ProduktSortiment {
 		}}
 	}
 	
-	void updateProdukte(){
+	public void updateProdukte(){
 		System.out.println("Jou Datenbank");
 		printGesamtListe();
 		lagerdb.produkteUpdaten(gesamtProduktSortiment);
 	}
 	
-	void addProdukt(Produkt p) {
+	public void addProdukt(Produkt p) {
 		lagerdb.produktHinzufügen(p);
 		gesamtProduktSortiment.add(p);
 		createSpecialLists();
 	}
 	
-	void deleteProdukt(Produkt p) {
+	public void deleteProdukt(Produkt p) {
 		lagerdb.produktLöschen(p);
 		gesamtProduktSortiment.remove(p);
 		createSpecialLists();

@@ -1,9 +1,11 @@
 
-package lagerverwaltung;
+package gui.produktverwaltung;
 
 import java.util.List;
 
 import javax.swing.table.AbstractTableModel;
+
+import lagerverwaltung.Produkt;
 
 
 

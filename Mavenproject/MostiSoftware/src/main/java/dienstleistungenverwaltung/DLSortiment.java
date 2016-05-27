@@ -14,16 +14,16 @@ public class DLSortiment {
 		printDLSortiment();
 	}
 	
-	void addDienstleistung(Dienstleistung d) {
+	public void addDienstleistung(Dienstleistung d) {
 		dldb.dienstleistungHinzufügen(d);
 		dliste.add(d);
 	}
 	
-	void dienstleistungenAktualisieren(){
+	public void dienstleistungenAktualisieren(){
 		dldb.dlUpdaten(dliste);
 	}
 	
-	void deleteDienstleistung(Dienstleistung d) {
+	public void deleteDienstleistung(Dienstleistung d) {
 		dldb.dienstleistungLöschen(d);
 		dliste.remove(d);
 	}

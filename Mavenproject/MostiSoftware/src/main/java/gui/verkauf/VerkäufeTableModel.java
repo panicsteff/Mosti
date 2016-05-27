@@ -1,8 +1,10 @@
-package verkaufsverwaltung;
+package gui.verkauf;
 
 import java.util.ArrayList;
 
 import javax.swing.table.AbstractTableModel;
+
+import verkaufsverwaltung.Verkaufsposition;
 
 @SuppressWarnings("serial")
 class VerkäufeTableModel extends AbstractTableModel {

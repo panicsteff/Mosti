@@ -1,4 +1,4 @@
-package dienstleistungenverwaltung;
+package gui.dienstleistungverwaltung;
 
 
 import java.awt.GridLayout;
@@ -16,7 +16,11 @@ import javax.swing.text.NumberFormatter;
 
 import kundenverwaltung.NullableFormatter;
 import lagerverwaltung.FoFormat;
+
 import com.sun.glass.ui.Pixels.Format;
+
+import dienstleistungenverwaltung.DLSortiment;
+import dienstleistungenverwaltung.Dienstleistung;
 
 @SuppressWarnings("serial")
 class DLHinzufuegenFrame extends JDialog {

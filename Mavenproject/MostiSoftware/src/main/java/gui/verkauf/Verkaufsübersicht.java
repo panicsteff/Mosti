@@ -1,4 +1,4 @@
-package verkaufsverwaltung;
+package gui.verkauf;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -17,6 +17,9 @@ import javax.swing.ListCellRenderer;
 import javax.swing.ListSelectionModel;
 import javax.swing.text.DateFormatter;
 
+import verkaufsverwaltung.Verkaufsverwaltung;
+import verkaufsverwaltung.ÜbersichtButtonGroup;
+import verkaufsverwaltung.ÜbersichtButtonModel;
 import kundenverwaltung.Formats;
 import kundenverwaltung.Kunde;
 import kundenverwaltung.KundeListCellRenderer;

@@ -1,4 +1,4 @@
-package verkaufsverwaltung;
+package gui.verkauf;
 
 import java.awt.BorderLayout;
 import java.awt.GridLayout;
@@ -17,6 +17,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.TableColumn;
 
+import verkaufsverwaltung.Verkaufsposition;
 import lagerverwaltung.PreisCellRenderer;
 
 @SuppressWarnings("serial")

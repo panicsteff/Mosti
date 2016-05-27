@@ -1,4 +1,4 @@
-package lagerverwaltung;
+package gui.produktverwaltung;
 
 import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
@@ -20,6 +20,11 @@ import javax.swing.ListSelectionModel;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.table.TableColumn;
+
+import lagerverwaltung.MengeCellRenderer;
+import lagerverwaltung.PreisCellRenderer;
+import lagerverwaltung.Produkt;
+import lagerverwaltung.ProduktSortiment;
 
 public class LagerVerwaltungFrame extends JFrame {
 

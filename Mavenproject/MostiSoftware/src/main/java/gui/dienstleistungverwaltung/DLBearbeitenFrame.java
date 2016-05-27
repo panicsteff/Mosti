@@ -1,4 +1,4 @@
-package dienstleistungenverwaltung;
+package gui.dienstleistungverwaltung;
 
 
 import java.awt.GridLayout;
@@ -13,6 +13,7 @@ import javax.swing.JLabel;
 import javax.swing.JTextField;
 import javax.swing.text.NumberFormatter;
 
+import dienstleistungenverwaltung.Dienstleistung;
 import kundenverwaltung.NullableFormatter;
 import lagerverwaltung.FoFormat;
 

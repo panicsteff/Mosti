@@ -1,6 +1,10 @@
 
 package account;
 
+import gui.dienstleistungverwaltung.DLVerwaltungFrame;
+import gui.produktverwaltung.LagerVerwaltungFrame;
+import gui.verkauf.Verkaufsübersicht;
+
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -17,16 +21,13 @@ import javax.swing.JSeparator;
 
 import kassenfunktion.KassenFrame;
 import kundenverwaltung.KundenVerwaltung;
-import lagerverwaltung.LagerVerwaltungFrame;
 import lagerverwaltung.ProduktSortiment;
 import mitarbeiterverwaltung.MitarbeiterVerwaltung;
 import terminplanung.TerminplanungsFrame;
 import trester.TresterFrame;
 import trester.Tresterverwaltung;
 import verkaufsverwaltung.Verkaufsverwaltung;
-import verkaufsverwaltung.Verkaufsübersicht;
 import dienstleistungenverwaltung.DLSortiment;
-import dienstleistungenverwaltung.DLVerwaltungFrame;
 
 public class M_Startseite extends JFrame {
 

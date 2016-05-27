@@ -1,5 +1,7 @@
 package kassenfunktion;
 
+import gui.verkauf.VerkäufeFrame;
+
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
@@ -32,7 +34,6 @@ import lagerverwaltung.ProduktSortiment;
 import verkaufsverwaltung.Verkauf;
 import verkaufsverwaltung.Verkaufsposition;
 import verkaufsverwaltung.Verkaufsverwaltung;
-import verkaufsverwaltung.VerkäufeFrame;
 import dienstleistungenverwaltung.DLSortiment;
 import dienstleistungenverwaltung.Dienstleistung;
 
