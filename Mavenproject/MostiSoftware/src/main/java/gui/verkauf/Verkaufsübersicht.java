@@ -2,8 +2,6 @@ package gui.verkauf;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.sql.Date;
-
 import javax.swing.JButton;
 import javax.swing.JFormattedTextField;
 import javax.swing.JFrame;
@@ -325,8 +323,8 @@ public class Verkaufsübersicht extends JFrame {
 		}
 	}
 
-	public static void main(String[] args) {
-		Verkaufsübersicht window = new Verkaufsübersicht();
-
-	}
+//	public static void main(String[] args) {
+//		Verkaufsübersicht window = new Verkaufsübersicht();
+//
+//	}
 }

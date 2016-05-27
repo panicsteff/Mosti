@@ -225,10 +225,6 @@ public class LagerVerwaltungFrame extends JFrame {
 				.size() : 0));
 	}
 
-	// Angebote getAngebote(){
-	// return a;
-	// }
-
 	private void printListe() {
 		System.out.println();
 		for (Produkt p : pSortiment.getGesamtSortiment()) {

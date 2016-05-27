@@ -8,7 +8,6 @@ import javax.swing.JButton;
 import javax.swing.JFormattedTextField;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JPanel;
 import javax.swing.text.NumberFormatter;
 
 import kundenverwaltung.NullableFormatter;
@@ -16,6 +15,7 @@ import logik.produktverwaltung.FoFormat;
 import logik.trester.Tresterabrechnung;
 import logik.trester.Tresterverwaltung;
 
+@SuppressWarnings("serial")
 public class TresterFrame extends JFrame {
 	
 	private JFormattedTextField txtPreis;
@@ -77,9 +77,9 @@ public class TresterFrame extends JFrame {
 
 	}
 	
-	public static void main(String[] args){
-		TresterFrame t = new TresterFrame(new Tresterverwaltung());
-		
-	}
+//	public static void main(String[] args){
+//		TresterFrame t = new TresterFrame(new Tresterverwaltung());
+//		
+//	}
 
 }

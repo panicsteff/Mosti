@@ -60,7 +60,7 @@ public class VerkäufeFrame extends JFrame {
 
 		vTabelle.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
 		vTabelle.getColumnModel().getColumn(0).setPreferredWidth(200);
-		vTabelle.getColumnModel().getColumn(1).setPreferredWidth(100);
+		vTabelle.getColumnModel().getColumn(1).setPreferredWidth(130);
 		vTabelle.getColumnModel().getColumn(2).setPreferredWidth(100);
 		vTabelle.getColumnModel().getColumn(3).setPreferredWidth(100);
 

@@ -19,14 +19,9 @@ import logik.produktverwaltung.FoFormat;
 import logik.produktverwaltung.Produkt;
 import logik.produktverwaltung.ProduktSortiment;
 
-import com.sun.glass.ui.Pixels.Format;
-
+@SuppressWarnings("serial")
 class ProduktHinzufuegenFrame extends JDialog {
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
 	private JTextField txtName;
 	private JFormattedTextField txtPreis;
 	private JFormattedTextField txtMenge;
@@ -64,7 +59,7 @@ class ProduktHinzufuegenFrame extends JDialog {
 		NullableFormatter nf = new NullableFormatter(nuf);
 		add(txtPreis = new JFormattedTextField(nf));
 
-		add(new JLabel("Menge:"));
+		add(new JLabel("Vorrätige Menge:"));
 		add(txtMenge = new JFormattedTextField());
 
 		add(new JLabel("Untergrenze:"));

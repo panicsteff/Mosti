@@ -13,7 +13,7 @@ public class DienstleistungenTableModel extends AbstractTableModel {
 	private ArrayList <Dienstleistung> dienstleistungen;
 	private int DLAnzahl;
 
-	public DienstleistungenTableModel(ArrayList <Dienstleistung> dienstleistungen) {
+	DienstleistungenTableModel(ArrayList <Dienstleistung> dienstleistungen) {
 		this.dienstleistungen = dienstleistungen;
 		DLAnzahl = getColumnCount();
 	}
@@ -67,7 +67,7 @@ public class DienstleistungenTableModel extends AbstractTableModel {
 
 	}
 	
-	public double berechneTeilpreis(){
+	double berechneTeilpreis(){
 		double sum = 0;
 		for (int i = 0; i < DLAnzahl; i++) {
 			sum = sum
@@ -84,7 +84,7 @@ public class DienstleistungenTableModel extends AbstractTableModel {
 		return sum;
 	}
 	
-	public int berechneGesamtLiterZahl(){
+	int berechneGesamtLiterZahl(){
 		int sum = 0;
 		for (int i = 0; i < DLAnzahl; i++) {
 			sum = sum + (Integer)getValueAt(0, i);

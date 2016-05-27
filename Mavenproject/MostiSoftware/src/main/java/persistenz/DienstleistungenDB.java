@@ -9,7 +9,6 @@ import java.sql.Statement;
 import java.util.ArrayList;
 
 import logik.dienstleistungverwaltung.Dienstleistung;
-import logik.produktverwaltung.Produkt;
 
 public class DienstleistungenDB {
 		

@@ -28,7 +28,6 @@ class DLHinzufuegenFrame extends JDialog {
 	private JFormattedTextField txtPreis;
 	private Dienstleistung dienstleistung;
 	private Format format;
-	//private Angebote a;
 	private DLSortiment dlSortiment;
 
 	DLHinzufuegenFrame(JFrame parent, DLSortiment d) {

@@ -8,11 +8,7 @@ import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.FileNotFoundException;
-import java.text.DateFormat;
 import java.util.ArrayList;
-
-
-
 
 import java.util.Date;
 
@@ -26,7 +22,6 @@ import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.ListSelectionModel;
 
-import kundenverwaltung.Formats;
 import kundenverwaltung.Kunde;
 import kundenverwaltung.KundeDB;
 import logik.dienstleistungverwaltung.DLSortiment;
@@ -39,9 +34,6 @@ import logik.verkaufsverwaltung.Verkaufsverwaltung;
 
 public class KassenFrame extends JFrame {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 
 	private ProduktTableModel zusatzTableModel;
@@ -208,7 +200,7 @@ public class KassenFrame extends JFrame {
 			dlZuEinkauf(dienstleistungen); // gekaufte DL hinzufügen
 			produkteZuEinkauf(aliste); // gekaufte Abfüllmaterialien hinzufügen
 			produkteZuEinkauf(zliste); // gekaufte Zusatzprodukte hinzufügen
-			new VerkäufeFrame(einkaufsliste);
+			//new VerkäufeFrame(einkaufsliste);
 			
 			try {
 				kunde = kundeDB.kundenLaden().get(2);
