@@ -29,7 +29,6 @@ import kundenverwaltung.Kunde;
 import kundenverwaltung.KundeDB;
 import lagerverwaltung.Produkt;
 import lagerverwaltung.ProduktSortiment;
-import verkaufsverwaltung.Kundeneinkäufe;
 import verkaufsverwaltung.Verkauf;
 import verkaufsverwaltung.Verkaufsposition;
 import verkaufsverwaltung.Verkaufsverwaltung;

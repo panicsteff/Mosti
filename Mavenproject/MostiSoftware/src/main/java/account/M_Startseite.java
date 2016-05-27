@@ -23,7 +23,6 @@ import mitarbeiterverwaltung.MitarbeiterVerwaltung;
 import terminplanung.TerminplanungsFrame;
 import trester.TresterFrame;
 import trester.Tresterverwaltung;
-import verkaufsverwaltung.Kundeneinkäufe;
 import verkaufsverwaltung.Verkaufsverwaltung;
 import dienstleistungenverwaltung.DLSortiment;
 import dienstleistungenverwaltung.DLVerwaltungFrame;
@@ -34,7 +33,6 @@ public class M_Startseite extends JFrame {
 	JMenuBar mbar;
 	JMenu mDatei;
 	JMenuItem abrechnen;
-	Kundeneinkäufe kundeneinkäufe;
 	DLSortiment dlSorti;
 	ProduktSortiment pSorti;
 
