@@ -1,9 +1,11 @@
-package terminplanung;
+package gui.terminplanung;
 
 import java.awt.Component;
 
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableCellRenderer;
+
+import logik.terminplanung.TerminLogik;
 
 public class KundenNameCellRenderer extends DefaultTableCellRenderer.UIResource{
 	

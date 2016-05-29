@@ -1,4 +1,4 @@
-package terminplanung;
+package logik.terminplanung;
 
 import java.text.ParseException;
 import java.util.ArrayList;
@@ -17,7 +17,7 @@ public class TerminHinzufügenLogik {
 		k = new Konfigurationswerte();
 	}
 
-	long nächstenTagBerechnen(long datum){
+	public long nächstenTagBerechnen(long datum){
 		GregorianCalendar calendar = new GregorianCalendar();
 		calendar.setTimeInMillis(datum);
 		
@@ -27,7 +27,7 @@ public class TerminHinzufügenLogik {
 		return neuesDatum.getTime();
 	}
 	
-	long vorherigenTagBerechnen(long datum){
+	public long vorherigenTagBerechnen(long datum){
 		
 		GregorianCalendar calendar = new GregorianCalendar();
 		calendar.setTimeInMillis(datum);
@@ -39,7 +39,7 @@ public class TerminHinzufügenLogik {
 	}
 	
 	
-	ArrayList<Termin> freieTermineSuchen(long datum){
+	public ArrayList<Termin> freieTermineSuchen(long datum){
 
 		ArrayList<Termin> freieTermine = terminlogik.termineLaden(datum);
 		
@@ -52,11 +52,11 @@ public class TerminHinzufügenLogik {
 		return freieTermine;
 	}
 	
-	int berechneAnzeigeSeite(int terminzeile){
+	public int berechneAnzeigeSeite(int terminzeile){
 		return terminlogik.berechneAnzeigeSeite(terminzeile);
 	}
 	
-	int berechneTermindauer(String s) throws ParseException{
+	public int berechneTermindauer(String s) throws ParseException{
 		
 		int obstmenge = Integer.parseInt(s);
 		double dauer = obstmenge*5;
@@ -70,7 +70,7 @@ public class TerminHinzufügenLogik {
 		}
 	}
 	
-	long formatieren(String datum){
+	public long formatieren(String datum){
 		
 		Date d= new Date();
 		try {

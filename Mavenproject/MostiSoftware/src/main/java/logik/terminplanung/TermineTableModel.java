@@ -1,4 +1,4 @@
-package terminplanung;
+package logik.terminplanung;
 
 import java.util.ArrayList;
 
@@ -12,7 +12,7 @@ public class TermineTableModel extends AbstractTableModel {
 	private TerminLogik terminlogik;
 	
 
-	TermineTableModel(ArrayList<Termin> terminliste, int as) {
+	public TermineTableModel(ArrayList<Termin> terminliste, int as) {
 		this.terminliste = terminliste;
 		anzeigeseite = as; 
 		terminlogik = new TerminLogik();
@@ -51,7 +51,7 @@ public class TermineTableModel extends AbstractTableModel {
 		}
 	}
 	
-	ArrayList<Termin> getTermine(int row, int anzahl){
+	public ArrayList<Termin> getTermine(int row, int anzahl){
 		ArrayList<Termin> liste = new ArrayList<Termin>();
 		try{
 			for(int i=0; i<anzahl; i++){
@@ -69,11 +69,11 @@ public class TermineTableModel extends AbstractTableModel {
 		return terminliste;
 	}
 	
-	void erhoeheAnzeigeseite(){
+	public void erhoeheAnzeigeseite(){
 		anzeigeseite++;
 	}
 	
-	void erniedrigeAnzeigeseite(){
+	public void erniedrigeAnzeigeseite(){
 		anzeigeseite--;
 	}
 	

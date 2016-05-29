@@ -1,4 +1,4 @@
-package terminplanung;
+package persistenz;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -8,11 +8,13 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.sql.Date;
 
+import logik.terminplanung.Termin;
+
 public class TerminDB {
 
 	private Connection conn;
 
-	ArrayList<Termin> termineLaden(Date datum) {
+	public ArrayList<Termin> termineLaden(Date datum) {
 
 		ArrayList<Termin> terminliste = new ArrayList<Termin>();
 
@@ -44,7 +46,7 @@ public class TerminDB {
 		return terminliste;
 	}
 
-	void termineSpeichern(int kundenId, int anzahlZeitslot, Date datum,
+	public void termineSpeichern(int kundenId, int anzahlZeitslot, Date datum,
 			int beginn) {
 
 		try {
@@ -67,7 +69,7 @@ public class TerminDB {
 		}
 	}
 
-	String kundenNamenLaden(int kundenId) {
+	public String kundenNamenLaden(int kundenId) {
 
 		String name = new String();
 		try {
@@ -92,7 +94,7 @@ public class TerminDB {
 
 	}
 
-	ArrayList<Integer> adminwerteLaden() {
+	public ArrayList<Integer> adminwerteLaden() {
 
 		ArrayList<Integer> adminwerte = new ArrayList<Integer>();
 		try {
@@ -122,7 +124,7 @@ public class TerminDB {
 		return adminwerte;
 	}
 
-	ArrayList<Integer> kundenIdLaden(String name) {
+	public ArrayList<Integer> kundenIdLaden(String name) {
 
 		ArrayList<Integer> kundenId = new ArrayList<Integer>();
 

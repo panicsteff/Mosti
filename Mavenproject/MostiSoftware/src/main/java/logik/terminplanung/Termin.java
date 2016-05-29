@@ -1,4 +1,4 @@
-package terminplanung;
+package logik.terminplanung;
 
 import java.sql.Date;
 
@@ -13,11 +13,11 @@ public class Termin {
 	private int uhrzeit;
 	
 	
-	int getKundenId(){
+	public int getKundenId(){
 		return kundenId;
 	}
 
-	void setKundenId(int ID){
+	public void setKundenId(int ID){
 		kundenId = ID;
 	}
 

@@ -1,4 +1,9 @@
-package terminplanung;
+package logik.terminplanung;
+
+import gui.terminplanung.KundenNameCellRenderer;
+import gui.terminplanung.TerminErstellenDialog;
+import gui.terminplanung.TerminHinzufügenFrame;
+import gui.terminplanung.TermineCellRenderer;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -94,7 +99,7 @@ public class TagFrame extends JFrame {
 	private JButton cmdFrueher;
 	private JButton cmdSpaeter;
 
-	TagFrame(long d, int as, TerminHinzufügenFrame p, int länge) {
+	public TagFrame(long d, int as, TerminHinzufügenFrame p, int länge) {
 		parent = p;
 		datum = new Date(d);
 		anzeigeseite = as;

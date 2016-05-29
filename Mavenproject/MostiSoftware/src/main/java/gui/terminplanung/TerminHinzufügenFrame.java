@@ -1,4 +1,4 @@
-package terminplanung;
+package gui.terminplanung;
 
 import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
@@ -20,6 +20,10 @@ import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.ListSelectionModel;
 import javax.swing.table.TableColumnModel;
+
+import logik.terminplanung.TagFrame;
+import logik.terminplanung.Termin;
+import logik.terminplanung.TerminHinzufügenLogik;
 
 public class TerminHinzufügenFrame extends JFrame{
 

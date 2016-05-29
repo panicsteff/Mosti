@@ -1,4 +1,4 @@
-package terminplanung;
+package gui.terminplanung;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -16,6 +16,8 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 import kundenverwaltung.Formats;
+import logik.terminplanung.Termin;
+import logik.terminplanung.TerminLogik;
 
 public class TerminErstellenDialog extends JDialog {
 	

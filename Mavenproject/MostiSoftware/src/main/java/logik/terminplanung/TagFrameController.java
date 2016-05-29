@@ -1,4 +1,4 @@
-package terminplanung;
+package logik.terminplanung;
 
 import java.util.ArrayList;
 import java.sql.Date;

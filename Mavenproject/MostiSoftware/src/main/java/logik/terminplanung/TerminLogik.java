@@ -1,7 +1,9 @@
-package terminplanung;
+package logik.terminplanung;
 
 import java.util.ArrayList;
 import java.sql.Date;
+
+import persistenz.TerminDB;
 
 
 public class TerminLogik {
@@ -12,10 +14,6 @@ public class TerminLogik {
 	public TerminLogik(){
 		k = new Konfigurationswerte();
 		terminDb = new TerminDB();
-	}
-	
-	int getZeilenAnzahlProSeite(){
-		return k.getZeilenanzahlProSeite();
 	}
 	
 	private ArrayList<Termin> inVolleTerminListe(ArrayList<Termin> alteTerminliste){
@@ -79,19 +77,6 @@ public class TerminLogik {
 		
 	}
 	
-	void termineSpeichern(int kundenId, int anzahlZeitslot, Date datum, int beginn){
-		terminDb.termineSpeichern(kundenId, anzahlZeitslot, datum, beginn);
-		
-	}
-	
-	ArrayList<Integer> kundenIDLaden(String eingabe){
-		return terminDb.kundenIdLaden(eingabe);
-	}
-	
-	String kundenNamenLaden(int id){
-		return terminDb.kundenNamenLaden(id);
-	}
-	
 	int berechneAnzeigeSeite(int uhrzeit){
 		int zeile = (uhrzeit - k.getArbeitsbeginn())/k.getZeitslot() + 1;    //EInsbasierte Indexzählung 
 		int i;
@@ -103,7 +88,7 @@ public class TerminLogik {
 		return i+1;
 	}
 	
-	String terminNachUhrzeit(int uhrzeit) {
+	public String terminNachUhrzeit(int uhrzeit) {
 		
 		int stunde = uhrzeit/60;
 		int minute = uhrzeit%60;
@@ -113,6 +98,50 @@ public class TerminLogik {
 		}
 		
 		return stunde + ":" + minute;
+	}
+	
+	public ArrayList<Intervall> berechneLücken(ArrayList<Termin> freieTermine) {
+
+		ArrayList<Intervall> intervallListe = new ArrayList<Intervall>();
+
+		Intervall in = new Intervall();
+		in.setStart(freieTermine.get(0).getUhrzeit());
+
+		int i;
+		for (i = 0; i < freieTermine.size() - 1; i++) {
+			if (freieTermine.get(i + 1).getUhrzeit() != freieTermine.get(i).getUhrzeit() + k.getZeitslot()) {
+				in.setEnde(freieTermine.get(i).getUhrzeit());								
+				intervallListe.add(in);
+				in = new Intervall();
+				in.setStart(freieTermine.get(i + 1).getUhrzeit());
+			}
+		}
+		in.setEnde(freieTermine.get(i).getUhrzeit()); // letzter Termin ist immer das Ende
+		intervallListe.add(in);
+		
+		return intervallListe;
+	}
+	
+
+	public int getZeilenAnzahlProSeite(){
+		return k.getZeilenanzahlProSeite();
+	}
+	
+	public ArrayList<Integer> kundenIDLaden(String eingabe){
+		return terminDb.kundenIdLaden(eingabe);
+	}
+	
+	public String kundenNamenLaden(int id){
+		return terminDb.kundenNamenLaden(id);
+	}
+	
+	void termineSpeichern(int kundenId, int anzahlZeitslot, Date datum, int beginn){
+		terminDb.termineSpeichern(kundenId, anzahlZeitslot, datum, beginn);
+		
+	}
+	
+	public int getZeitslot(){
+		return k.getZeitslot();
 	}
 	
 }

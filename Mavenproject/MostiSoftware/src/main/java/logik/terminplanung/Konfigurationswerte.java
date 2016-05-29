@@ -1,6 +1,8 @@
-package terminplanung;
+package logik.terminplanung;
 
 import java.util.ArrayList;
+
+import persistenz.TerminDB;
 
 public class Konfigurationswerte {
 
