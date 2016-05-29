@@ -148,7 +148,6 @@ public class TerminErstellenDialog extends JDialog {
 		JButton abbrechen = new JButton("Abbrechen");
 		abbrechen.setBounds(280, 160, 140, 40);
 		abbrechen.addActionListener(new ActionListener(){
-
 			public void actionPerformed(ActionEvent arg0) {
 				TerminErstellenDialog.this.dispose();
 			}

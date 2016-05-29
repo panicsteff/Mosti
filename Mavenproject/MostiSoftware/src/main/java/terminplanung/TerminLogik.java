@@ -41,7 +41,7 @@ public class TerminLogik {
 				}else{
 					Termin t = new Termin();
 					t.setKundenId(0);
-					t.setUhrzeit(j);									//is des sinnvoll?
+					t.setUhrzeit(j);									
 					neueTerminliste.add(t);
 				}
 		}
