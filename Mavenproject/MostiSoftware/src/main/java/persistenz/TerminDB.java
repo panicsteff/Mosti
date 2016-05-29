@@ -31,6 +31,7 @@ public class TerminDB {
 
 			while (rs.next()) {
 				Termin t = new Termin();
+				//t.setTerminId(rs.getShort("ID"));
 				t.setKundenId(rs.getInt("kundenId"));
 				t.setAnzahlZeitslots(rs.getInt("AnzahlZeitslot"));
 				t.setUhrzeit(rs.getInt("Beginn"));
