@@ -1,6 +1,7 @@
 package administratorverwaltung;
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -11,49 +12,51 @@ public class SchichtplanDB {
 
 	private Connection conn;
 	
-	ArrayList<Integer> schichtLaden(int schichtId, int mitarbeiteranzahl, int schichtenanzahl){
+	ArrayList<Schicht> schichtLaden(Date datum){
 		
-		ArrayList<Integer> mitarbeiterid = new ArrayList<Integer>();
-		int schichtid_obergrenze = schichtId + schichtenanzahl -1;
+		ArrayList<Schicht> liste = new ArrayList<Schicht>();
 		
 		try {
 			conn = DriverManager
 					.getConnection("jdbc:ucanaccess://./Mosti-Datenkank.mdb");
-			Statement s = conn.createStatement();
-			ResultSet rs = s
-					.executeQuery("SELECT * FROM [schichtplan] Where id between " + schichtId + " and " + schichtid_obergrenze);
+			Statement st = conn.createStatement();
+			ResultSet rs = st
+					.executeQuery("SELECT * FROM [schichtplan] Where datum between {ts '"
+							+ datum
+							+ " 00:00:00'} AND {ts '"
+							+ datum + " 23:59:59'} ");
 			
 			while (rs.next()) {
-				for(int j=1; j<=mitarbeiteranzahl; j++){
-					Integer i = rs.getInt("Mitarbeiter" + j);
-					mitarbeiterid.add(i);
-				}
-					
+				Schicht s = new Schicht();
+				s.setDatum(datum);
+				s.addMitarbeiterId(rs.getInt("Mitarbeiter"));
+				s.setSchichtId(rs.getShort("ID"));
+				s.setUhrzeit(rs.getInt("Uhrzeit"));
+				liste.add(s);
+				
 			}
-			s.close();
+			st.close();
 
 		} catch (Exception e) {
-			System.out.println(e);
+			e.printStackTrace();
 		}
 		
-		return mitarbeiterid;
+		return liste;
 	}
 	
-	void schichtSpeichern(ArrayList<Integer> schichtIdListe, ArrayList<Integer> mitarbeiterIdListe, int laufenderTag){
-		
+	void schichtSpeichern(Date datum, int mitarbeiterId, int uhrzeit) {
+
 		try {
 			conn = DriverManager
 					.getConnection("jdbc:ucanaccess://./Mosti-Datenkank.mdb");
-			PreparedStatement s=null;
-			
-			for(int i=0; i<schichtIdListe.size(); i++){
-				s = conn.prepareStatement("Update schicht set Tag" + laufenderTag + " = ? where id = ?");
-				s.setInt(1, mitarbeiterIdListe.get(i));
-				s.setInt(2, schichtIdListe.get(i));
-				
-				s.executeUpdate();
-				
-			}
+			PreparedStatement s = null;
+
+			s = conn.prepareStatement("Insert into schichtplan (datum, uhrzeit, mitarbeiter) values (?,?,?) ");
+			s.setDate(1, datum);
+			s.setInt(2, uhrzeit);
+			s.setInt(3, mitarbeiterId);
+
+			s.executeUpdate();
 
 			s.close();
 
@@ -62,9 +65,9 @@ public class SchichtplanDB {
 		}
 	}
 
-	ArrayList<String> mitarbeiterNamenLaden(int mitarbeiterId) {
+	String mitarbeiterNamenLaden(int mitarbeiterId) {
 
-		ArrayList<String> name = new ArrayList<String>();
+		String name = new String();
 		try {
 			conn = DriverManager
 					.getConnection("jdbc:ucanaccess://./Mosti-Datenkank.mdb");
@@ -99,6 +102,10 @@ public class SchichtplanDB {
 				Integer i = rs.getInt("MitarbeiterProSchicht");
 				adminwerte.add(i);
 				i = rs.getInt("SchichtenProTag");
+				adminwerte.add(i);
+				i = rs.getInt("Arbeitsbeginn");
+				adminwerte.add(i);
+				i = rs.getInt("Arbeitsende");
 				adminwerte.add(i);
 			}
 			s.close();

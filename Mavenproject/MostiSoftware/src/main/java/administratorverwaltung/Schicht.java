@@ -1,26 +1,31 @@
 package administratorverwaltung;
 
+import java.sql.Date;
 import java.util.ArrayList;
-import java.util.Date;
+
 
 public class Schicht {
 	
 	private ArrayList<Integer> mitarbeiterIds;
 	private int schichtId;
-	private Date uhrzeit;
+	private int uhrzeit;
+	private Date datum;
+		
 	
+	public Schicht(){
+		mitarbeiterIds = new ArrayList<Integer>();
+	}
 	
-	
-	ArrayList<Integer> getMitarbeiterIds(){
-		return mitarbeiterIds;
+	Integer getMitarbeiterId(int reihe){
+		return mitarbeiterIds.get(reihe);
 	}
 
-	void setMitarbeiterIds(ArrayList<Integer> mitarbeiterId){
-		mitarbeiterIds = mitarbeiterId;
+	void addMitarbeiterId(int id){
+		mitarbeiterIds.add(id);
 	}
 	
-	int getMitarbeiter(int pos){
-		return mitarbeiterIds.get(pos);
+	int getAnzahlMitarbeiter(){
+		return mitarbeiterIds.size();
 	}
 
 	int getSchichtId() {
@@ -31,12 +36,20 @@ public class Schicht {
 		this.schichtId = schichtId;
 	}
 
-	Date getUhrzeit() {
+	int getUhrzeit() {
 		return uhrzeit;
 	}
 
-	void setUhrzeit(Date uhrzeit) {
+	void setUhrzeit(int uhrzeit) {
 		this.uhrzeit = uhrzeit;
+	}
+
+	public Date getDatum() {
+		return datum;
+	}
+
+	public void setDatum(Date datum) {
+		this.datum = datum;
 	}
 
 }

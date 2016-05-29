@@ -8,10 +8,10 @@ import javax.swing.table.DefaultTableCellRenderer;
 public class MitarbeiterNameCellRenderer extends DefaultTableCellRenderer.UIResource{
 	
 	private static final long serialVersionUID = 1L;
-	private SchichtplanDB schichtdb;
+	private SchichtLogik schichtlogik;
 	
 	public MitarbeiterNameCellRenderer(){
-		schichtdb = new SchichtplanDB();
+		schichtlogik = new SchichtLogik();
 	}
 
 	public Component getTableCellRendererComponent(JTable table,
@@ -19,8 +19,13 @@ public class MitarbeiterNameCellRenderer extends DefaultTableCellRenderer.UIReso
 			super.getTableCellRendererComponent(table, value,
 			isSelected, cellHasFocus, row, col);
 			
-			int mitarbeiterId = (Integer) value;
-			String name = schichtdb.mitarbeiterNamenLaden(mitarbeiterId);
+			String name = new String();
+			try{
+				int mitarbeiterId = (Integer) value;
+				name = schichtlogik.mitarbeiternameLaden(mitarbeiterId);
+			}catch(ClassCastException e){
+				;
+			}
 			setText(name);
 			return this;
 			

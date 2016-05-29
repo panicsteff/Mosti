@@ -8,10 +8,12 @@ public class SchichtTableModel extends AbstractTableModel {
 
 	private static final long serialVersionUID = 1L;
 	private ArrayList<Schicht> schichtliste;
+	private Konfigurationswerte k;
 	
 
 	SchichtTableModel(ArrayList<Schicht> schichtliste) {
 		this.schichtliste = schichtliste;
+		k = new Konfigurationswerte();
 	}
 
 	public String getColumnName(int col){
@@ -24,33 +26,21 @@ public class SchichtTableModel extends AbstractTableModel {
 	}
 	
 	public int getColumnCount() {
-		return 2;
+		return k.getSchichtenProTag();
 	}
 
 	public int getRowCount() {
-		return schichtliste.get(0).getMitarbeiterIds().size();
+		return k.getMitarbeiterProSchicht();
 	}
 
 	public Object getValueAt(int row, int col) {
-		return schichtliste.get(col).getMitarbeiter(row);	
+		if(schichtliste.get(col).getAnzahlMitarbeiter()<= row){
+			return "";
+		}
+		
+		return schichtliste.get(col).getMitarbeiterId(row);	
 	}
 	
-	public boolean isCellEditable(int row, int col){
-		return true;
-	}
-	
-//	ArrayList<Schicht> getSchicht(int row, int anzahl){
-//		ArrayList<Schicht> liste = new ArrayList<Schicht>();
-//		for(int i=0; i<anzahl; i++){
-//			liste.add(schichtliste.get(row+i));
-//		}
-//	
-//		return liste;
-//	}
-//	
-//	ArrayList<Schicht> getAlleSchichten(){
-//		return schichtliste;
-//	}
 	
 	
 
