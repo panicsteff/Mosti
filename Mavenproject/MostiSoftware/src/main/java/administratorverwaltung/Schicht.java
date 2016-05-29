@@ -16,11 +16,11 @@ public class Schicht {
 		mitarbeiterIds = new ArrayList<Integer>();
 	}
 	
-	Integer getMitarbeiterId(int reihe){
+	public Integer getMitarbeiterId(int reihe){
 		return mitarbeiterIds.get(reihe);
 	}
 
-	void addMitarbeiterId(int id){
+	public void addMitarbeiterId(int id){
 		mitarbeiterIds.add(id);
 	}
 	
@@ -32,7 +32,7 @@ public class Schicht {
 		return schichtId;
 	}
 
-	void setSchichtId(int schichtId) {
+	public void setSchichtId(int schichtId) {
 		this.schichtId = schichtId;
 	}
 
@@ -40,7 +40,7 @@ public class Schicht {
 		return uhrzeit;
 	}
 
-	void setUhrzeit(int uhrzeit) {
+	public void setUhrzeit(int uhrzeit) {
 		this.uhrzeit = uhrzeit;
 	}
 

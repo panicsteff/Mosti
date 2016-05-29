@@ -14,7 +14,7 @@ public class SchichtLogik {
 		schichtplanDb = new SchichtplanDB();
 	}
 	
-	ArrayList<Schicht> schichtLaden(long datum){
+	public ArrayList<Schicht> schichtLaden(long datum){
 		Date d = new Date(datum);
 		ArrayList<Schicht> schichtliste = schichtplanDb.schichtLaden(d);
 		schichtliste = schichtenSortieren(schichtliste);
@@ -27,7 +27,7 @@ public class SchichtLogik {
 		schichtplanDb.schichtSpeichern(datum, mitarbeiterId, uhrzeit);
 	}
 	
-	ArrayList<Schicht> schichtenSortieren(ArrayList<Schicht> liste){
+	public ArrayList<Schicht> schichtenSortieren(ArrayList<Schicht> liste){
 		ArrayList<Schicht> sortiert = new ArrayList<Schicht>();
 		
 		for(int i=0; i<k.getSchichtenProTag(); i++){
@@ -40,7 +40,7 @@ public class SchichtLogik {
 		return sortiert;
 	}
 	
-	ArrayList<Schicht> schichtenMergen(ArrayList<Schicht> liste){
+	public ArrayList<Schicht> schichtenMergen(ArrayList<Schicht> liste){
 		ArrayList<Schicht> neueListe = new ArrayList<Schicht>();
 		int j=0;
 		for(int i=k.getArbeitsbeginn(); i<k.getArbeitsende(); i = i+k.getSchichtDauer()){
@@ -61,11 +61,11 @@ public class SchichtLogik {
 		return neueListe;
 	}
 	
-	ArrayList<Integer> mitarbeiterIdLaden(String name){
+	public ArrayList<Integer> mitarbeiterIdLaden(String name){
 		return schichtplanDb.mitarbeiterIdLaden(name);
 	}
 	
-	String mitarbeiternameLaden(int id){
+	public String mitarbeiternameLaden(int id){
 		return schichtplanDb.mitarbeiterNamenLaden(id);
 	}
 	
@@ -77,24 +77,9 @@ public class SchichtLogik {
 		return k.getSchichtenProTag();
 	}
 	
-	int berechneUhrzeit(int i){
+	public int berechneUhrzeit(int i){
 		int spalte = i%k.getSchichtenProTag();
 		int uhrzeit = k.getArbeitsbeginn() + spalte*k.getSchichtDauer();
 		return uhrzeit;
 	}
-	
-//	void schichtSpeichern(ArrayList<Schicht> schichtliste, Date datum){
-//		
-//		ArrayList<Integer> mitarbeiterIdListe = schichtNachZahlen(schichtliste);
-//		ArrayList<Integer> schichtIdListe = schichtNachZahlen(schichtliste);
-//		
-//		Calendar calendar = new GregorianCalendar();
-//		calendar.setTime(datum);
-//		int laufenderTag = calendar.get(Calendar.DAY_OF_YEAR); 
-//		
-//		schichtplanDb.schichtSpeichern(schichtIdListe, mitarbeiterIdListe, laufenderTag);
-//		
-//	}
-//	
-
 }
