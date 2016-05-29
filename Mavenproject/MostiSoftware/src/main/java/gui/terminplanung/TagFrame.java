@@ -1,9 +1,4 @@
-package logik.terminplanung;
-
-import gui.terminplanung.KundenNameCellRenderer;
-import gui.terminplanung.TerminErstellenDialog;
-import gui.terminplanung.TerminHinzufügenFrame;
-import gui.terminplanung.TermineCellRenderer;
+package gui.terminplanung;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -21,6 +16,9 @@ import javax.swing.ListSelectionModel;
 import javax.swing.table.TableColumnModel;
 
 import kundenverwaltung.Formats;
+import logik.terminplanung.TagFrameController;
+import logik.terminplanung.Termin;
+import logik.terminplanung.TermineTableModel;
 
 public class TagFrame extends JFrame {
 
@@ -34,22 +32,22 @@ public class TagFrame extends JFrame {
 				if (parent == null) {
 					JOptionPane.showMessageDialog(null, "Termin bearbeiten");
 				} else {
-					int anzahlZeitslots = tagframelogik.berechneAnzahlZeitslots(dauer);
-					int zeile = tagframelogik.getZeile(terminSelectionModel.getMaxSelectionIndex(), anzeigeseite);
-					if (zeile + anzahlZeitslots > tagframelogik.anzahlAlleTermine()) {
+					int anzahlZeitslots = tagframecontroller.berechneAnzahlZeitslots(dauer);
+					int zeile = tagframecontroller.getZeile(terminSelectionModel.getMaxSelectionIndex(), anzeigeseite);
+					if (zeile + anzahlZeitslots > tagframecontroller.anzahlAlleTermine()) {
 						JOptionPane.showMessageDialog(TagFrame.this,
 								"Termin dauert zu lange. Tag ist schon vorbei");
 					} else {
 
 						ArrayList<Termin> termine = termineTableModel.getTermine(zeile, anzahlZeitslots);
 						String uhrzeit = termineCellRenderer.getText();
-						frei = tagframelogik.istTerminFrei(termine);
+						frei = tagframecontroller.istTerminFrei(termine);
 						if (frei == true) {
 							new TerminErstellenDialog(dauer, datum, termine,
 									uhrzeit);
 							termineTableModel.fireTableRowsUpdated(zeile, zeile + anzahlZeitslots);
 							terminSelectionModel.setSelectionInterval(zeile, zeile + anzahlZeitslots); // Damit anzeige aktualisiert wird
-							tagframelogik.termineSpeichern(termine.get(0).getKundenId(), anzahlZeitslots, datum, termine.get(0).getUhrzeit() );
+							tagframecontroller.termineSpeichern(termine.get(0).getKundenId(), anzahlZeitslots, datum, termine.get(0).getUhrzeit() );
 						}
 					}
 				}
@@ -62,9 +60,9 @@ public class TagFrame extends JFrame {
 
 		public void actionPerformed(ActionEvent arg0) {
 			anzeigeseite++;
-			boolean enabled = tagframelogik.isSpaeterEnabled(anzeigeseite);
+			boolean enabled = tagframecontroller.isSpaeterEnabled(anzeigeseite);
 			cmdSpaeter.setEnabled(enabled);
-			boolean enabledf = tagframelogik.isFrueherEnabled(anzeigeseite);
+			boolean enabledf = tagframecontroller.isFrueherEnabled(anzeigeseite);
 			cmdFrueher.setEnabled(enabledf);
 			termineTableModel.erhoeheAnzeigeseite();
 			termineTableModel.fireTableDataChanged();
@@ -76,9 +74,9 @@ public class TagFrame extends JFrame {
 
 		public void actionPerformed(ActionEvent e) {
 			anzeigeseite--;
-			boolean enabled = tagframelogik.isFrueherEnabled(anzeigeseite);
+			boolean enabled = tagframecontroller.isFrueherEnabled(anzeigeseite);
 			cmdFrueher.setEnabled(enabled);
-			boolean enableds = tagframelogik.isSpaeterEnabled(anzeigeseite);
+			boolean enableds = tagframecontroller.isSpaeterEnabled(anzeigeseite);
 			cmdSpaeter.setEnabled(enableds);
 			termineTableModel.erniedrigeAnzeigeseite();
 			termineTableModel.fireTableDataChanged();
@@ -88,7 +86,7 @@ public class TagFrame extends JFrame {
 	private static final long serialVersionUID = 1L;
 	private ArrayList<Termin> terminliste;
 	private TermineTableModel termineTableModel;
-	private TagFrameController tagframelogik;
+	private TagFrameController tagframecontroller;
 	private JTable tagesTabelle;
 	private Date datum;
 	private int anzeigeseite;
@@ -105,7 +103,7 @@ public class TagFrame extends JFrame {
 		anzeigeseite = as;
 		dauer = länge;
 
-		tagframelogik = new TagFrameController();
+		tagframecontroller = new TagFrameController();
 
 		setSize(500, 800);
 		String title = Formats.DATE_FORMAT.format(datum);
@@ -113,7 +111,7 @@ public class TagFrame extends JFrame {
 		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 		setLayout(null);
 
-		terminliste = tagframelogik.termineLaden(datum);
+		terminliste = tagframecontroller.termineLaden(datum);
 
 		termineTableModel = new TermineTableModel(terminliste, anzeigeseite);
 		tagesTabelle = new JTable(termineTableModel);
@@ -139,14 +137,14 @@ public class TagFrame extends JFrame {
 		cmdFrueher = new JButton("Früher");
 		cmdFrueher.setBounds(150, 430, 80, 20);
 		add(cmdFrueher);
-		boolean enabledf = tagframelogik.isFrueherEnabled(anzeigeseite);
+		boolean enabledf = tagframecontroller.isFrueherEnabled(anzeigeseite);
 		cmdFrueher.setEnabled(enabledf);
 		cmdFrueher.addActionListener(new MyFrüherHandler());
 
 		cmdSpaeter = new JButton("Später");
 		cmdSpaeter.setBounds(260, 430, 80, 20);
 		add(cmdSpaeter);
-		boolean enabled = tagframelogik.isSpaeterEnabled(anzeigeseite);
+		boolean enabled = tagframecontroller.isSpaeterEnabled(anzeigeseite);
 		cmdSpaeter.setEnabled(enabled);
 		cmdSpaeter.addActionListener(new MySpäterHandler());
 

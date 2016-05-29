@@ -15,19 +15,19 @@ public class TagFrameController {
 		terminlogik = new TerminLogik();
 	}
 	
-	int berechneAnzahlZeitslots(int dauer){
+	public int berechneAnzahlZeitslots(int dauer){
 		return dauer/k.getZeitslot();
 	}
 	
-	int getZeile(int pos, int anzeigeseite){
+	public int getZeile(int pos, int anzeigeseite){
 		return pos + (anzeigeseite - 1) * k.getZeilenanzahlProSeite();
 	}
 	
-	int anzahlAlleTermine(){
+	public int anzahlAlleTermine(){
 		return k.getZeilenanzahlProSeite()* k.getAufteilung();
 	}
 	
-	boolean istTerminFrei(ArrayList<Termin> termine){
+	public boolean istTerminFrei(ArrayList<Termin> termine){
 		for (Termin t : termine) {
 			if (t.getKundenId() != 0) {
 				JOptionPane
@@ -39,16 +39,15 @@ public class TagFrameController {
 		return true;
 	}
 	
-	void termineSpeichern(int kundenId, int anzahlZeitslot, Date datum, int beginn){
+	public void termineSpeichern(int kundenId, int anzahlZeitslot, Date datum, int beginn){
 		terminlogik.termineSpeichern(kundenId, anzahlZeitslot, datum, beginn);
 	}
 	
-	ArrayList<Termin> termineLaden(Date datum){
+	public ArrayList<Termin> termineLaden(Date datum){
 		return terminlogik.termineLaden(datum.getTime());
-		
 	}
 	
-	boolean isFrueherEnabled(int anzeigeseite){
+	public boolean isFrueherEnabled(int anzeigeseite){
 		if(anzeigeseite == 1){
 			return false;
 		} else{
@@ -56,7 +55,7 @@ public class TagFrameController {
 		}	
 	}
 	
-	boolean isSpaeterEnabled(int anzeigeseite){
+	public boolean isSpaeterEnabled(int anzeigeseite){
 		if(anzeigeseite == k.getAufteilung()){
 			return false;
 		} else{

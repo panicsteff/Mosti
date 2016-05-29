@@ -21,7 +21,6 @@ import javax.swing.JTextField;
 import javax.swing.ListSelectionModel;
 import javax.swing.table.TableColumnModel;
 
-import logik.terminplanung.TagFrame;
 import logik.terminplanung.Termin;
 import logik.terminplanung.TerminHinzufügenLogik;
 

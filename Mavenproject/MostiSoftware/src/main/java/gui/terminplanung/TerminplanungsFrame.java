@@ -7,8 +7,6 @@ import java.util.Date;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 
-import logik.terminplanung.TagFrame;
-
 import com.toedter.calendar.JCalendar;
 
 public class TerminplanungsFrame extends JFrame{

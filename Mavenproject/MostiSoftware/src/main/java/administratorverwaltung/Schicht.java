@@ -28,7 +28,7 @@ public class Schicht {
 		return mitarbeiterIds.size();
 	}
 
-	int getSchichtId() {
+	public int getSchichtId() {
 		return schichtId;
 	}
 
@@ -36,7 +36,7 @@ public class Schicht {
 		this.schichtId = schichtId;
 	}
 
-	int getUhrzeit() {
+	public int getUhrzeit() {
 		return uhrzeit;
 	}
 
