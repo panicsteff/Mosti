@@ -12,7 +12,7 @@ import org.junit.Test;
 public class KundeLadenTest {
 
 	@Test
-	public void test() {
+	public void kundeLadenTest() {
 		
 		KundeDB kundeDB = new KundeDB();
 		Kunde result = null;
@@ -23,8 +23,12 @@ public class KundeLadenTest {
 			e.printStackTrace();
 		}
 		
-		assertEquals("Meier", result.getNachname());
 		assertEquals("Marc", result.getVorname());
+		assertEquals("Meier", result.getNachname());
+		assertEquals("Müllntalleitn 4", result.getStrasse());
+		assertEquals("84490", result.getPlz());
+		assertEquals("Auf der Heide", result.getWohnort());
+		assertEquals("035721844", result.getTel());
 		
 	}
 		
