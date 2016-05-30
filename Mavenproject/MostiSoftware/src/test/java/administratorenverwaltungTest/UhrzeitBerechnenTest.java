@@ -1,4 +1,4 @@
-package adminestratorenverwaltungTest;
+package administratorenverwaltungTest;
 
 import static org.junit.Assert.assertEquals;
 
