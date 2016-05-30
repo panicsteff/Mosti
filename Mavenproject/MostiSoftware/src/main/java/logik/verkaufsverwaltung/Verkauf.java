@@ -57,9 +57,9 @@ public class Verkauf {
 		return literzahl;
 	}
 
-	public void setLiterzahl(int literzahl) {
-		this.literzahl = literzahl;
-	}
+//	public void setLiterzahl(int literzahl) {
+//		this.literzahl = literzahl;
+//	}
 
 	public Date getVerkaufsDatum() {
 		return date;
