@@ -2,6 +2,7 @@ package gui.verkauf;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+
 import javax.swing.JButton;
 import javax.swing.JFormattedTextField;
 import javax.swing.JFrame;
@@ -21,8 +22,6 @@ import kundenverwaltung.KundeListCellRenderer;
 import kundenverwaltung.KundeListModel;
 import kundenverwaltung.NullableFormatter;
 import logik.verkaufsverwaltung.Verkaufsverwaltung;
-import logik.verkaufsverwaltung.ÜbersichtButtonGroup;
-import logik.verkaufsverwaltung.ÜbersichtButtonModel;
 
 @SuppressWarnings("serial")
 public class Verkaufsübersicht extends JFrame {
