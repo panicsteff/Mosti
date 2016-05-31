@@ -34,11 +34,12 @@ public class Anmeldung extends JFrame {
 
 			public void actionPerformed(ActionEvent arg0) {
 				boolean anmeldestatus = false;
-				anmeldestatus = accountverwaltung.mitarbeiterSuchen(
+				anmeldestatus = accountverwaltung.anmelden(
 						txtbenutzername.getText(), txtpasswort.getText());
+				boolean istAdmin = accountverwaltung.isAdmin(txtbenutzername.getText());
 
 				if(anmeldestatus == true){
-					//new M_Startseite();
+					new M_Startseite(istAdmin);
 					dispose();
 				}
 			}
@@ -46,6 +47,10 @@ public class Anmeldung extends JFrame {
 		});
 
 		setVisible(true);
+	}
+	
+	public static void main (String[] avgs){
+		new Anmeldung();
 	}
 	
 

@@ -1,51 +1,46 @@
-package account;
-
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+package account; 
 
 import javax.swing.JOptionPane;
 
-public class Accountverwaltung {
+import persistenz.AnmeldungDB;
 
-	private Connection conn;
-	private String passwort;
 
-	boolean mitarbeiterSuchen(String benutzernameEingabe,
-			String passwortEingabe) {
-
-		try {
-			conn = DriverManager
-					//.getConnection("jdbc:ucanaccess://C:/Users/Irmi/Desktop/Mosti/Mavenproject/MostiSoftware/Mosti-Datenkank.mdb");
-					.getConnection("jdbc:ucanaccess://./Mosti-Datenkank.mdb");
-			Statement s = conn.createStatement();
-			ResultSet rs = s
-					.executeQuery("SELECT * FROM [mitarbeiter] Where Benutzername = \""
-							+ benutzernameEingabe + '\"');
-
-			if (rs.getNString(0) == null) {
-				JOptionPane.showMessageDialog(null,
-						"Der Benutzername ist nicht vorhanden");
-				return false;
-			}
-
-			while (rs.next()) {
-				passwort = rs.getString("Passwort");
-			}
-
-			if (passwort.equals(passwortEingabe)) {
-				return true;
-			} else {
-				JOptionPane.showMessageDialog(null, "Falsches Passwort");
-			}
-
-		} catch (SQLException e) {
-			System.out.println(e);
+public class Accountverwaltung{
+	 private AnmeldungDB anmeldungDB;
+	 
+	 Accountverwaltung(){anmeldungDB = new AnmeldungDB();}
+	 
+	public boolean anmelden(String benutzername, String passwort){
+		if(anmeldungDB.mitarbeiterSuchen(benutzername).equals("")){
+			JOptionPane.showMessageDialog(null, "Benutzername nicht bekannt");
+			return false;
 		}
-
-		return false;
-
+		else{
+			if(passwort.equals(anmeldungDB.passwortLaden(benutzername)) == false){
+				JOptionPane.showMessageDialog(null, "Ungültiges Passwort");
+			return false;
+			}
+			
+			return true;
+		}
 	}
+	
+	public boolean isAdmin(String benutzername){
+		if(benutzername.equals("Admin")){
+			return true;
+		}
+		return false;
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 }
