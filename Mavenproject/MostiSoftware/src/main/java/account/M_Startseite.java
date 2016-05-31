@@ -100,14 +100,14 @@ public class M_Startseite extends JFrame {
 			}
 		});
 
-		mDatei.add(new JSeparator());
-		JMenuItem kunden = new JMenuItem("Kunden pflegen");
-		mDatei.add(kunden);
-		kunden.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				new KundenVerwaltung();
-			}
-		});
+		//mDatei.add(new JSeparator());
+		//JMenuItem kunden = new JMenuItem("Kunden pflegen");
+		//mDatei.add(kunden);
+		//kunden.addActionListener(new ActionListener() {
+		//	public void actionPerformed(ActionEvent e) {
+		//		new KundenVerwaltung();
+		//	}
+		//});
 		
 		JMenu terminplanung = new JMenu("Terminplanung");
 		mbar.add(terminplanung);
@@ -116,6 +116,17 @@ public class M_Startseite extends JFrame {
 		termin.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e){
 				new TerminplanungsFrame();
+			}
+		});
+		
+		JMenu kunde = new JMenu("Kunde");
+		mbar.add(kunde);
+		JMenuItem cmdKunde = new JMenuItem("Kundenverwaltung");
+		//hallo hhh
+		kunde.add(cmdKunde);
+		cmdKunde.addActionListener(new ActionListener(){
+			public void actionPerformed(ActionEvent e){
+				new KundenVerwaltung();
 			}
 		});
 		
