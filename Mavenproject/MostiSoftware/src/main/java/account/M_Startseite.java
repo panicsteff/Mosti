@@ -122,7 +122,6 @@ public class M_Startseite extends JFrame {
 		JMenu kunde = new JMenu("Kunde");
 		mbar.add(kunde);
 		JMenuItem cmdKunde = new JMenuItem("Kundenverwaltung");
-		//hallo hhh
 		kunde.add(cmdKunde);
 		cmdKunde.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e){
