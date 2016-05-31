@@ -34,7 +34,7 @@ public class Kunde {
 		this.nachname = nachname;
 	}
 	
-	String getVorname(){
+	public String getVorname(){
 		return vorname;
 	}
 	
@@ -43,7 +43,7 @@ public class Kunde {
 	}
 	
 	
-	String getStrasse(){
+	public String getStrasse(){
 		return strasse;
 	}
 	
@@ -52,7 +52,7 @@ public class Kunde {
 	}
 	
 	
-	String getPlz(){
+	public String getPlz(){
 		return plz;
 	}
 	
@@ -60,7 +60,7 @@ public class Kunde {
 		this.plz = plz;
 	}
 	
-	String getWohnort(){
+	public String getWohnort(){
 		return wohnort;
 	}
 	
@@ -68,7 +68,7 @@ public class Kunde {
 		this.wohnort = ort;
 	}
 	
-	String getTel(){
+	public String getTel(){
 		return telefonnummer;
 	}
 	

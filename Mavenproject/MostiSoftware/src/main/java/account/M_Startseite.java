@@ -4,6 +4,7 @@ package account;
 import gui.dienstleistungverwaltung.DLVerwaltungFrame;
 import gui.kassenfunktion.KassenFrame;
 import gui.produktverwaltung.LagerVerwaltungFrame;
+import gui.terminplanung.TerminplanungsFrame;
 import gui.trester.TresterFrame;
 import gui.verkauf.Verkaufsübersicht;
 
@@ -27,7 +28,6 @@ import logik.produktverwaltung.ProduktSortiment;
 import logik.trester.Tresterverwaltung;
 import logik.verkaufsverwaltung.Verkaufsverwaltung;
 import mitarbeiterverwaltung.MitarbeiterVerwaltung;
-import terminplanung.TerminplanungsFrame;
 
 public class M_Startseite extends JFrame {
 

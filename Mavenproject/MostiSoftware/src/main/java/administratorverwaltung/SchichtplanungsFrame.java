@@ -8,7 +8,6 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
-import javax.swing.JMenuItem;
 
 import com.toedter.calendar.JCalendar;
 
@@ -24,22 +23,6 @@ public class SchichtplanungsFrame extends JFrame{
 		setBounds(500, 200, 520, 500);
 		setTitle("Schichtplanung");
 		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
-		
-		mbar = new JMenuBar();
-		setJMenuBar(mbar);
-		
-		JMenu schicht = new JMenu("Schichten");
-		schicht.setFont(schicht.getFont().deriveFont(15f));
-		mbar.add(schicht);
-		
-		JMenuItem neueSchicht = new JMenuItem("Neuen Schicht anlegen");
-		schicht.add(neueSchicht);
-		neueSchicht.setFont(neueSchicht.getFont().deriveFont(15f));
-		neueSchicht.addActionListener(new ActionListener(){
-			public void actionPerformed(ActionEvent e){
-				new SchichtHinzufügenFrame();
-			}
-		});
 		
 		this.setLayout(null);
 
@@ -57,6 +40,17 @@ public class SchichtplanungsFrame extends JFrame{
 		});
 		schichtuebersicht.setBounds(30, 360, 180, 30);
 		add(schichtuebersicht);
+		
+		JButton neueSchicht = new JButton("neue Schicht erstellen");
+		neueSchicht.addActionListener(new ActionListener(){
+			public void actionPerformed(ActionEvent arg0) {
+				Date d = calendar.getDate();
+				new SchichtHinzufügenFrame(d.getTime());
+			}
+			
+		});
+		neueSchicht.setBounds(220, 360, 180, 30);
+		add(neueSchicht);
 		
 		setVisible(true);
 	}

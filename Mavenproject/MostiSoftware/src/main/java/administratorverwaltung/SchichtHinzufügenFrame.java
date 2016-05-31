@@ -1,173 +1,158 @@
 package administratorverwaltung;
 
-import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-import java.text.ParseException;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
+import java.sql.Date;
 import java.util.ArrayList;
-import java.util.Date;
 
-import javax.swing.BorderFactory;
 import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
-import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.JTable;
-import javax.swing.JTextField;
-import javax.swing.ListSelectionModel;
-import javax.swing.table.TableColumnModel;
-
-import mitarbeiterverwaltung.Formats;
 
 public class SchichtHinzufügenFrame extends JFrame{
+
+	class MyKeyListener extends KeyAdapter {
+		
+		JComboBox<String> box;
+		String aktuelleEingabe;
+		ArrayList<Integer> mitarbeiterIds;
 	
-	class MyMouseListener extends MouseAdapter{
-		public void mousePressed(MouseEvent event) {
-			if (event.getClickCount() == 2) {
-				int zeile = schichtSelectionModel.getMinSelectionIndex();
-				String datum = (String) fstm.getValueAt(zeile, 0);
-				Date d = new Date();
-				try {
-					d = Formats.DATE_FORMAT.parse(datum);
-				} catch (ParseException e) {
-					e.printStackTrace();
-				}
-				int schichtid = (Integer) fstm.getValueAt(zeile, 1);
-				int anzeigeseite = berechneAnzeigeSeite(schichtid);
-				new SchichtTagFrame(d,anzeigeseite, SchichtHinzufügenFrame.this);
+		MyKeyListener(int pos){
+			box = boxliste.get(pos);
+			aktuelleEingabe = eingabe.get(pos);
+			mitarbeiterIds = idListe.get(pos);
+		}
+		
+		public void keyTyped(KeyEvent k) {
+			
+			boolean delete = false;
+			char c = k.getKeyChar();
+			if (c >= 65 && c <= 90 || c >= 97 && c <= 122) {
+				aktuelleEingabe = aktuelleEingabe + c;
+				delete = false;
 			}
+			if (c == '\b') {
+				if (aktuelleEingabe.length() > 0) {
+					aktuelleEingabe = aktuelleEingabe.substring(0, aktuelleEingabe.length() - 1);
+					delete = true;
+				}
+			}
+			
+			if(aktuelleEingabe != ""){
+				box.showPopup();
+				ArrayList<Integer> geladen = schichtlogik.mitarbeiterIdLaden(aktuelleEingabe);
+				mitarbeiterIds.removeAll(mitarbeiterIds);
+				for(Integer i: geladen){
+					mitarbeiterIds.add(i);
+				}
+				box.removeAllItems();
+				
+				for(Integer i : mitarbeiterIds){
+					box.addItem(schichtlogik.mitarbeiternameLaden(i));
+				}
+				box.setSelectedItem(null);
+				if(delete == true){
+					box.getEditor().setItem(aktuelleEingabe);
+				}else{
+					if(aktuelleEingabe.length() - 1 >= 0){
+						box.getEditor().setItem(aktuelleEingabe.substring(0, aktuelleEingabe.length() - 1));
+					}
+					
+				}
+			}else{
+				box.hidePopup();
+			}
+			
 		}
 	}
 	
-	class MyBerechnenHandler implements ActionListener{
-		public void actionPerformed(ActionEvent e){
-			int länge = 0;
-			try {
-				String s = txtmenge.getText();
-				länge = berechneSchichtdauer(s);
-				dauer.setEnabled(true);
-				txtdauer.setEnabled(true);
-				txtdauer.setText(länge + "");
-				titlepane.setEnabled(true);
-				//freieSchicht = schichtplanDb.freieSchichtSuchen(new Date()); 
-				//vom heutigen Tag aus mit arbeitsende und zeitslots
-				fstm = new FreieSchichtTableModel(freieSchicht);
-				verfügbarTabelle.setModel(fstm);
-				tcm = verfügbarTabelle.getColumnModel();
-				tcm.getColumn(1).setCellRenderer(new SchichtCellRenderer());
-				tcm.getColumn(2).setCellRenderer(new SchichtCellRenderer());
-				
-			} catch (ParseException ex) {
-				JOptionPane.showMessageDialog(SchichtHinzufügenFrame.this, "Keine gültige Eingabe der Schicht");
+	class MyOkListener implements ActionListener {
+		public void actionPerformed(ActionEvent e) {
+			
+			for(int i=0; i<boxliste.size(); i++){
+				JComboBox<String> combo = boxliste.get(i);
+				int gewähltePosition = combo.getSelectedIndex();
+				if(gewähltePosition != -1){
+					int mitarbeiterId = idListe.get(i).get(gewähltePosition);
+					int uhrzeit = schichtlogik.berechneUhrzeit(i);
+					schichtlogik.schichtSpeichern(datum, mitarbeiterId, uhrzeit);
+				}
 			}
+			SchichtHinzufügenFrame.this.dispose();
+			
 			
 		}
 	}
 	
 	
 	private static final long serialVersionUID = 1L;
-	private Konfigurationswerte k = new Konfigurationswerte();
-	private ArrayList<Schicht> freieSchicht;
-	private JTextField txtmenge;
-	private JLabel dauer;
-	private JTextField txtdauer;
-	private SchichtplanDB schichtplanDb;
-	private FreieSchichtTableModel fstm;
-	private JTable verfügbarTabelle;
-	private JPanel titlepane;
-	private ListSelectionModel schichtSelectionModel;
-	private TableColumnModel tcm;
-
+	private Date datum;
+	private SchichtLogik schichtlogik;
+	private ArrayList<JComboBox<String>> boxliste;
+	private ArrayList<String> eingabe;
+	private ArrayList<ArrayList<Integer>> idListe;
 	
-	public SchichtHinzufügenFrame(){
-		setBounds(350, 200, 300, 500);
-		setTitle("Neue Schicht");
+	SchichtHinzufügenFrame(long datum){
+		setSize(600,300);
+		this.datum = new Date(datum);
+		setTitle(this.datum.toString());
 		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
-		
-		schichtplanDb = new SchichtplanDB();
 		setLayout(null);
 		
-		JLabel menge = new JLabel("Schicht: ");
-		menge.setBounds(10, 10, 100, 20);
-		add(menge);
+		schichtlogik = new SchichtLogik();
+		boxliste = new ArrayList<JComboBox<String>>();
+		idListe = new ArrayList<ArrayList<Integer>>();
+		eingabe = new ArrayList<String>();
 		
-		txtmenge = new JTextField();
-		txtmenge.setBounds(150, 10, 100, 20);
-		add(txtmenge);
-		
-		JButton dauerberechnen = new JButton("Schichtdauer berechnen");
-		dauerberechnen.setBounds(25, 50, 200, 20);
-		dauerberechnen.addActionListener(new MyBerechnenHandler());
-		add(dauerberechnen);
-		
-		dauer = new JLabel("Arbeitszeit in Minuten:");
-		dauer.setBounds(10, 90, 150, 20);
-		dauer.setEnabled(false);
-		add(dauer);
-		
-		txtdauer = new JTextField();
-		txtdauer.setBounds(150, 90, 100, 20);
-		txtdauer.setEnabled(false);
-		add(txtdauer);
-		
-		verfügbarTabelle = new JTable();
-		verfügbarTabelle.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
-		
-		schichtSelectionModel = verfügbarTabelle.getSelectionModel();
-		schichtSelectionModel.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-		verfügbarTabelle.addMouseListener(new MyMouseListener());
-		
-		JScrollPane scrollpane = new JScrollPane(verfügbarTabelle);
-		titlepane = new JPanel();
-		titlepane.setBounds(10, 130, 200, 200);
-		titlepane.setBorder(BorderFactory.createTitledBorder(BorderFactory.createEtchedBorder(), "Freie Termine"));
-		titlepane.setLayout(new BorderLayout());
-		titlepane.add(scrollpane);
-		titlepane.setEnabled(false);
-		add(titlepane);
-		
-		setVisible(true);
-	}
-	
-	int berechneSchichtdauer(String s) throws ParseException{
-		
-		int obstmenge = Integer.parseInt(s);
-		double dauer = obstmenge/10;
-		int zeitslot = k.getZeitslot();
-		if(dauer%zeitslot == 0){
-			return (int) dauer;
-		} else{
-			int h = (int) dauer/zeitslot;
-			dauer = (h+1)*zeitslot;
-			return (int) dauer;
-		}
-	}
-	
-	private  int berechneAnzeigeSeite(int terminId){
-		for(int i = 1;i<= k.getAufteilung(); i++){
-			if(terminId<=k.getZeilenanzahlProSeite()*i){
-				int anzeigeseite = i;
-				return anzeigeseite;
+		for(int i=0; i<schichtlogik.getMitarbeiterProSchicht(); i++){
+			for(int j=0; j<schichtlogik.getSchichtenProTag(); j++){
+				String s = new String("");
+				eingabe.add(s);
+				ArrayList<Integer> liste = new ArrayList<Integer>();
+				idListe.add(liste);
 			}
 		}
-		return k.getAufteilung();
 		
-	}
-	
-	int getSchichtlänge(){
-		String s = txtdauer.getText();
-		int dauer = 0;
-		try{
-			 dauer= Integer.parseInt(s);
-		} catch (Exception e){
-			e.printStackTrace();
+		JButton cmdOk = new JButton("Speichern");
+		cmdOk.setBounds(10, 10, 130, 30);
+		add(cmdOk);
+		cmdOk.addActionListener(new MyOkListener());
+		
+		
+		for(int i=0; i<schichtlogik.getSchichtenProTag(); i++){
+			JLabel schicht = new JLabel("Schicht" +(i+1));
+			schicht.setBounds(140+i*180, 50, 180,40);
+			schicht.setFont(schicht.getFont().deriveFont(16f));
+			add(schicht);
 		}
-		return dauer;
+		
+		
+		for(int i=0; i<schichtlogik.getMitarbeiterProSchicht(); i++){
+			JLabel mitarbeiter = new JLabel("Mitarbeiter"+(i+1)+": ");
+			mitarbeiter.setBounds(0, 100+i*40, 100, 40);
+			mitarbeiter.setFont(mitarbeiter.getFont().deriveFont(16f));
+			add(mitarbeiter);
+		}
+		
+		for(int i=0; i<schichtlogik.getMitarbeiterProSchicht(); i++){
+			for(int j=0; j<schichtlogik.getSchichtenProTag(); j++){
+				JComboBox<String> combobox = new JComboBox<String>();
+				combobox.setFont(combobox.getFont().deriveFont(16f));
+				combobox.setEditable(true);
+				combobox.setBounds(100+j*180, 100+i*40, 180, 40);
+				boxliste.add(combobox);
+				combobox.getEditor().getEditorComponent().addKeyListener(new MyKeyListener(j+i*schichtlogik.getSchichtenProTag()));
+				add(combobox);
+			}
+		}
+		
+		
+		
+				
+		setVisible(true);
 	}
-	
 
 }

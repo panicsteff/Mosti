@@ -1,6 +1,5 @@
 package kassenfunktionTest;
 
-import gui.kassenfunktion.DienstleistungenTableModel;
 import gui.kassenfunktion.ProduktTableModel;
 
 import java.util.ArrayList;
@@ -49,14 +48,14 @@ public class AbrechnungsrahmenTest {
 			 
 		}
 		
-		DienstleistungenTableModel dtm = new DienstleistungenTableModel(d);
-		
-		for(int i=0; i<testwerte.length; i++){
-			for(int j=0; j<3; j++){
-				dtm.setValueAt(testwerte[i][j], 0, j);				
-			}
-			resultat[i] = dtm.berechneTeilpreis();
-		}
+//		DienstleistungenTableModel dtm = new DienstleistungenTableModel(d);
+//		
+//		for(int i=0; i<testwerte.length; i++){
+//			for(int j=0; j<3; j++){
+//				dtm.setValueAt(testwerte[i][j], 0, j);				
+//			}
+//			resultat[i] = dtm.berechneTeilpreis();
+//		}
 		
 		for(int i=0; i<resultat.length; i++){
 			if(resultat[i] == lösungen[i]){
