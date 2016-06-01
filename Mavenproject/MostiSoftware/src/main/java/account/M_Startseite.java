@@ -4,6 +4,7 @@ package account;
 import gui.dienstleistungverwaltung.DLVerwaltungFrame;
 import gui.kassenfunktion.KassenFrame;
 import gui.produktverwaltung.LagerVerwaltungFrame;
+import gui.terminplanung.TagFrame;
 import gui.terminplanung.TerminplanungsFrame;
 import gui.trester.TresterFrame;
 import gui.verkauf.Verkaufsübersicht;
@@ -11,11 +12,11 @@ import gui.verkauf.Verkaufsübersicht;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Date;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
-import javax.swing.JLabel;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
@@ -56,7 +57,8 @@ public class M_Startseite extends JFrame {
 		
 		kassenButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				KassenFrame k = new KassenFrame(dlSorti,pSorti, new Verkaufsverwaltung());
+				//KassenFrame k = new KassenFrame(dlSorti,pSorti, new Verkaufsverwaltung());
+				new TagFrame(new Date().getTime(), 1, M_Startseite.this, 0);
 			}
 		});
 		
@@ -124,7 +126,7 @@ public class M_Startseite extends JFrame {
 		mDatei.add(abrechnen);
 		abrechnen.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				KassenFrame k = new KassenFrame(dlSorti,pSorti, new Verkaufsverwaltung());
+				//KassenFrame k = new KassenFrame(dlSorti,pSorti, new Verkaufsverwaltung());
 			}
 		});
 

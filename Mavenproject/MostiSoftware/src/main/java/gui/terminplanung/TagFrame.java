@@ -1,11 +1,13 @@
 package gui.terminplanung;
 
+import gui.kassenfunktion.KassenFrame;
+
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.util.ArrayList;
 import java.sql.Date;
+import java.util.ArrayList;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -16,9 +18,13 @@ import javax.swing.ListSelectionModel;
 import javax.swing.table.TableColumnModel;
 
 import kundenverwaltung.Formats;
+import logik.dienstleistungverwaltung.DLSortiment;
+import logik.produktverwaltung.ProduktSortiment;
 import logik.terminplanung.TagFrameController;
 import logik.terminplanung.Termin;
 import logik.terminplanung.TermineTableModel;
+import logik.verkaufsverwaltung.Verkaufsverwaltung;
+import account.M_Startseite;
 
 public class TagFrame extends JFrame {
 
@@ -31,7 +37,19 @@ public class TagFrame extends JFrame {
 
 				if (parent == null) {
 					JOptionPane.showMessageDialog(null, "Termin bearbeiten");
-				} else {
+					return;
+				}
+				if(parent instanceof M_Startseite){
+					int pos = terminSelectionModel.getMaxSelectionIndex();
+					int kundenid = (Integer) termineTableModel.getValueAt(pos, 1);
+					if(kundenid == 0){
+						JOptionPane.showMessageDialog(null, "Abrechnung nicht möglich, da kein Kundentermin vorhanden");
+						return;
+					}
+					DLSortiment dlSortiment = new DLSortiment(); 
+					ProduktSortiment pSortiment = new ProduktSortiment();
+					new KassenFrame(dlSortiment, pSortiment, new Verkaufsverwaltung(), kundenid);
+				}else {
 					int anzahlZeitslots = tagframecontroller.berechneAnzahlZeitslots(dauer);
 					int zeile = tagframecontroller.getZeile(terminSelectionModel.getMaxSelectionIndex(), anzeigeseite);
 					if (zeile + anzahlZeitslots > tagframecontroller.anzahlAlleTermine()) {
@@ -93,11 +111,11 @@ public class TagFrame extends JFrame {
 	private int dauer;
 	private ListSelectionModel terminSelectionModel;
 	private TermineCellRenderer termineCellRenderer;
-	private TerminHinzufügenFrame parent;
+	private JFrame parent;
 	private JButton cmdFrueher;
 	private JButton cmdSpaeter;
 
-	public TagFrame(long d, int as, TerminHinzufügenFrame p, int länge) {
+	public TagFrame(long d, int as, JFrame p, int länge) {
 		parent = p;
 		datum = new Date(d);
 		anzeigeseite = as;

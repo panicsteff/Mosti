@@ -16,6 +16,7 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 import kundenverwaltung.Formats;
+import kundenverwaltung.KundeHinzufügenFrame;
 import logik.terminplanung.Termin;
 import logik.terminplanung.TerminLogik;
 
@@ -142,7 +143,7 @@ public class TerminErstellenDialog extends JDialog {
 		kundeHinzufügen.addActionListener(new ActionListener(){
 
 			public void actionPerformed(ActionEvent e) {
-				JOptionPane.showMessageDialog(TerminErstellenDialog.this, "Neuen Kunde erstellen");
+				new KundeHinzufügenFrame(null, null);
 			}
 			
 		});	
@@ -171,10 +172,5 @@ public class TerminErstellenDialog extends JDialog {
 
 		setVisible(true);
 
-	}
-
-	public static void main(String[] avgs) {
-
-		new TerminErstellenDialog(5, new Date(), null, "Hallo");
 	}
 }

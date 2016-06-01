@@ -62,6 +62,7 @@ public class KundenVerwaltung extends JFrame {
 				if (result != JOptionPane.YES_OPTION)
 					return;
 				kundeDb.kundeLöschen(k.getKundenID());
+				kundeDb.termineUpdaten(k.getKundenID());
 				kundeTableModel.deletKunde(k);
 				kundeTableModel.fireTableRowsDeleted(pos, pos);
 			}

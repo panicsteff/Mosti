@@ -28,7 +28,7 @@ private static final long serialVersionUID = 1L;
 	private KundeDB kdb = new KundeDB();
 	
 	
-	KundeHinzufügenFrame (JFrame parent, List<Kunde> auflistung){
+	public KundeHinzufügenFrame (JFrame parent, List<Kunde> auflistung){
 		super(parent);
 		
 		liste = auflistung;
@@ -76,7 +76,9 @@ private static final long serialVersionUID = 1L;
 		public void actionPerformed(ActionEvent arg0){
 			kunde = new Kunde(txtNachname.getText(), txtVorname.getText(), 
 										  txtStrasse.getText(), txtPlz.getText(), txtStadt.getText(), txtTelefonnummer.getText(), 0);
-			liste.add(kunde);
+			if(liste != null){
+				liste.add(kunde);
+			}
 			kdb.kundeEinfügen(kunde);
 			dispose();
 		}
