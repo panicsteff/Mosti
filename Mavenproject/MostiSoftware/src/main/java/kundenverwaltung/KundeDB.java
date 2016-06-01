@@ -7,7 +7,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
-import java.util.Date;
+import java.sql.Date;
 
 public class KundeDB {
 
@@ -140,9 +140,9 @@ public class KundeDB {
 		return kunde;
 	}
 	
-	void termineUpdaten(int kundenid){
+	void termineUpdaten(int kundenid, long d){
 		
-		Date datum = new Date();
+		Date datum = new Date(d);
 		
 		try {
 
@@ -150,7 +150,7 @@ public class KundeDB {
 			.getConnection("jdbc:ucanaccess://./Mosti-Datenkank.mdb");
 			PreparedStatement s = conn.prepareStatement("Delete from termine where Datum  "
 							+ "BETWEEN{ts '" + datum + " 00:00:00'} AND {ts '"
-							+ datum + " 23:59:59'}  and kundenId =?");
+							+ datum + " 23:59:59'}  and kundenId = ?");
 			s.setInt(1, kundenid);
 			
 			s.executeUpdate();
@@ -158,7 +158,7 @@ public class KundeDB {
 			
 			
 		} catch (Exception e){
-			
+			e.printStackTrace();
 		}
 	}
 }

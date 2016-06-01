@@ -22,7 +22,6 @@ import logik.dienstleistungverwaltung.DLSortiment;
 import logik.produktverwaltung.ProduktSortiment;
 import logik.terminplanung.TagFrameController;
 import logik.terminplanung.Termin;
-import logik.terminplanung.TermineTableModel;
 import logik.verkaufsverwaltung.Verkaufsverwaltung;
 import account.M_Startseite;
 

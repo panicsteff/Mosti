@@ -7,7 +7,7 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
-import java.util.Collections;
+import java.util.Date;
 
 import javax.swing.BorderFactory;
 import javax.swing.JFrame;
@@ -22,8 +22,6 @@ import javax.swing.JTable;
 import javax.swing.ListSelectionModel;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
-
-import mitarbeiterverwaltung.MitarbeiterVerwaltung;
 
 public class KundenVerwaltung extends JFrame {
 	
@@ -62,7 +60,8 @@ public class KundenVerwaltung extends JFrame {
 				if (result != JOptionPane.YES_OPTION)
 					return;
 				kundeDb.kundeLöschen(k.getKundenID());
-				kundeDb.termineUpdaten(k.getKundenID());
+				Date d = new Date();
+				kundeDb.termineUpdaten(k.getKundenID(), d.getTime());
 				kundeTableModel.deletKunde(k);
 				kundeTableModel.fireTableRowsDeleted(pos, pos);
 			}

@@ -100,7 +100,7 @@ public class TerminLogik {
 		return stunde + ":" + minute;
 	}
 	
-	public ArrayList<Intervall> berechneLücken(ArrayList<Termin> freieTermine) {
+	public ArrayList<Intervall> berechneLücken(ArrayList<Termin> freieTermine, int dauer) {
 
 		ArrayList<Intervall> intervallListe = new ArrayList<Intervall>();
 
@@ -110,8 +110,10 @@ public class TerminLogik {
 		int i;
 		for (i = 0; i < freieTermine.size() - 1; i++) {
 			if (freieTermine.get(i + 1).getUhrzeit() != freieTermine.get(i).getUhrzeit() + k.getZeitslot()) {
-				in.setEnde(freieTermine.get(i).getUhrzeit());								
-				intervallListe.add(in);
+				in.setEnde(freieTermine.get(i).getUhrzeit());	
+				if(in.getEnde()-in.getStart() >= dauer){
+					intervallListe.add(in);
+				}
 				in = new Intervall();
 				in.setStart(freieTermine.get(i + 1).getUhrzeit());
 			}
