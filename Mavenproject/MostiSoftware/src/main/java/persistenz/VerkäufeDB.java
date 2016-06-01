@@ -27,8 +27,7 @@ public class VerkäufeDB {
 			Statement s = conn.createStatement();
 			ResultSet rs = s
 					.executeQuery("SELECT * FROM [verkäufe] WHERE kundenid = "
-							+ kunde.getKundenID() + "AND verkaufsdatum ="
-									+ "BETWEEN{ts '"+date+" 00:00:00'} AND {ts '"+date+" 23:59:59'} ");
+							+ kunde.getKundenID() + " AND verkaufsdatum BETWEEN {ts '"+date+" 00:00:00'} AND {ts '"+date+" 23:59:59'} ");
 
 			while (rs.next()) {
 				String name = rs.getString("verkaufsposition");
@@ -143,8 +142,7 @@ public class VerkäufeDB {
 			Statement s = conn.createStatement();
 			ResultSet rs = s
 					.executeQuery("SELECT * FROM [verkäufe] WHERE kundenid = "
-							+ kunde.getKundenID() + "AND verkaufsdatum ="
-									+ "BETWEEN{ts '"+date1+" 00:00:00'} AND {ts '"+date2+" 23:59:59'} ");
+							+ kunde.getKundenID() + " AND verkaufsdatum BETWEEN{ts '"+date1+" 00:00:00'} AND {ts '"+date2+" 23:59:59'} ");
 
 			while (rs.next()) {
 				String name = rs.getString("verkaufsposition");

@@ -32,7 +32,7 @@ public class KundeBearbeitenDialog extends JDialog{
 		}
 		
 		public void actionPerformed(ActionEvent e){
-			int antwort = JOptionPane.showConfirmDialog(KundeBearbeitenDialog.this, "Wollen sie wirklich speichern?");
+			int antwort = JOptionPane.showConfirmDialog(KundeBearbeitenDialog.this, "Wollen Sie wirklich speichern?");
 			if(antwort == JOptionPane.OK_OPTION){
 				kunde.setNachname(beautify(txtNachname.getText()));
 				kunde.setVorname(beautify(txtVorname.getText()));

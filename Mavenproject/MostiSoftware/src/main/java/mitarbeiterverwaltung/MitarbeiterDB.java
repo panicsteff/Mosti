@@ -55,9 +55,9 @@ public class MitarbeiterDB {
 
 			for (Mitarbeiter m : mitarbeiterliste) {
 
-				s = conn.prepareStatement("update mitarbeiter set nachname = ?, set vorname = ?, "
-						+ "set strasse = ?, set hausnummer = ?, set plz = ?, set Stadt = ?, "
-						+ "set telefonnummer = ? where id = ");
+				s = conn.prepareStatement("update mitarbeiter set nachname = ?, vorname = ?, "
+						+ "strasse = ?,  hausnummer = ?, plz = ?, Stadt = ?, "
+						+ "telefonnummer = ? where id = ? ");
 				s.setString(1, m.getNachname());
 				s.setString(2, m.getVorname());
 				s.setString(3, m.getStrasse());

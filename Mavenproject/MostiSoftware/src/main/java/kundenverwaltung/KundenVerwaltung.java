@@ -14,6 +14,7 @@ import javax.swing.JFrame;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JSeparator;
@@ -21,6 +22,8 @@ import javax.swing.JTable;
 import javax.swing.ListSelectionModel;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
+
+import mitarbeiterverwaltung.MitarbeiterVerwaltung;
 
 public class KundenVerwaltung extends JFrame {
 	
@@ -54,6 +57,10 @@ public class KundenVerwaltung extends JFrame {
 			public void actionPerformed(ActionEvent e){
 				int pos = kundeSelectionModel.getMinSelectionIndex();
 				Kunde k = kundeTableModel.getKunde(pos);
+				int result = JOptionPane.showConfirmDialog(KundenVerwaltung.this, "Möchten Sie den Kunden " + k.getVorname() + " " + k.getNachname() + " wirklich löschen?",
+						"Frage", JOptionPane.YES_NO_OPTION);
+				if (result != JOptionPane.YES_OPTION)
+					return;
 				kundeDb.kundeLöschen(k.getKundenID());
 				kundeTableModel.deletKunde(k);
 				kundeTableModel.fireTableRowsDeleted(pos, pos);
