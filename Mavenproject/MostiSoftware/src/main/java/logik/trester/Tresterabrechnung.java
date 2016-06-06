@@ -1,31 +1,27 @@
 package logik.trester;
 
+import java.sql.Date;
+
+import kundenverwaltung.Kunde;
+
 
 public class Tresterabrechnung {
 	
 	private int gesamtLiter;
 	private double preis;
-	Tresterverwaltung tv;
+	private Tresterverwaltung tv;
+	private Kunde tresterkunde;
+	private Date date;
 	
-	public Tresterabrechnung(Tresterverwaltung tv, int literzahl){
-		//this.kundeneinkäufe = k;
-//		gesamtLiter = berechneGesamtLiter();
-//		setPreis(berechnePreis());
+	public Tresterabrechnung(Tresterverwaltung tv, Kunde kunde, Date date, int literzahl){
 		this.tv = tv;
 		gesamtLiter = literzahl;
+		setTresterkunde(kunde);
+		this.date = date;
 		preis = berechnePreis();
 	}
 	
-//	private int berechneGesamtLiter(){
-//		int total = 0;
-//		for(int i = 0; i < kundeneinkäufe.getSize(); i++){
-//			total = total + kundeneinkäufe.getEinkauf(i).getLiterzahl();
-//		}
-//		return total;
-//	}
-	
 	private double berechnePreis(){
-		//return gesamtLiter * 1.00;
 		return (getLiterzahl()/1000) * tv.getPreisPro1000L();
 	}
 
@@ -47,6 +43,22 @@ public class Tresterabrechnung {
 	
 	public void printTresterAbrechnung(){
 		System.out.println("Trester"+preis + " € für " + gesamtLiter + " L");
+	}
+
+	public Date getDate() {
+		return date;
+	}
+
+	public void setDate(Date date) {
+		this.date = date;
+	}
+
+	public Kunde getTresterkunde() {
+		return tresterkunde;
+	}
+
+	public void setTresterkunde(Kunde tresterkunde) {
+		this.tresterkunde = tresterkunde;
 	}
 
 }

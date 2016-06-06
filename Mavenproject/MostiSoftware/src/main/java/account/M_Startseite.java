@@ -20,6 +20,7 @@ import javax.swing.JFrame;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 import kundenverwaltung.KundenVerwaltung;
@@ -162,6 +163,15 @@ public class M_Startseite extends JFrame {
 				new TresterFrame(new Tresterverwaltung());
 			}
 		});
+		JMenuItem tresteritem2 = new JMenuItem("Tresterabrechnung erstellen");
+		trester.add(tresteritem2);
+		tresteritem2.addActionListener(new ActionListener(){
+			public void actionPerformed(ActionEvent e){
+				int result = JOptionPane.showConfirmDialog(M_Startseite.this, "Möchten Sie den Tresterpreis für den gesamten Tag berechnen?",
+						"Frage", JOptionPane.YES_NO_OPTION);
+			}
+		});
+		
 		
 		JMenu schicht = new JMenu("Schichtplan");
 		mbar.add(schicht);

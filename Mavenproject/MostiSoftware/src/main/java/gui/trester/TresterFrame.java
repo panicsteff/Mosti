@@ -3,6 +3,7 @@ package gui.trester;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.SQLException;
 
 import javax.swing.JButton;
 import javax.swing.JFormattedTextField;
@@ -60,10 +61,18 @@ public class TresterFrame extends JFrame {
 	private class MyOKHandler implements ActionListener {
 
 		public void actionPerformed(ActionEvent arg0) {
-			tv.setPreisPro1000L(Double.parseDouble(txtPreis.getText()));
+			try {
+				tv.setPreisPro1000L(Double.parseDouble(txtPreis.getText()));
+			} catch (NumberFormatException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 			System.out.println("Preis pro 1000 L: "+ tv.getPreisPro1000L());
-			Tresterabrechnung ta = new Tresterabrechnung(tv, 2000);
-			System.out.println("Tresterpreis: "+ta.getPreis());
+			//Tresterabrechnung ta = new Tresterabrechnung(tv, 2000);
+			//System.out.println("Tresterpreis: "+ta.getPreis());
 			dispose();
 		}
 	}

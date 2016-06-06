@@ -55,11 +55,6 @@ public class LagerVerwaltungFrame extends JFrame {
 
 		JMenu datei = new JMenu("Datei");
 		menubar.add(datei);
-		// JMenuItem open = new JMenuItem("Produkt-Liste öffnen");
-		// datei.add(open);
-		// datei.add(new JSeparator());
-		// JMenuItem save = new JMenuItem("Produkt-Liste speichern");
-		// datei.add(save);
 		datei.addSeparator();
 
 		miSpeichern = new JMenuItem("Produktangebot speichern");
@@ -233,24 +228,5 @@ public class LagerVerwaltungFrame extends JFrame {
 		System.out.println();
 	}
 
-	// public static void main(String[] args) {
-	//
-	// List<Produkt> p = new ArrayList<Produkt>();
-	//
-	// Produkt p1 = new Produkt("3L-Beutel", 1.00, 10, 200, true);
-	// Produkt p2 = new Produkt("5L-Beutel", 1.50, 100, 300,true);
-	// Produkt p3 = new Produkt("10L-Beutel", 2.00, 100, 200,true);
-	// Produkt p4 = new Produkt("Hefe", 2.00, 100, 200, false);
-	// Produkt p5 = new Produkt("Vitamin C", 2.50, 100, 200, false);
-	// Produkt p6 = new Produkt("Box-Ständer", 3.00, 100, 200, false);
-	// p.add(p1);
-	// p.add(p2);
-	// p.add(p3);
-	// p.add(p4);
-	// p.add(p5);
-	// p.add(p6);
-	//
-	// LagerFrame lf = new LagerFrame(p);
-	// }
 
 }
