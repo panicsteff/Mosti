@@ -1,8 +1,11 @@
-package logik.terminplanung;
+package gui.terminplanung;
 
 import java.util.ArrayList;
 
 import javax.swing.table.AbstractTableModel;
+
+import logik.terminplanung.Termin;
+import logik.terminplanung.TerminLogik;
 
 public class TermineTableModel extends AbstractTableModel {
 

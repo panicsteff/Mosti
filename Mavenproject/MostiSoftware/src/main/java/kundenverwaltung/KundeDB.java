@@ -7,6 +7,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.sql.Date;
 
 public class KundeDB {
 
@@ -110,6 +111,53 @@ public class KundeDB {
 			s.close();
 			
 		}catch(Exception e){
+			e.printStackTrace();
+		}
+	}
+	
+	public Kunde einzelnenKundeLaden(int id){
+		
+		Kunde kunde = new Kunde();
+		try{
+			conn = DriverManager
+					.getConnection("jdbc:ucanaccess://./Mosti-Datenkank.mdb");
+					Statement s = conn.createStatement();
+					ResultSet rs = s.executeQuery("Select * from [kunden] where id = " + id );
+
+					while (rs.next()) {
+						kunde.setNachname(rs.getString("Nachname"));
+						kunde.setVorname(rs.getString("Vorname"));
+						kunde.setStrasse(rs.getString("Strasse"));
+						kunde.setPlz(rs.getString("PLZ"));
+						kunde.setWohnort(rs.getString("Wohnort"));
+						kunde.setTel(rs.getString("Telefonnummer"));
+						kunde.setKundenID(rs.getInt("ID"));
+					}
+					s.close();
+		}catch(Exception e){
+			
+		}
+		return kunde;
+	}
+	
+	void termineUpdaten(int kundenid, long d){
+		
+		Date datum = new Date(d);
+		
+		try {
+
+			conn = DriverManager
+			.getConnection("jdbc:ucanaccess://./Mosti-Datenkank.mdb");
+			PreparedStatement s = conn.prepareStatement("Delete from termine where Datum  "
+							+ "BETWEEN{ts '" + datum + " 00:00:00'} AND {ts '"
+							+ datum + " 23:59:59'}  and kundenId = ?");
+			s.setInt(1, kundenid);
+			
+			s.executeUpdate();
+			s.close();
+			
+			
+		} catch (Exception e){
 			e.printStackTrace();
 		}
 	}

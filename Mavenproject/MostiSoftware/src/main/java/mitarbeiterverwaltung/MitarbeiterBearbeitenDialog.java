@@ -35,7 +35,7 @@ public class MitarbeiterBearbeitenDialog extends JDialog {
 		}
 		
 		public void actionPerformed(ActionEvent e){
-			int antwort = JOptionPane.showConfirmDialog(MitarbeiterBearbeitenDialog.this, "Wollen sie wirklich speichern?");
+			int antwort = JOptionPane.showConfirmDialog(MitarbeiterBearbeitenDialog.this, "Wollen Sie wirklich speichern?");
 			if(antwort == JOptionPane.OK_OPTION){
 				mitarbeiter.setNachname(beautify(txtNachname.getText()));
 				mitarbeiter.setVorname(beautify(txtVorname.getText()));

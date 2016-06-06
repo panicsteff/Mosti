@@ -13,6 +13,7 @@ import javax.swing.JFrame;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JSeparator;
@@ -85,6 +86,12 @@ public class MitarbeiterVerwaltung extends JFrame {
 			public void actionPerformed(ActionEvent e){
 				int pos = mitarbeiterSelectionModel.getMinSelectionIndex();
 				Mitarbeiter m = mitarbeiterTableModel.getMitarbeiter(pos);
+				
+				int result = JOptionPane.showConfirmDialog(MitarbeiterVerwaltung.this, "Möchten Sie den Mitarbeiter " + m.getVorname() + " " + m.getNachname() + " wirklich löschen?",
+						"Frage", JOptionPane.YES_NO_OPTION);
+				if (result != JOptionPane.YES_OPTION)
+					return;
+				
 				mitarbeiterDb.mitarbeiterLöschen(m.getMitarbeiterID());
 				mitarbeiterTableModel.deleteMitarbeiter(m);
 				mitarbeiterTableModel.fireTableRowsDeleted(pos, pos);

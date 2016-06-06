@@ -9,7 +9,10 @@ public class KundeTableModel extends AbstractTableModel{
 
 	private static final long serialVersionUID = 1L;
 	private ArrayList<Kunde> kunden;
-
+	
+	KundeTableModel(){
+		kunden = new ArrayList<Kunde>();
+	}
 	
 	public Class<?> getColumnClass(int col){
 		switch(col){

@@ -57,7 +57,7 @@ public class TerminHinzufügenFrame extends JFrame{
 					frueher.setEnabled(true);
 					aktuellerTag = heute;									//Default initialisierung
 					freieTermine = terminhinzufügenLogik.freieTermineSuchen(heute.getTime());   
-					fttm = new FreieTermineTableModel(freieTermine, heute);
+					fttm = new FreieTermineTableModel(freieTermine, heute, länge);
 					verfügbarTabelle.setModel(fttm);
 					tcm = verfügbarTabelle.getColumnModel();
 					tcm.getColumn(1).setCellRenderer(new TermineCellRenderer());
@@ -76,7 +76,7 @@ public class TerminHinzufügenFrame extends JFrame{
 		public void actionPerformed(ActionEvent e) {
 			aktuellerTag = new Date(terminhinzufügenLogik.vorherigenTagBerechnen(aktuellerTag.getTime()));
 			freieTermine = terminhinzufügenLogik.freieTermineSuchen(aktuellerTag.getTime());   						//nächsten Tag anzeigen
-			fttm = new FreieTermineTableModel(freieTermine, aktuellerTag);
+			fttm = new FreieTermineTableModel(freieTermine, aktuellerTag, länge);
 			verfügbarTabelle.setModel(fttm);
 			tcm = verfügbarTabelle.getColumnModel();
 			tcm.getColumn(1).setCellRenderer(new TermineCellRenderer());
@@ -89,7 +89,7 @@ public class TerminHinzufügenFrame extends JFrame{
 		public void actionPerformed(ActionEvent e) {
 			aktuellerTag = new Date(terminhinzufügenLogik.nächstenTagBerechnen(aktuellerTag.getTime()));
 			freieTermine = terminhinzufügenLogik.freieTermineSuchen(aktuellerTag.getTime());   						//nächsten Tag anzeigen
-			fttm = new FreieTermineTableModel(freieTermine, aktuellerTag);
+			fttm = new FreieTermineTableModel(freieTermine, aktuellerTag, länge);
 			verfügbarTabelle.setModel(fttm);
 			tcm = verfügbarTabelle.getColumnModel();
 			tcm.getColumn(1).setCellRenderer(new TermineCellRenderer());

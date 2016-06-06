@@ -4,6 +4,7 @@ package account;
 import gui.dienstleistungverwaltung.DLVerwaltungFrame;
 import gui.kassenfunktion.KassenFrame;
 import gui.produktverwaltung.LagerVerwaltungFrame;
+import gui.terminplanung.TagFrame;
 import gui.terminplanung.TerminplanungsFrame;
 import gui.trester.TresterFrame;
 import gui.verkauf.Verkaufsübersicht;
@@ -11,16 +12,15 @@ import gui.verkauf.Verkaufsübersicht;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Date;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
-import javax.swing.JLabel;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
-import javax.swing.JSeparator;
 
 import kundenverwaltung.KundenVerwaltung;
 import logik.dienstleistungverwaltung.DLSortiment;
@@ -28,6 +28,7 @@ import logik.produktverwaltung.ProduktSortiment;
 import logik.trester.Tresterverwaltung;
 import logik.verkaufsverwaltung.Verkaufsverwaltung;
 import mitarbeiterverwaltung.MitarbeiterVerwaltung;
+import administratorverwaltung.SchichtplanungsFrame;
 
 public class M_Startseite extends JFrame {
 
@@ -37,10 +38,13 @@ public class M_Startseite extends JFrame {
 	JMenuItem abrechnen;
 	DLSortiment dlSorti;
 	ProduktSortiment pSorti;
+	private boolean isAdmin;
 
-	public M_Startseite() {
+	public M_Startseite(boolean isAdmin) {
 		dlSorti = new DLSortiment(); 
 		pSorti = new ProduktSortiment();
+		
+		this.isAdmin = isAdmin;
 		
 		setTitle("Startseite");
 		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
@@ -50,25 +54,51 @@ public class M_Startseite extends JFrame {
 		panel.setLayout(new GridLayout(2, 3));
 		JButton kassenButton = new JButton();
 		kassenButton.setIcon(new ImageIcon("./src/register.png"));
+		
+		kassenButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				//KassenFrame k = new KassenFrame(dlSorti,pSorti, new Verkaufsverwaltung());
+				new TagFrame(new Date().getTime(), 1, M_Startseite.this, 0);
+			}
+		});
+		
+		
+		JButton mitarbeiter = new JButton("Mitarbeiterverwaltung");
+		panel.add(mitarbeiter);
+		mitarbeiter.addActionListener(new ActionListener(){
+			public void actionPerformed(ActionEvent e){
+				new MitarbeiterVerwaltung();
+			}
+		});
+		mitarbeiter.setIcon(new ImageIcon("./src/mitarbeiter.jpg"));
+		
+		JButton terminplanung = new JButton("Terminplanung");
+		panel.add(terminplanung);
+		terminplanung.addActionListener(new ActionListener(){
+			public void actionPerformed(ActionEvent e){
+				new TerminplanungsFrame();
+			}
+		});
+		
+		terminplanung.setIcon(new ImageIcon("./src/termin.png"));
 		JButton lagerButton = new JButton();
 		lagerButton.setIcon(new ImageIcon("./src/karre.jpg"));
+		lagerButton.setVisible(isAdmin);
 		JButton dlButton = new JButton();
 		dlButton.setIcon(new ImageIcon("./src/apple.png"));
+		dlButton.setVisible(isAdmin);
 		JButton übersichtButton = new JButton();
 		übersichtButton.setIcon(new ImageIcon("./src/übersicht.png"));
+		übersichtButton.setVisible(isAdmin);
 
 		panel.add(kassenButton);
 		panel.add(lagerButton);
 		panel.add(dlButton);
 		panel.add(übersichtButton);
-		panel.add(new JLabel("andere funktion"));
-		panel.add(new JLabel("andere funktion"));
+//		panel.add(new JLabel("andere funktion"));
+//		panel.add(new JLabel("andere funktion"));
 
-		kassenButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				KassenFrame k = new KassenFrame(dlSorti,pSorti, new Verkaufsverwaltung());
-			}
-		});
+		
 
 		lagerButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -96,38 +126,32 @@ public class M_Startseite extends JFrame {
 		mDatei.add(abrechnen);
 		abrechnen.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				KassenFrame k = new KassenFrame(dlSorti,pSorti, new Verkaufsverwaltung());
+				//KassenFrame k = new KassenFrame(dlSorti,pSorti, new Verkaufsverwaltung());
 			}
 		});
 
-		mDatei.add(new JSeparator());
-		JMenuItem kunden = new JMenuItem("Kunden pflegen");
-		mDatei.add(kunden);
-		kunden.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
+		//mDatei.add(new JSeparator());
+		//JMenuItem kunden = new JMenuItem("Kunden pflegen");
+		//mDatei.add(kunden);
+		//kunden.addActionListener(new ActionListener() {
+		//	public void actionPerformed(ActionEvent e) {
+		//		new KundenVerwaltung();
+		//	}
+		//});
+		
+		
+		
+		JMenu kunde = new JMenu("Kunde");
+		mbar.add(kunde);
+		JMenuItem cmdKunde = new JMenuItem("Kundenverwaltung");
+		kunde.add(cmdKunde);
+		cmdKunde.addActionListener(new ActionListener(){
+			public void actionPerformed(ActionEvent e){
 				new KundenVerwaltung();
 			}
 		});
 		
-		JMenu terminplanung = new JMenu("Terminplanung");
-		mbar.add(terminplanung);
-		JMenuItem termin = new JMenuItem("Zur Terminplanung");
-		terminplanung.add(termin);
-		termin.addActionListener(new ActionListener(){
-			public void actionPerformed(ActionEvent e){
-				new TerminplanungsFrame();
-			}
-		});
 		
-		JMenu mitarbeiter = new JMenu("Mitarbeiter");
-		mbar.add(mitarbeiter);
-		JMenuItem cmdMitarbeiter = new JMenuItem("Mitarbeiterverwaltung");
-		mitarbeiter.add(cmdMitarbeiter);
-		cmdMitarbeiter.addActionListener(new ActionListener(){
-			public void actionPerformed(ActionEvent e){
-				new MitarbeiterVerwaltung();
-			}
-		});
 		
 		JMenu trester = new JMenu("Tresterverwaltung");
 		mbar.add(trester);
@@ -136,6 +160,16 @@ public class M_Startseite extends JFrame {
 		tresteritem.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e){
 				new TresterFrame(new Tresterverwaltung());
+			}
+		});
+		
+		JMenu schicht = new JMenu("Schichtplan");
+		mbar.add(schicht);
+		JMenuItem schichtitem = new JMenuItem("Zur Schichtplanbearbeitung");
+		schicht.add(schichtitem);
+		schichtitem.addActionListener(new ActionListener(){
+			public void actionPerformed(ActionEvent e){
+				new SchichtplanungsFrame();
 			}
 		});
 		

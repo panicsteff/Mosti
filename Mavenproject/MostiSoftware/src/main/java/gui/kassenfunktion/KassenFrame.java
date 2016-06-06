@@ -7,9 +7,7 @@ import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.FileNotFoundException;
 import java.util.ArrayList;
-
 import java.util.Date;
 
 import javax.swing.BorderFactory;
@@ -53,17 +51,19 @@ public class KassenFrame extends JFrame {
 	private Verkaufsposition produktPosition;
 	private int literzahl;
 	private Kunde kunde;
+	private int kundenId;
 	private ArrayList<Verkaufsposition> einkaufsliste;
 	private Verkaufsverwaltung vVerwaltung;
 	private KundeDB kundeDB; //nur zum Test
 
 	public KassenFrame(DLSortiment dlsortiment,ProduktSortiment psortiment,
-			Verkaufsverwaltung verkaufsverwaltung) {
+			Verkaufsverwaltung verkaufsverwaltung, int kundenId) {
 
 		aliste = psortiment.getAbfuellSortiment();
 		zliste = psortiment.getZProduktSortiment();
 		dienstleistungen = dlsortiment.getDLSortiment();
 		this.vVerwaltung = verkaufsverwaltung;
+		this.kundenId = kundenId;
 		
 		kundeDB = new KundeDB(); //nur zum Test
 
@@ -203,9 +203,9 @@ public class KassenFrame extends JFrame {
 			//new VerkäufeFrame(einkaufsliste);
 			
 			try {
-				kunde = kundeDB.kundenLaden().get(2);
+				kunde = kundeDB.einzelnenKundeLaden(kundenId);					/////////
 				System.out.println("KundenID: " +kunde.getKundenID());
-			} catch (FileNotFoundException e) {
+			} catch (Exception e) {
 				// TODO Auto-generated catch block
 				System.out.println("Fehler dB");
 				e.printStackTrace();

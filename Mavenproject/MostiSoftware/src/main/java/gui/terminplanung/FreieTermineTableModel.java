@@ -18,10 +18,10 @@ public class FreieTermineTableModel extends AbstractTableModel {
 	private TerminLogik terminlogik;
 	private Date datum;
 
-	public FreieTermineTableModel(ArrayList<Termin> ft, Date d) {
+	public FreieTermineTableModel(ArrayList<Termin> ft, Date d, int dauer) {
 		freieTermine = ft;
 		terminlogik = new TerminLogik();
-		intervallListe  = terminlogik.berechneLücken(freieTermine);
+		intervallListe  = terminlogik.berechneLücken(freieTermine, dauer);
 		datum = d;
 
 	}
