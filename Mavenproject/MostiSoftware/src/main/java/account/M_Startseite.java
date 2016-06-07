@@ -6,7 +6,8 @@ import gui.kassenfunktion.KassenFrame;
 import gui.produktverwaltung.LagerVerwaltungFrame;
 import gui.terminplanung.TagFrame;
 import gui.terminplanung.TerminplanungsFrame;
-import gui.trester.TresterFrame;
+import gui.trester.TresterabrechnungFrame;
+import gui.trester.TresterpreisBearbeitenFrame;
 import gui.verkauf.Verkaufsübersicht;
 
 import java.awt.GridLayout;
@@ -160,15 +161,16 @@ public class M_Startseite extends JFrame {
 		trester.add(tresteritem);
 		tresteritem.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e){
-				new TresterFrame(new Tresterverwaltung());
+				new TresterpreisBearbeitenFrame(new Tresterverwaltung());
 			}
 		});
 		JMenuItem tresteritem2 = new JMenuItem("Tresterabrechnung erstellen");
 		trester.add(tresteritem2);
 		tresteritem2.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e){
-				int result = JOptionPane.showConfirmDialog(M_Startseite.this, "Möchten Sie den Tresterpreis für den gesamten Tag berechnen?",
-						"Frage", JOptionPane.YES_NO_OPTION);
+				new TresterabrechnungFrame();
+//				int result = JOptionPane.showConfirmDialog(M_Startseite.this, "Möchten Sie den Tresterpreis für den gesamten Tag berechnen?",
+//						"Frage", JOptionPane.YES_NO_OPTION);
 			}
 		});
 		

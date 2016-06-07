@@ -17,14 +17,14 @@ import logik.trester.Tresterabrechnung;
 import logik.trester.Tresterverwaltung;
 
 @SuppressWarnings("serial")
-public class TresterFrame extends JFrame {
+public class TresterpreisBearbeitenFrame extends JFrame {
 	
 	private JFormattedTextField txtPreis;
 	private Tresterabrechnung ta;
 	private JLabel label;
 	static Tresterverwaltung tv;
 	
-	public TresterFrame(Tresterverwaltung tv) {
+	public TresterpreisBearbeitenFrame(Tresterverwaltung tv) {
 		
 		this.tv = tv;	
 		setTitle("Tresterpreis verwalten");

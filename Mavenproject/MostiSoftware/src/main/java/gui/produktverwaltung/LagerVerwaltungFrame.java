@@ -36,7 +36,7 @@ public class LagerVerwaltungFrame extends JFrame {
 	// private List<Produkt> zliste;
 	private JMenuItem bearP;
 	static boolean hasChanged;
-	private JMenuItem miSpeichern;
+	//private JMenuItem miSpeichern;
 	private ProduktSortiment pSortiment;
 	private JMenuItem löschP;
 
@@ -57,21 +57,21 @@ public class LagerVerwaltungFrame extends JFrame {
 		menubar.add(datei);
 		datei.addSeparator();
 
-		miSpeichern = new JMenuItem("Produktangebot speichern");
-		datei.add(miSpeichern);
-		miSpeichern.addActionListener(new ActionListener() {
-
-			public void actionPerformed(ActionEvent e) {
-				try {
-					pSortiment.createSpecialLists();
-					pSortiment.printGesamtListe();
-					// a.produkteSpeichern();
-
-				} catch (Exception ex) {
-					System.out.println(e);
-				}
-			}
-		});
+//		miSpeichern = new JMenuItem("Produktangebot speichern");
+//		datei.add(miSpeichern);
+//		miSpeichern.addActionListener(new ActionListener() {
+//
+//			public void actionPerformed(ActionEvent e) {
+//				try {
+//					pSortiment.createSpecialLists();
+//					pSortiment.printGesamtListe();
+//					// a.produkteSpeichern();
+//
+//				} catch (Exception ex) {
+//					System.out.println(e);
+//				}
+//			}
+//		});
 
 		datei.addSeparator();
 

@@ -52,4 +52,19 @@ public class Verkaufsverwaltung {
 		return verkäufeDB.alleVerkäufeLaden();
 	}
 	
+	// Summe der verkauften Literzahlen
+	
+	public int getSummeVerkaufteLiter(ArrayList<Verkaufsposition> liste){
+		int summe = 0;
+		for(Verkaufsposition v: liste){
+			summe = summe + v.getLiterzahl();
+		}
+		return summe;
+	}
+	
+	public int getLitersummeGesamterTag(Date datum){
+		ArrayList<Verkaufsposition> verkaufsliste = ladeTagesVerkäufe(datum);
+		return getSummeVerkaufteLiter(verkaufsliste);
+	}
+	
 }

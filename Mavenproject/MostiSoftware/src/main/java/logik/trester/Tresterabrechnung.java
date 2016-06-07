@@ -1,6 +1,6 @@
 package logik.trester;
 
-import java.sql.Date;
+import java.util.Date;
 
 import kundenverwaltung.Kunde;
 
@@ -11,19 +11,19 @@ public class Tresterabrechnung {
 	private double preis;
 	private Tresterverwaltung tv;
 	private Kunde tresterkunde;
-	private Date date;
+	private java.sql.Date date;
 	
-	public Tresterabrechnung(Tresterverwaltung tv, Kunde kunde, Date date, int literzahl){
-		this.tv = tv;
+	public Tresterabrechnung(/*Tresterverwaltung tv,*/Kunde kunde, int literzahl, double preis){
+		//this.tv = tv;
 		gesamtLiter = literzahl;
 		setTresterkunde(kunde);
-		this.date = date;
-		preis = berechnePreis();
+		setDate();
+		this.preis = preis;
 	}
 	
-	private double berechnePreis(){
-		return (getLiterzahl()/1000) * tv.getPreisPro1000L();
-	}
+//	private double berechnePreis(){
+//		return (getLiterzahl()/1000) * tv.getPreisPro1000L();
+//	}
 
 	public double getPreis() {
 		return preis;
@@ -49,8 +49,11 @@ public class Tresterabrechnung {
 		return date;
 	}
 
-	public void setDate(Date date) {
+	public void setDate() {
+		java.util.Date datum = new Date();
+		java.sql.Date date = new java.sql.Date(datum.getTime());
 		this.date = date;
+
 	}
 
 	public Kunde getTresterkunde() {
