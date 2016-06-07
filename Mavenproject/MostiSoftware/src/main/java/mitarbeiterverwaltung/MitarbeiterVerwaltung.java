@@ -7,6 +7,8 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 
 import javax.swing.BorderFactory;
 import javax.swing.JFrame;
@@ -32,6 +34,7 @@ public class MitarbeiterVerwaltung extends JFrame {
 	private JMenuItem miMitarbeiterBearbeiten;
 	private JMenuItem miMitarbeiterLoeschen;
 	private MitarbeiterDB mitarbeiterDb; 
+	private ArrayList<Mitarbeiter> mitarbeiterliste;
 
 
 	public MitarbeiterVerwaltung() {
@@ -66,6 +69,7 @@ public class MitarbeiterVerwaltung extends JFrame {
 			public void actionPerformed(ActionEvent e){
 				new MitarbeiterHinzufügenFrame(MitarbeiterVerwaltung.this, mitarbeiterTableModel.getMitarbeiter());
 				mitarbeiterTableModel.fireTableDataChanged();
+				sortiereMitarbeiterliste(mitarbeiterliste);
 			}
 		});
 		
@@ -99,12 +103,14 @@ public class MitarbeiterVerwaltung extends JFrame {
 		});
 
 		
-		ArrayList<Mitarbeiter> mitarbeiterliste = new ArrayList<Mitarbeiter>();
+		mitarbeiterliste = new ArrayList<Mitarbeiter>();
 		try {
 			mitarbeiterliste = mitarbeiterDb.mitarbeiterLaden();
 		} catch (FileNotFoundException e1) {
 			e1.printStackTrace();
 		}
+		
+		sortiereMitarbeiterliste(mitarbeiterliste);
 		mitarbeiterTableModel = new MitarbeiterTableModel();
 		mitarbeiterTableModel.setMitarbeiter(mitarbeiterliste);
 		JTable table = new JTable(mitarbeiterTableModel);
@@ -146,10 +152,21 @@ public class MitarbeiterVerwaltung extends JFrame {
 		add(titlepane);
 		setVisible(true);
 	}
+	
+	void sortiereMitarbeiterliste(ArrayList<Mitarbeiter> liste){            // alphabetische Sortierung nach Nachnamen der Kunden
+		Collections.sort(liste, new Comparator<Mitarbeiter>() {
+
+			public int compare(Mitarbeiter o1, Mitarbeiter o2) {
+				return o1.getNachname().compareTo(o2.getNachname());
+			}
+			
+		});
+	}
 
 	private void editMitarbeiter() {
 		int row = mitarbeiterSelectionModel.getMinSelectionIndex();
 		new MitarbeiterBearbeitenDialog(this, mitarbeiterTableModel.getMitarbeiter(row));
+		sortiereMitarbeiterliste(mitarbeiterliste);
 		mitarbeiterTableModel.fireTableRowsUpdated(row, row);
 	}
 

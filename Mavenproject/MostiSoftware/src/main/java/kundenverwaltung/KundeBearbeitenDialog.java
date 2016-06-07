@@ -3,6 +3,7 @@ import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.text.ParseException;
 
 import javax.swing.JButton;
 import javax.swing.JDialog;
@@ -13,6 +14,8 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextField;
+import javax.swing.text.DateFormatter;
+import javax.swing.text.MaskFormatter;
 
 
 public class KundeBearbeitenDialog extends JDialog{
@@ -104,12 +107,8 @@ public class KundeBearbeitenDialog extends JDialog{
 		txtVorname = new JTextField(kunde.getVorname());
 		txtVorname.setBounds(110, 40, 150, 20);
 		main.add(txtVorname);
-		
-		
-//		DateFormatter df = new DateFormatter(Formats.DATE_FORMAT);
-//		NullableFormatter nf = new NullableFormatter(df);
-		
-		
+	
+	
 		label = new JLabel("Straﬂe:");
 		label.setBounds(10, 100, 100, 20);
 		main.add(label);
@@ -122,16 +121,19 @@ public class KundeBearbeitenDialog extends JDialog{
 		label.setBounds(10, 130, 100, 20);
 		main.add(label);
 		
-//		MaskFormatter mf = null;
-//		try{
-//			mf = new MaskFormatter("#####");
-//		}
-//		catch(ParseException e){
-//			System.out.println(e);
-//			
-//		}
-//		nf = new NullableFormatter(mf);
-		txtPlz = new JFormattedTextField();
+		DateFormatter df = new DateFormatter(Formats.DATE_FORMAT);
+		NullableFormatter nf = new NullableFormatter(df);
+		
+		MaskFormatter mf = null;
+		try{
+			mf = new MaskFormatter("#####");
+		}
+		catch(ParseException e){
+			System.out.println(e);
+			
+		}
+		nf = new NullableFormatter(mf);
+		txtPlz = new JFormattedTextField(nf);
 		txtPlz.setValue(kunde.getPlz());
 		txtPlz.setBounds(110, 130, 40, 20);
 		main.add(txtPlz);

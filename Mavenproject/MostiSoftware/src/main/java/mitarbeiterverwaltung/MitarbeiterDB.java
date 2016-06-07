@@ -36,6 +36,7 @@ public class MitarbeiterDB {
 				m.setMitarbeiterID(rs.getInt("ID"));
 				m.setTelefonnummer(rs.getString("Telefonnummer"));
 				mitarbeiterliste.add(m);
+				
 			}
 			s.close();
 
