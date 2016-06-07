@@ -3,13 +3,17 @@ package kundenverwaltung;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.text.ParseException;
 import java.util.List;
 
 import javax.swing.JButton;
 import javax.swing.JDialog;
+import javax.swing.JFormattedTextField;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
+import javax.swing.text.DateFormatter;
+import javax.swing.text.MaskFormatter;
 
 
 
@@ -50,8 +54,21 @@ private static final long serialVersionUID = 1L;
 		add(new JLabel("Straße: "));
 		add(txtStrasse = new JTextField());
 		
+	
 		add(new JLabel("PLZ: "));
-		add(txtPlz = new JTextField());
+		DateFormatter df = new DateFormatter(Formats.DATE_FORMAT);
+		NullableFormatter nf = new NullableFormatter(df);
+		
+		MaskFormatter mf = null;
+		try{
+			mf = new MaskFormatter("#####");
+		}
+		catch(ParseException e){
+			System.out.println(e);
+			
+		}
+		NullableFormatter ff = new NullableFormatter(mf);
+		add(txtPlz = new JFormattedTextField(ff));
 		
 		add(new JLabel("Stadt: "));
 		add(txtStadt = new JTextField());
@@ -80,6 +97,7 @@ private static final long serialVersionUID = 1L;
 				liste.add(kunde);
 			}
 			kdb.kundeEinfügen(kunde);
+			
 			dispose();
 		}
 	}

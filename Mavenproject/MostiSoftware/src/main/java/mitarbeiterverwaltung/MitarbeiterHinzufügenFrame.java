@@ -3,13 +3,20 @@ package mitarbeiterverwaltung;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.List;
+import java.text.ParseException;
+import java.util.ArrayList;
 
 import javax.swing.JButton;
 import javax.swing.JDialog;
+import javax.swing.JFormattedTextField;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
+import javax.swing.text.DateFormatter;
+import javax.swing.text.MaskFormatter;
+
+import kundenverwaltung.Formats;
+import kundenverwaltung.NullableFormatter;
 
 public class MitarbeiterHinzufügenFrame extends JDialog {
 	
@@ -24,14 +31,14 @@ public class MitarbeiterHinzufügenFrame extends JDialog {
 	private JTextField txtTelefonnummer;
 	private JTextField txtBenutzername;
 	private Mitarbeiter mitarbeiter;
-	private List<Mitarbeiter> liste;
+	private ArrayList<Mitarbeiter> liste;
 	private MitarbeiterDB mdb =  new MitarbeiterDB();
 	
 	
 	
 	
 
-	MitarbeiterHinzufügenFrame (JFrame parent, List<Mitarbeiter> auflistung){
+	MitarbeiterHinzufügenFrame (JFrame parent, ArrayList<Mitarbeiter> auflistung){
 		super(parent);
 		
 		liste = auflistung;
@@ -56,8 +63,21 @@ public class MitarbeiterHinzufügenFrame extends JDialog {
 		add(new JLabel("Hausnummer: "));
 		add(txtHausnummer = new JTextField());
 		
+		
+		DateFormatter df = new DateFormatter(Formats.DATE_FORMAT);
+		NullableFormatter nf = new NullableFormatter(df);
+		
+		MaskFormatter mf = null;
+		try{
+			mf = new MaskFormatter("#####");
+		}
+		catch(ParseException e){
+			System.out.println(e);
+			
+		}
+		NullableFormatter ff = new NullableFormatter(mf);
 		add(new JLabel("PLZ: "));
-		add(txtPlz = new JTextField());
+		add(txtPlz = new JFormattedTextField(ff));
 		
 		add(new JLabel("Stadt: "));
 		add(txtStadt = new JTextField());
@@ -80,7 +100,7 @@ public class MitarbeiterHinzufügenFrame extends JDialog {
 		setVisible(true);
 	}
 	
-	private class MyOKHandler implements ActionListener{
+	private class MyOKHandler implements ActionListener {
 		
 		public void actionPerformed(ActionEvent arg0){
 			mitarbeiter = new Mitarbeiter(txtNachname.getText(), txtVorname.getText(), 
@@ -92,6 +112,7 @@ public class MitarbeiterHinzufügenFrame extends JDialog {
 			dispose();
 		}
 	}
+	
 	
 	private class MyCancelHandler implements ActionListener{
 		

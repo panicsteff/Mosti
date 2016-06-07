@@ -47,7 +47,7 @@ public class Verkaufsübersicht extends JFrame {
 	public Verkaufsübersicht() {
 		setTitle("Übersicht über Verkäufe erstellen");
 		setSize(530, 450);
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		getContentPane().setLayout(null);
 
 		buttonAlleKunden = new JRadioButton("alle Kunden");
