@@ -63,12 +63,10 @@ public class TermineTableModel extends AbstractTableModel {
 		} catch(IndexOutOfBoundsException e){
 			;
 		}
-		
-	
 		return liste;
 	}
 	
-	ArrayList<Termin> getAlleTermine(){
+	public ArrayList<Termin> getAlleTermine(){
 		return terminliste;
 	}
 	

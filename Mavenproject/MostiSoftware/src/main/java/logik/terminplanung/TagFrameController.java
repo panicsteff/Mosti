@@ -63,6 +63,10 @@ public class TagFrameController {
 		}	
 	}
 	
+	public int getTermindauer(int anzahlZeitslots){
+		return anzahlZeitslots * k.getZeitslot();
+	}
+	
 	
 	
 }

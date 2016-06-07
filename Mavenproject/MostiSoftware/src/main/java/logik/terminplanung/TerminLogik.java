@@ -1,7 +1,10 @@
 package logik.terminplanung;
 
-import java.util.ArrayList;
 import java.sql.Date;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.function.Predicate;
 
 import persistenz.TerminDB;
 
@@ -27,6 +30,7 @@ public class TerminLogik {
 					Termin t = alteTerminliste.get(i);
 					for(int l = 0; l < t.getAnzahlZeitslots(); l++){
 						t = new Termin();
+						t.setTerminId(alteTerminliste.get(i).getTerminId());
 						t.setAnzahlZeitslots(alteTerminliste.get(i).getAnzahlZeitslots());
 						t.setDatum(alteTerminliste.get(i).getDatum());
 						t.setKundenId(alteTerminliste.get(i).getKundenId());
@@ -45,25 +49,16 @@ public class TerminLogik {
 		}
 		return neueTerminliste;
 	}
+	
+	public ArrayList<Termin> termineSortieren(ArrayList<Termin> terminliste){
+		Collections.sort(terminliste, new Comparator<Termin>() {
 
-	private ArrayList<Termin> termineSortieren(ArrayList<Termin> terminliste) {
-		int i;
-		int j;
-		int min;
-		int minstelle;
-		for (i = 0; i < terminliste.size(); i++) {
-			min = terminliste.get(i).getUhrzeit();
-			minstelle = i;
-			for (j = i; j < terminliste.size(); j++) {
-				if (terminliste.get(j).getUhrzeit() < min) {
-					min = terminliste.get(j).getUhrzeit();
-					minstelle = j;
-				}
+			public int compare(Termin t1, Termin t2) {
+				Integer zeit1 = t1.getUhrzeit();
+				Integer zeit2 = t2.getUhrzeit();
+				return zeit1.compareTo(zeit2);
 			}
-			Termin h = terminliste.get(i);
-			terminliste.set(i, terminliste.get(minstelle));
-			terminliste.set(minstelle, h);
-		}
+		});
 		
 		return terminliste;
 	}
@@ -111,17 +106,35 @@ public class TerminLogik {
 		for (i = 0; i < freieTermine.size() - 1; i++) {
 			if (freieTermine.get(i + 1).getUhrzeit() != freieTermine.get(i).getUhrzeit() + k.getZeitslot()) {
 				in.setEnde(freieTermine.get(i).getUhrzeit());	
-				if(in.getEnde()-in.getStart() >= dauer){
-					intervallListe.add(in);
-				}
+				intervallListe.add(in);
 				in = new Intervall();
 				in.setStart(freieTermine.get(i + 1).getUhrzeit());
 			}
 		}
 		in.setEnde(freieTermine.get(i).getUhrzeit()); // letzter Termin ist immer das Ende
 		intervallListe.add(in);
+		intervallListe = entferneZuKurzeIntervalle(intervallListe, dauer);
 		
 		return intervallListe;
+	}
+	
+	public ArrayList<Intervall> entferneZuKurzeIntervalle(ArrayList<Intervall> intervallListe, int dauer){
+		class MyPredicate<t> implements Predicate<t>{  
+			int dauer;
+			public boolean test(t intervall) {
+				if(((Intervall) intervall).getEnde() - ((Intervall) intervall).getStart() < dauer){
+					return true;
+				}
+				return false;
+				}  
+			}  
+		
+		MyPredicate<Intervall> filter  = new MyPredicate<Intervall>();
+		filter.dauer = dauer; 
+		intervallListe.removeIf(filter);
+		
+		return intervallListe;
+		
 	}
 	
 
@@ -140,6 +153,10 @@ public class TerminLogik {
 	void termineSpeichern(int kundenId, int anzahlZeitslot, Date datum, int beginn){
 		terminDb.termineSpeichern(kundenId, anzahlZeitslot, datum, beginn);
 		
+	}
+	
+	public static void terminLöschen(Termin t){
+		TerminDB.terminLöschen(t.getTerminId());
 	}
 	
 	public int getZeitslot(){

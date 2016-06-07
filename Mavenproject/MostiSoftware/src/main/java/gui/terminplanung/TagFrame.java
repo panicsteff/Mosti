@@ -35,7 +35,13 @@ public class TagFrame extends JFrame {
 			if (event.getClickCount() == 2) {
 
 				if (parent == null) {
-					JOptionPane.showMessageDialog(null, "Termin bearbeiten");
+					int pos = terminSelectionModel.getMaxSelectionIndex();
+					Termin t = termineTableModel.getTermine(pos,1).get(0);
+					int länge = tagframecontroller.getTermindauer(t.getAnzahlZeitslots());
+					String uhrzeit = termineCellRenderer.getText();
+					String name = kundenNameCellRenderer.getText();
+					new TerminBearbeitenDialog(t, länge, name, uhrzeit, termineTableModel.getAlleTermine());
+					termineTableModel.fireTableDataChanged();
 					return;
 				}
 				if(parent instanceof M_Startseite){
@@ -110,6 +116,7 @@ public class TagFrame extends JFrame {
 	private int dauer;
 	private ListSelectionModel terminSelectionModel;
 	private TermineCellRenderer termineCellRenderer;
+	private KundenNameCellRenderer kundenNameCellRenderer;
 	private JFrame parent;
 	private JButton cmdFrueher;
 	private JButton cmdSpaeter;
@@ -122,7 +129,7 @@ public class TagFrame extends JFrame {
 
 		tagframecontroller = new TagFrameController();
 
-		setSize(500, 800);
+		setSize(520, 800);
 		String title = Formats.DATE_FORMAT.format(datum);
 		setTitle(title);
 		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
@@ -139,8 +146,9 @@ public class TagFrame extends JFrame {
 				tagesTabelle.getTableHeader().getFont().deriveFont(16f));
 		TableColumnModel tcm = tagesTabelle.getColumnModel();
 		termineCellRenderer = new TermineCellRenderer();
+		kundenNameCellRenderer = new KundenNameCellRenderer();
 		tcm.getColumn(0).setCellRenderer(termineCellRenderer);
-		tcm.getColumn(1).setCellRenderer(new KundenNameCellRenderer());
+		tcm.getColumn(1).setCellRenderer(kundenNameCellRenderer);
 
 		terminSelectionModel = tagesTabelle.getSelectionModel();
 		terminSelectionModel

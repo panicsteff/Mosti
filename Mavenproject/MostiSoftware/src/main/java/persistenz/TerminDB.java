@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.sql.Date;
@@ -12,18 +13,27 @@ import logik.terminplanung.Termin;
 
 public class TerminDB {
 
-	private Connection conn;
+	private static Connection conn;
+	
+	public TerminDB(){
+		try {
+			conn = DriverManager
+					.getConnection("jdbc:ucanaccess://./Mosti-Datenkank.mdb");
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
 
 	public ArrayList<Termin> termineLaden(Date datum) {
 
 		ArrayList<Termin> terminliste = new ArrayList<Termin>();
 
 		try {
-			conn = DriverManager
-					.getConnection("jdbc:ucanaccess://./Mosti-Datenkank.mdb");
+			
 			Statement s = conn.createStatement();
 			ResultSet rs = s
-					.executeQuery("SELECT  kundenId, AnzahlZeitslot, Datum, Beginn FROM [termine] Where Datum  "
+					.executeQuery("SELECT  ID, kundenId, AnzahlZeitslot, Datum, Beginn FROM [termine] Where Datum  "
 							+ "BETWEEN{ts '"
 							+ datum
 							+ " 00:00:00'} AND {ts '"
@@ -31,7 +41,7 @@ public class TerminDB {
 
 			while (rs.next()) {
 				Termin t = new Termin();
-				//t.setTerminId(rs.getShort("ID"));
+				t.setTerminId(rs.getInt("ID"));
 				t.setKundenId(rs.getInt("kundenId"));
 				t.setAnzahlZeitslots(rs.getInt("AnzahlZeitslot"));
 				t.setUhrzeit(rs.getInt("Beginn"));
@@ -51,8 +61,6 @@ public class TerminDB {
 			int beginn) {
 
 		try {
-			conn = DriverManager
-					.getConnection("jdbc:ucanaccess://./Mosti-Datenkank.mdb");
 			PreparedStatement s = null;
 
 			s = conn.prepareStatement("Insert into termine (kundenId, AnzahlZeitslot, Datum, Beginn) VALUES (?, ?, ?,?)");
@@ -74,8 +82,6 @@ public class TerminDB {
 
 		String name = new String();
 		try {
-			conn = DriverManager
-					.getConnection("jdbc:ucanaccess://./Mosti-Datenkank.mdb");
 			Statement s = conn.createStatement();
 			ResultSet rs = s
 					.executeQuery("SELECT vorname, nachname FROM [kunden] Where id = "
@@ -99,8 +105,6 @@ public class TerminDB {
 
 		ArrayList<Integer> adminwerte = new ArrayList<Integer>();
 		try {
-			conn = DriverManager
-					.getConnection("jdbc:ucanaccess://./Mosti-Datenkank.mdb");
 			Statement s = conn.createStatement();
 			ResultSet rs = s
 					.executeQuery("SELECT * FROM [Adminwerte] where id = 1");
@@ -130,8 +134,6 @@ public class TerminDB {
 		ArrayList<Integer> kundenId = new ArrayList<Integer>();
 
 		try {
-			conn = DriverManager
-					.getConnection("jdbc:ucanaccess://./Mosti-Datenkank.mdb");
 			Statement s = conn.createStatement();
 			ResultSet rs = s
 					.executeQuery("SELECT * FROM [kunden] where nachname like '"
@@ -150,6 +152,21 @@ public class TerminDB {
 		}
 
 		return kundenId;
+	}
+	
+	public static void terminLöschen(int terminId){
+		
+		try {
+			PreparedStatement s = null;
+			s = conn.prepareStatement("Delete from termine where ID = " + terminId);
+			
+			s.executeUpdate();
+			s.close();
+			
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 
 }

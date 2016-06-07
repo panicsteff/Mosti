@@ -4,6 +4,7 @@ import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.GregorianCalendar;
+import java.util.function.Predicate;
 
 import kundenverwaltung.Formats;
 
@@ -43,12 +44,17 @@ public class TerminHinzufügenLogik {
 
 		ArrayList<Termin> freieTermine = terminlogik.termineLaden(datum);
 		
-		for(int i = freieTermine.size()-1; i>=0; i--){									//von hinten beginnen, damits beim löschen keine überschneidungen gibt
-			if(freieTermine.get(i).getKundenId() != 0){
-				freieTermine.remove(i);
-			}
-		}
+		class MyPredicate<t> implements Predicate<t>{  
+			public boolean test(t termin) {
+				if(((Termin) termin).getKundenId() != 0){
+					return true;
+				}
+				return false;
+				}  
+			}  
 		
+		MyPredicate<Termin> filter  = new MyPredicate<Termin>();
+		freieTermine.removeIf(filter);
 		return freieTermine;
 	}
 	
