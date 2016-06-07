@@ -25,6 +25,7 @@ public class TerminBearbeitenDialog extends JDialog{
 		setTitle("Termin bearbeiten");
 		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 		setLayout(null);
+		setModal(true);
 		
 		termin = t;
 		alleTermine = aTermine;
@@ -76,8 +77,13 @@ public class TerminBearbeitenDialog extends JDialog{
 			public void actionPerformed(ActionEvent arg0) {
 				int result  = JOptionPane.showConfirmDialog(TerminBearbeitenDialog.this, "Wollen sie den Termin wirklich löschen?");
 				if(result == JOptionPane.YES_OPTION){
-					alleTermine.remove(termin);
+					for(Termin t: alleTermine){
+						if(t.getTerminId() == termin.getTerminId()){
+							t.setKundenId(0);
+						}
+					}
 					TerminLogik.terminLöschen(termin);
+					TerminBearbeitenDialog.this.dispose();
 				}
 			}
 		});

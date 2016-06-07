@@ -36,8 +36,13 @@ public class TagFrame extends JFrame {
 
 				if (parent == null) {
 					int pos = terminSelectionModel.getMaxSelectionIndex();
-					Termin t = termineTableModel.getTermine(pos,1).get(0);
-					int länge = tagframecontroller.getTermindauer(t.getAnzahlZeitslots());
+					int zeile = tagframecontroller.getZeile(pos, anzeigeseite);
+					Termin t = termineTableModel.getTermine(zeile,1).get(0);
+					if(t.getKundenId()==0){
+						JOptionPane.showMessageDialog(TagFrame.this, "Bitte wählen sie einen bestehenden Termin zur Bearbeitung");
+						return;
+					}
+					int länge = tagframecontroller.getTermindauer(t.getAnzahlZeitslots());	
 					String uhrzeit = termineCellRenderer.getText();
 					String name = kundenNameCellRenderer.getText();
 					new TerminBearbeitenDialog(t, länge, name, uhrzeit, termineTableModel.getAlleTermine());
