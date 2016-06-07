@@ -7,6 +7,8 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Date;
 
 import javax.swing.BorderFactory;
@@ -23,6 +25,8 @@ import javax.swing.ListSelectionModel;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
+import mitarbeiterverwaltung.Mitarbeiter;
+
 public class KundenVerwaltung extends JFrame {
 	
 	private static final long serialVersionUID = 1L;
@@ -32,6 +36,7 @@ public class KundenVerwaltung extends JFrame {
 	private JMenuItem miKundeHinzufuegen;
 	private JMenuItem miKundeLoeschen;
 	private KundeDB kundeDb;
+	private ArrayList<Kunde> kundenliste;
 
 	public KundenVerwaltung() {
 
@@ -76,6 +81,7 @@ public class KundenVerwaltung extends JFrame {
 			public void actionPerformed(ActionEvent e){
 				new KundeHinzufügenFrame(KundenVerwaltung.this, kundeTableModel.getKunden());
 				kundeTableModel.fireTableDataChanged();
+				sortiereKundenliste(kundenliste);
 			}
 		});
 		
@@ -98,12 +104,13 @@ public class KundenVerwaltung extends JFrame {
 		});
 
 		kundeTableModel = new KundeTableModel();
-		ArrayList<Kunde> kundenliste = new ArrayList<Kunde>();
+		kundenliste = new ArrayList<Kunde>();
 		try {
 			kundenliste = kundeDb.kundenLaden();
 		} catch (FileNotFoundException e1) {
 			e1.printStackTrace();
 		}
+		sortiereKundenliste(kundenliste);
 		kundeTableModel.setKunden(kundenliste);
 		JTable table = new JTable(kundeTableModel);
 		kundeSelectionModel = table.getSelectionModel();
@@ -142,11 +149,22 @@ public class KundenVerwaltung extends JFrame {
 		add(titlepane);
 		setVisible(true);
 	}
+	
+	public void sortiereKundenliste(ArrayList<Kunde> liste){            // alphabetische Sortierung nach Nachnamen der Kunden
+		Collections.sort(liste, new Comparator<Kunde>() {
+
+			public int compare(Kunde o1, Kunde o2) {
+				return o1.getNachname().compareTo(o2.getNachname());
+			}
+			
+		});
+	}
 
 	private void editKunde() {
 		int row = kundeSelectionModel.getMinSelectionIndex();
 		new KundeBearbeitenDialog(this, kundeTableModel.getKunde(row));
 		kundeTableModel.fireTableRowsUpdated(row, row);
+		sortiereKundenliste(kundenliste);
 		kundeDb.kundenSpeichern(kundeTableModel.getKunden());
 	}
 	
