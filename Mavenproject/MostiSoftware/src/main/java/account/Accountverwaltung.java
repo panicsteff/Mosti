@@ -26,10 +26,29 @@ public class Accountverwaltung{
 	}
 	
 	public boolean isAdmin(String benutzername){
-		if(benutzername.equals("Admin")){
+		if(benutzername.equals("Admin") || benutzername.equals("admin")){
 			return true;
 		}
 		return false;
+	}
+	
+	public boolean prüfePasswort(String alt, String neu, String wiederholt, int id){
+		if(alt.equals(anmeldungDB.passwortLaden(id)) == false){
+			JOptionPane.showMessageDialog(null, "Altes Passwort ist falsch. Bitte versuchen Sie es erneut");
+			return false;
+		}else{
+			if(neu.equals("") == true){
+				JOptionPane.showMessageDialog(null, "Bitte gebe Sie ein neues Passwort ein");
+				return false;
+			}
+			if(neu.equals(wiederholt) == false){
+				JOptionPane.showMessageDialog(null, "Wiederholtes Passwort stimmt nicht mit neuem Passwort überein. Bitte wiederholen Sie die Eingabe");
+				return false;
+			}else{
+				anmeldungDB.updatePasswort(neu, id);
+				return true;
+			}
+		}
 	}
 	
 	

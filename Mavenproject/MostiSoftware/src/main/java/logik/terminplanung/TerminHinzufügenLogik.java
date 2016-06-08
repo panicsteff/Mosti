@@ -11,11 +11,9 @@ import kundenverwaltung.Formats;
 public class TerminHinzufügenLogik {
 	
 	private TerminLogik terminlogik;
-	private Konfigurationswerte k;
 	
 	public TerminHinzufügenLogik(){
 		terminlogik = new TerminLogik();
-		k = new Konfigurationswerte();
 	}
 
 	public long nächstenTagBerechnen(long datum){
@@ -66,7 +64,7 @@ public class TerminHinzufügenLogik {
 		
 		int obstmenge = Integer.parseInt(s);
 		double dauer = obstmenge*5;
-		int zeitslot = k.getZeitslot();
+		int zeitslot = terminlogik.getZeitslot();
 		if(dauer%zeitslot == 0){						
 			return (int) dauer;
 		} else{													//Bei bedarf Dauer in vielfaches der Zeitslots umrechnen

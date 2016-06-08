@@ -1,4 +1,4 @@
-package administratorverwaltung;
+package schichtverwaltung;
 
 import java.sql.Date;
 import java.util.ArrayList;

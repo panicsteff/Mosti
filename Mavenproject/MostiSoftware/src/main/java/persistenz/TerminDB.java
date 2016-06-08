@@ -20,7 +20,6 @@ public class TerminDB {
 			conn = DriverManager
 					.getConnection("jdbc:ucanaccess://./Mosti-Datenkank.mdb");
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
@@ -101,33 +100,6 @@ public class TerminDB {
 
 	}
 
-	public ArrayList<Integer> adminwerteLaden() {
-
-		ArrayList<Integer> adminwerte = new ArrayList<Integer>();
-		try {
-			Statement s = conn.createStatement();
-			ResultSet rs = s
-					.executeQuery("SELECT * FROM [Adminwerte] where id = 1");
-
-			while (rs.next()) {
-				Integer i = rs.getInt("Zeitslotlänge");
-				adminwerte.add(i);
-				i = rs.getInt("Arbeitsbeginn");
-				adminwerte.add(i);
-				i = rs.getInt("Arbeitsende");
-				adminwerte.add(i);
-				i = rs.getInt("AnzeigeAufteilung");
-				adminwerte.add(i);
-			}
-			s.close();
-
-		} catch (Exception e) {
-			System.out.println(e);
-
-		}
-
-		return adminwerte;
-	}
 
 	public ArrayList<Integer> kundenIdLaden(String name) {
 

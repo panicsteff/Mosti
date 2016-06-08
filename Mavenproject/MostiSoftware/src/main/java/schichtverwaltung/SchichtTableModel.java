@@ -1,4 +1,4 @@
-package administratorverwaltung;
+package schichtverwaltung;
 
 import java.util.ArrayList;
 
@@ -8,12 +8,12 @@ public class SchichtTableModel extends AbstractTableModel {
 
 	private static final long serialVersionUID = 1L;
 	private ArrayList<Schicht> schichtliste;
-	private Konfigurationswerte k;
+	private SchichtLogik schichtlogik;
 	
 
 	SchichtTableModel(ArrayList<Schicht> schichtliste) {
 		this.schichtliste = schichtliste;
-		k = new Konfigurationswerte();
+		schichtlogik = new SchichtLogik();
 	}
 
 	public String getColumnName(int col){
@@ -26,11 +26,11 @@ public class SchichtTableModel extends AbstractTableModel {
 	}
 	
 	public int getColumnCount() {
-		return k.getSchichtenProTag();
+		return schichtlogik.getSchichtenProTag();
 	}
 
 	public int getRowCount() {
-		return k.getMitarbeiterProSchicht();
+		return schichtlogik.getMitarbeiterProSchicht();
 	}
 
 	public Object getValueAt(int row, int col) {

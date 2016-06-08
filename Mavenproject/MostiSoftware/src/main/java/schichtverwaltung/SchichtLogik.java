@@ -1,16 +1,17 @@
-package administratorverwaltung;
+package schichtverwaltung;
 
 import java.sql.Date;
 import java.util.ArrayList;
+
+import persistenz.SchichtplanDB;
+import administratorverwaltung.AdministratorLogik;
 
 
 public class SchichtLogik {
 	
 	private SchichtplanDB schichtplanDb;
-	private Konfigurationswerte k;
 	
 	public SchichtLogik(){
-		k = new Konfigurationswerte();
 		schichtplanDb = new SchichtplanDB();
 	}
 	
@@ -30,9 +31,9 @@ public class SchichtLogik {
 	public ArrayList<Schicht> schichtenSortieren(ArrayList<Schicht> liste){
 		ArrayList<Schicht> sortiert = new ArrayList<Schicht>();
 		
-		for(int i=0; i<k.getSchichtenProTag(); i++){
+		for(int i=0; i<getSchichtenProTag(); i++){
 			for(int j=0; j<liste.size(); j++){
-				if(liste.get(j).getUhrzeit() == k.getArbeitsbeginn()+(i*k.getSchichtDauer())){
+				if(liste.get(j).getUhrzeit() == getArbeitsbeginn()+(i*getSchichtDauer())){
 					sortiert.add(liste.get(j));
 				}
 			}
@@ -43,7 +44,7 @@ public class SchichtLogik {
 	public ArrayList<Schicht> schichtenMergen(ArrayList<Schicht> liste){
 		ArrayList<Schicht> neueListe = new ArrayList<Schicht>();
 		int j=0;
-		for(int i=k.getArbeitsbeginn(); i<k.getArbeitsende(); i = i+k.getSchichtDauer()){
+		for(int i=getArbeitsbeginn(); i<getArbeitsende(); i = i+getSchichtDauer()){
 			if(j<liste.size() && liste.get(j).getUhrzeit() == i){
 				Schicht s = liste.get(j);
 				j++;
@@ -70,16 +71,28 @@ public class SchichtLogik {
 	}
 	
 	int getMitarbeiterProSchicht(){
-		return k.getMitarbeiterProSchicht();
+		return AdministratorLogik.getMitarbeiterProSchicht();
 	}
 	
 	int getSchichtenProTag(){
-		return k.getSchichtenProTag();
+		return AdministratorLogik.getSchichtenProTag();
+	}
+	
+	int getArbeitsbeginn(){
+		return AdministratorLogik.getArbeitsbeginn();
+	}
+	
+	int getSchichtDauer(){
+		return AdministratorLogik.getSchichtDauer();
+	}
+	
+	int getArbeitsende(){
+		return AdministratorLogik.getArbeitsende();
 	}
 	
 	public int berechneUhrzeit(int i){
-		int spalte = i%k.getSchichtenProTag();
-		int uhrzeit = k.getArbeitsbeginn() + spalte*k.getSchichtDauer();
+		int spalte = i%getSchichtenProTag();
+		int uhrzeit = getArbeitsbeginn() + spalte*getSchichtDauer();
 		return uhrzeit;
 	}
 }

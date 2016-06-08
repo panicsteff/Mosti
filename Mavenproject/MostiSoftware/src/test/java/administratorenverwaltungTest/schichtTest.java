@@ -5,8 +5,8 @@ import java.util.Date;
 
 import org.junit.Test;
 
-import administratorverwaltung.Schicht;
-import administratorverwaltung.SchichtLogik;
+import schichtverwaltung.Schicht;
+import schichtverwaltung.SchichtLogik;
 
 public class schichtTest {
 	

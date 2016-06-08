@@ -1,24 +1,34 @@
-package administratorverwaltung;
+package persistenz;
 
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+
+import schichtverwaltung.Schicht;
 
 public class SchichtplanDB {
 
 	private Connection conn;
 	
-	ArrayList<Schicht> schichtLaden(Date datum){
+	public SchichtplanDB(){
+		try {
+			conn = DriverManager
+					.getConnection("jdbc:ucanaccess://./Mosti-Datenkank.mdb");
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public ArrayList<Schicht> schichtLaden(Date datum){
 		
 		ArrayList<Schicht> liste = new ArrayList<Schicht>();
 		
 		try {
-			conn = DriverManager
-					.getConnection("jdbc:ucanaccess://./Mosti-Datenkank.mdb");
 			Statement st = conn.createStatement();
 			ResultSet rs = st
 					.executeQuery("SELECT * FROM [schichtplan] Where datum between {ts '"
@@ -44,11 +54,9 @@ public class SchichtplanDB {
 		return liste;
 	}
 	
-	void schichtSpeichern(Date datum, int mitarbeiterId, int uhrzeit) {
+	public void schichtSpeichern(Date datum, int mitarbeiterId, int uhrzeit) {
 
 		try {
-			conn = DriverManager
-					.getConnection("jdbc:ucanaccess://./Mosti-Datenkank.mdb");
 			PreparedStatement s = null;
 
 			s = conn.prepareStatement("Insert into schichtplan (datum, uhrzeit, mitarbeiter) values (?,?,?) ");
@@ -65,12 +73,10 @@ public class SchichtplanDB {
 		}
 	}
 
-	String mitarbeiterNamenLaden(int mitarbeiterId) {
+	public String mitarbeiterNamenLaden(int mitarbeiterId) {
 
 		String name = new String();
 		try {
-			conn = DriverManager
-					.getConnection("jdbc:ucanaccess://./Mosti-Datenkank.mdb");
 			Statement s = conn.createStatement();
 			ResultSet rs = s.executeQuery("SELECT vorname, nachname FROM [mitarbeiter] Where id = "
 					+ mitarbeiterId);
@@ -89,45 +95,11 @@ public class SchichtplanDB {
 
 	}
 
-	ArrayList<Integer> adminwerteLaden() {
-
-		ArrayList<Integer> adminwerte = new ArrayList<Integer>();
-		try {
-			conn = DriverManager
-					.getConnection("jdbc:ucanaccess://./Mosti-Datenkank.mdb");
-			Statement s = conn.createStatement();
-			ResultSet rs = s.executeQuery("SELECT * FROM [Adminwerte] where id = 1");
-
-			while (rs.next()) {
-				Integer i = rs.getInt("MitarbeiterProSchicht");
-				adminwerte.add(i);
-				i = rs.getInt("SchichtenProTag");
-				adminwerte.add(i);
-				i = rs.getInt("Arbeitsbeginn");
-				adminwerte.add(i);
-				i = rs.getInt("Arbeitsende");
-				adminwerte.add(i);
-			}
-			s.close();
-
-		} catch (Exception e) {
-			System.out.println(e);
-
-		}
-
-		return adminwerte;
-	}
-	
-	
-	
-
-	ArrayList<Integer> mitarbeiterIdLaden(String name){
+	public ArrayList<Integer> mitarbeiterIdLaden(String name){
 		
 		ArrayList<Integer> mitarbeiterId = new ArrayList<Integer>();
 		
 		try {
-			conn = DriverManager
-					.getConnection("jdbc:ucanaccess://./Mosti-Datenkank.mdb");
 			Statement s = conn.createStatement();
 			ResultSet rs = s.executeQuery("SELECT * FROM [mitarbeiter] where nachname like '" + name + "%'");
 

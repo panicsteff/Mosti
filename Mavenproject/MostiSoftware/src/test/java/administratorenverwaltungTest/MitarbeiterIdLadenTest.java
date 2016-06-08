@@ -6,7 +6,7 @@ import java.util.ArrayList;
 
 import org.junit.Test;
 
-import administratorverwaltung.SchichtLogik;
+import schichtverwaltung.SchichtLogik;
 
 public class MitarbeiterIdLadenTest {
 

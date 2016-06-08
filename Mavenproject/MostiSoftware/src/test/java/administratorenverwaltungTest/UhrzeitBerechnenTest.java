@@ -4,7 +4,7 @@ import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
 
-import administratorverwaltung.SchichtLogik;
+import schichtverwaltung.SchichtLogik;
 
 public class UhrzeitBerechnenTest {
 

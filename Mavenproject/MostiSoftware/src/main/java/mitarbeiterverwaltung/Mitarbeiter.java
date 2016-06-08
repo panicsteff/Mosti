@@ -70,7 +70,7 @@ public class Mitarbeiter {
 		return benutzername;
 	}
 
-	void setBenutzername(String benutzername) {
+	public void setBenutzername(String benutzername) {
 		this.benutzername = benutzername;
 	}
 
@@ -106,11 +106,11 @@ public class Mitarbeiter {
 		this.account = account;
 	}
 
-	int getMitarbeiterID() {
+	public int getMitarbeiterID() {
 		return mitarbeiterID;
 	}
 
-	void setMitarbeiterID(int mitarbeiterID) {
+	public void setMitarbeiterID(int mitarbeiterID) {
 		this.mitarbeiterID = mitarbeiterID;
 	}
 }

@@ -7,16 +7,16 @@ import java.util.Comparator;
 import java.util.function.Predicate;
 
 import persistenz.TerminDB;
+import administratorverwaltung.AdministratorLogik;
 
 
 public class TerminLogik {
 
 	private TerminDB terminDb;
-	private Konfigurationswerte k;
 	
 	public TerminLogik(){
-		k = new Konfigurationswerte();
 		terminDb = new TerminDB();
+		new AdministratorLogik();
 	}
 	
 	private ArrayList<Termin> inVolleTerminListe(ArrayList<Termin> alteTerminliste){
@@ -25,7 +25,7 @@ public class TerminLogik {
 		ArrayList<Termin> neueTerminliste = new ArrayList<Termin>();
 		int i;
 		int j;
-		for(i = 0, j = k.getArbeitsbeginn(); j<k.getArbeitsende(); j = j+k.getZeitslot()){
+		for(i = 0, j = getArbeitsbeginn(); j<getArbeitsende(); j = j+getZeitslot()){
 				if(i<alteTerminliste.size() && alteTerminliste.get(i).getUhrzeit() == j){
 					Termin t = alteTerminliste.get(i);
 					for(int l = 0; l < t.getAnzahlZeitslots(); l++){
@@ -36,9 +36,9 @@ public class TerminLogik {
 						t.setKundenId(alteTerminliste.get(i).getKundenId());
 						t.setUhrzeit(j);
 						neueTerminliste.add(t);
-						j = j+k.getZeitslot();
+						j = j+getZeitslot();
 					}
-					j = j-k.getZeitslot();
+					j = j-getZeitslot();
 					i++;
 				}else{
 					Termin t = new Termin();
@@ -73,10 +73,10 @@ public class TerminLogik {
 	}
 	
 	int berechneAnzeigeSeite(int uhrzeit){
-		int zeile = (uhrzeit - k.getArbeitsbeginn())/k.getZeitslot() + 1;    //EInsbasierte Indexzählung 
+		int zeile = (uhrzeit - getArbeitsbeginn())/getZeitslot() + 1;    //EInsbasierte Indexzählung 
 		int i;
-		for(i=0; i<=k.getAufteilung(); i++){
-			if((i+1)*k.getZeilenanzahlProSeite() >= zeile){
+		for(i=0; i<=getAufteilung(); i++){
+			if((i+1)*getZeilenAnzahlProSeite() >= zeile){
 				break;
 			}
 		}
@@ -104,7 +104,7 @@ public class TerminLogik {
 
 		int i;
 		for (i = 0; i < freieTermine.size() - 1; i++) {
-			if (freieTermine.get(i + 1).getUhrzeit() != freieTermine.get(i).getUhrzeit() + k.getZeitslot()) {
+			if (freieTermine.get(i + 1).getUhrzeit() != freieTermine.get(i).getUhrzeit() + getZeitslot()) {
 				in.setEnde(freieTermine.get(i).getUhrzeit());	
 				intervallListe.add(in);
 				in = new Intervall();
@@ -137,10 +137,6 @@ public class TerminLogik {
 		
 	}
 	
-
-	public int getZeilenAnzahlProSeite(){
-		return k.getZeilenanzahlProSeite();
-	}
 	
 	public ArrayList<Integer> kundenIDLaden(String eingabe){
 		return terminDb.kundenIdLaden(eingabe);
@@ -160,7 +156,23 @@ public class TerminLogik {
 	}
 	
 	public int getZeitslot(){
-		return k.getZeitslot();
+		return AdministratorLogik.getZeitslot();
+	}
+	
+	public int getZeilenAnzahlProSeite(){
+		return AdministratorLogik.getZeilenanzahlProSeite();
+	}
+	
+	public int getArbeitsbeginn(){
+		return AdministratorLogik.getArbeitsbeginn();
+	}
+	
+	public int getArbeitsende(){
+		return AdministratorLogik.getArbeitsende();
+	}
+	
+	public int getAufteilung(){
+		return AdministratorLogik.getAufteilung();
 	}
 	
 }

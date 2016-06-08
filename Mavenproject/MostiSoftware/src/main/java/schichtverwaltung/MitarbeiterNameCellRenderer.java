@@ -1,4 +1,4 @@
-package administratorverwaltung;
+package schichtverwaltung;
 
 import java.awt.Component;
 

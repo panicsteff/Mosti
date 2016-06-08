@@ -4,7 +4,7 @@ import static org.junit.Assert.*;
 
 import org.junit.Test;
 
-import administratorverwaltung.SchichtLogik;
+import schichtverwaltung.SchichtLogik;
 
 public class MitarbeiterNamenLadenTest {
 

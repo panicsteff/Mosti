@@ -2,7 +2,6 @@
 package account;
 
 import gui.dienstleistungverwaltung.DLVerwaltungFrame;
-import gui.kassenfunktion.KassenFrame;
 import gui.produktverwaltung.LagerVerwaltungFrame;
 import gui.terminplanung.TagFrame;
 import gui.terminplanung.TerminplanungsFrame;
@@ -21,16 +20,16 @@ import javax.swing.JFrame;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JSeparator;
 
 import kundenverwaltung.KundenVerwaltung;
 import logik.dienstleistungverwaltung.DLSortiment;
 import logik.produktverwaltung.ProduktSortiment;
 import logik.trester.Tresterverwaltung;
-import logik.verkaufsverwaltung.Verkaufsverwaltung;
 import mitarbeiterverwaltung.MitarbeiterVerwaltung;
-import administratorverwaltung.SchichtplanungsFrame;
+import schichtverwaltung.SchichtplanungsFrame;
+import administratorverwaltung.ÜbersichtFrame;
 
 public class M_Startseite extends JFrame {
 
@@ -59,7 +58,6 @@ public class M_Startseite extends JFrame {
 		
 		kassenButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				//KassenFrame k = new KassenFrame(dlSorti,pSorti, new Verkaufsverwaltung());
 				new TagFrame(new Date().getTime(), 1, M_Startseite.this, 0);
 			}
 		});
@@ -131,6 +129,15 @@ public class M_Startseite extends JFrame {
 				//KassenFrame k = new KassenFrame(dlSorti,pSorti, new Verkaufsverwaltung());
 			}
 		});
+		JMenuItem adminwerte = new JMenuItem("Adminwerte bearbeiten");
+		mDatei.add(new JSeparator());
+		mDatei.add(adminwerte);
+		adminwerte.setVisible(isAdmin);
+		adminwerte.addActionListener(new ActionListener(){
+			public void actionPerformed(ActionEvent e){
+				new ÜbersichtFrame();
+			}
+		});
 
 		//mDatei.add(new JSeparator());
 		//JMenuItem kunden = new JMenuItem("Kunden pflegen");
@@ -184,14 +191,11 @@ public class M_Startseite extends JFrame {
 				new SchichtplanungsFrame();
 			}
 		});
-		
+			
 
 		add(panel);
 		setVisible(true);
 	}
 
-//	public static void main(String[] args) {
-//		M_Startseite startseite = new M_Startseite();
-//	}
 
 }

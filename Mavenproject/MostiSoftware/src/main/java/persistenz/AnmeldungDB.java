@@ -2,6 +2,7 @@ package persistenz;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -9,13 +10,18 @@ import java.sql.Statement;
 public class AnmeldungDB {
 	private Connection conn;
 	
+	public AnmeldungDB(){
+		try {
+			conn = DriverManager
+					.getConnection("jdbc:ucanaccess://./Mosti-Datenkank.mdb");
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} 
+	}
 
 	public String mitarbeiterSuchen(String benutzernameEingabe) {
      String benutzername = "";
 		try {
-			conn = DriverManager
-					
-					.getConnection("jdbc:ucanaccess://./Mosti-Datenkank.mdb");
 			Statement s = conn.createStatement();
 			ResultSet rs = s
 					.executeQuery("SELECT * FROM [mitarbeiter] Where Benutzername = \""
@@ -39,16 +45,10 @@ public class AnmeldungDB {
 		String passwort = "";
 	
 		try {
-			conn = DriverManager
-					
-					.getConnection("jdbc:ucanaccess://./Mosti-Datenkank.mdb");
 			Statement s = conn.createStatement();
 			ResultSet rs = s
 					.executeQuery("SELECT * FROM [mitarbeiter] Where Benutzername = \""
 							+ benutzername + '\"');
-
-			
-
 			while (rs.next()) {
 				passwort = rs.getString("Passwort");
 			
@@ -56,9 +56,38 @@ public class AnmeldungDB {
 		} catch (SQLException e) {
 			System.out.println(e);
 		}
-
 		return passwort;
-
+	}
+	
+	public String passwortLaden(int id){
+		String passwort = "";
+		try {
+			Statement s = conn.createStatement();
+			ResultSet rs = s
+					.executeQuery("SELECT * FROM [mitarbeiter] Where id = " + id);
+			while (rs.next()) {
+				passwort = rs.getString("Passwort");
+			}
+		} catch (SQLException e) {
+			System.out.println(e);
+		}
+		return passwort;
+	}
+	
+	public void updatePasswort(String passwort, int id){
+		
+		PreparedStatement s = null;
+		try {
+			s = conn.prepareStatement("update mitarbeiter set passwort = ? where id = ? ");
+			s.setString(1, passwort);
+			s.setInt(2, id);
+			
+			s.executeUpdate();
+			s.close();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 	}
 }
 

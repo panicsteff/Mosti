@@ -7,24 +7,22 @@ import javax.swing.JOptionPane;
 
 public class TagFrameController {
 
-	private Konfigurationswerte k;
 	private TerminLogik  terminlogik;
 	
 	public TagFrameController(){
-		k = new Konfigurationswerte();
 		terminlogik = new TerminLogik();
 	}
 	
 	public int berechneAnzahlZeitslots(int dauer){
-		return dauer/k.getZeitslot();
+		return dauer/terminlogik.getZeitslot();
 	}
 	
 	public int getZeile(int pos, int anzeigeseite){
-		return pos + (anzeigeseite - 1) * k.getZeilenanzahlProSeite();
+		return pos + (anzeigeseite - 1) * terminlogik.getZeilenAnzahlProSeite();
 	}
 	
 	public int anzahlAlleTermine(){
-		return k.getZeilenanzahlProSeite()* k.getAufteilung();
+		return terminlogik.getZeilenAnzahlProSeite()* terminlogik.getAufteilung();
 	}
 	
 	public boolean istTerminFrei(ArrayList<Termin> termine){
@@ -56,7 +54,7 @@ public class TagFrameController {
 	}
 	
 	public boolean isSpaeterEnabled(int anzeigeseite){
-		if(anzeigeseite == k.getAufteilung()){
+		if(anzeigeseite == terminlogik.getAufteilung()){
 			return false;
 		} else{
 			return true;
@@ -64,7 +62,7 @@ public class TagFrameController {
 	}
 	
 	public int getTermindauer(int anzahlZeitslots){
-		return anzahlZeitslots * k.getZeitslot();
+		return anzahlZeitslots * terminlogik.getZeitslot();
 	}
 	
 	
