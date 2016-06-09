@@ -4,13 +4,17 @@ import gui.kassenfunktion.KassenFrame;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.sql.Date;
 import java.util.ArrayList;
 
 import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
@@ -84,6 +88,46 @@ public class TagFrame extends JFrame {
 		}
 	}
 	
+	class MyKeyListener extends KeyAdapter {
+		public void keyTyped(KeyEvent k) {
+			
+			boolean delete = false;
+			
+			char c = k.getKeyChar();
+			if (c >= 65 && c <= 90 || c >= 97 && c <= 122) {
+				eingabe = eingabe + c;
+				delete = false;
+			}
+			if (c == '\b') {
+				if (eingabe.length() > 0) {
+					eingabe = eingabe.substring(0, eingabe.length() - 1);
+					delete = true;
+				}
+			}
+			if(eingabe != ""){
+				tresterKunde.showPopup();
+				kundenIds = tagframecontroller.kundenIdLaden(eingabe);
+				tresterKunde.removeAllItems();
+				
+				for(Integer i : kundenIds){
+					tresterKunde.addItem(tagframecontroller.kundenNameLaden(i));
+				}
+				tresterKunde.setSelectedItem(null);
+				if(delete == true){
+					tresterKunde.getEditor().setItem(eingabe);
+				}else{
+					if(eingabe.length() - 1 >= 0){
+						tresterKunde.getEditor().setItem(eingabe.substring(0, eingabe.length() - 1));
+					}
+					
+				}
+			}else{
+				tresterKunde.hidePopup();
+			}
+			
+		}
+	}
+	
 	class MySpäterHandler implements ActionListener{
 
 		public void actionPerformed(ActionEvent arg0) {
@@ -119,18 +163,24 @@ public class TagFrame extends JFrame {
 	private Date datum;
 	private int anzeigeseite;
 	private int dauer;
+	private String eingabe;
 	private ListSelectionModel terminSelectionModel;
 	private TermineCellRenderer termineCellRenderer;
 	private KundenNameCellRenderer kundenNameCellRenderer;
 	private JFrame parent;
 	private JButton cmdFrueher;
 	private JButton cmdSpaeter;
+	private JComboBox<String> tresterKunde;
+	private ArrayList<Integer> kundenIds;
+	private boolean neu;
 
 	public TagFrame(long d, int as, JFrame p, int länge) {
 		parent = p;
 		datum = new Date(d);
 		anzeigeseite = as;
 		dauer = länge;
+		eingabe = "";
+		kundenIds = new ArrayList<Integer>();
 
 		tagframecontroller = new TagFrameController();
 
@@ -178,6 +228,40 @@ public class TagFrame extends JFrame {
 		cmdSpaeter.setEnabled(enabled);
 		cmdSpaeter.addActionListener(new MySpäterHandler());
 
+		JLabel kunde = new JLabel("Tresterkunde: ");
+		kunde.setBounds(20, 500, 200, 40);
+		add(kunde);
+		
+		tresterKunde = new JComboBox<String>();
+		tresterKunde.setBounds(230, 500, 200, 40);
+		tresterKunde.setEditable(true);
+		add(tresterKunde);
+		tresterKunde.getEditor().getEditorComponent().addKeyListener(new MyKeyListener());
+		int kundenId = tagframecontroller.tresterKundeLaden(datum);
+		neu = false;
+		if(kundenId == 0){
+			neu = true;
+		}
+		tresterKunde.getEditor().setItem(tagframecontroller.kundenNameLaden(kundenId));
+		
+		JButton speichern = new JButton("Tresterkunde speichern");
+		speichern.setBounds(20, 550, 200, 40);;
+		add(speichern);
+		speichern.addActionListener(new ActionListener(){
+			public void actionPerformed(ActionEvent e){
+				if(tresterKunde.getEditor().getItem().equals("")){
+					tagframecontroller.tresterKundeLöschen(datum);
+					return;
+				}
+				int index = tresterKunde.getSelectedIndex();
+				if(index < 0){								//Combobox wurde nicht angeworfen und es hat sich nix geändert
+					return;
+				}
+				int kundenId = kundenIds.get(index);
+				tagframecontroller.tresterKundeSpeichern(datum, kundenId, neu);
+			}
+		});
+		
 		setVisible(true);
 
 	}

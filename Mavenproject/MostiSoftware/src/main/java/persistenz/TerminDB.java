@@ -32,7 +32,7 @@ public class TerminDB {
 			
 			Statement s = conn.createStatement();
 			ResultSet rs = s
-					.executeQuery("SELECT  ID, kundenId, AnzahlZeitslot, Datum, Beginn FROM [termine] Where Datum  "
+					.executeQuery("SELECT * FROM [termine] Where Datum  "
 							+ "BETWEEN{ts '"
 							+ datum
 							+ " 00:00:00'} AND {ts '"
@@ -44,7 +44,7 @@ public class TerminDB {
 				t.setKundenId(rs.getInt("kundenId"));
 				t.setAnzahlZeitslots(rs.getInt("AnzahlZeitslot"));
 				t.setUhrzeit(rs.getInt("Beginn"));
-				t.setDatum(rs.getDate("datum"));
+				t.setDatum(rs.getDate("Datum"));
 				terminliste.add(t);
 			}
 			s.close();
@@ -140,5 +140,78 @@ public class TerminDB {
 			e.printStackTrace();
 		}
 	}
+	
+	public int tresterKundeLaden(Date datum){
+		
+		int kundenId = 0;
+		
+		try {
+			Statement s = conn.createStatement();
+			ResultSet rs = s.executeQuery("SELECT * FROM [trestertermine] Where Datum  "
+							+ "BETWEEN{ts '" + datum + " 00:00:00'} AND {ts '"
+							+ datum + " 23:59:59'} ");
+			while(rs.next()){
+				kundenId = rs.getInt("kundenId");
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return kundenId;
+	}
+	
+	public void tresterKundeNeuSpeichern(Date d, int kundenId) {
+
+		try {
+			PreparedStatement s = null;
+
+			s = conn.prepareStatement("Insert into trestertermine (Datum, kundenId) VALUES (?,?)");
+			s.setDate(1, d);
+			s.setInt(2, kundenId);
+			
+			s.executeUpdate();
+
+			s.close();
+
+		} catch (Exception e) {
+			System.out.println(e);
+		}
+	}
+	
+	public void tresterkundeUpdaten(Date d, int kundenId){
+		
+		try{
+			PreparedStatement s = null;
+			
+			s = conn.prepareStatement("Update trestertermine set kundenid = ? where Datum = ?");
+			s.setInt(1, kundenId);
+			s.setDate(2, d);
+			
+			s.executeUpdate();
+			s.close();
+			
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+	}
+	
+	public void tresterKundeLöschen(Date datum){
+		
+		try{
+			PreparedStatement s = null;
+			s = conn.prepareStatement("Delete from trestertermine where datum BETWEEN{ts '"
+							+ datum	+ " 00:00:00'} AND {ts '"
+							+ datum + " 23:59:59'} ");
+			
+			s.executeUpdate();
+			s.close();
+			
+			
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+	}
+
 
 }

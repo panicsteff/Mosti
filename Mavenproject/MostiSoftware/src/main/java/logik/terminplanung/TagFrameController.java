@@ -65,6 +65,26 @@ public class TagFrameController {
 		return anzahlZeitslots * terminlogik.getZeitslot();
 	}
 	
+	public int tresterKundeLaden(Date d){
+		return terminlogik.tresterKundeLaden(d);
+	}
+	
+	public ArrayList<Integer> kundenIdLaden(String eingabe){
+		return terminlogik.kundenIDLaden(eingabe);
+	}
+	
+	public String kundenNameLaden(int id){
+		return terminlogik.kundenNamenLaden(id);
+	}
+	
+	public void tresterKundeSpeichern(Date d, int kundenId, boolean neu){
+		terminlogik.tresterKundeSpeichern(d, kundenId, neu);
+	}
+	
+	public void tresterKundeLöschen(Date d){
+		terminlogik.tresterKundeLöschen(d);
+	}
+	
 	
 	
 }

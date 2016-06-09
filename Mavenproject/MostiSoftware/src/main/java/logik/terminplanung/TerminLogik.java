@@ -155,6 +155,19 @@ public class TerminLogik {
 		TerminDB.terminLöschen(t.getTerminId());
 	}
 	
+	public int tresterKundeLaden(Date d){
+		return terminDb.tresterKundeLaden(d);
+	}
+	
+	public void tresterKundeSpeichern(Date d, int kundenId, boolean neu){
+		if(neu == true)
+		terminDb.tresterKundeNeuSpeichern(d, kundenId);
+	}
+	
+	public void tresterKundeLöschen(Date d){
+		terminDb.tresterKundeLöschen(d);
+	}
+	
 	public int getZeitslot(){
 		return AdministratorLogik.getZeitslot();
 	}
