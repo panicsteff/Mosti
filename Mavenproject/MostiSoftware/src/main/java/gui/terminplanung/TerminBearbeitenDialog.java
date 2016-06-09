@@ -71,7 +71,7 @@ public class TerminBearbeitenDialog extends JDialog{
 		add(dauertxt);
 		
 		JButton löschen = new JButton("Löschen");
-		löschen.setBounds(0, 160, 100, 40);
+		löschen.setBounds(0, 160, 200, 40);
 		add(löschen);
 		löschen.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent arg0) {
@@ -88,12 +88,12 @@ public class TerminBearbeitenDialog extends JDialog{
 			}
 		});
 		
-		JButton verschieben = new JButton("Verschieben");
-		verschieben.setBounds(100, 160, 100, 40);
+		JButton verschieben = new JButton("Ok");
+		verschieben.setBounds(200, 160, 200, 40);
 		add(verschieben);
 		verschieben.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e){
-				
+				TerminBearbeitenDialog.this.dispose();
 			}
 		});
 		

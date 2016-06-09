@@ -7,6 +7,7 @@ import java.util.GregorianCalendar;
 import java.util.function.Predicate;
 
 import kundenverwaltung.Formats;
+import administratorverwaltung.AdministratorLogik;
 
 public class TerminHinzufügenLogik {
 	
@@ -14,6 +15,7 @@ public class TerminHinzufügenLogik {
 	
 	public TerminHinzufügenLogik(){
 		terminlogik = new TerminLogik();
+		new AdministratorLogik();
 	}
 
 	public long nächstenTagBerechnen(long datum){
@@ -60,10 +62,13 @@ public class TerminHinzufügenLogik {
 		return terminlogik.berechneAnzeigeSeite(terminzeile);
 	}
 	
-	public int berechneTermindauer(String s) throws ParseException{
+	public int berechneTermindauer(String s, boolean flaschen) throws ParseException{
 		
 		int obstmenge = Integer.parseInt(s);
-		double dauer = obstmenge*5;
+		double dauer = obstmenge*AdministratorLogik.getPressdauer();
+		if(flaschen == true){
+			dauer = dauer*AdministratorLogik.getAbfülldauer();
+		}
 		int zeitslot = terminlogik.getZeitslot();
 		if(dauer%zeitslot == 0){						
 			return (int) dauer;

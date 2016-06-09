@@ -2,16 +2,13 @@ package logik.terminplanung;
 
 import java.sql.Date;
 
-
-
 public class Termin {
 
 	private int kundenId;
 	private int terminId;
 	private Date datum;
 	private int anzahlZeitslots;
-	private int uhrzeit;
-	
+	private int uhrzeit;	
 	
 	public int getKundenId(){
 		return kundenId;
@@ -52,9 +49,6 @@ public class Termin {
 	public void setUhrzeit(int uhrzeit) {
 		this.uhrzeit = uhrzeit;
 	}
-	
-	
-
 
 
 }

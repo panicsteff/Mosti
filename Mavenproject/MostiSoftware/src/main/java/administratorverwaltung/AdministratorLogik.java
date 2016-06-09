@@ -14,12 +14,15 @@ public class AdministratorLogik {
 	private static int mitarbeiterProSchicht;
 	private static int schichtenProTag;
 	private static int schichtDauer;
+	private static double pressdauer;
+	private static double abfülldauer;
 	
 	public AdministratorLogik(){
 		administratorDB = new AdministratorDB();
 		
 		ArrayList<Integer> terminwerte = administratorDB.terminWerteLaden();
 		ArrayList<Integer> schichtwerte = administratorDB.schichtWerteLaden();
+		ArrayList<Double> presswerte = administratorDB.pressWerteLaden();
 		
 		setZeitslot(terminwerte.get(0));
 		setArbeitsbeginn(terminwerte.get(1));
@@ -30,6 +33,9 @@ public class AdministratorLogik {
 		setMitarbeiterProSchicht(schichtwerte.get(0));
 		setSchichtenProTag(schichtwerte.get(1));
 		setSchichtDauer((arbeitsende-arbeitsbeginn)/schichtenProTag);
+		
+		setPressdauer(presswerte.get(0));
+		setAbfülldauer(presswerte.get(1));
 	}
 	
 	public ArrayList<Integer> terminWerteLaden(){
@@ -104,9 +110,27 @@ public class AdministratorLogik {
 		AdministratorLogik.schichtDauer = schichtDauer;
 	}
 	
-	public void datenSpeichern(int anzeige, int zeitslot, int beginn, int ende, int mitProSchicht, int schichtenProTag){
+	public void datenSpeichern(int anzeige, int zeitslot, int beginn, int ende, int mitProSchicht,
+			int schichtenProTag, double pressdauer, double abfülldauer){
 		administratorDB.terminWerteSpeichern(anzeige, zeitslot, beginn, ende);
 		administratorDB.schichtWerteSpeichern(mitProSchicht, schichtenProTag);
+		administratorDB.pressWerteSpeichern(pressdauer, abfülldauer);
+	}
+
+	public static double getPressdauer() {
+		return pressdauer;
+	}
+
+	public static void setPressdauer(double pressdauer) {
+		AdministratorLogik.pressdauer = pressdauer;
+	}
+
+	public static double getAbfülldauer() {
+		return abfülldauer;
+	}
+
+	public static void setAbfülldauer(double abfülldauer) {
+		AdministratorLogik.abfülldauer = abfülldauer;
 	}
 	
 }

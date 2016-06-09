@@ -18,6 +18,8 @@ public class ÜbersichtFrame extends JFrame{
 	private JTextField endetxt;
 	private JTextField zeitslottxt;
 	private JTextField anzeigetxt;
+	private JTextField pressdauertxt;
+	private JTextField abfülldauertxt;
 	private AdministratorLogik al;
 	
 	
@@ -85,8 +87,24 @@ public class ÜbersichtFrame extends JFrame{
 		anzeigetxt.setBounds(200, 310, 160, 30);
 		add(anzeigetxt);
 		
+		JLabel pressdauer = new JLabel("Presszeit für einen Zentner Obst in min: ");
+		pressdauer.setBounds(10,350,160,30);
+		add(pressdauer);
+		
+		pressdauertxt = new JTextField(AdministratorLogik.getPressdauer() + "");
+		pressdauertxt.setBounds(200, 350, 160, 30);
+		add(pressdauertxt);
+		
+		JLabel abfülldauer = new JLabel("Abfülldauer für Flaschen: ");
+		abfülldauer.setBounds(10,390,180,30);
+		add(abfülldauer);
+		
+		abfülldauertxt = new JTextField(AdministratorLogik.getAufteilung() + "");
+		abfülldauertxt.setBounds(200, 390, 160, 30);
+		add(abfülldauertxt);
+		
 		JButton speichern = new JButton("Speichern");
-		speichern.setBounds(10, 360, 200, 40);
+		speichern.setBounds(10, 440, 200, 40);
 		add(speichern);
 		speichern.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e){
@@ -96,13 +114,16 @@ public class ÜbersichtFrame extends JFrame{
 				}
 				if(result == JOptionPane.YES_OPTION){
 					int anzeige, zeitslot, beginn, ende, mitProSchicht, schichtenProTag;
+					double pressdauer, abfülldauer;
 					try{
-						anzeige = Integer.parseInt(anzeigetxt.getText());
-						zeitslot = Integer.parseInt(zeitslottxt.getText());
+						anzeige = Integer.parseInt(abfülldauertxt.getText());
+						zeitslot = Integer.parseInt(pressdauertxt.getText());
 						beginn = Integer.parseInt(beginntxt.getText());
 						ende = Integer.parseInt(endetxt.getText());
 						mitProSchicht = Integer.parseInt(mitProSchichttxt.getText());
 						schichtenProTag = Integer.parseInt(schichtenProTagtxt.getText());
+						pressdauer = Double.parseDouble(pressdauertxt.getText());
+						abfülldauer = Double.parseDouble(abfülldauertxt.getText());
 					}catch(Exception ex){
 						ex.printStackTrace();
 						return;
@@ -117,14 +138,14 @@ public class ÜbersichtFrame extends JFrame{
 								+ " Bitte wählen Sei eine andere Aufteilung");
 						return;
 					}
-					al.datenSpeichern(anzeige, zeitslot, beginn, ende, mitProSchicht, schichtenProTag);
+					al.datenSpeichern(anzeige, zeitslot, beginn, ende, mitProSchicht, schichtenProTag, pressdauer, abfülldauer);
 					ÜbersichtFrame.this.dispose();
 				}
 			}
 		});
 		
 		JButton abbrechen = new JButton("Abbrechen");
-		abbrechen.setBounds(240, 360, 200, 40);
+		abbrechen.setBounds(240, 440, 200, 40);
 		add(abbrechen);
 		abbrechen.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e){

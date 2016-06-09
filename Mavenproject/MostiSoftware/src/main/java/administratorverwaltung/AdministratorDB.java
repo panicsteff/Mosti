@@ -78,10 +78,6 @@ public class AdministratorDB {
 				adminwerte.add(i);
 				i = rs.getInt("SchichtenProTag");
 				adminwerte.add(i);
-				i = rs.getInt("Arbeitsbeginn");
-				adminwerte.add(i);
-				i = rs.getInt("Arbeitsende");
-				adminwerte.add(i);
 			}
 			s.close();
 
@@ -100,6 +96,45 @@ public class AdministratorDB {
 			s = conn.prepareStatement("update adminwerte set MitarbeiterProSchicht = ?, SchichtenProTag = ?  where id = 1");
 			s.setInt(1, mitProSchicht);
 			s.setInt(2, schichtenProTag);
+			
+			s.executeUpdate();
+			s.close();
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	ArrayList<Double> pressWerteLaden() {
+
+		ArrayList<Double> adminwerte = new ArrayList<Double>();
+		try {
+			Statement s = conn.createStatement();
+			ResultSet rs = s.executeQuery("SELECT * FROM [Adminwerte] where id = 1");
+
+			while (rs.next()) {
+				Double d = rs.getDouble("Pressdauer");
+				adminwerte.add(d);
+				d = rs.getDouble("abfülldauer");
+				adminwerte.add(d);
+			}
+			s.close();
+
+		} catch (Exception e) {
+			System.out.println(e);
+
+		}
+
+		return adminwerte;
+	}
+	
+	public void pressWerteSpeichern(double pressdauer, double abfülldauer) {
+
+		try {
+			PreparedStatement s = null;
+			s = conn.prepareStatement("update adminwerte set Pressdauer = ?, abfülldauer = ?  where id = 1");
+			s.setDouble(1, pressdauer);
+			s.setDouble(2, abfülldauer);
 			
 			s.executeUpdate();
 			s.close();

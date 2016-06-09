@@ -5,12 +5,13 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.sql.Date;
 import java.text.ParseException;
 import java.util.ArrayList;
-import java.sql.Date;
 
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
+import javax.swing.JCheckBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -48,7 +49,7 @@ public class TerminHinzufügenFrame extends JFrame{
 				if(s.equals("")){
 					JOptionPane.showMessageDialog(TerminHinzufügenFrame.this, "Bitte geben sie eine Obstmenge ein");
 				}else{
-					länge = terminhinzufügenLogik.berechneTermindauer(s);
+					länge = terminhinzufügenLogik.berechneTermindauer(s, flasche.isSelected());
 					dauer.setEnabled(true);
 					txtdauer.setEnabled(true);
 					txtdauer.setText(länge + "");
@@ -102,6 +103,7 @@ public class TerminHinzufügenFrame extends JFrame{
 	private static final long serialVersionUID = 1L;
 	private TerminHinzufügenLogik terminhinzufügenLogik;
 	private ArrayList<Termin> freieTermine;
+	private JCheckBox flasche;
 	private JTextField txtmenge;
 	private JLabel dauer;
 	private JTextField txtdauer;
@@ -134,18 +136,22 @@ public class TerminHinzufügenFrame extends JFrame{
 		txtmenge.setBounds(150, 10, 100, 20);
 		add(txtmenge);
 		
+		flasche = new JCheckBox("Abfüllung in Flaschen");
+		flasche.setBounds(100, 40, 200, 20);
+		add(flasche);
+		
 		JButton dauerberechnen = new JButton("Termindauer berechnen");
-		dauerberechnen.setBounds(25, 50, 200, 20);
+		dauerberechnen.setBounds(25, 70, 200, 20);
 		dauerberechnen.addActionListener(new MyBerechnenHandler());
 		add(dauerberechnen);
 		
 		dauer = new JLabel("Presszeit in Minuten:");
-		dauer.setBounds(10, 90, 150, 20);
+		dauer.setBounds(10, 110, 150, 20);
 		dauer.setEnabled(false);
 		add(dauer);
 		
 		txtdauer = new JTextField();
-		txtdauer.setBounds(150, 90, 100, 20);
+		txtdauer.setBounds(150, 110, 100, 20);
 		txtdauer.setEnabled(false);
 		add(txtdauer);
 		
@@ -158,7 +164,7 @@ public class TerminHinzufügenFrame extends JFrame{
 		
 		JScrollPane scrollpane = new JScrollPane(verfügbarTabelle);
 		titlepane = new JPanel();
-		titlepane.setBounds(10, 130, 200, 200);
+		titlepane.setBounds(10, 150, 200, 200);
 		titlepane.setBorder(BorderFactory.createTitledBorder(BorderFactory.createEtchedBorder(), "Freie Termine"));
 		titlepane.setLayout(new BorderLayout());
 		titlepane.add(scrollpane);
@@ -167,17 +173,21 @@ public class TerminHinzufügenFrame extends JFrame{
 		
 		spaeter = new JButton("Nächster Tag");
 		spaeter.addActionListener(new MySpäterHandler());
-		spaeter.setBounds(170, 350, 150, 30);
+		spaeter.setBounds(140, 370, 120, 30);
 		spaeter.setEnabled(false);
 		add(spaeter);
 		
 		frueher = new JButton("Vorheriger Tag");
 		frueher.addActionListener(new MyFrüherHandler());
-		frueher.setBounds(10, 350, 150, 30);
+		frueher.setBounds(10, 370, 120, 30);
 		frueher.setEnabled(false);
 		add(frueher);
 		
 		setVisible(true);
+	}
+	
+	public static void main(String[] avgs){
+		new TerminHinzufügenFrame(1l);
 	}
 	
 }
