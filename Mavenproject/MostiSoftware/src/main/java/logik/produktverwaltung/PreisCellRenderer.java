@@ -24,8 +24,8 @@ public class PreisCellRenderer extends DefaultTableCellRenderer.UIResource {
 		super.getTableCellRendererComponent(table, value, isselected, hasfocus,
 				row, column);
 
-		double gehalt = (Double) value;
-		String s = format.format(gehalt);
+		double preis = (Double) value;
+		String s = format.format(preis);
 		setText(s);
 		return this;
 	}

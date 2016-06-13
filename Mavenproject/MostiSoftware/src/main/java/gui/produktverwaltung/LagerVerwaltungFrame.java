@@ -57,24 +57,6 @@ public class LagerVerwaltungFrame extends JFrame {
 		menubar.add(datei);
 		datei.addSeparator();
 
-//		miSpeichern = new JMenuItem("Produktangebot speichern");
-//		datei.add(miSpeichern);
-//		miSpeichern.addActionListener(new ActionListener() {
-//
-//			public void actionPerformed(ActionEvent e) {
-//				try {
-//					pSortiment.createSpecialLists();
-//					pSortiment.printGesamtListe();
-//					// a.produkteSpeichern();
-//
-//				} catch (Exception ex) {
-//					System.out.println(e);
-//				}
-//			}
-//		});
-
-		datei.addSeparator();
-
 		JMenuItem beenden = new JMenuItem("Beenden");
 		datei.add(beenden);
 

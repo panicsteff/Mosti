@@ -43,7 +43,7 @@ class DLBearbeitenFrame extends JDialog {
 		NumberFormatter nuf = new NumberFormatter(FoFormat.pf);
 		NullableFormatter nf = new NullableFormatter(nuf);
 		txtPreis = new JFormattedTextField(nf);
-		txtPreis.setValue(dienstleistung.getPreis());
+		txtPreis.setValue(dienstleistung.getPreis()*100); // *100, da sonst fehlerhafter Wert durch CellRenderer
 		add(txtPreis);
 
 		JButton okButton = new JButton("OK");
