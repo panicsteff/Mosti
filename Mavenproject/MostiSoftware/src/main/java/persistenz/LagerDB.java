@@ -114,4 +114,29 @@ public class LagerDB {
 		}
 
 	}
+	
+	
+	public void verkaufsmengeUpdaten(String name, int neueVerkaufsmenge) {
+
+		try {
+			conn = DriverManager
+					.getConnection("jdbc:ucanaccess://./Mosti-Datenkank.mdb");
+			PreparedStatement s = null;
+			//int i = 1;
+
+				s = conn.prepareStatement("update produkte set vorratsmenge = ? where produktname = ? ");
+				s.setInt(1, neueVerkaufsmenge);
+				s.setString(2, name);
+
+				s.executeUpdate();
+
+			s.close();
+
+		} catch (Exception e) {
+			System.out.println(e);
+		}
+			
+
+			
+	}
 }

@@ -39,6 +39,10 @@ public class ProduktSortiment {
 		lagerdb.produkteUpdaten(gesamtProduktSortiment);
 	}
 	
+	public void updateVerkaufsmengeVonProdukt(String name, int neueMenge){
+		lagerdb.verkaufsmengeUpdaten(name, neueMenge);
+	}
+	
 	public void addProdukt(Produkt p) {
 		lagerdb.produktHinzufügen(p);
 		gesamtProduktSortiment.add(p);

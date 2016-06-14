@@ -27,6 +27,7 @@ import javax.swing.event.ListSelectionListener;
 import javax.swing.table.TableCellEditor;
 import javax.swing.table.TableColumnModel;
 
+import persistenz.LagerDB;
 import kundenverwaltung.Kunde;
 import kundenverwaltung.KundeDB;
 import logik.dienstleistungverwaltung.DLSortiment;
@@ -56,7 +57,7 @@ public class KassenFrame extends JFrame {
 	private ArrayList<Produkt> aliste;
 	private ArrayList<Produkt> zliste;
 	private ArrayList<Dienstleistung> dienstleistungen;
-	private Verkauf einkauf;
+	private Verkauf verkauf;
 	private Verkaufsposition DLposition;
 	private Verkaufsposition produktPosition;
 	private int literzahl;
@@ -64,6 +65,7 @@ public class KassenFrame extends JFrame {
 	private ArrayList<Verkaufsposition> einkaufsliste;
 	private Verkaufsverwaltung vVerwaltung;
 	private KundeDB kundeDB; 
+	private ProduktSortiment psortiment;
 	
 	private TableColumnModel columnModel1;
 	private TableColumnModel columnModel2;
@@ -73,7 +75,8 @@ public class KassenFrame extends JFrame {
 
 	public KassenFrame(DLSortiment dlsortiment,ProduktSortiment psortiment,
 			Verkaufsverwaltung verkaufsverwaltung, int kundenId) {
-
+		
+		this.psortiment = psortiment;
 		aliste = psortiment.getAbfuellSortiment();
 		zliste = psortiment.getZProduktSortiment();
 		dienstleistungen = dlsortiment.getDLSortiment();
@@ -195,12 +198,6 @@ public class KassenFrame extends JFrame {
 		columnModel1 = dienstTable.getColumnModel();
 		columnModel1.setColumnSelectionAllowed(true);
 		
-		dienstTable.addMouseListener(new MouseAdapter() {
-			public void mousePressed(MouseEvent event) {
-				markiereZellinhalt(dienstTable);	
-			}
-		});
-		
 		listSelectionModel2 = abfüllTable.getSelectionModel();
 		listSelectionModel2
 				.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
@@ -262,23 +259,6 @@ public class KassenFrame extends JFrame {
 				zusatzTableModel.berechneTeilpreis());
 	}
 
-	private void initVerkaufsmengen() {
-		for (Dienstleistung d : dienstleistungen) {
-			if (d.getLiterzahl() != 0)
-				d.setLiterzahl(0);
-		}
-
-		for (Produkt p : aliste) {
-			if (p.getVerkaufsMenge() != 0)
-				p.setVerkaufsMenge(0);
-		}
-
-		for (Produkt p : zliste) {
-			if (p.getVerkaufsMenge() != 0)
-				p.setVerkaufsMenge(0);
-		}
-	}
-
 	private class EinkaufAbschließenHandler implements ActionListener {
 
 		public void actionPerformed(ActionEvent arg0) {
@@ -286,13 +266,13 @@ public class KassenFrame extends JFrame {
 			dlZuEinkauf(dienstleistungen); // gekaufte DL hinzufügen
 			produkteZuEinkauf(aliste); // gekaufte Abfüllmaterialien hinzufügen
 			produkteZuEinkauf(zliste); // gekaufte Zusatzprodukte hinzufügen
-			//new VerkäufeFrame(einkaufsliste);
+			psortiment.updateProdukte();
 
 			java.util.Date datum = new Date();
 			java.sql.Date d = new java.sql.Date(datum.getTime());
 			System.out.println(d);
-			einkauf = new Verkauf(kunde, d, einkaufsliste);
-			vVerwaltung.addVerkauf(einkauf);
+			verkauf = new Verkauf(kunde, d, einkaufsliste);
+			vVerwaltung.addVerkauf(verkauf);
 
 //			total = berechneGesamtTotal();
 //			einkauf.setSumme(total);
@@ -313,6 +293,7 @@ public class KassenFrame extends JFrame {
 
 		// Selektiert den Inhalt der Zelle, sodass dieser überschrieben werden kann
 		Integer i = (Integer) table.getValueAt(row, col);
+		//if( i == null)
 		TableCellEditor cedit = table.getCellEditor(row,col);
 		Component tf = (Component) cedit.getTableCellEditorComponent(table, i, true, row, col);
 		if(tf instanceof JTextField) {
@@ -328,6 +309,7 @@ public class KassenFrame extends JFrame {
 				produktPosition = new Verkaufsposition(p.getName(),
 						p.getPreis(), p.getVerkaufsMenge(), p.getLiterzahl());
 				p.setVorratsmenge(p.getVorratsmenge()-p.getVerkaufsMenge());
+				psortiment.updateVerkaufsmengeVonProdukt(p.getName(), p.getVorratsmenge());
 				//einkauf.addEinkaufsposition(produktPosition);
 				einkaufsliste.add(produktPosition);
 				p.printVerkaufsposition();
@@ -347,6 +329,18 @@ public class KassenFrame extends JFrame {
 				literzahl = literzahl + d.getLiterzahl();
 				d.printVerkaufsposition();
 			}
+		}
+	}
+	
+	private void initVerkaufsmengen() {
+		for (Dienstleistung d : dienstleistungen) {
+			if (d.getLiterzahl() != 0) d.setLiterzahl(0);
+		}
+		for (Produkt p : aliste) {
+			if (p.getVerkaufsMenge() != 0) p.setVerkaufsMenge(0);
+		}
+		for (Produkt p : zliste) {
+			if (p.getVerkaufsMenge() != 0) p.setVerkaufsMenge(0);
 		}
 	}
 

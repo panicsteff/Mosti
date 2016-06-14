@@ -46,7 +46,7 @@ class ProduktBearbeitenFrame extends JDialog {
 		NumberFormatter nuf = new NumberFormatter(FoFormat.pf);
 		NullableFormatter nf = new NullableFormatter(nuf);
 		txtPreis = new JFormattedTextField(nf);
-		txtPreis.setValue(produkt.getPreis());
+		txtPreis.setValue(produkt.getPreis()*100);
 		add(txtPreis);
 
 		add(new JLabel("Aktuelle Menge:"));
