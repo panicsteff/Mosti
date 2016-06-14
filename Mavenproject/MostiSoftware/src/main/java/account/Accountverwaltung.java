@@ -32,11 +32,8 @@ public class Accountverwaltung{
 		}
 	}
 	
-	public boolean isAdmin(String benutzername){
-		if(benutzername.equals("Admin") || benutzername.equals("admin")){
-			return true;
-		}
-		return false;
+	public Mitarbeiter isAdmin(String benutzername){
+		return annmeldungDB.mitarbeiterLaden(benutzername);
 	}
 	
 	public boolean prüfePasswort(String alt, String neu, String wiederholt, int id){
@@ -45,7 +42,7 @@ public class Accountverwaltung{
 			return false;
 		}else{
 			if(neu.equals("") == true){
-				JOptionPane.showMessageDialog(null, "Bitte gebe Sie ein neues Passwort ein");
+				JOptionPane.showMessageDialog(null, "Bitte geben Sie ein neues Passwort ein");
 				return false;
 			}
 			if(neu.equals(wiederholt) == false){
@@ -58,24 +55,17 @@ public class Accountverwaltung{
 		}
 	}
 	
-	private String passwortVerschlüsseln(String passwort){ 
-		byte[] encodedBytes = Base64.encodeBase64(passwort.getBytes());		
-		return new String(encodedBytes);
-	}
 	
 	private String passwortEntschlüsseln(String passwort){
 		byte[] decodedBytes = Base64.decodeBase64(passwort.getBytes());
 		return new String(decodedBytes);
 	}
 	
-	public static void main(String[] avgs){
-		byte[] encodedBytes = Base64.encodeBase64("ultrageheim".getBytes());	
-		byte[] decodedBytes = Base64.decodeBase64(encodedBytes);
-		System.out.println("encoded: " + new String(encodedBytes));
-		System.out.println("decoded: " + new String(decodedBytes));
-		
-	}
 	
+	public static void main (String[]avgs){
+		byte[] decodedBytes = Base64.encodeBase64("ultrageheim".getBytes());
+		System.out.println(new String(decodedBytes));
+	}
 	
 	
 	

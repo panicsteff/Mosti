@@ -6,8 +6,8 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.function.Predicate;
 
+import logik.administratorverwaltung.AdministratorLogik;
 import persistenz.TerminDB;
-import administratorverwaltung.AdministratorLogik;
 
 
 public class TerminLogik {

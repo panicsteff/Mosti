@@ -1,4 +1,4 @@
-package administratorverwaltung;
+package persistenz;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -66,7 +66,7 @@ public class AdministratorDB {
 		}
 	}
 
-	ArrayList<Integer> schichtWerteLaden() {
+	public ArrayList<Integer> schichtWerteLaden() {
 
 		ArrayList<Integer> adminwerte = new ArrayList<Integer>();
 		try {
@@ -105,7 +105,7 @@ public class AdministratorDB {
 		}
 	}
 	
-	ArrayList<Double> pressWerteLaden() {
+	public ArrayList<Double> pressWerteLaden() {
 
 		ArrayList<Double> adminwerte = new ArrayList<Double>();
 		try {

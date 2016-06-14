@@ -7,6 +7,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
+import mitarbeiterverwaltung.Mitarbeiter;
+
 public class AnmeldungDB {
 	private Connection conn;
 	
@@ -19,8 +21,8 @@ public class AnmeldungDB {
 		} 
 	}
 
-	public String mitarbeiterSuchen(String benutzernameEingabe) {
-     String benutzername = "";
+	public Mitarbeiter mitarbeiterLaden(String benutzernameEingabe) {
+     Mitarbeiter mitarbeiter = new Mitarbeiter();
 		try {
 			Statement s = conn.createStatement();
 			ResultSet rs = s
@@ -30,14 +32,13 @@ public class AnmeldungDB {
 			
 
 			while (rs.next()) {
-				benutzername = rs.getString("Benutzername");
-			
+						
 			}
 		} catch (SQLException e) {
 			System.out.println(e);
 		}
 
-		return benutzername;
+		return mitarbeiter;
 
 	}
 	
