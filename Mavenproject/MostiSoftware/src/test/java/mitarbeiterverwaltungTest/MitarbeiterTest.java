@@ -1,7 +1,7 @@
 package mitarbeiterverwaltungTest;
 
 import static org.junit.Assert.assertTrue;
-import mitarbeiterverwaltung.Mitarbeiter;
+import logik.mitarbeiterverwaltung.Mitarbeiter;
 
 import org.junit.Test;
 

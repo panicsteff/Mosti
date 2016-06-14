@@ -8,8 +8,8 @@ import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
 
-import kundenverwaltung.Kunde;
 import logik.dienstleistungverwaltung.Dienstleistung;
+import logik.kundenverwaltung.Kunde;
 import logik.verkaufsverwaltung.Verkauf;
 import logik.verkaufsverwaltung.Verkaufsposition;
 

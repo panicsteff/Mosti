@@ -13,7 +13,7 @@ import javax.swing.JLabel;
 import javax.swing.JTextField;
 import javax.swing.text.NumberFormatter;
 
-import kundenverwaltung.NullableFormatter;
+import logik.kundenverwaltung.NullableFormatter;
 import logik.produktverwaltung.FoFormat;
 import logik.produktverwaltung.Produkt;
 

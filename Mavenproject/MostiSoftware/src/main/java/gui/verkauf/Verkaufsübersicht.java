@@ -1,5 +1,8 @@
 package gui.verkauf;
 
+import gui.kundenverwaltung.KundeListCellRenderer;
+import gui.kundenverwaltung.KundeListModel;
+
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -16,11 +19,9 @@ import javax.swing.ListCellRenderer;
 import javax.swing.ListSelectionModel;
 import javax.swing.text.DateFormatter;
 
-import kundenverwaltung.Formats;
-import kundenverwaltung.Kunde;
-import kundenverwaltung.KundeListCellRenderer;
-import kundenverwaltung.KundeListModel;
-import kundenverwaltung.NullableFormatter;
+import logik.kundenverwaltung.Formats;
+import logik.kundenverwaltung.Kunde;
+import logik.kundenverwaltung.NullableFormatter;
 import logik.verkaufsverwaltung.Verkaufsverwaltung;
 
 @SuppressWarnings("serial")

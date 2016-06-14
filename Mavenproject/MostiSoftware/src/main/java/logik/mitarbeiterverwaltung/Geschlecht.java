@@ -1,4 +1,4 @@
-package mitarbeiterverwaltung;
+package logik.mitarbeiterverwaltung;
 
 public enum Geschlecht {
 	

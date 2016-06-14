@@ -5,7 +5,7 @@ import java.util.Date;
 
 import javax.swing.table.AbstractTableModel;
 
-import kundenverwaltung.Formats;
+import logik.kundenverwaltung.Formats;
 import logik.terminplanung.Intervall;
 import logik.terminplanung.Termin;
 import logik.terminplanung.TerminLogik;

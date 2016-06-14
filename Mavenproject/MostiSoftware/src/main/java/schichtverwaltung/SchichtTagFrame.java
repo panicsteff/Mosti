@@ -9,7 +9,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.TableColumnModel;
 
-import kundenverwaltung.Formats;
+import logik.kundenverwaltung.Formats;
 
 public class SchichtTagFrame extends JFrame{
 	

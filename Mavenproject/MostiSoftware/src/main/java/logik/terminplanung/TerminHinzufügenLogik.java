@@ -6,7 +6,7 @@ import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.function.Predicate;
 
-import kundenverwaltung.Formats;
+import logik.kundenverwaltung.Formats;
 import administratorverwaltung.AdministratorLogik;
 
 public class TerminHinzufügenLogik {

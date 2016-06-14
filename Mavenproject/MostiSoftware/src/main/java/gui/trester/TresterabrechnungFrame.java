@@ -4,6 +4,8 @@ package gui.trester;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import gui.kundenverwaltung.KundeListCellRenderer;
+import gui.kundenverwaltung.KundeListModel;
 import gui.verkauf.ÜbersichtButtonGroup;
 import gui.verkauf.ÜbersichtButtonModel;
 
@@ -15,12 +17,10 @@ import javax.swing.JOptionPane;
 import javax.swing.JRadioButton;
 import javax.swing.JTextField;
 
-import kundenverwaltung.Formats;
-import kundenverwaltung.Kunde;
-import kundenverwaltung.KundeDB;
-import kundenverwaltung.KundeListCellRenderer;
-import kundenverwaltung.KundeListModel;
-import kundenverwaltung.NullableFormatter;
+import persistenz.KundeDB;
+import logik.kundenverwaltung.Formats;
+import logik.kundenverwaltung.Kunde;
+import logik.kundenverwaltung.NullableFormatter;
 import logik.trester.Tresterabrechnung;
 import logik.trester.Tresterverwaltung;
 

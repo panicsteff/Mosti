@@ -1,5 +1,7 @@
 package gui.terminplanung;
 
+import gui.kundenverwaltung.KundeHinzufügenFrame;
+
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
@@ -15,8 +17,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
-import kundenverwaltung.Formats;
-import kundenverwaltung.KundeHinzufügenFrame;
+import logik.kundenverwaltung.Formats;
 import logik.terminplanung.Termin;
 import logik.terminplanung.TerminLogik;
 

@@ -27,11 +27,11 @@ import javax.swing.event.ListSelectionListener;
 import javax.swing.table.TableCellEditor;
 import javax.swing.table.TableColumnModel;
 
+import persistenz.KundeDB;
 import persistenz.LagerDB;
-import kundenverwaltung.Kunde;
-import kundenverwaltung.KundeDB;
 import logik.dienstleistungverwaltung.DLSortiment;
 import logik.dienstleistungverwaltung.Dienstleistung;
+import logik.kundenverwaltung.Kunde;
 import logik.produktverwaltung.Produkt;
 import logik.produktverwaltung.ProduktSortiment;
 import logik.verkaufsverwaltung.Verkauf;

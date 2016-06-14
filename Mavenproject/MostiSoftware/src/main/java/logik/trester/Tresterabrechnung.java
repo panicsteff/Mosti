@@ -2,7 +2,7 @@ package logik.trester;
 
 import java.util.Date;
 
-import kundenverwaltung.Kunde;
+import logik.kundenverwaltung.Kunde;
 
 
 public class Tresterabrechnung {
