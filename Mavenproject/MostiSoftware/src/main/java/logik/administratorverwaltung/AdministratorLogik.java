@@ -1,6 +1,8 @@
-package administratorverwaltung;
+package logik.administratorverwaltung;
 
 import java.util.ArrayList;
+
+import persistenz.AdministratorDB;
 
 public class AdministratorLogik {
 
