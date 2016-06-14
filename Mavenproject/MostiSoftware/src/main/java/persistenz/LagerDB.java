@@ -20,7 +20,7 @@ public class LagerDB {
 
 		try {
 			conn = DriverManager
-					.getConnection("jdbc:ucanaccess://./Mosti-Datenkank.mdb");
+					.getConnection("jdbc:ucanaccess://./Mosti-Datenbank.mdb");
 			Statement s = conn.createStatement();
 			ResultSet rs = s.executeQuery("SELECT * FROM [produkte]");
 
@@ -48,7 +48,7 @@ public class LagerDB {
 
 		try {
 			conn = DriverManager
-					.getConnection("jdbc:ucanaccess://./Mosti-Datenkank.mdb");
+					.getConnection("jdbc:ucanaccess://./Mosti-Datenbank.mdb");
 			PreparedStatement s = null;
 			int i = 1;
 
@@ -74,7 +74,7 @@ public class LagerDB {
 
 		try {
 			conn = DriverManager
-					.getConnection("jdbc:ucanaccess://./Mosti-Datenkank.mdb");
+					.getConnection("jdbc:ucanaccess://./Mosti-Datenbank.mdb");
 			PreparedStatement s = null;
 			
 			s = conn.prepareStatement("delete from produkte where produktname = '" + p.getName() +"' ");	
@@ -91,7 +91,7 @@ public class LagerDB {
 
 		try {
 			conn = DriverManager
-					.getConnection("jdbc:ucanaccess://./Mosti-Datenkank.mdb");
+					.getConnection("jdbc:ucanaccess://./Mosti-Datenbank.mdb");
 			PreparedStatement s = null;
 
 			s = conn.prepareStatement("insert into produkte (produktname, preis, vorratsmenge, untergrenze, istAbfuellmaterial) values ( '"
@@ -120,7 +120,7 @@ public class LagerDB {
 
 		try {
 			conn = DriverManager
-					.getConnection("jdbc:ucanaccess://./Mosti-Datenkank.mdb");
+					.getConnection("jdbc:ucanaccess://./Mosti-Datenbank.mdb");
 			PreparedStatement s = null;
 			//int i = 1;
 

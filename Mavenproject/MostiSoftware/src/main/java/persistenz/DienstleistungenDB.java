@@ -21,7 +21,7 @@ public class DienstleistungenDB {
 			
 			try {
 				conn = DriverManager
-						.getConnection("jdbc:ucanaccess://./Mosti-Datenkank.mdb");
+						.getConnection("jdbc:ucanaccess://./Mosti-Datenbank.mdb");
 				Statement s = conn.createStatement();
 				ResultSet rs = s
 						.executeQuery("SELECT * FROM [dienstleistungen]");
@@ -47,7 +47,7 @@ public class DienstleistungenDB {
 
 		try {
 			conn = DriverManager
-					.getConnection("jdbc:ucanaccess://./Mosti-Datenkank.mdb");
+					.getConnection("jdbc:ucanaccess://./Mosti-Datenbank.mdb");
 			PreparedStatement s = null;
 			int i = 1;
 
@@ -70,7 +70,7 @@ public class DienstleistungenDB {
 
 		try {
 			conn = DriverManager
-					.getConnection("jdbc:ucanaccess://./Mosti-Datenkank.mdb");
+					.getConnection("jdbc:ucanaccess://./Mosti-Datenbank.mdb");
 			PreparedStatement s = null;
 			
 			s = conn.prepareStatement("delete from dienstleistungen where dlname = '" + d.getName() +"' ");	
@@ -87,7 +87,7 @@ public class DienstleistungenDB {
 
 		try {
 			conn = DriverManager
-					.getConnection("jdbc:ucanaccess://./Mosti-Datenkank.mdb");
+					.getConnection("jdbc:ucanaccess://./Mosti-Datenbank.mdb");
 			PreparedStatement s = null;
 
 			s = conn.prepareStatement("insert into dienstleistungen (dlname, preisproliter) values ( '"

@@ -1,4 +1,4 @@
-package account;
+package gui.account;
 
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
@@ -10,6 +10,7 @@ import javax.swing.JLabel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 
+import logik.account.Accountverwaltung;
 import logik.mitarbeiterverwaltung.Mitarbeiter;
 
 public class Anmeldung extends JFrame {
@@ -40,9 +41,10 @@ public class Anmeldung extends JFrame {
 				Mitarbeiter mitarbeiter;
 				mitarbeiter = accountverwaltung.anmelden(
 						txtbenutzername.getText(), txtpasswort.getText());
-				boolean istAdmin = accountverwaltung.isAdmin(mitarbeiter.getBenutzername());
 
-				if(mitarbeiter.equals(null) == false){
+
+				if(mitarbeiter != null){
+					boolean istAdmin = accountverwaltung.isAdmin(mitarbeiter.getBenutzername());
 					new M_Startseite(istAdmin, mitarbeiter);
 					dispose();
 				}
@@ -57,10 +59,5 @@ public class Anmeldung extends JFrame {
 
 		setVisible(true);
 	}
-	
-	public static void main (String[] avgs){
-		new Anmeldung();
-	}
-	
 
 }

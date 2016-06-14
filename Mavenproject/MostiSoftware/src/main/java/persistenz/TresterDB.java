@@ -16,7 +16,7 @@ public class TresterDB {
 	public TresterDB() {
 		try {
 			conn = DriverManager
-					.getConnection("jdbc:ucanaccess://./Mosti-Datenkank.mdb");
+					.getConnection("jdbc:ucanaccess://./Mosti-Datenbank.mdb");
 		} catch (Exception e) {
 			System.out.println(e);
 		}

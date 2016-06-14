@@ -18,7 +18,7 @@ public class TerminDB {
 	public TerminDB(){
 		try {
 			conn = DriverManager
-					.getConnection("jdbc:ucanaccess://./Mosti-Datenkank.mdb");
+					.getConnection("jdbc:ucanaccess://./Mosti-Datenbank.mdb");
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}

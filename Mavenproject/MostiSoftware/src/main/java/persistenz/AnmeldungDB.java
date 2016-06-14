@@ -15,7 +15,7 @@ public class AnmeldungDB {
 	public AnmeldungDB(){
 		try {
 			conn = DriverManager
-					.getConnection("jdbc:ucanaccess://./Mosti-Datenkank.mdb");
+					.getConnection("jdbc:ucanaccess://./Mosti-Datenbank.mdb");
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} 
@@ -36,7 +36,8 @@ public class AnmeldungDB {
 				mitarbeiter.setMitarbeiterID(rs.getInt("ID"));
 			}
 		} catch (SQLException e) {
-			System.out.println(e);
+			e.printStackTrace();
+			return null;
 		}
 
 		return mitarbeiter;

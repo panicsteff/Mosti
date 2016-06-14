@@ -1,4 +1,4 @@
-package account; 
+package logik.account; 
 
 import javax.swing.JOptionPane;
 
@@ -12,13 +12,13 @@ import persistenz.AnmeldungDB;
 public class Accountverwaltung{
 	 private AnmeldungDB anmeldungDB;
 	 
-	 Accountverwaltung(){
+	 public Accountverwaltung(){
 		 anmeldungDB = new AnmeldungDB();
 	}
 	 
 	public Mitarbeiter anmelden(String benutzername, String passwort){
 		Mitarbeiter m = anmeldungDB.mitarbeiterLaden(benutzername);
-		if(m.getBenutzername().equals("")){
+		if(m.getBenutzername() == null){
 			JOptionPane.showMessageDialog(null, "Benutzername nicht bekannt");
 			return null;
 		}
@@ -43,7 +43,9 @@ public class Accountverwaltung{
 	}
 	
 	public boolean prüfePasswort(String alt, String neu, String wiederholt, int id){
-		if(alt.equals(anmeldungDB.passwortLaden(id)) == false){
+		String passwort_aus_DB = anmeldungDB.passwortLaden(id);
+		passwort_aus_DB = passwortEntschlüsseln(passwort_aus_DB);
+		if(alt.equals(passwort_aus_DB) == false){
 			JOptionPane.showMessageDialog(null, "Altes Passwort ist falsch. Bitte versuchen Sie es erneut");
 			return false;
 		}else{
@@ -55,7 +57,9 @@ public class Accountverwaltung{
 				JOptionPane.showMessageDialog(null, "Wiederholtes Passwort stimmt nicht mit neuem Passwort überein. Bitte wiederholen Sie die Eingabe");
 				return false;
 			}else{
+				neu  = passwortVerschlüsseln(neu);
 				anmeldungDB.updatePasswort(neu, id);
+				JOptionPane.showMessageDialog(null, "Neues Passwort wurde gespeichert");
 				return true;
 			}
 		}
@@ -67,17 +71,10 @@ public class Accountverwaltung{
 		return new String(decodedBytes);
 	}
 	
-	
-	public static void main (String[]avgs){
-		byte[] decodedBytes = Base64.encodeBase64("ultrageheim".getBytes());
-		System.out.println(new String(decodedBytes));
+	private String passwortVerschlüsseln(String passwort){
+		byte[] encodedBytes = Base64.encodeBase64(passwort.getBytes());
+		return new String(encodedBytes);
 	}
-	
-	
-	
-	
-	
-	
 	
 	
 	

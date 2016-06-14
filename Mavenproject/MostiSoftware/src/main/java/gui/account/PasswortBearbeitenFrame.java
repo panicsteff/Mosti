@@ -1,4 +1,4 @@
-package account;
+package gui.account;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -9,6 +9,7 @@ import javax.swing.JLabel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 
+import logik.account.Accountverwaltung;
 import logik.mitarbeiterverwaltung.Mitarbeiter;
 
 public class PasswortBearbeitenFrame extends JFrame{

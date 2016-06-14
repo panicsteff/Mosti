@@ -1,5 +1,5 @@
 
-package account;
+package gui.account;
 
 import gui.administratorverwaltung.ÜbersichtFrame;
 import gui.dienstleistungverwaltung.DLVerwaltungFrame;

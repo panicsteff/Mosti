@@ -3,10 +3,8 @@ package logik.schichtverwaltung;
 import java.sql.Date;
 import java.util.ArrayList;
 
-import logik.terminplanung.Termin;
+import logik.administratorverwaltung.AdministratorLogik;
 import persistenz.SchichtplanDB;
-import persistenz.TerminDB;
-import administratorverwaltung.AdministratorLogik;
 
 
 public class SchichtLogik {

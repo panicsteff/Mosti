@@ -1,5 +1,6 @@
 package gui.terminplanung;
 
+import gui.account.M_Startseite;
 import gui.kassenfunktion.KassenFrame;
 
 import java.awt.event.ActionEvent;
@@ -27,7 +28,6 @@ import logik.produktverwaltung.ProduktSortiment;
 import logik.terminplanung.TagFrameController;
 import logik.terminplanung.Termin;
 import logik.verkaufsverwaltung.Verkaufsverwaltung;
-import account.M_Startseite;
 
 public class TagFrame extends JFrame {
 

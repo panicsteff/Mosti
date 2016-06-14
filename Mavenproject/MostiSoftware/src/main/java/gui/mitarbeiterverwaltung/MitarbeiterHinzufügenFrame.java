@@ -109,10 +109,11 @@ public class MitarbeiterHinzufügenFrame extends JDialog {
 	private class MyOKHandler implements ActionListener {
 		
 		public void actionPerformed(ActionEvent arg0){
+			String passwort = new String(Base64.encodeBase64(txtBenutzername.getText().getBytes()));
 			mitarbeiter = new Mitarbeiter(txtNachname.getText(), txtVorname.getText(), 
 										  txtStrasse.getText(), txtHausnummer.getText(), 
 										  txtPlz.getText(), txtStadt.getText(), txtTelefonnummer.getText(),
-										  0, txtBenutzername.getText(), new String(Base64.decodeBase64(txtBenutzername.getText().getBytes())));
+										  0, txtBenutzername.getText(), new String(Base64.encodeBase64(txtBenutzername.getText().getBytes())));
 			
 			//mitarbeiter.setPasswort(mitarbeiter.getBenutzername());
 			JOptionPane.showMessageDialog(MitarbeiterHinzufügenFrame.this, "Benutzername: " + mitarbeiter.getBenutzername() + "\n Passwort: " + mitarbeiter.getBenutzername());

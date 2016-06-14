@@ -23,7 +23,7 @@ public class KundeDB {
 		try {
 
 			conn = DriverManager
-			.getConnection("jdbc:ucanaccess://./Mosti-Datenkank.mdb");
+			.getConnection("jdbc:ucanaccess://./Mosti-Datenbank.mdb");
 			Statement s = conn.createStatement();
 			ResultSet rs = s.executeQuery("Select * from [kunden]");
 
@@ -52,7 +52,7 @@ public class KundeDB {
 
 		try {
 			conn = DriverManager
-					.getConnection("jdbc:ucanaccess://./Mosti-Datenkank.mdb");
+					.getConnection("jdbc:ucanaccess://./Mosti-Datenbank.mdb");
 			PreparedStatement s = null;
 			
 			for (Kunde k: kundenliste){
@@ -84,7 +84,7 @@ public class KundeDB {
 	public void kundeEinfügen(Kunde k){
 		
 		try{
-			conn = DriverManager.getConnection("jdbc:ucanaccess://./Mosti-Datenkank.mdb");
+			conn = DriverManager.getConnection("jdbc:ucanaccess://./Mosti-Datenbank.mdb");
 			PreparedStatement s = conn.prepareStatement("Insert into kunden (Nachname, Vorname, Strasse, Plz, Wohnort, Telefonnummer) VALUES (?, ?, ?, ?, ?, ?)");
 			
 			s.setString(1, k.getNachname());
@@ -105,7 +105,7 @@ public class KundeDB {
 	public void kundeLöschen(int id){
 		
 		try{
-			conn = DriverManager.getConnection("jdbc:ucanaccess://./Mosti-Datenkank.mdb");
+			conn = DriverManager.getConnection("jdbc:ucanaccess://./Mosti-Datenbank.mdb");
 			PreparedStatement s = conn.prepareStatement("Delete from kunden where id =?");
 			s.setInt(1, id);
 			
@@ -122,7 +122,7 @@ public class KundeDB {
 		Kunde kunde = new Kunde();
 		try{
 			conn = DriverManager
-					.getConnection("jdbc:ucanaccess://./Mosti-Datenkank.mdb");
+					.getConnection("jdbc:ucanaccess://./Mosti-Datenbank.mdb");
 					Statement s = conn.createStatement();
 					ResultSet rs = s.executeQuery("Select * from [kunden] where id = " + id );
 
@@ -149,7 +149,7 @@ public class KundeDB {
 		try {
 
 			conn = DriverManager
-			.getConnection("jdbc:ucanaccess://./Mosti-Datenkank.mdb");
+			.getConnection("jdbc:ucanaccess://./Mosti-Datenbank.mdb");
 			PreparedStatement s = conn.prepareStatement("Delete from termine where Datum  "
 							+ "BETWEEN{ts '" + datum + " 00:00:00'} AND {ts '"
 							+ datum + " 23:59:59'}  and kundenId = ?");

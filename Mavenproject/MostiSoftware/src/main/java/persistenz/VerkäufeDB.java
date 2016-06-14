@@ -23,7 +23,7 @@ public class VerkäufeDB {
 
 		try {
 			conn = DriverManager
-					.getConnection("jdbc:ucanaccess://./Mosti-Datenkank.mdb");
+					.getConnection("jdbc:ucanaccess://./Mosti-Datenbank.mdb");
 			Statement s = conn.createStatement();
 			ResultSet rs = s
 					.executeQuery("SELECT * FROM [verkäufe] WHERE kundenid = "
@@ -52,7 +52,7 @@ public class VerkäufeDB {
 		ArrayList<Verkaufsposition> einkaufsliste = new ArrayList<Verkaufsposition>();
 		try {
 			conn = DriverManager
-					.getConnection("jdbc:ucanaccess://./Mosti-Datenkank.mdb");
+					.getConnection("jdbc:ucanaccess://./Mosti-Datenbank.mdb");
 			Statement s = conn.createStatement();
 			ResultSet rs = s
 					.executeQuery("SELECT * FROM [verkäufe] WHERE kundenid = "
@@ -82,7 +82,7 @@ public class VerkäufeDB {
 
 		try {
 			conn = DriverManager
-					.getConnection("jdbc:ucanaccess://./Mosti-Datenkank.mdb");
+					.getConnection("jdbc:ucanaccess://./Mosti-Datenbank.mdb");
 			PreparedStatement s = null;
 			for (int i = 0; i < v.getListengröße(); i++) {
 			s = conn.prepareStatement("insert into verkäufe (verkaufsposition, verkaufsmenge, literzahl, verkaufsdatum, einzelpreis, kundenid) values "
@@ -106,7 +106,7 @@ public class VerkäufeDB {
 		ArrayList<Verkaufsposition> einkaufsliste = new ArrayList<Verkaufsposition>();
 		try {
 			conn = DriverManager
-					.getConnection("jdbc:ucanaccess://./Mosti-Datenkank.mdb");
+					.getConnection("jdbc:ucanaccess://./Mosti-Datenbank.mdb");
 			Statement s = conn.createStatement();
 			System.out.println("1. Schritt");
 			ResultSet rs = s
@@ -138,7 +138,7 @@ public class VerkäufeDB {
 
 		try {
 			conn = DriverManager
-					.getConnection("jdbc:ucanaccess://./Mosti-Datenkank.mdb");
+					.getConnection("jdbc:ucanaccess://./Mosti-Datenbank.mdb");
 			Statement s = conn.createStatement();
 			ResultSet rs = s
 					.executeQuery("SELECT * FROM [verkäufe] WHERE kundenid = "
@@ -167,7 +167,7 @@ public class VerkäufeDB {
 		ArrayList<Verkaufsposition> einkaufsliste = new ArrayList<Verkaufsposition>();
 		try {
 			conn = DriverManager
-					.getConnection("jdbc:ucanaccess://./Mosti-Datenkank.mdb");
+					.getConnection("jdbc:ucanaccess://./Mosti-Datenbank.mdb");
 			Statement s = conn.createStatement();
 			System.out.println("1. Schritt");
 			ResultSet rs = s
@@ -197,7 +197,7 @@ public class VerkäufeDB {
 		ArrayList<Verkaufsposition> einkaufsliste = new ArrayList<Verkaufsposition>();
 		try {
 			conn = DriverManager
-					.getConnection("jdbc:ucanaccess://./Mosti-Datenkank.mdb");
+					.getConnection("jdbc:ucanaccess://./Mosti-Datenbank.mdb");
 			Statement s = conn.createStatement();
 			System.out.println("1. Schritt");
 			ResultSet rs = s
@@ -229,7 +229,7 @@ public class VerkäufeDB {
 
 		try {
 			conn = DriverManager
-					.getConnection("jdbc:ucanaccess://./Mosti-Datenkank.mdb");
+					.getConnection("jdbc:ucanaccess://./Mosti-Datenbank.mdb");
 			PreparedStatement s = null;
 
 			for (int i = 0; i < dliste.size(); i++) {

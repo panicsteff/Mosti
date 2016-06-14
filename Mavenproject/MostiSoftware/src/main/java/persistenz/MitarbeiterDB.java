@@ -23,7 +23,7 @@ public class MitarbeiterDB {
 		try {
 
 			conn = DriverManager
-					.getConnection("jdbc:ucanaccess://./Mosti-Datenkank.mdb");
+					.getConnection("jdbc:ucanaccess://./Mosti-Datenbank.mdb");
 			Statement s = conn.createStatement();
 			ResultSet rs = s.executeQuery("Select * From [mitarbeiter] ");
 
@@ -54,13 +54,13 @@ public class MitarbeiterDB {
 
 		try {
 			conn = DriverManager
-					.getConnection("jdbc:ucanaccess://./Mosti-Datenkank.mdb");
+					.getConnection("jdbc:ucanaccess://./Mosti-Datenbank.mdb");
 			PreparedStatement s = null;
 
 			for (Mitarbeiter m : mitarbeiterliste) {
 
 				s = conn.prepareStatement("update mitarbeiter set nachname = ?, vorname = ?, "
-						+ "strasse = ?,  hausnummer = ?, plz = ?, Stadt = ?, benutzername = ?, passwort = ? "
+						+ "strasse = ?,  hausnummer = ?, plz = ?, Stadt = ?, benutzername = ?, passwort = ?, "
 						+ "telefonnummer = ? where id = ?");
 				s.setString(1, m.getNachname());
 				s.setString(2, m.getVorname());
@@ -88,7 +88,7 @@ public class MitarbeiterDB {
 
 		try {
 			conn = DriverManager
-					.getConnection("jdbc:ucanaccess://./Mosti-Datenkank.mdb");
+					.getConnection("jdbc:ucanaccess://./Mosti-Datenbank.mdb");
 			PreparedStatement s = conn.prepareStatement("INSERT into mitarbeiter (Nachname, Vorname, Strasse, hausnummer, plz, Stadt, telefonnummer, benutzername, passwort) "
 					+ "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)");
 			
@@ -115,7 +115,7 @@ public class MitarbeiterDB {
 	public void mitarbeiterLöschen(int mitarbeiterId){
 		
 		try{
-			conn = DriverManager.getConnection("jdbc:ucanaccess://./Mosti-Datenkank.mdb");
+			conn = DriverManager.getConnection("jdbc:ucanaccess://./Mosti-Datenbank.mdb");
 			PreparedStatement s = conn.prepareStatement("Delete from mitarbeiter where Id = ?");
 			
 			s.setInt(1, mitarbeiterId);
