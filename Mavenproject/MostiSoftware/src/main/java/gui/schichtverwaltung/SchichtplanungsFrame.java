@@ -39,10 +39,10 @@ public class SchichtplanungsFrame extends JFrame{
 					new SchichtTagFrame(d);
 				}
 			});
-		schichtuebersicht.setBounds(30, 360, 180, 30);
-		add(schichtuebersicht);
+			schichtuebersicht.setBounds(30, 360, 180, 30);
+			add(schichtuebersicht);
 		
-		setVisible(true);
+			setVisible(true);
 		}
 		else{
 			JButton neueSchicht = new JButton("Schicht bearbeiten");
