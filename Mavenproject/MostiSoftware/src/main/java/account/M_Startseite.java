@@ -29,11 +29,7 @@ import javax.swing.JSeparator;
 import logik.dienstleistungverwaltung.DLSortiment;
 import logik.produktverwaltung.ProduktSortiment;
 import logik.trester.Tresterverwaltung;
-<<<<<<< HEAD
-import schichtverwaltung.SchichtplanungsFrame;
-=======
-import mitarbeiterverwaltung.MitarbeiterVerwaltung;
->>>>>>> origin/master
+
 import administratorverwaltung.ÜbersichtFrame;
 
 public class M_Startseite extends JFrame {

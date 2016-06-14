@@ -9,15 +9,12 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.TableColumnModel;
 
-<<<<<<< HEAD:Mavenproject/MostiSoftware/src/main/java/schichtverwaltung/SchichtTagFrame.java
 import logik.kundenverwaltung.Formats;
-=======
-import kundenverwaltung.Formats;
 import logik.schichtverwaltung.MitarbeiterNameCellRenderer;
 import logik.schichtverwaltung.Schicht;
 import logik.schichtverwaltung.SchichtLogik;
 import logik.schichtverwaltung.SchichtTableModel;
->>>>>>> origin/master:Mavenproject/MostiSoftware/src/main/java/gui/schichtverwaltung/SchichtTagFrame.java
+
 
 public class SchichtTagFrame extends JFrame{
 	
