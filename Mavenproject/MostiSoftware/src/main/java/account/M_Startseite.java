@@ -1,6 +1,7 @@
 
 package account;
 
+import gui.administratorverwaltung.ÜbersichtFrame;
 import gui.dienstleistungverwaltung.DLVerwaltungFrame;
 import gui.kundenverwaltung.KundenVerwaltung;
 import gui.mitarbeiterverwaltung.MitarbeiterVerwaltung;
@@ -27,10 +28,9 @@ import javax.swing.JPanel;
 import javax.swing.JSeparator;
 
 import logik.dienstleistungverwaltung.DLSortiment;
+import logik.mitarbeiterverwaltung.Mitarbeiter;
 import logik.produktverwaltung.ProduktSortiment;
 import logik.trester.Tresterverwaltung;
-
-import administratorverwaltung.ÜbersichtFrame;
 
 public class M_Startseite extends JFrame {
 
@@ -41,12 +41,14 @@ public class M_Startseite extends JFrame {
 	DLSortiment dlSorti;
 	ProduktSortiment pSorti;
 	private boolean isAdmin;
+	private Mitarbeiter mitarbeiter;
 
-	public M_Startseite(boolean isAdmin) {
+	public M_Startseite(boolean isAdmin, Mitarbeiter m) {
 		dlSorti = new DLSortiment(); 
 		pSorti = new ProduktSortiment();
 		
 		this.isAdmin = isAdmin;
+		mitarbeiter = m;
 		
 		setTitle("Startseite");
 		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
@@ -130,6 +132,15 @@ public class M_Startseite extends JFrame {
 				//KassenFrame k = new KassenFrame(dlSorti,pSorti, new Verkaufsverwaltung());
 			}
 		});
+		
+		JMenuItem passwort = new JMenuItem("Passwort ändern");
+		mDatei.add(new JSeparator());
+		mDatei.add(passwort);
+		passwort.addActionListener(new ActionListener(){
+			public void actionPerformed(ActionEvent e){
+				new PasswortBearbeitenFrame(M_Startseite.this.mitarbeiter);
+			}
+		});
 		JMenuItem adminwerte = new JMenuItem("Adminwerte bearbeiten");
 		mDatei.add(new JSeparator());
 		mDatei.add(adminwerte);
@@ -139,6 +150,8 @@ public class M_Startseite extends JFrame {
 				new ÜbersichtFrame();
 			}
 		});
+		
+		
 
 		//mDatei.add(new JSeparator());
 		//JMenuItem kunden = new JMenuItem("Kunden pflegen");

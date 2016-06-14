@@ -10,6 +10,8 @@ import javax.swing.JLabel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 
+import logik.mitarbeiterverwaltung.Mitarbeiter;
+
 public class Anmeldung extends JFrame {
 
 	private static final long serialVersionUID = 1L;
@@ -35,13 +37,13 @@ public class Anmeldung extends JFrame {
 		add(einloggen = new JButton("Einloggen"));
 		einloggen.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				boolean anmeldestatus = false;
-				anmeldestatus = accountverwaltung.anmelden(
+				Mitarbeiter mitarbeiter;
+				mitarbeiter = accountverwaltung.anmelden(
 						txtbenutzername.getText(), txtpasswort.getText());
-				boolean istAdmin = accountverwaltung.isAdmin(txtbenutzername.getText());
+				boolean istAdmin = accountverwaltung.isAdmin(mitarbeiter.getBenutzername());
 
-				if(anmeldestatus == true){
-					new M_Startseite(istAdmin);
+				if(mitarbeiter.equals(null) == false){
+					new M_Startseite(istAdmin, mitarbeiter);
 					dispose();
 				}
 			}

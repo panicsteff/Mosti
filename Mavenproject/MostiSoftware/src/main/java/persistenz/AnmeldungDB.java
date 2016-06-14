@@ -7,7 +7,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-import mitarbeiterverwaltung.Mitarbeiter;
+import logik.mitarbeiterverwaltung.Mitarbeiter;
 
 public class AnmeldungDB {
 	private Connection conn;
@@ -32,7 +32,8 @@ public class AnmeldungDB {
 			
 
 			while (rs.next()) {
-						
+				mitarbeiter.setBenutzername(rs.getString("Benutzername"));
+				mitarbeiter.setMitarbeiterID(rs.getInt("ID"));
 			}
 		} catch (SQLException e) {
 			System.out.println(e);

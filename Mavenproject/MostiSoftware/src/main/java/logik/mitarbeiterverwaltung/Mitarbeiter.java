@@ -1,7 +1,5 @@
 package logik.mitarbeiterverwaltung;
 
-import account.M_Account;
-
 public class Mitarbeiter {
 
 	private String nachname;

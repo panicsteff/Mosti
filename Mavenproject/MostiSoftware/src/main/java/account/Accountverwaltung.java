@@ -2,6 +2,8 @@ package account;
 
 import javax.swing.JOptionPane;
 
+import logik.mitarbeiterverwaltung.Mitarbeiter;
+
 import org.apache.commons.codec.binary.Base64;
 
 import persistenz.AnmeldungDB;
@@ -14,10 +16,11 @@ public class Accountverwaltung{
 		 anmeldungDB = new AnmeldungDB();
 	}
 	 
-	public boolean anmelden(String benutzername, String passwort){
-		if(anmeldungDB.mitarbeiterSuchen(benutzername).equals("")){
+	public Mitarbeiter anmelden(String benutzername, String passwort){
+		Mitarbeiter m = anmeldungDB.mitarbeiterLaden(benutzername);
+		if(m.getBenutzername().equals("")){
 			JOptionPane.showMessageDialog(null, "Benutzername nicht bekannt");
-			return false;
+			return null;
 		}
 		else{
 			String passwort_aus_DB = anmeldungDB.passwortLaden(benutzername);
@@ -25,15 +28,18 @@ public class Accountverwaltung{
 			
 			if(passwort.equals(passwort_aus_DB) == false){
 				JOptionPane.showMessageDialog(null, "Ungültiges Passwort");
-			return false;
+			return null;
 			}
 			
-			return true;
+			return m;
 		}
 	}
 	
-	public Mitarbeiter isAdmin(String benutzername){
-		return annmeldungDB.mitarbeiterLaden(benutzername);
+	public boolean isAdmin(String benutzername){
+		if(benutzername.equals("Admin")){
+			return true;
+		}
+		else return false;
 	}
 	
 	public boolean prüfePasswort(String alt, String neu, String wiederholt, int id){
