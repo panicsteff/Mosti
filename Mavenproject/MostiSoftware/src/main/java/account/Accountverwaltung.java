@@ -2,13 +2,17 @@ package account;
 
 import javax.swing.JOptionPane;
 
+import org.apache.commons.codec.binary.Base64;
+
 import persistenz.AnmeldungDB;
 
 
 public class Accountverwaltung{
 	 private AnmeldungDB anmeldungDB;
 	 
-	 Accountverwaltung(){anmeldungDB = new AnmeldungDB();}
+	 Accountverwaltung(){
+		 anmeldungDB = new AnmeldungDB();
+	}
 	 
 	public boolean anmelden(String benutzername, String passwort){
 		if(anmeldungDB.mitarbeiterSuchen(benutzername).equals("")){
@@ -16,7 +20,10 @@ public class Accountverwaltung{
 			return false;
 		}
 		else{
-			if(passwort.equals(anmeldungDB.passwortLaden(benutzername)) == false){
+			String passwort_aus_DB = anmeldungDB.passwortLaden(benutzername);
+			passwort_aus_DB = passwortEntschlüsseln(passwort_aus_DB);
+			
+			if(passwort.equals(passwort_aus_DB) == false){
 				JOptionPane.showMessageDialog(null, "Ungültiges Passwort");
 			return false;
 			}
@@ -51,7 +58,23 @@ public class Accountverwaltung{
 		}
 	}
 	
+	private String passwortVerschlüsseln(String passwort){ 
+		byte[] encodedBytes = Base64.encodeBase64(passwort.getBytes());		
+		return new String(encodedBytes);
+	}
 	
+	private String passwortEntschlüsseln(String passwort){
+		byte[] decodedBytes = Base64.decodeBase64(passwort.getBytes());
+		return new String(decodedBytes);
+	}
+	
+	public static void main(String[] avgs){
+		byte[] encodedBytes = Base64.encodeBase64("ultrageheim".getBytes());	
+		byte[] decodedBytes = Base64.decodeBase64(encodedBytes);
+		System.out.println("encoded: " + new String(encodedBytes));
+		System.out.println("decoded: " + new String(decodedBytes));
+		
+	}
 	
 	
 	

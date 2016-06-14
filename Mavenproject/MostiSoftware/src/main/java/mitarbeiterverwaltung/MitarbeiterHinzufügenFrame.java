@@ -11,6 +11,7 @@ import javax.swing.JDialog;
 import javax.swing.JFormattedTextField;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.text.DateFormatter;
 import javax.swing.text.MaskFormatter;
@@ -109,6 +110,9 @@ public class MitarbeiterHinzufügenFrame extends JDialog {
 										  0, txtBenutzername.getText());
 			liste.add(mitarbeiter);
 			mdb.mitarbeiterEinfügen(mitarbeiter);
+			
+			JOptionPane.showMessageDialog(MitarbeiterHinzufügenFrame.this, "Benutzername: " + mitarbeiter.getBenutzername() + "\n Passwort: " + mitarbeiter.getBenutzername());
+			
 			dispose();
 		}
 	}
