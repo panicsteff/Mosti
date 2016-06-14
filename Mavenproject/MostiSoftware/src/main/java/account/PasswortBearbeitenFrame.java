@@ -9,7 +9,7 @@ import javax.swing.JLabel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 
-import mitarbeiterverwaltung.Mitarbeiter;
+import logik.mitarbeiterverwaltung.Mitarbeiter;
 
 public class PasswortBearbeitenFrame extends JFrame{
 

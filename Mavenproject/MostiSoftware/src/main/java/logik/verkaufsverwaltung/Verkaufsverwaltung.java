@@ -3,7 +3,7 @@ package logik.verkaufsverwaltung;
 import java.sql.Date;
 import java.util.ArrayList;
 
-import kundenverwaltung.Kunde;
+import logik.kundenverwaltung.Kunde;
 import persistenz.VerkäufeDB;
 
 public class Verkaufsverwaltung {

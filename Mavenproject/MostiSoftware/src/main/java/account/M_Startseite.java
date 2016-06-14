@@ -2,6 +2,8 @@
 package account;
 
 import gui.dienstleistungverwaltung.DLVerwaltungFrame;
+import gui.kundenverwaltung.KundenVerwaltung;
+import gui.mitarbeiterverwaltung.MitarbeiterVerwaltung;
 import gui.produktverwaltung.LagerVerwaltungFrame;
 import gui.schichtverwaltung.SchichtplanungsFrame;
 import gui.terminplanung.TagFrame;
@@ -24,11 +26,14 @@ import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 import javax.swing.JSeparator;
 
-import kundenverwaltung.KundenVerwaltung;
 import logik.dienstleistungverwaltung.DLSortiment;
 import logik.produktverwaltung.ProduktSortiment;
 import logik.trester.Tresterverwaltung;
+<<<<<<< HEAD
+import schichtverwaltung.SchichtplanungsFrame;
+=======
 import mitarbeiterverwaltung.MitarbeiterVerwaltung;
+>>>>>>> origin/master
 import administratorverwaltung.ÜbersichtFrame;
 
 public class M_Startseite extends JFrame {

@@ -1,4 +1,4 @@
-package mitarbeiterverwaltung;
+package logik.mitarbeiterverwaltung;
 
 import java.text.SimpleDateFormat;
 

@@ -4,10 +4,11 @@ import static org.junit.Assert.*;
 
 import java.io.FileNotFoundException;
 
-import kundenverwaltung.Kunde;
-import kundenverwaltung.KundeDB;
+import logik.kundenverwaltung.Kunde;
 
 import org.junit.Test;
+
+import persistenz.KundeDB;
 
 public class KundeLadenTest {
 

@@ -21,8 +21,8 @@ import javax.swing.JTable;
 import javax.swing.ListSelectionModel;
 import javax.swing.table.TableColumnModel;
 
-import kundenverwaltung.Formats;
 import logik.dienstleistungverwaltung.DLSortiment;
+import logik.kundenverwaltung.Formats;
 import logik.produktverwaltung.ProduktSortiment;
 import logik.terminplanung.TagFrameController;
 import logik.terminplanung.Termin;

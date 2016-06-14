@@ -5,12 +5,13 @@ import static org.junit.Assert.*;
 import java.io.FileNotFoundException;
 import java.text.ParseException;
 
-import kundenverwaltung.Kunde;
-import kundenverwaltung.KundeDB;
+import logik.kundenverwaltung.Kunde;
 import logik.verkaufsverwaltung.Verkauf;
 import logik.verkaufsverwaltung.Verkaufsverwaltung;
 
 import org.junit.Test;
+
+import persistenz.KundeDB;
 
 public class TageskundeneinkaufLaden {
 
@@ -19,7 +20,7 @@ public class TageskundeneinkaufLaden {
 		
 		java.util.Date utilDate = null;
 		try {
-			utilDate = kundenverwaltung.Formats.DATE_FORMAT.parse("26.05.2016");
+			utilDate = logik.kundenverwaltung.Formats.DATE_FORMAT.parse("26.05.2016");
 		} catch (ParseException e) {
 			System.out.println("Test aufgrund fehlgeschlagener Datum-Verarbeitung nicht auswertbar");
 			e.printStackTrace();

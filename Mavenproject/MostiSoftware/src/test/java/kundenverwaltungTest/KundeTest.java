@@ -1,6 +1,6 @@
 package kundenverwaltungTest;
 
-import kundenverwaltung.Kunde;
+import logik.kundenverwaltung.Kunde;
 
 import org.junit.Test;
 

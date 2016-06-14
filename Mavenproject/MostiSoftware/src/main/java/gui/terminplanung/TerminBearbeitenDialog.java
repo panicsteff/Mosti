@@ -10,7 +10,7 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 
-import kundenverwaltung.Formats;
+import logik.kundenverwaltung.Formats;
 import logik.terminplanung.Termin;
 import logik.terminplanung.TerminLogik;
 

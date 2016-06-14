@@ -11,7 +11,7 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.text.NumberFormatter;
 
-import kundenverwaltung.NullableFormatter;
+import logik.kundenverwaltung.NullableFormatter;
 import logik.produktverwaltung.FoFormat;
 import logik.trester.Tresterabrechnung;
 import logik.trester.Tresterverwaltung;
