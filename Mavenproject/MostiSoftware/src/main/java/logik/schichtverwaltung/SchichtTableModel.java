@@ -1,4 +1,4 @@
-package schichtverwaltung;
+package logik.schichtverwaltung;
 
 import java.util.ArrayList;
 
@@ -11,7 +11,7 @@ public class SchichtTableModel extends AbstractTableModel {
 	private SchichtLogik schichtlogik;
 	
 
-	SchichtTableModel(ArrayList<Schicht> schichtliste) {
+	public SchichtTableModel(ArrayList<Schicht> schichtliste) {
 		this.schichtliste = schichtliste;
 		schichtlogik = new SchichtLogik();
 	}

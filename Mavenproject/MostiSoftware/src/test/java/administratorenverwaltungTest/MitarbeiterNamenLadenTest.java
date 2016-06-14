@@ -1,10 +1,9 @@
 package administratorenverwaltungTest;
 
 import static org.junit.Assert.*;
+import logik.schichtverwaltung.SchichtLogik;
 
 import org.junit.Test;
-
-import schichtverwaltung.SchichtLogik;
 
 public class MitarbeiterNamenLadenTest {
 

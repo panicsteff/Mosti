@@ -1,9 +1,11 @@
-package schichtverwaltung;
+package logik.schichtverwaltung;
 
 import java.sql.Date;
 import java.util.ArrayList;
 
+import logik.terminplanung.Termin;
 import persistenz.SchichtplanDB;
+import persistenz.TerminDB;
 import administratorverwaltung.AdministratorLogik;
 
 
@@ -13,6 +15,7 @@ public class SchichtLogik {
 	
 	public SchichtLogik(){
 		schichtplanDb = new SchichtplanDB();
+		new AdministratorLogik();
 	}
 	
 	public ArrayList<Schicht> schichtLaden(long datum){
@@ -24,7 +27,7 @@ public class SchichtLogik {
 		
 	}
 	
-	void schichtSpeichern(Date datum, int mitarbeiterId, int uhrzeit){
+	public void schichtSpeichern(Date datum, int mitarbeiterId, int uhrzeit){
 		schichtplanDb.schichtSpeichern(datum, mitarbeiterId, uhrzeit);
 	}
 	
@@ -70,11 +73,11 @@ public class SchichtLogik {
 		return schichtplanDb.mitarbeiterNamenLaden(id);
 	}
 	
-	int getMitarbeiterProSchicht(){
+	public int getMitarbeiterProSchicht(){
 		return AdministratorLogik.getMitarbeiterProSchicht();
 	}
 	
-	int getSchichtenProTag(){
+	public int getSchichtenProTag(){
 		return AdministratorLogik.getSchichtenProTag();
 	}
 	
@@ -94,5 +97,9 @@ public class SchichtLogik {
 		int spalte = i%getSchichtenProTag();
 		int uhrzeit = getArbeitsbeginn() + spalte*getSchichtDauer();
 		return uhrzeit;
+	}
+	
+	public static void schichtLöschen(Schicht s){
+		SchichtplanDB.schichtLöschen(s.getSchichtId());
 	}
 }

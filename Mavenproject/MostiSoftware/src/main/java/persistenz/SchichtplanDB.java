@@ -9,11 +9,11 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 
-import schichtverwaltung.Schicht;
+import logik.schichtverwaltung.Schicht;
 
 public class SchichtplanDB {
 
-	private Connection conn;
+	private static Connection conn;
 	
 	public SchichtplanDB(){
 		try {
@@ -118,5 +118,19 @@ public class SchichtplanDB {
 		return mitarbeiterId;
 	}
 	
+	public static void schichtLöschen(int schichtId){
+		
+		try {
+			PreparedStatement s = null;
+			s = conn.prepareStatement("Delete from schichtplan where ID = " + schichtId);
+			
+			s.executeUpdate();
+			s.close();
+			
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
 	
 }

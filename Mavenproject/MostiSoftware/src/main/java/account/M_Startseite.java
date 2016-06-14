@@ -5,6 +5,7 @@ import gui.dienstleistungverwaltung.DLVerwaltungFrame;
 import gui.kundenverwaltung.KundenVerwaltung;
 import gui.mitarbeiterverwaltung.MitarbeiterVerwaltung;
 import gui.produktverwaltung.LagerVerwaltungFrame;
+import gui.schichtverwaltung.SchichtplanungsFrame;
 import gui.terminplanung.TagFrame;
 import gui.terminplanung.TerminplanungsFrame;
 import gui.trester.TresterabrechnungFrame;
@@ -28,7 +29,11 @@ import javax.swing.JSeparator;
 import logik.dienstleistungverwaltung.DLSortiment;
 import logik.produktverwaltung.ProduktSortiment;
 import logik.trester.Tresterverwaltung;
+<<<<<<< HEAD
 import schichtverwaltung.SchichtplanungsFrame;
+=======
+import mitarbeiterverwaltung.MitarbeiterVerwaltung;
+>>>>>>> origin/master
 import administratorverwaltung.ÜbersichtFrame;
 
 public class M_Startseite extends JFrame {
@@ -188,7 +193,7 @@ public class M_Startseite extends JFrame {
 		schicht.add(schichtitem);
 		schichtitem.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e){
-				new SchichtplanungsFrame();
+				new SchichtplanungsFrame(M_Startseite.this.isAdmin);
 			}
 		});
 			
