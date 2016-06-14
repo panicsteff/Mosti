@@ -63,18 +63,12 @@ public class MitarbeiterTest {
 		assertTrue(mitarbeiter.getStadt() == "Burgfeld");
 	}
 	
-	@Test
-	public void testSetAccount(){
-		Mitarbeiter mitarbeiter = new Mitarbeiter();
-		mitarbeiter.setAccount("Burgfeld");
-		assertTrue(mitarbeiter.getAccount() == "Burgfeld");
-	}
 	
 	@Test
 	public void testSetMitarbeiterID(){
 		Mitarbeiter mitarbeiter = new Mitarbeiter();
-		mitarbeiter.setMitarbeiterID("1");
-		assertTrue(mitarbeiter.getMitarbeiterID() == "1");
+		mitarbeiter.setMitarbeiterID(1);
+		assertTrue(mitarbeiter.getMitarbeiterID() == 1);
 	}
 	
 	@Test
@@ -133,17 +127,12 @@ public class MitarbeiterTest {
 		assertTrue(mitarbeiter.getStadt() == "Burgfeld");
 	}
 	
-	@Test
-	public void testGetAccount(){
-		Mitarbeiter mitarbeiter = new Mitarbeiter();
-		mitarbeiter.setAccount("Burgfeld");
-		assertTrue(mitarbeiter.getAccount() == "Burgfeld");
-	}
 	
 	@Test
 	public void testGetMitarbeiterID(){
 		Mitarbeiter mitarbeiter = new Mitarbeiter();
-		mitarbeiter.setMitarbeiterID("1");
-		assertTrue(mitarbeiter.getMitarbeiterID() == "1");
+		mitarbeiter.setMitarbeiterID(1);
+		assertTrue(mitarbeiter.getMitarbeiterID() == 1);
+	}
 
 }
