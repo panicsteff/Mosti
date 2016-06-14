@@ -3,10 +3,13 @@ package gui.kassenfunktion;
 import gui.verkauf.VerkäufeFrame;
 
 import java.awt.BorderLayout;
+import java.awt.Component;
 import java.awt.FlowLayout;
-import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -19,6 +22,10 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.ListSelectionModel;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
+import javax.swing.table.TableCellEditor;
+import javax.swing.table.TableColumnModel;
 
 import kundenverwaltung.Kunde;
 import kundenverwaltung.KundeDB;
@@ -33,13 +40,16 @@ import logik.verkaufsverwaltung.Verkaufsverwaltung;
 public class KassenFrame extends JFrame {
 
 	private static final long serialVersionUID = 1L;
-
+	
+	private JTable dienstTable;
+	private JTable abfüllTable;
+	private JTable zusatzTable;
 	private ProduktTableModel zusatzTableModel;
 	private ProduktTableModel abfüllTableModel;
 	private DienstleistungenTableModel dienstTableModel;
-	private ListSelectionModel kassenSelectionModel1;
-	private ListSelectionModel kassenSelectionModel2;
-	private ListSelectionModel kassenSelectionModel3;
+	private ListSelectionModel listSelectionModel1;
+	private ListSelectionModel listSelectionModel2;
+	private ListSelectionModel listSelectionModel3;
 	private JLabel label;
 	private double total;
 	private JTextField totalText;
@@ -51,10 +61,15 @@ public class KassenFrame extends JFrame {
 	private Verkaufsposition produktPosition;
 	private int literzahl;
 	private Kunde kunde;
-	private int kundenId;
 	private ArrayList<Verkaufsposition> einkaufsliste;
 	private Verkaufsverwaltung vVerwaltung;
-	private KundeDB kundeDB; //nur zum Test
+	private KundeDB kundeDB; 
+	
+	private TableColumnModel columnModel1;
+	private TableColumnModel columnModel2;
+	private TableColumnModel columnModel3;
+	
+	
 
 	public KassenFrame(DLSortiment dlsortiment,ProduktSortiment psortiment,
 			Verkaufsverwaltung verkaufsverwaltung, int kundenId) {
@@ -63,28 +78,58 @@ public class KassenFrame extends JFrame {
 		zliste = psortiment.getZProduktSortiment();
 		dienstleistungen = dlsortiment.getDLSortiment();
 		this.vVerwaltung = verkaufsverwaltung;
-		this.kundenId = kundenId;
+		kundeDB = new KundeDB();
 		
-		kundeDB = new KundeDB(); //nur zum Test
+		try {
+			kunde = kundeDB.einzelnenKundeLaden(kundenId);					/////////
+			System.out.println("KundenID: " +kunde.getKundenID());
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			System.out.println("Fehler beim Laden des Kunden");
+			e.printStackTrace();
+		}
+		
 
 		initVerkaufsmengen();
 
-		setTitle("Abrechnung für <Kundenname>");
-		setSize(700, 400);
+		setTitle("Abrechnung für " + kunde.getVorname() + " " + kunde.getNachname());
+		setSize(750, 500);
 		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 
 		JPanel contentPanel = new JPanel();
-		contentPanel.setLayout(new GridLayout(8, 1));
+		//contentPanel.setLayout(new GridLayout(8, 1));
+		contentPanel.setLayout(null);
 
 		dienstTableModel = new DienstleistungenTableModel(dienstleistungen);
-		JTable dienstTable = new JTable(dienstTableModel);
+		dienstTable = new JTable(dienstTableModel);
+		tabellenSpaltenGrößeFestlegen(dienstTable);
 
 		abfüllTableModel = new ProduktTableModel(aliste);
-		JTable abfüllTable = new JTable(abfüllTableModel);
+		abfüllTable = new JTable(abfüllTableModel);
+		tabellenSpaltenGrößeFestlegen(abfüllTable);
 
 		zusatzTableModel = new ProduktTableModel(zliste);
-		JTable zusatzTable = new JTable(zusatzTableModel);
-
+		zusatzTable = new JTable(zusatzTableModel);
+		tabellenSpaltenGrößeFestlegen(zusatzTable);
+		
+		dienstTable.addMouseListener(new MouseAdapter() {
+			public void mousePressed(MouseEvent event) {
+				markiereZellinhalt(dienstTable);	
+			}
+		});
+		
+		abfüllTable.addMouseListener(new MouseAdapter() {
+			public void mousePressed(MouseEvent event) {
+				markiereZellinhalt(abfüllTable);	
+			}
+		});
+		
+		zusatzTable.addMouseListener(new MouseAdapter() {
+			public void mousePressed(MouseEvent event) {
+				markiereZellinhalt(zusatzTable);	
+			}
+		});
+		
 		JScrollPane tableContainer1 = new JScrollPane(dienstTable);
 		JScrollPane tableContainer2 = new JScrollPane(abfüllTable);
 		JScrollPane tableContainer3 = new JScrollPane(zusatzTable);
@@ -92,19 +137,25 @@ public class KassenFrame extends JFrame {
 		label = new JLabel("Literzahlen");
 		label.setFont(label.getFont().deriveFont(18f));
 		label.setVerticalAlignment(JLabel.BOTTOM);
+		label.setBounds(6, 6, 200, 20);
 		contentPanel.add(label);
+		tableContainer1.setBounds(6, 30, 700, 60);
 		contentPanel.add(tableContainer1);
 
 		label = new JLabel("Abfüll-Materialien");
 		label.setFont(label.getFont().deriveFont(18f));
 		label.setVerticalAlignment(JLabel.BOTTOM);
+		label.setBounds(6, 120, 200, 20);
 		contentPanel.add(label);
+		tableContainer2.setBounds(6, 144, 700, 60);
 		contentPanel.add(tableContainer2);
 
 		label = new JLabel("Weitere Produkte");
 		label.setFont(label.getFont().deriveFont(18f));
 		label.setVerticalAlignment(JLabel.BOTTOM);
+		label.setBounds(6, 234, 200, 20);
 		contentPanel.add(label);
+		tableContainer3.setBounds(6, 258, 700, 60);
 		contentPanel.add(tableContainer3);
 
 		JPanel summePanel = new JPanel();
@@ -118,12 +169,13 @@ public class KassenFrame extends JFrame {
 		totalText.setText(String.valueOf(total));
 
 		summePanel.add(totalText);
+		summePanel.setBounds(6, 340, 700, 30);
 		contentPanel.add(summePanel);
 
 		JPanel buttonPanel = new JPanel();
 		JButton abschlussButton = new JButton("Einkauf abschließen");
 		JButton aktualisiereSummeButton = new JButton(
-				"Kostensumme aktualisieren");
+				"Kostenanzeige aktualisieren");
 		JButton abbrechButton = new JButton("Abbrechen");
 		abbrechButton.addActionListener(new AbbruchHandler());
 		aktualisiereSummeButton
@@ -133,24 +185,43 @@ public class KassenFrame extends JFrame {
 		buttonPanel.add(abbrechButton);
 		buttonPanel.add(aktualisiereSummeButton);
 		buttonPanel.add(abschlussButton);
+		buttonPanel.setBounds(6, 370, 700, 50);
 		contentPanel.add(buttonPanel);
 		
-		kassenSelectionModel1 = dienstTable.getSelectionModel();
-		kassenSelectionModel1
+		listSelectionModel1 = dienstTable.getSelectionModel();
+		listSelectionModel1
 				.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+		listSelectionModel1.addListSelectionListener(new MyListSelectionListener());
+		columnModel1 = dienstTable.getColumnModel();
+		columnModel1.setColumnSelectionAllowed(true);
 		
-		kassenSelectionModel2 = abfüllTable.getSelectionModel();
-		kassenSelectionModel2
-				.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+		dienstTable.addMouseListener(new MouseAdapter() {
+			public void mousePressed(MouseEvent event) {
+				markiereZellinhalt(dienstTable);	
+			}
+		});
 		
-		kassenSelectionModel3 = zusatzTable.getSelectionModel();
-		kassenSelectionModel3
+		listSelectionModel2 = abfüllTable.getSelectionModel();
+		listSelectionModel2
 				.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+		listSelectionModel2.addListSelectionListener(new MyListSelectionListener());
+		columnModel2 = abfüllTable.getColumnModel();
+		columnModel2.setColumnSelectionAllowed(true);
+		
+		listSelectionModel3 = zusatzTable.getSelectionModel();
+		listSelectionModel3
+				.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+		listSelectionModel3.addListSelectionListener(new MyListSelectionListener());
+		columnModel3 = zusatzTable.getColumnModel();
+		columnModel3.setColumnSelectionAllowed(true);
 
+		//JScrollPane scrollpane = new JScrollPane(contentPanel);
 		JPanel titlepane = new JPanel();
 		titlepane.setBorder(BorderFactory.createTitledBorder(
-				BorderFactory.createEtchedBorder(), "Einkäufe"));
+				BorderFactory.createEtchedBorder(), "Verkäufe"));
 		titlepane.setLayout(new BorderLayout());
+		//scrollpane.add(contentPanel);
+		//titlepane.add(scrollpane);
 		titlepane.add(contentPanel);
 		add(titlepane);
 
@@ -167,6 +238,21 @@ public class KassenFrame extends JFrame {
 		public void actionPerformed(ActionEvent e) {
 			total = berechneGesamtTotal();
 			totalText.setText(String.valueOf(total));
+		}
+	}
+	
+	private class MyListSelectionListener implements ListSelectionListener {
+		public void valueChanged(ListSelectionEvent event) {
+			listSelectionModel1.clearSelection();
+		}
+	};
+	
+	private void tabellenSpaltenGrößeFestlegen(JTable table){
+		int spaltenanzahl = table.getColumnCount();
+		table.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+		
+		for(int i = 0; i<spaltenanzahl; i++){
+			table.getColumnModel().getColumn(i).setPreferredWidth(200);
 		}
 	}
 
@@ -201,15 +287,6 @@ public class KassenFrame extends JFrame {
 			produkteZuEinkauf(aliste); // gekaufte Abfüllmaterialien hinzufügen
 			produkteZuEinkauf(zliste); // gekaufte Zusatzprodukte hinzufügen
 			//new VerkäufeFrame(einkaufsliste);
-			
-			try {
-				kunde = kundeDB.einzelnenKundeLaden(kundenId);					/////////
-				System.out.println("KundenID: " +kunde.getKundenID());
-			} catch (Exception e) {
-				// TODO Auto-generated catch block
-				System.out.println("Fehler dB");
-				e.printStackTrace();
-			}
 
 			java.util.Date datum = new Date();
 			java.sql.Date d = new java.sql.Date(datum.getTime());
@@ -224,10 +301,24 @@ public class KassenFrame extends JFrame {
 			System.out.println("Einkauf abgeschlossen");
 			new VerkäufeFrame(einkaufsliste);
 			
-			//kundeneinkäufe.printKundeneinkäufe();
-			//Tresterabrechnung tA = new Tresterabrechnung(kundeneinkäufe);
-			//tA.printTresterAbrechnung();
 			dispose();
+		}
+	}
+	
+	private void markiereZellinhalt(JTable table){
+		int row = 0;
+		int col = table.getSelectedColumn();
+	
+		table.editCellAt(row,col); // Editiert die Zelle
+
+		// Selektiert den Inhalt der Zelle, sodass dieser überschrieben werden kann
+		Integer i = (Integer) table.getValueAt(row, col);
+		TableCellEditor cedit = table.getCellEditor(row,col);
+		Component tf = (Component) cedit.getTableCellEditorComponent(table, i, true, row, col);
+		if(tf instanceof JTextField) {
+		JTextField tf_ = (JTextField)tf;
+		tf_.selectAll();
+		tf_.requestFocusInWindow();
 		}
 	}
 
