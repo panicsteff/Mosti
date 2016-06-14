@@ -1,4 +1,4 @@
-package schichtverwaltung;
+package gui.schichtverwaltung;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -18,7 +18,7 @@ public class SchichtplanungsFrame extends JFrame{
 	private JMenuBar mbar;
 	
 	
-	public SchichtplanungsFrame(){
+	public SchichtplanungsFrame(boolean isAdmin){
 		
 		setBounds(500, 200, 520, 500);
 		setTitle("Schichtplanung");
@@ -31,32 +31,37 @@ public class SchichtplanungsFrame extends JFrame{
 		calendar.setVisible(true);
 		add(calendar);
 
-		JButton schichtuebersicht = new JButton("Schichtübersicht");
-		schichtuebersicht.addActionListener(new ActionListener(){
-			public void actionPerformed(ActionEvent e){
-				Date d = calendar.getDate();
-				new SchichtTagFrame(d);
-			}
-		});
+		if(!isAdmin){
+			JButton schichtuebersicht = new JButton("Schichtübersicht");
+			schichtuebersicht.addActionListener(new ActionListener(){
+				public void actionPerformed(ActionEvent e){
+					Date d = calendar.getDate();
+					new SchichtTagFrame(d);
+				}
+			});
 		schichtuebersicht.setBounds(30, 360, 180, 30);
 		add(schichtuebersicht);
 		
-		JButton neueSchicht = new JButton("neue Schicht erstellen");
-		neueSchicht.addActionListener(new ActionListener(){
-			public void actionPerformed(ActionEvent arg0) {
-				Date d = calendar.getDate();
-				new SchichtHinzufügenFrame(d.getTime());
-			}
-			
-		});
-		neueSchicht.setBounds(220, 360, 180, 30);
-		add(neueSchicht);
-		
 		setVisible(true);
+		}
+		else{
+			JButton neueSchicht = new JButton("Schicht bearbeiten");
+			neueSchicht.addActionListener(new ActionListener(){
+				public void actionPerformed(ActionEvent arg0) {
+					Date d = calendar.getDate();
+					new SchichtHinzufügenFrame(d.getTime());
+				}
+			
+			});
+			neueSchicht.setBounds(30, 360, 180, 30);
+			add(neueSchicht);
+		
+			setVisible(true);
+		}
 	}
 	
 	public static void main(String[] avgs){
-		new SchichtplanungsFrame();
+		new SchichtplanungsFrame(true);
 	}
 	
 

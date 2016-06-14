@@ -1,4 +1,4 @@
-package schichtverwaltung;
+package gui.schichtverwaltung;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -10,6 +10,10 @@ import javax.swing.JTable;
 import javax.swing.table.TableColumnModel;
 
 import kundenverwaltung.Formats;
+import logik.schichtverwaltung.MitarbeiterNameCellRenderer;
+import logik.schichtverwaltung.Schicht;
+import logik.schichtverwaltung.SchichtLogik;
+import logik.schichtverwaltung.SchichtTableModel;
 
 public class SchichtTagFrame extends JFrame{
 	

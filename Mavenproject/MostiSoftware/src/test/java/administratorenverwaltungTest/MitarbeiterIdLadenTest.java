@@ -4,9 +4,9 @@ import static org.junit.Assert.*;
 
 import java.util.ArrayList;
 
-import org.junit.Test;
+import logik.schichtverwaltung.SchichtLogik;
 
-import schichtverwaltung.SchichtLogik;
+import org.junit.Test;
 
 public class MitarbeiterIdLadenTest {
 

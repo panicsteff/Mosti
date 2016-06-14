@@ -3,10 +3,10 @@ package administratorenverwaltungTest;
 
 import java.util.Date;
 
-import org.junit.Test;
+import logik.schichtverwaltung.Schicht;
+import logik.schichtverwaltung.SchichtLogik;
 
-import schichtverwaltung.Schicht;
-import schichtverwaltung.SchichtLogik;
+import org.junit.Test;
 
 public class schichtTest {
 	

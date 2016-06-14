@@ -5,10 +5,10 @@ import static org.junit.Assert.*;
 import java.sql.Date;
 import java.util.ArrayList;
 
-import org.junit.Test;
+import logik.schichtverwaltung.Schicht;
+import logik.schichtverwaltung.SchichtLogik;
 
-import schichtverwaltung.Schicht;
-import schichtverwaltung.SchichtLogik;
+import org.junit.Test;
 
 public class SchichtSortierenTest {
 

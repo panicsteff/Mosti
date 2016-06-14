@@ -1,4 +1,4 @@
-package schichtverwaltung;
+package logik.schichtverwaltung;
 
 import java.util.ArrayList;
 
