@@ -26,11 +26,10 @@ public class AnmeldungDB {
 		try {
 			Statement s = conn.createStatement();
 			ResultSet rs = s
-					.executeQuery("SELECT * FROM [mitarbeiter] Where Benutzername = \""
-							+ benutzernameEingabe + '\"');
-
+					.executeQuery("SELECT * FROM [mitarbeiter] Where Benutzername = '"
+							+ benutzernameEingabe + "'");
 			
-
+			
 			while (rs.next()) {
 				mitarbeiter.setBenutzername(rs.getString("Benutzername"));
 				mitarbeiter.setMitarbeiterID(rs.getInt("ID"));

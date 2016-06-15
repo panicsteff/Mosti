@@ -18,7 +18,7 @@ public class Accountverwaltung{
 	 
 	public Mitarbeiter anmelden(String benutzername, String passwort){
 		Mitarbeiter m = anmeldungDB.mitarbeiterLaden(benutzername);
-		if(m.getBenutzername() == null){
+		if(m.getBenutzername() == null || m.getBenutzername().equals(benutzername) == false){
 			JOptionPane.showMessageDialog(null, "Benutzername nicht bekannt");
 			return null;
 		}
