@@ -14,16 +14,22 @@ import logik.mitarbeiterverwaltung.Mitarbeiter;
 public class MitarbeiterDB {
 
 	Connection conn;
-	ArrayList<Mitarbeiter> mitarbeiterliste;
+	
+	public MitarbeiterDB(){
+		try {
+			conn = DriverManager
+					.getConnection("jdbc:ucanaccess://./Mosti-Datenbank.mdb");
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+	
 
 	public ArrayList<Mitarbeiter> mitarbeiterLaden() throws FileNotFoundException {
 
-		mitarbeiterliste = new ArrayList<Mitarbeiter>();
+		ArrayList<Mitarbeiter> mitarbeiterliste = new ArrayList<Mitarbeiter>();
 
 		try {
-
-			conn = DriverManager
-					.getConnection("jdbc:ucanaccess://./Mosti-Datenbank.mdb");
 			Statement s = conn.createStatement();
 			ResultSet rs = s.executeQuery("Select * From [mitarbeiter] ");
 
@@ -53,8 +59,6 @@ public class MitarbeiterDB {
 	public void mitarbeiterSpeichern(ArrayList<Mitarbeiter> mitarbeiterliste) {
 
 		try {
-			conn = DriverManager
-					.getConnection("jdbc:ucanaccess://./Mosti-Datenbank.mdb");
 			PreparedStatement s = null;
 
 			for (Mitarbeiter m : mitarbeiterliste) {
@@ -87,8 +91,6 @@ public class MitarbeiterDB {
 	public void mitarbeiterEinfügen(Mitarbeiter mitarbeiter) {
 
 		try {
-			conn = DriverManager
-					.getConnection("jdbc:ucanaccess://./Mosti-Datenbank.mdb");
 			PreparedStatement s = conn.prepareStatement("INSERT into mitarbeiter (Nachname, Vorname, Strasse, hausnummer, plz, Stadt, telefonnummer, benutzername, passwort) "
 					+ "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)");
 			
@@ -114,8 +116,7 @@ public class MitarbeiterDB {
 	
 	public void mitarbeiterLöschen(int mitarbeiterId){
 		
-		try{
-			conn = DriverManager.getConnection("jdbc:ucanaccess://./Mosti-Datenbank.mdb");
+		try{			
 			PreparedStatement s = conn.prepareStatement("Delete from mitarbeiter where Id = ?");
 			
 			s.setInt(1, mitarbeiterId);
@@ -125,5 +126,22 @@ public class MitarbeiterDB {
 		}catch(Exception e){
 			e.printStackTrace();
 		}
+	}
+	
+	public boolean benutzernamenSuchen(String benutzername){
+		
+		try{
+			Statement s = conn.createStatement();
+			ResultSet rs = s.executeQuery("Select * from mitarbeiter where benutzername = '" + benutzername + "'");
+			
+			while(rs.next()){
+				return false;
+			}
+			
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+		
+		return true;
 	}
 }

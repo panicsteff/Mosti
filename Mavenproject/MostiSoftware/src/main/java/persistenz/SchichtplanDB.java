@@ -13,7 +13,7 @@ import logik.schichtverwaltung.Schicht;
 
 public class SchichtplanDB {
 
-	private static Connection conn;
+	private Connection conn;
 	
 	public SchichtplanDB(){
 		try {
@@ -40,7 +40,7 @@ public class SchichtplanDB {
 				Schicht s = new Schicht();
 				s.setDatum(datum);
 				s.addMitarbeiterId(rs.getInt("Mitarbeiter"));
-				s.setSchichtId(rs.getShort("ID"));
+				s.addSchichtId(rs.getShort("ID"));
 				s.setUhrzeit(rs.getInt("Uhrzeit"));
 				liste.add(s);
 				
@@ -118,11 +118,31 @@ public class SchichtplanDB {
 		return mitarbeiterId;
 	}
 	
-	public static void schichtLöschen(int schichtId){
+	public void schichtUpdaten(int schichtId, int mitarbeiterId){
 		
 		try {
 			PreparedStatement s = null;
-			s = conn.prepareStatement("Delete from schichtplan where ID = " + schichtId);
+			s = conn.prepareStatement("update schichtplan set mitarbeiter = ? where ID = ?");
+			
+			s.setInt(1, mitarbeiterId);
+			s.setInt(2, schichtId);
+			
+			s.executeUpdate();
+			s.close();
+			
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public void schichtLöschen(int schichtId){
+		
+		try {
+			PreparedStatement s = null;
+			s = conn.prepareStatement("delete from schichtplan where ID = ?");
+			
+			s.setInt(1, schichtId);
 			
 			s.executeUpdate();
 			s.close();

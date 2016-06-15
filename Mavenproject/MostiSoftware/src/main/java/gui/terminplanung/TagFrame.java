@@ -2,6 +2,7 @@ package gui.terminplanung;
 
 import gui.account.M_Startseite;
 import gui.kassenfunktion.KassenFrame;
+import gui.trester.TresterabrechnungFrame;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -171,6 +172,7 @@ public class TagFrame extends JFrame {
 	private JButton cmdFrueher;
 	private JButton cmdSpaeter;
 	private JComboBox<String> tresterKunde;
+	private int kundenId;
 	private ArrayList<Integer> kundenIds;
 	private boolean neu;
 
@@ -237,12 +239,30 @@ public class TagFrame extends JFrame {
 		tresterKunde.setEditable(true);
 		add(tresterKunde);
 		tresterKunde.getEditor().getEditorComponent().addKeyListener(new MyKeyListener());
-		int kundenId = tagframecontroller.tresterKundeLaden(datum);
+		kundenId = tagframecontroller.tresterKundeLaden(datum);
 		neu = false;
 		if(kundenId == 0){
 			neu = true;
+		}else{
+			tresterKunde.getEditor().setItem(tagframecontroller.kundenNameLaden(kundenId));
 		}
-		tresterKunde.getEditor().setItem(tagframecontroller.kundenNameLaden(kundenId));
+		tresterKunde.getEditor().getEditorComponent().addMouseListener(new MouseAdapter(){
+			public void mousePressed(MouseEvent m){
+				if(m.getClickCount() == 2){
+					if(tresterKunde.getEditor().getItem().equals("") == true){
+						JOptionPane.showMessageDialog(TagFrame.this, "Bitte wählen Sie zuerst eine Tresterkunden aus");
+						return;
+					}
+					int index = tresterKunde.getSelectedIndex();
+					if(index < 0){									//Combobox wurde nicht angeworfen und es hat sich nix geändert
+						new TresterabrechnungFrame(kundenId);								
+					}
+					else{
+						new TresterabrechnungFrame(kundenIds.get(index));
+					}
+				}
+			}
+		});
 		
 		JButton speichern = new JButton("Tresterkunde speichern");
 		speichern.setBounds(20, 550, 200, 40);;
