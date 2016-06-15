@@ -109,7 +109,13 @@ public class MitarbeiterHinzufügenFrame extends JDialog {
 	private class MyOKHandler implements ActionListener {
 		
 		public void actionPerformed(ActionEvent arg0){
-			String passwort = new String(Base64.encodeBase64(txtBenutzername.getText().getBytes()));
+			
+			if(benutzernamePrüfen(txtBenutzername.getText()) == false){
+				JOptionPane.showMessageDialog(MitarbeiterHinzufügenFrame.this, "Benutzername ist bereits vorhanden. Bitte wählen Se einen anderen");
+				return;
+			}
+			
+			//String passwort = new String(Base64.encodeBase64(txtBenutzername.getText().getBytes()));
 			mitarbeiter = new Mitarbeiter(txtNachname.getText(), txtVorname.getText(), 
 										  txtStrasse.getText(), txtHausnummer.getText(), 
 										  txtPlz.getText(), txtStadt.getText(), txtTelefonnummer.getText(),
@@ -134,6 +140,12 @@ public class MitarbeiterHinzufügenFrame extends JDialog {
 		public void actionPerformed(ActionEvent e){
 			dispose();
 		}
+	}
+	
+	private boolean benutzernamePrüfen(String benutzername){
+		boolean frei = true;
+		frei = mdb.benutzernamenSuchen(benutzername);
+		return frei;
 	}
 	
 }
