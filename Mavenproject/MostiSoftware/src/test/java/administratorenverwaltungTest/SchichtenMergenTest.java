@@ -20,7 +20,7 @@ public class SchichtenMergenTest {
 		for(int i=0; i<4; i++){
 			Schicht s = new Schicht();
 			s.setDatum(new Date(123456l));
-			s.setSchichtId(5);
+			s.addSchichtId(5);
 			s.setUhrzeit(540 + 300*(i/2));
 			s.addMitarbeiterId(5 + i);
 			liste.add(s);

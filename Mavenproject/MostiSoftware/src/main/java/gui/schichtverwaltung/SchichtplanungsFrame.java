@@ -6,8 +6,6 @@ import java.util.Date;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
-import javax.swing.JMenu;
-import javax.swing.JMenuBar;
 
 import com.toedter.calendar.JCalendar;
 
@@ -15,7 +13,6 @@ public class SchichtplanungsFrame extends JFrame{
 	
 	private static final long serialVersionUID = 1L;
 	JCalendar calendar;
-	private JMenuBar mbar;
 	
 	
 	public SchichtplanungsFrame(boolean isAdmin){
@@ -49,7 +46,7 @@ public class SchichtplanungsFrame extends JFrame{
 			neueSchicht.addActionListener(new ActionListener(){
 				public void actionPerformed(ActionEvent arg0) {
 					Date d = calendar.getDate();
-					new SchichtHinzufügenFrame(d.getTime());
+					new SchichtBearbeitenFrame(d.getTime());
 				}
 			
 			});
@@ -60,9 +57,4 @@ public class SchichtplanungsFrame extends JFrame{
 		}
 	}
 	
-	public static void main(String[] avgs){
-		new SchichtplanungsFrame(true);
-	}
-	
-
 }

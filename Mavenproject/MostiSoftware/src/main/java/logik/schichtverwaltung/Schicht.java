@@ -7,16 +7,20 @@ import java.util.ArrayList;
 public class Schicht {
 	
 	private ArrayList<Integer> mitarbeiterIds;
-	private int schichtId;
+	private ArrayList<Integer> schichtId;
 	private int uhrzeit;
 	private Date datum;
 		
 	
 	public Schicht(){
 		mitarbeiterIds = new ArrayList<Integer>();
-	}
+		schichtId = new ArrayList<Integer>();
+		}
 	
 	public Integer getMitarbeiterId(int reihe){
+		if(reihe >= mitarbeiterIds.size()){
+			return 0;
+		}else
 		return mitarbeiterIds.get(reihe);
 	}
 
@@ -28,12 +32,12 @@ public class Schicht {
 		return mitarbeiterIds.size();
 	}
 
-	public int getSchichtId() {
-		return schichtId;
+	public Integer getSchichtId(int reihe) {
+		return schichtId.get(reihe);
 	}
 
-	public void setSchichtId(int schichtId) {
-		this.schichtId = schichtId;
+	public void addSchichtId(int Id) {
+		schichtId.add(Id);
 	}
 
 	public int getUhrzeit() {

@@ -12,9 +12,10 @@ import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 
+import logik.schichtverwaltung.Schicht;
 import logik.schichtverwaltung.SchichtLogik;
 
-public class SchichtHinzufügenFrame extends JFrame{
+public class SchichtBearbeitenFrame extends JFrame{
 
 	class MyKeyListener extends KeyAdapter {
 		
@@ -79,11 +80,17 @@ public class SchichtHinzufügenFrame extends JFrame{
 				int gewähltePosition = combo.getSelectedIndex();
 				if(gewähltePosition != -1){
 					int mitarbeiterId = idListe.get(i).get(gewähltePosition);
-					int uhrzeit = schichtlogik.berechneUhrzeit(i);
-					schichtlogik.schichtSpeichern(datum, mitarbeiterId, uhrzeit);
+					Schicht s = schichtliste.get(i%schichtlogik.getSchichtenProTag());
+					if(s.getMitarbeiterId(i/schichtlogik.getSchichtenProTag()) != 0){				//Wenns den Termin schon gab
+						schichtlogik.schichtUpdaten(s.getSchichtId(i/schichtlogik.getSchichtenProTag()), mitarbeiterId);
+					}
+					else{
+						int uhrzeit = schichtlogik.berechneUhrzeit(i);
+						schichtlogik.schichtSpeichern(datum, mitarbeiterId, uhrzeit);	
+					}
 				}
 			}
-			SchichtHinzufügenFrame.this.dispose();
+			SchichtBearbeitenFrame.this.dispose();
 			
 			
 		}
@@ -96,8 +103,10 @@ public class SchichtHinzufügenFrame extends JFrame{
 	private ArrayList<JComboBox<String>> boxliste;
 	private ArrayList<String> eingabe;
 	private ArrayList<ArrayList<Integer>> idListe;
+	private ArrayList<Schicht> schichtliste;
 	
-	SchichtHinzufügenFrame(long datum){
+	
+	SchichtBearbeitenFrame(long datum){
 		setSize(600,300);
 		this.datum = new Date(datum);
 		setTitle(this.datum.toString());
@@ -108,6 +117,7 @@ public class SchichtHinzufügenFrame extends JFrame{
 		boxliste = new ArrayList<JComboBox<String>>();
 		idListe = new ArrayList<ArrayList<Integer>>();
 		eingabe = new ArrayList<String>();
+		schichtliste = schichtlogik.schichtLaden(datum);
 		
 		for(int i=0; i<schichtlogik.getMitarbeiterProSchicht(); i++){
 			for(int j=0; j<schichtlogik.getSchichtenProTag(); j++){
@@ -148,6 +158,12 @@ public class SchichtHinzufügenFrame extends JFrame{
 				boxliste.add(combobox);
 				combobox.getEditor().getEditorComponent().addKeyListener(new MyKeyListener(j+i*schichtlogik.getSchichtenProTag()));
 				add(combobox);
+				int id = schichtliste.get(j).getMitarbeiterId(i);
+				if(id != 0){
+					String name = schichtlogik.mitarbeiternameLaden(id);
+					combobox.getEditor().setItem(name);
+				}
+				
 			}
 		}
 		

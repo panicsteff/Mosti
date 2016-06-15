@@ -51,6 +51,7 @@ public class SchichtLogik {
 				j++;
 				while(j<liste.size() && liste.get(j).getUhrzeit() == i){
 					s.addMitarbeiterId(liste.get(j).getMitarbeiterId(0));
+					s.addSchichtId(liste.get(j).getSchichtId(0));
 					j++;
 				}
 				neueListe.add(s);
@@ -97,7 +98,7 @@ public class SchichtLogik {
 		return uhrzeit;
 	}
 	
-	public static void schichtLöschen(Schicht s){
-		SchichtplanDB.schichtLöschen(s.getSchichtId());
+	public void schichtUpdaten(int schichtId, int mitarbeiterId){
+		schichtplanDb.schichtUpdaten(schichtId, mitarbeiterId);
 	}
 }
