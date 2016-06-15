@@ -17,8 +17,8 @@ public class Verkauf {
 		this.setKunde(kunde);
 		setVerkaufsDatum(date);
 		einkaufsliste = liste;
-//		setLiterzahl(0);
-//		setSumme(0);
+		literzahl = berechneLiterzahl();
+		total = berechneTotal();
 	}
 
 	public void addEinkaufsposition(Verkaufsposition position) {
@@ -56,6 +56,29 @@ public class Verkauf {
 	public int getLiterzahl() {
 		return literzahl;
 	}
+	
+	public int berechneLiterzahl(){
+		int summe = 0;
+		for(Verkaufsposition v: einkaufsliste){
+			summe = summe + v.getLiterzahl();
+		}
+		return summe;
+	}
+	
+	public double berechneTotal(){
+		double erg = 0.0;
+		int faktor = 0;
+		for(Verkaufsposition v: einkaufsliste){
+			if(v.getLiterzahl() != 0)
+				faktor = v.getLiterzahl();
+			else 
+				faktor = v.getVerkaufsMenge();
+			erg = erg + faktor*v.getPreis();
+		}
+		return erg;
+	}
+	
+	
 
 //	public void setLiterzahl(int literzahl) {
 //		this.literzahl = literzahl;

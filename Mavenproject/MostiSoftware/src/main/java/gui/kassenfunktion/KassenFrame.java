@@ -1,5 +1,6 @@
 package gui.kassenfunktion;
 
+import gui.verkauf.KundeneinkaufFrame;
 import gui.verkauf.VerkäufeFrame;
 
 import java.awt.BorderLayout;
@@ -272,6 +273,7 @@ public class KassenFrame extends JFrame {
 			java.sql.Date d = new java.sql.Date(datum.getTime());
 			System.out.println(d);
 			verkauf = new Verkauf(kunde, d, einkaufsliste);
+			//System.out.println(verkauf.getSumme());
 			vVerwaltung.addVerkauf(verkauf);
 
 //			total = berechneGesamtTotal();
@@ -279,7 +281,8 @@ public class KassenFrame extends JFrame {
 //			einkauf.setLiterzahl(literzahl);
 			
 			System.out.println("Einkauf abgeschlossen");
-			new VerkäufeFrame(einkaufsliste);
+			//new VerkäufeFrame(einkaufsliste);
+			new KundeneinkaufFrame(verkauf);
 			
 			dispose();
 		}
