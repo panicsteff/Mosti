@@ -1,13 +1,11 @@
 package gui.trester;
 
 
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-
-import gui.kundenverwaltung.KundeListCellRenderer;
-import gui.kundenverwaltung.KundeListModel;
 import gui.verkauf.ÜbersichtButtonGroup;
 import gui.verkauf.ÜbersichtButtonModel;
+
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
 import javax.swing.JFormattedTextField;
@@ -15,17 +13,15 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JRadioButton;
-import javax.swing.JTextField;
 
-import persistenz.KundeDB;
-import logik.kundenverwaltung.Formats;
 import logik.kundenverwaltung.Kunde;
-import logik.kundenverwaltung.NullableFormatter;
 import logik.trester.Tresterabrechnung;
 import logik.trester.Tresterverwaltung;
+import persistenz.KundeDB;
 
 public class TresterabrechnungFrame extends JFrame {
 	
+	private static final long serialVersionUID = 1L;
 	private JFormattedTextField txtNeueLiterzahl;
 	private JRadioButton buttonGanzerTag;
 	private JRadioButton buttonÄnderung;
@@ -38,7 +34,7 @@ public class TresterabrechnungFrame extends JFrame {
 	private Kunde kunde;
 	private KundeDB kundeDB; // nur zum Test
 	
-	public TresterabrechnungFrame(){
+	public TresterabrechnungFrame(int kundenId){
 	
 		setTitle("Trester abrechnen");
 		setSize(480, 450);
@@ -47,7 +43,7 @@ public class TresterabrechnungFrame extends JFrame {
 		tv = new Tresterverwaltung();
 		
 		kundeDB = new KundeDB(); 
-		kunde = kundeDB.einzelnenKundeLaden(6); // Kunde eig aus Terminübersicht übernehmen
+		kunde = kundeDB.einzelnenKundeLaden(kundenId); // Kunde eig aus Terminübersicht übernehmen
 
 		lblText = new JLabel("Die Literzahl für den gesamten, heutigen Tag beträgt:");
 		lblText.setBounds(6, 20, 330, 19);
@@ -197,7 +193,7 @@ public class TresterabrechnungFrame extends JFrame {
 	}
 	
 	public static void main(String[] args){
-		TresterabrechnungFrame t = new TresterabrechnungFrame();
+		TresterabrechnungFrame t = new TresterabrechnungFrame(6);
 	}
 
 }
