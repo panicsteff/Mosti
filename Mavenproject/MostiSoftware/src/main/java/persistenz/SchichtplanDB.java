@@ -136,4 +136,21 @@ public class SchichtplanDB {
 		}
 	}
 	
+	public void schichtLöschen(int schichtId){
+		
+		try {
+			PreparedStatement s = null;
+			s = conn.prepareStatement("delete from schichtplan where ID = ?");
+			
+			s.setInt(1, schichtId);
+			
+			s.executeUpdate();
+			s.close();
+			
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
 }

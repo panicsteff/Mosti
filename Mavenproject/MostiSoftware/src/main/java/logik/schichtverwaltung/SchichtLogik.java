@@ -101,4 +101,8 @@ public class SchichtLogik {
 	public void schichtUpdaten(int schichtId, int mitarbeiterId){
 		schichtplanDb.schichtUpdaten(schichtId, mitarbeiterId);
 	}
+	
+	public void schichtLöschen(int schichtId){
+		schichtplanDb.schichtLöschen(schichtId);
+	}
 }

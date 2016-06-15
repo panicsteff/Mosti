@@ -78,15 +78,20 @@ public class SchichtBearbeitenFrame extends JFrame{
 			for(int i=0; i<boxliste.size(); i++){
 				JComboBox<String> combo = boxliste.get(i);
 				int gewähltePosition = combo.getSelectedIndex();
-				if(gewähltePosition != -1){
-					int mitarbeiterId = idListe.get(i).get(gewähltePosition);
-					Schicht s = schichtliste.get(i%schichtlogik.getSchichtenProTag());
-					if(s.getMitarbeiterId(i/schichtlogik.getSchichtenProTag()) != 0){				//Wenns den Termin schon gab
-						schichtlogik.schichtUpdaten(s.getSchichtId(i/schichtlogik.getSchichtenProTag()), mitarbeiterId);
-					}
-					else{
-						int uhrzeit = schichtlogik.berechneUhrzeit(i);
-						schichtlogik.schichtSpeichern(datum, mitarbeiterId, uhrzeit);	
+				Schicht s = schichtliste.get(i%schichtlogik.getSchichtenProTag());
+				if(combo.getEditor().getItem().equals("")){
+					schichtlogik.schichtLöschen(s.getSchichtId(i/schichtlogik.getSchichtenProTag())); 		//Umgerechnet in absoulte position in der Tabelle
+				}
+				else{
+					if(gewähltePosition > -1){
+						int mitarbeiterId = idListe.get(i).get(gewähltePosition);
+						if(s.getMitarbeiterId(i/schichtlogik.getSchichtenProTag()) != 0){				//Wenns den Termin schon gab
+							schichtlogik.schichtUpdaten(s.getSchichtId(i/schichtlogik.getSchichtenProTag()), mitarbeiterId);
+						}
+						else{
+							int uhrzeit = schichtlogik.berechneUhrzeit(i);
+							schichtlogik.schichtSpeichern(datum, mitarbeiterId, uhrzeit);	
+						}
 					}
 				}
 			}
