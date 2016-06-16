@@ -179,14 +179,14 @@ public class TerminDB {
 		}
 	}
 	
-	public void tresterkundeUpdaten(Date d, int kundenId){
+	public void tresterKundeUpdaten(Date datum, int kundenId){
 		
 		try{
 			PreparedStatement s = null;
 			
-			s = conn.prepareStatement("Update trestertermine set kundenid = ? where Datum = ?");
-			s.setInt(1, kundenId);
-			s.setDate(2, d);
+			s = conn.prepareStatement("Update trestertermine set kundenid = " + kundenId + " where Datum BETWEEN{ts '"
+							+ datum	+ " 00:00:00'} AND {ts '"
+							+ datum + " 23:59:59'} ");
 			
 			s.executeUpdate();
 			s.close();
