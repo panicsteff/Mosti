@@ -34,7 +34,7 @@ public class KundeDB {
 				k.setStrasse(rs.getString("Strasse"));
 				k.setHausnummer(rs.getString("Hausnummer"));
 				k.setPlz(rs.getString("PLZ"));
-				k.setWohnort(rs.getString("Stadt"));
+				k.setWohnort(rs.getString("Wohnort"));
 				k.setTel(rs.getString("Telefonnummer"));
 				k.setKundenID(rs.getInt("ID"));
 				kundenliste.add(k);
@@ -87,7 +87,7 @@ public class KundeDB {
 		
 		try{
 			conn = DriverManager.getConnection("jdbc:ucanaccess://./Mosti-Datenbank.mdb");
-			PreparedStatement s = conn.prepareStatement("Insert into kunden (Nachname, Vorname, Strasse, Hausnummer, Plz, Wohnort, Telefonnummer) VALUES (?, ?, ?, ?, ?, ?)");
+			PreparedStatement s = conn.prepareStatement("Insert into kunden (Nachname, Vorname, Strasse, Hausnummer, Plz, Wohnort, Telefonnummer) VALUES (?, ?, ?, ?, ?, ?, ?)");
 			
 			s.setString(1, k.getNachname());
 			s.setString(2, k.getVorname());

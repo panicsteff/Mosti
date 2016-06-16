@@ -160,7 +160,6 @@ public class KundenVerwaltung extends JFrame {
 	
 	public void sortiereKundenliste(ArrayList<Kunde> liste){            // alphabetische Sortierung nach Nachnamen der Kunden
 		Collections.sort(liste, new Comparator<Kunde>() {
-
 			public int compare(Kunde o1, Kunde o2) {
 				return o1.getNachname().compareTo(o2.getNachname());
 			}

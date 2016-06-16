@@ -7,7 +7,7 @@ public class Kunde {
 	private String strasse;
 	private String hausnummer;
 	private String plz;
-	private String stadt;
+	private String wohnort;
 	private String telefonnummer;
 	private int kundenID;
 	
@@ -68,11 +68,11 @@ public class Kunde {
 	}
 	
 	public String getWohnort(){
-		return stadt;
+		return wohnort;
 	}
 	
 	public void setWohnort(String ort){
-		this.stadt = ort;
+		this.wohnort = ort;
 	}
 	
 	public String getTel(){
