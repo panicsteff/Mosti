@@ -79,7 +79,7 @@ public class SchichtBearbeitenFrame extends JFrame{
 				JComboBox<String> combo = boxliste.get(i);
 				int gewähltePosition = combo.getSelectedIndex();
 				Schicht s = schichtliste.get(i%schichtlogik.getSchichtenProTag());
-				if(combo.getEditor().getItem().equals("")){
+				if(combo.getEditor().getItem().equals("") && s.getMitarbeiterId(i/schichtlogik.getSchichtenProTag()) != 0){		//Termin gabs schon
 					schichtlogik.schichtLöschen(s.getSchichtId(i/schichtlogik.getSchichtenProTag())); 		//Umgerechnet in absoulte position in der Tabelle
 				}
 				else{
