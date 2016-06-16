@@ -2,8 +2,10 @@ package gui.verkauf;
 
 import java.awt.BorderLayout;
 import java.awt.Container;
+import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -44,43 +46,34 @@ public class KundeneinkaufFrame extends JFrame implements Printable {
 		einkäufe = verkauf.getVerkäufeListe();
 
 		setTitle("Verkäufe");
-		setSize(920, 600);
+		setSize(685, 850);
 		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 
 		JMenuBar menubar = new JMenuBar();
 		setJMenuBar(menubar);
 
-		JMenu datei = new JMenu("Datei");
+		JMenu datei = new JMenu("Kundenabrechnung");
 		menubar.add(datei);
 		datei.addSeparator();
 		JMenuItem drucken = new JMenuItem("Drucken");
 		datei.add(drucken);
 		datei.addSeparator();
-		JMenuItem beenden = new JMenuItem("Fenster schließen");
-		datei.add(beenden);
-		
 		drucken.addActionListener(new MyPrintHandler());
-
-		beenden.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent event) {
-				dispose();
-			}
-		});
 
 		JPanel panel = new JPanel();
 		panel.setLayout(new GridLayout(3,1));
 		
 		label = new JLabel();
-		label.setFont(label.getFont().deriveFont(25f));
+		label.setFont(label.getFont().deriveFont(20f));
 		panel.add(label);
 		label = new JLabel("Kostenzusammenstellung für Kunde " + verkauf.getKunde().getNachname() +
 				" am " + Formats.DATE_FORMAT.format(verkauf.getVerkaufsDatum()));
-		label.setFont(label.getFont().deriveFont(25f));
+		label.setFont(label.getFont().deriveFont(20f));
 		label.setVerticalAlignment(JLabel.BOTTOM);
 		label.setHorizontalAlignment(JLabel.CENTER);
 		panel.add(label);
 		label = new JLabel();
-		label.setFont(label.getFont().deriveFont(25f));
+		label.setFont(label.getFont().deriveFont(20f));
 		panel.add(label);
 		
 
@@ -89,9 +82,9 @@ public class KundeneinkaufFrame extends JFrame implements Printable {
 		//vTabelle.setShowGrid(false);
 		vTabelle.setShowHorizontalLines(false);
 		vTabelle.setShowVerticalLines(false);
-		vTabelle.getTableHeader().setFont(new Font("Arial", Font.BOLD, 20));
-		vTabelle.setFont(new Font("Arial", Font.BOLD, 20));
-		vTabelle.setRowHeight(30); 
+		vTabelle.getTableHeader().setFont(new Font("Arial", Font.BOLD, 15));
+		vTabelle.setFont(new Font("Arial", Font.BOLD, 15));
+		vTabelle.setRowHeight(25); 
 
 
 		TableColumn preisspalte = vTabelle.getColumnModel().getColumn(1);
@@ -100,10 +93,10 @@ public class KundeneinkaufFrame extends JFrame implements Printable {
 		zwischenspalte.setCellRenderer(new PreisCellRenderer());
 
 		vTabelle.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
-		vTabelle.getColumnModel().getColumn(0).setPreferredWidth(350);
-		vTabelle.getColumnModel().getColumn(1).setPreferredWidth(250);
-		vTabelle.getColumnModel().getColumn(2).setPreferredWidth(100);
-		vTabelle.getColumnModel().getColumn(3).setPreferredWidth(200);
+		vTabelle.getColumnModel().getColumn(0).setPreferredWidth(230);
+		vTabelle.getColumnModel().getColumn(1).setPreferredWidth(200);
+		vTabelle.getColumnModel().getColumn(2).setPreferredWidth(80);
+		vTabelle.getColumnModel().getColumn(3).setPreferredWidth(150);
 
 		JScrollPane scrollpane = new JScrollPane(vTabelle);
 		JPanel titlepanel = new JPanel();
@@ -117,24 +110,24 @@ public class KundeneinkaufFrame extends JFrame implements Printable {
 		summenPanel.setLayout(new GridLayout(2, 3));
 		label = new JLabel();
 		summenPanel.add(label);
-		label = new JLabel("Kostensumme gesamt");
-		label.setFont(label.getFont().deriveFont(20f));
+		label = new JLabel("Kostensumme gesamt: ");
+		label.setFont(label.getFont().deriveFont(15f));
 		label.setHorizontalAlignment(JLabel.RIGHT);
 		summenPanel.add(label);
 		label = new JLabel();
 		label.setText(String.valueOf(Math.round(verkauf.getSumme()* 100.0) / 100.0) + " €  ");
-		label.setFont(label.getFont().deriveFont(20f));
+		label.setFont(label.getFont().deriveFont(15f));
 		label.setHorizontalAlignment(JLabel.RIGHT);
 		summenPanel.add(label);
 		label = new JLabel();
 		summenPanel.add(label);
-		label = new JLabel("Literzahl gesamt");
-		label.setFont(label.getFont().deriveFont(20f));
+		label = new JLabel("Literzahl gesamt: ");
+		label.setFont(label.getFont().deriveFont(15f));
 		label.setHorizontalAlignment(JLabel.RIGHT);
 		summenPanel.add(label);
 		label = new JLabel();
 		label.setText(String.valueOf(verkauf.getLiterzahl()) + " L  ");
-		label.setFont(label.getFont().deriveFont(20f));
+		label.setFont(label.getFont().deriveFont(15f));
 		label.setHorizontalAlignment(JLabel.RIGHT);
 		summenPanel.add(label);
 		
@@ -170,17 +163,30 @@ public class KundeneinkaufFrame extends JFrame implements Printable {
 		if (pageIndex > 0) {
 			return (NO_SUCH_PAGE);
 		} else {
+			Dimension dim = KundeneinkaufFrame.this.getSize();
+		    double cHeight = dim.getHeight();
+		    double cWidth = dim.getWidth();
+		    System.out.println("dimensionen: " + cHeight + " " + cWidth);
+		    
 			int x = (int) pageFormat.getImageableX() + 1;
 			int y = (int) pageFormat.getImageableY() + 1;
-			g.translate(x, y);
-			 double pHeight = pageFormat.getImageableHeight();
-			 double pWidth = pageFormat.getImageableWidth();
-			 double xRatio = pWidth / cWidth;
-			    double yRatio = pHeight / cHeight;
+			
+			double pHeight = pageFormat.getImageableHeight();
+			double pWidth = pageFormat.getImageableWidth();
+			System.out.println("page format height: " + pHeight + " " + pWidth);
+			double xRatio = pWidth / cWidth;
+			double yRatio = pHeight / cHeight;
+			
+			System.out.println("Ratio: " + xRatio + " " + yRatio);
+		    
+			Graphics2D g2 = (Graphics2D) g;
+			g2.translate(x, y);
+			g2.scale(xRatio, xRatio);
+			
 			System.out.println(x+" "+y);
 			RepaintManager currentManager = RepaintManager.currentManager(this);
 			currentManager.setDoubleBufferingEnabled(false);
-			this.paint(g);
+			this.paint(g2);
 			currentManager.setDoubleBufferingEnabled(true);
 			return (PAGE_EXISTS);
 		}
