@@ -26,6 +26,7 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 import javax.swing.JSeparator;
+import javax.swing.SwingConstants;
 
 import logik.dienstleistungverwaltung.DLSortiment;
 import logik.mitarbeiterverwaltung.Mitarbeiter;
@@ -56,9 +57,9 @@ public class M_Startseite extends JFrame {
 
 		JPanel panel = new JPanel();
 		panel.setLayout(new GridLayout(2, 3));
-		JButton kassenButton = new JButton();
-		kassenButton.setIcon(new ImageIcon("./src/register.png"));
-		
+		JButton kassenButton = new JButton("Kasse", new ImageIcon("./src/register.png"));
+		kassenButton.setVerticalTextPosition(SwingConstants.BOTTOM);
+        kassenButton.setHorizontalTextPosition(SwingConstants.CENTER);
 		kassenButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				new TagFrame(new Date().getTime(), 1, M_Startseite.this, 0);
@@ -66,38 +67,60 @@ public class M_Startseite extends JFrame {
 		});
 		
 		
-		JButton mitarbeiter = new JButton("Mitarbeiterverwaltung");
-		panel.add(mitarbeiter);
+		JButton mitarbeiter = new JButton("Mitarbeiterverwaltung", new ImageIcon("./src/mitarbeiter1.png"));
+		mitarbeiter.setVerticalTextPosition(SwingConstants.BOTTOM);
+        mitarbeiter.setHorizontalTextPosition(SwingConstants.CENTER);
 		mitarbeiter.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e){
 				new MitarbeiterVerwaltung();
 			}
 		});
-		mitarbeiter.setIcon(new ImageIcon("./src/mitarbeiter.jpg"));
 		
-		JButton terminplanung = new JButton("Terminplanung");
-		panel.add(terminplanung);
+		
+		JButton terminplanung = new JButton("Terminplanung", new ImageIcon("./src/termin.png"));
+		terminplanung.setVerticalTextPosition(SwingConstants.BOTTOM);
+        terminplanung.setHorizontalTextPosition(SwingConstants.CENTER);
 		terminplanung.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e){
 				new TerminplanungsFrame();
 			}
 		});
 		
-		terminplanung.setIcon(new ImageIcon("./src/termin.png"));
-		JButton lagerButton = new JButton();
-		lagerButton.setIcon(new ImageIcon("./src/karre.jpg"));
+		
+		JButton lagerButton = new JButton("Lagerverwaltung", new ImageIcon("./src/karre.jpg"));
+		lagerButton.setVerticalTextPosition(SwingConstants.BOTTOM);
+        lagerButton.setHorizontalTextPosition(SwingConstants.CENTER);
 		lagerButton.setVisible(isAdmin);
-		JButton dlButton = new JButton();
-		dlButton.setIcon(new ImageIcon("./src/apple.png"));
+		
+		
+		JButton dlButton = new JButton("Dienstleistungen", new ImageIcon("./src/apple.png"));
+		dlButton.setVerticalTextPosition(SwingConstants.BOTTOM);
+        dlButton.setHorizontalTextPosition(SwingConstants.CENTER);
 		dlButton.setVisible(isAdmin);
-		JButton übersichtButton = new JButton();
-		übersichtButton.setIcon(new ImageIcon("./src/übersicht.png"));
+		
+		
+		JButton übersichtButton = new JButton("Verkaufsübersicht", new ImageIcon("./src/übersicht.png"));
+		übersichtButton.setVerticalTextPosition(SwingConstants.BOTTOM);
+        übersichtButton.setHorizontalTextPosition(SwingConstants.CENTER);
 		übersichtButton.setVisible(isAdmin);
-
+		
+		JButton kundeButton = new JButton("Kundenverwaltung", new ImageIcon("./src/kunde.jpg"));
+		kundeButton.setVerticalTextPosition(SwingConstants.BOTTOM);
+		kundeButton.setHorizontalTextPosition(SwingConstants.CENTER);
+		
+		JButton schichtButton = new JButton("Schichtplanverwaltung", new ImageIcon("./src/schichtplan.png"));
+		schichtButton.setVerticalTextPosition(SwingConstants.BOTTOM);
+		schichtButton.setHorizontalTextPosition(SwingConstants.CENTER);
+		
+		
 		panel.add(kassenButton);
+		panel.add(mitarbeiter);
+		panel.add(kundeButton);
+		panel.add(terminplanung);
 		panel.add(lagerButton);
 		panel.add(dlButton);
 		panel.add(übersichtButton);
+		panel.add(schichtButton);
 //		panel.add(new JLabel("andere funktion"));
 //		panel.add(new JLabel("andere funktion"));
 
@@ -118,6 +141,19 @@ public class M_Startseite extends JFrame {
 		übersichtButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				Verkaufsübersicht v = new Verkaufsübersicht();
+			}
+		});
+		
+		kundeButton.addActionListener(new ActionListener(){
+			public void actionPerformed(ActionEvent e){
+				new KundenVerwaltung();
+			}
+		});
+		
+		
+		schichtButton.addActionListener(new ActionListener(){
+			public void actionPerformed(ActionEvent e){
+				new SchichtplanungsFrame(M_Startseite.this.isAdmin);
 			}
 		});
 
@@ -164,15 +200,7 @@ public class M_Startseite extends JFrame {
 		
 		
 		
-		JMenu kunde = new JMenu("Kunde");
-		mbar.add(kunde);
-		JMenuItem cmdKunde = new JMenuItem("Kundenverwaltung");
-		kunde.add(cmdKunde);
-		cmdKunde.addActionListener(new ActionListener(){
-			public void actionPerformed(ActionEvent e){
-				new KundenVerwaltung();
-			}
-		});
+		
 		
 		
 		
@@ -196,15 +224,8 @@ public class M_Startseite extends JFrame {
 //		});
 		
 		
-		JMenu schicht = new JMenu("Schichtplan");
-		mbar.add(schicht);
-		JMenuItem schichtitem = new JMenuItem("Zur Schichtplanbearbeitung");
-		schicht.add(schichtitem);
-		schichtitem.addActionListener(new ActionListener(){
-			public void actionPerformed(ActionEvent e){
-				new SchichtplanungsFrame(M_Startseite.this.isAdmin);
-			}
-		});
+		
+		
 			
 
 		add(panel);
