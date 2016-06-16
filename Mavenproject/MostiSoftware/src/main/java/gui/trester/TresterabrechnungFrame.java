@@ -35,23 +35,22 @@ public class TresterabrechnungFrame extends JFrame {
 	private KundeDB kundeDB; // nur zum Test
 	
 	public TresterabrechnungFrame(int kundenId){
-		
-		kundeDB = new KundeDB(); 
-		kunde = kundeDB.einzelnenKundeLaden(kundenId); // Kunde eig aus Terminübersicht übernehmen
 	
-		setTitle("Trester abrechnen für Kunde "+ kunde.getNachname()
-				);
+		setTitle("Trester abrechnen");
 		setSize(480, 450);
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		getContentPane().setLayout(null);
 		tv = new Tresterverwaltung();
+		
+		kundeDB = new KundeDB(); 
+		kunde = kundeDB.einzelnenKundeLaden(kundenId); // Kunde eig aus Terminübersicht übernehmen
 
 		lblText = new JLabel("Die Literzahl für den gesamten, heutigen Tag beträgt:");
 		lblText.setBounds(6, 20, 330, 19);
 		getContentPane().add(lblText);
 		
 		lblLiterzahl = new JLabel();
-		gesamtliterzahl = tv.getTagesLiterZahl();
+		int gesamtliterzahl = tv.getTagesLiterZahl();
 		lblLiterzahl.setText(String.valueOf(gesamtliterzahl) + " Liter");
 		lblLiterzahl.setBounds(340, 20, 150, 19);
 		getContentPane().add(lblLiterzahl);

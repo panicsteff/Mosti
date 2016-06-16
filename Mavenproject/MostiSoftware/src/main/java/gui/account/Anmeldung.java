@@ -13,7 +13,7 @@ import javax.swing.JTextField;
 import logik.account.Accountverwaltung;
 import logik.mitarbeiterverwaltung.Mitarbeiter;
 
-public class Anmeldung extends JFrame{
+public class Anmeldung extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 	private JTextField txtbenutzername;

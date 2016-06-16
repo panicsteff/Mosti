@@ -83,6 +83,7 @@ public class MitarbeiterVerwaltung extends JFrame {
 		miMitarbeiterBearbeiten.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				editMitarbeiter();
+				mitarbeiterDb.mitarbeiterSpeichern(mitarbeiterTableModel.getMitarbeiter());
 			}
 		});
 		
@@ -172,7 +173,6 @@ public class MitarbeiterVerwaltung extends JFrame {
 		int row = mitarbeiterSelectionModel.getMinSelectionIndex();
 		new MitarbeiterBearbeitenDialog(this, mitarbeiterTableModel.getMitarbeiter(row));
 		sortiereMitarbeiterliste(mitarbeiterliste);
-		mitarbeiterDb.mitarbeiterSpeichern(mitarbeiterTableModel.getMitarbeiter());
 		mitarbeiterTableModel.fireTableRowsUpdated(row, row);
 	}
 
