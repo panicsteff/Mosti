@@ -36,7 +36,7 @@ public class Accountverwaltung{
 	}
 	
 	public boolean isAdmin(String benutzername){
-		if(benutzername.equals("admin")){
+		if(benutzername.equals("Admin")){
 			return true;
 		}
 		else return false;
