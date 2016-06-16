@@ -28,7 +28,8 @@ private static final long serialVersionUID = 1L;
 	
 	private JTextField txtNachname;
 	private JTextField txtVorname;
-	private JTextField txtStrasse;;
+	private JTextField txtStrasse;
+	private JTextField txtHausnummer;
 	private JTextField txtPlz;
 	private JTextField txtStadt;
 	private JTextField txtTelefonnummer;
@@ -59,6 +60,8 @@ private static final long serialVersionUID = 1L;
 		add(new JLabel("Straﬂe: "));
 		add(txtStrasse = new JTextField());
 		
+		add(new JLabel("Hausnummer: "));
+		add(txtHausnummer = new JTextField());
 	
 		add(new JLabel("PLZ: "));
 		DateFormatter df = new DateFormatter(Formats.DATE_FORMAT);
@@ -97,7 +100,7 @@ private static final long serialVersionUID = 1L;
 		
 		public void actionPerformed(ActionEvent arg0){
 			kunde = new Kunde(txtNachname.getText(), txtVorname.getText(), 
-										  txtStrasse.getText(), txtPlz.getText(), txtStadt.getText(), txtTelefonnummer.getText(), 0);
+										  txtStrasse.getText(), txtHausnummer.getText(), txtPlz.getText(), txtStadt.getText(), txtTelefonnummer.getText(), 0);
 			if(liste != null){
 				liste.add(kunde);
 			}

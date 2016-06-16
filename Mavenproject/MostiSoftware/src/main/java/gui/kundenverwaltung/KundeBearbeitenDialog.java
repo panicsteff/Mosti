@@ -44,6 +44,7 @@ public class KundeBearbeitenDialog extends JDialog{
 				kunde.setNachname(beautify(txtNachname.getText()));
 				kunde.setVorname(beautify(txtVorname.getText()));
 				kunde.setStrasse(beautify(txtStrasse.getText()));
+				kunde.setHausnummer(beautify(txtHausnummer.getText()));
 				kunde.setPlz((String)txtPlz.getValue());
 				kunde.setWohnort(beautify(txtWohnort.getText()));
 				kunde.setTel(beautify(txtTel.getText()));
@@ -75,6 +76,7 @@ public class KundeBearbeitenDialog extends JDialog{
 	private JTextField txtNachname;
 	private JTextField txtVorname;
 	private JTextField txtStrasse;
+	private JTextField txtHausnummer;
 	private JFormattedTextField txtPlz;
 	private JTextField txtWohnort;
 	private JTextField txtTel;
@@ -120,6 +122,14 @@ public class KundeBearbeitenDialog extends JDialog{
 		txtStrasse = new JTextField(kunde.getStrasse());
 		txtStrasse.setBounds(110, 100, 150, 20);
 		main.add(txtStrasse);
+		
+		label = new JLabel("Hausnummer:");
+		label.setBounds(10, 115, 100, 20);
+		main.add(label);
+		
+		txtHausnummer = new JTextField(kunde.getHausnummer());
+		txtHausnummer.setBounds(110, 100, 150, 20);
+		main.add(txtHausnummer);
 		
 		label = new JLabel("Plz:");
 		label.setBounds(10, 130, 100, 20);

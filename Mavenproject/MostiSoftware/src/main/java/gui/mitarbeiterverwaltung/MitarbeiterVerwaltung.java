@@ -87,6 +87,8 @@ public class MitarbeiterVerwaltung extends JFrame {
 			}
 		});
 		
+		menu.add(new JSeparator());
+		
 		miMitarbeiterLoeschen = new JMenuItem("Mitarbeiter löschen");
 		miMitarbeiterLoeschen.setEnabled(false);
 		menu.add(miMitarbeiterLoeschen);

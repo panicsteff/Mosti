@@ -56,26 +56,17 @@ public class KundenVerwaltung extends JFrame {
 
 		menubar.add(menu = new JMenu("Datei"));
 		
-		miKundeLoeschen = new JMenuItem("Kunde löschen");
-		miKundeLoeschen.setEnabled(false);
-		menu.add(miKundeLoeschen);
-		miKundeLoeschen.addActionListener(new ActionListener(){
-			public void actionPerformed(ActionEvent e){
-				int pos = kundeSelectionModel.getMinSelectionIndex();
-				Kunde k = kundeTableModel.getKunde(pos);
-				int result = JOptionPane.showConfirmDialog(KundenVerwaltung.this, "Möchten Sie den Kunden " + k.getVorname() + " " + k.getNachname() + " wirklich löschen?",
-						"Frage", JOptionPane.YES_NO_OPTION);
-				if (result != JOptionPane.YES_OPTION)
-					return;
-				kundeDb.kundeLöschen(k.getKundenID());
-				Date d = new Date();
-				kundeDb.termineUpdaten(k.getKundenID(), d.getTime());
-				kundeTableModel.deletKunde(k);
-				kundeTableModel.fireTableRowsDeleted(pos, pos);
+		menu.add(new JSeparator());
+
+		menu.add(mi = new JMenuItem("Beenden"));
+		mi.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				dispose();
 			}
 		});
-
-		menu.add(new JSeparator());
+		
+		
+		menubar.add(menu = new JMenu("Bearbeiten"));
 		
 		miKundeHinzufuegen = new JMenuItem("Neuen Kunden hinzufügen");
 		miKundeHinzufuegen.setEnabled(true);
@@ -96,15 +87,29 @@ public class KundenVerwaltung extends JFrame {
 				editKunde();
 			}
 		});
-
+		
 		menu.add(new JSeparator());
-
-		menu.add(mi = new JMenuItem("Beenden"));
-		mi.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				dispose();
+		
+		
+		miKundeLoeschen = new JMenuItem("Kunde löschen");
+		miKundeLoeschen.setEnabled(false);
+		menu.add(miKundeLoeschen);
+		miKundeLoeschen.addActionListener(new ActionListener(){
+			public void actionPerformed(ActionEvent e){
+				int pos = kundeSelectionModel.getMinSelectionIndex();
+				Kunde k = kundeTableModel.getKunde(pos);
+				int result = JOptionPane.showConfirmDialog(KundenVerwaltung.this, "Möchten Sie den Kunden " + k.getVorname() + " " + k.getNachname() + " wirklich löschen?",
+						"Frage", JOptionPane.YES_NO_OPTION);
+				if (result != JOptionPane.YES_OPTION)
+					return;
+				kundeDb.kundeLöschen(k.getKundenID());
+				Date d = new Date();
+				kundeDb.termineUpdaten(k.getKundenID(), d.getTime());
+				kundeTableModel.deletKunde(k);
+				kundeTableModel.fireTableRowsDeleted(pos, pos);
 			}
 		});
+
 
 		kundeTableModel = new KundeTableModel();
 		kundenliste = new ArrayList<Kunde>();
