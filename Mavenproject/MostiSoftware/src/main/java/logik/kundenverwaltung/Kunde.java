@@ -5,16 +5,18 @@ public class Kunde {
 	private String nachname;
 	private String vorname;
 	private String strasse;
+	private String hausnummer;
 	private String plz;
 	private String wohnort;
 	private String telefonnummer;
 	private int kundenID;
 	
 	
-	public Kunde(String nachname, String vorname, String strasse, String PLZ, String ort, String telefonnummer, int kundenID){
+	public Kunde(String nachname, String vorname, String strasse, String hausnummer, String PLZ, String ort, String telefonnummer, int kundenID){
 		setNachname(nachname);
 		setVorname(vorname);
 		setStrasse(strasse);
+		setHausnummer(hausnummer);
 		setPlz(PLZ);
 		setWohnort(ort);
 		setTel(telefonnummer);
@@ -22,9 +24,7 @@ public class Kunde {
 		
 	}
 	
-	public Kunde(){
-		
-	}
+	public Kunde(){}
 	
 	public String getNachname(){
 		return nachname;
@@ -51,6 +51,13 @@ public class Kunde {
 		this.strasse = strasse;
 	}
 	
+	public String getHausnummer(){
+		return hausnummer;
+	}
+	
+	public void setHausnummer(String hausnummer){
+		this.hausnummer = hausnummer;
+	}
 	
 	public String getPlz(){
 		return plz;

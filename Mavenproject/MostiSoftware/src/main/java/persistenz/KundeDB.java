@@ -32,6 +32,7 @@ public class KundeDB {
 				k.setNachname(rs.getString("Nachname"));
 				k.setVorname(rs.getString("Vorname"));
 				k.setStrasse(rs.getString("Strasse"));
+				k.setHausnummer(rs.getString("Hausnummer"));
 				k.setPlz(rs.getString("PLZ"));
 				k.setWohnort(rs.getString("Wohnort"));
 				k.setTel(rs.getString("Telefonnummer"));
@@ -59,15 +60,16 @@ public class KundeDB {
 				
 				s = conn
 						.prepareStatement("update kunden set nachname = ?, vorname = ?,"
-								+ " straﬂe = ?, PLZ = ?, wohnort = ?, telefonnummer = ?"
+								+ " straﬂe = ?, hausnummer = ?, PLZ = ?, wohnort = ?, telefonnummer = ?"
 								+ " where id = ?");
 				s.setString(1, k.getNachname());
 				s.setString(2, k.getVorname());
 				s.setString(3, k.getStrasse());
-				s.setString(4, k.getPlz());
-				s.setString(5, k.getWohnort());
-				s.setString(6, k.getTel());
-				s.setInt(7, k.getKundenID());
+				s.setString(4, k.getHausnummer());
+				s.setString(5, k.getPlz());
+				s.setString(6, k.getWohnort());
+				s.setString(7, k.getTel());
+				s.setInt(8, k.getKundenID());
 				
 				s.executeUpdate();
 			}
@@ -85,14 +87,15 @@ public class KundeDB {
 		
 		try{
 			conn = DriverManager.getConnection("jdbc:ucanaccess://./Mosti-Datenbank.mdb");
-			PreparedStatement s = conn.prepareStatement("Insert into kunden (Nachname, Vorname, Strasse, Plz, Wohnort, Telefonnummer) VALUES (?, ?, ?, ?, ?, ?)");
+			PreparedStatement s = conn.prepareStatement("Insert into kunden (Nachname, Vorname, Strasse, Hausnummer, Plz, Wohnort, Telefonnummer) VALUES (?, ?, ?, ?, ?, ?, ?)");
 			
 			s.setString(1, k.getNachname());
 			s.setString(2, k.getVorname());
 			s.setString(3, k.getStrasse());
-			s.setString(4, k.getPlz());
-			s.setString(5, k.getWohnort());
-			s.setString(6, k.getTel());
+			s.setString(4, k.getHausnummer());
+			s.setString(5, k.getPlz());
+			s.setString(6, k.getWohnort());
+			s.setString(7, k.getTel());
 			
 			s.executeUpdate();
 			s.close();
@@ -130,6 +133,7 @@ public class KundeDB {
 						kunde.setNachname(rs.getString("Nachname"));
 						kunde.setVorname(rs.getString("Vorname"));
 						kunde.setStrasse(rs.getString("Strasse"));
+						kunde.setStrasse(rs.getString("Hausnummer"));
 						kunde.setPlz(rs.getString("PLZ"));
 						kunde.setWohnort(rs.getString("Wohnort"));
 						kunde.setTel(rs.getString("Telefonnummer"));

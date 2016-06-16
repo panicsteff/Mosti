@@ -28,7 +28,8 @@ private static final long serialVersionUID = 1L;
 	
 	private JTextField txtNachname;
 	private JTextField txtVorname;
-	private JTextField txtStrasse;;
+	private JTextField txtStrasse;
+	private JTextField txtHausnummer;
 	private JTextField txtPlz;
 	private JTextField txtStadt;
 	private JTextField txtTelefonnummer;
@@ -45,10 +46,9 @@ private static final long serialVersionUID = 1L;
 		
 		
 		setTitle("Neuen Kunden hinzufügen");
-		setSize(350,250);
 		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 		
-		setLayout(new GridLayout(7,2));
+		setLayout(new GridLayout(9,2));
 		
 		add(new JLabel("Nachname: "));
 		add(txtNachname = new JTextField());
@@ -59,6 +59,8 @@ private static final long serialVersionUID = 1L;
 		add(new JLabel("Straße: "));
 		add(txtStrasse = new JTextField());
 		
+		add(new JLabel("Hausnummer: "));
+		add(txtHausnummer = new JTextField());
 	
 		add(new JLabel("PLZ: "));
 		DateFormatter df = new DateFormatter(Formats.DATE_FORMAT);
@@ -81,6 +83,9 @@ private static final long serialVersionUID = 1L;
 		add(new JLabel("Telefonnummer: "));
 		add(txtTelefonnummer = new JTextField());
 		
+		add(new JLabel());
+		add(new JLabel());
+		
 		JButton okButton = new JButton("OK");
 		okButton.addActionListener(new MyOKHandler());
 		add(okButton);
@@ -97,7 +102,7 @@ private static final long serialVersionUID = 1L;
 		
 		public void actionPerformed(ActionEvent arg0){
 			kunde = new Kunde(txtNachname.getText(), txtVorname.getText(), 
-										  txtStrasse.getText(), txtPlz.getText(), txtStadt.getText(), txtTelefonnummer.getText(), 0);
+										  txtStrasse.getText(), txtHausnummer.getText(), txtPlz.getText(), txtStadt.getText(), txtTelefonnummer.getText(), 0);
 			if(liste != null){
 				liste.add(kunde);
 			}

@@ -25,9 +25,10 @@ public class KundeTableModel extends AbstractTableModel{
 		case 0: return "Nachname";
 		case 1: return "Vorname";
 		case 2: return "Straße";
-		case 3: return "Plz";
-		case 4: return "Wohnort";
-		case 5: return "Telefonnummer";
+		case 3: return "Hausnummer";
+		case 4: return "Plz";
+		case 5: return "Wohnort";
+		case 6: return "Telefonnummer";
 		default: return null;
 		}
 	}
@@ -37,7 +38,7 @@ public class KundeTableModel extends AbstractTableModel{
 	}
 	
 	public int getColumnCount(){
-		return 6;
+		return 7;
 	}
 	
 	public Object getValueAt(int row, int col){
@@ -47,9 +48,10 @@ public class KundeTableModel extends AbstractTableModel{
 		case 0: return kunde.getNachname();
 		case 1: return kunde.getVorname();
 		case 2: return kunde.getStrasse();
-		case 3: return kunde.getPlz();
-		case 4: return kunde.getWohnort();
-		case 5: return kunde.getTel();
+		case 3: return kunde.getHausnummer();
+		case 4: return kunde.getPlz();
+		case 5: return kunde.getWohnort();
+		case 6: return kunde.getTel();
 		default: return null;
 		}
 	}

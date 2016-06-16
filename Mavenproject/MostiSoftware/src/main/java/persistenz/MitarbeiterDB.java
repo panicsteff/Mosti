@@ -91,7 +91,7 @@ public class MitarbeiterDB {
 	public void mitarbeiterEinfügen(Mitarbeiter mitarbeiter) {
 
 		try {
-			PreparedStatement s = conn.prepareStatement("INSERT into mitarbeiter (Nachname, Vorname, Strasse, hausnummer, plz, Stadt, telefonnummer, benutzername, passwort) "
+			PreparedStatement s = conn.prepareStatement("INSERT into mitarbeiter (Nachname, Vorname, Strasse, Hausnummer, plz, Stadt, telefonnummer, benutzername, passwort) "
 					+ "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)");
 			
 			s.setString(1, mitarbeiter.getNachname());

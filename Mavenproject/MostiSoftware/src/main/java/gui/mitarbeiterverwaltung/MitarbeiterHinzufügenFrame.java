@@ -1,5 +1,6 @@
 package gui.mitarbeiterverwaltung;
 
+import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -12,6 +13,7 @@ import javax.swing.JFormattedTextField;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.text.DateFormatter;
 import javax.swing.text.MaskFormatter;
@@ -55,7 +57,7 @@ public class MitarbeiterHinzufügenFrame extends JDialog {
 		setSize(350,250);
 		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 		
-		setLayout(new GridLayout(9,2));
+		setLayout(new GridLayout(10,2));
 		
 		add(new JLabel("Nachname: "));
 		add(txtNachname = new JTextField());
@@ -79,8 +81,8 @@ public class MitarbeiterHinzufügenFrame extends JDialog {
 		}
 		catch(ParseException e){
 			System.out.println(e);
-			
-		}
+			}
+		
 		NullableFormatter ff = new NullableFormatter(mf);
 		add(new JLabel("PLZ: "));
 		add(txtPlz = new JFormattedTextField(ff));
@@ -91,8 +93,18 @@ public class MitarbeiterHinzufügenFrame extends JDialog {
 		add(new JLabel("Telefonnummer: "));
 		add(txtTelefonnummer = new JTextField());
 		
-		add(new JLabel("Benutzername: "));
+		JPanel jp = new JPanel();
+		jp.setLayout(new GridLayout(2,1));
+		add(jp);
+		
+		jp.add(new JLabel("Benutzername:"));
 		add(txtBenutzername = new JTextField());
+		JLabel jl = new JLabel("(Bitte nur Kleinbuchstaben verwenden!)");
+		jp.add(jl);
+		jl.setFont(new Font( "Dialog", Font.BOLD, 10));
+	
+		add(new JLabel());
+		add(new JLabel());
 		
 		JButton okButton = new JButton("OK");
 		okButton.addActionListener(new MyOKHandler());
@@ -119,7 +131,8 @@ public class MitarbeiterHinzufügenFrame extends JDialog {
 			mitarbeiter = new Mitarbeiter(txtNachname.getText(), txtVorname.getText(), 
 										  txtStrasse.getText(), txtHausnummer.getText(), 
 										  txtPlz.getText(), txtStadt.getText(), txtTelefonnummer.getText(),
-										  0, txtBenutzername.getText(), new String(Base64.encodeBase64(txtBenutzername.getText().getBytes())));
+										  0, txtBenutzername.getText().toLowerCase(), new String(Base64.encodeBase64(txtBenutzername.getText().getBytes())));
+			
 			
 			//mitarbeiter.setPasswort(mitarbeiter.getBenutzername());
 			JOptionPane.showMessageDialog(MitarbeiterHinzufügenFrame.this, "Benutzername: " + mitarbeiter.getBenutzername() + "\n Passwort: " + mitarbeiter.getBenutzername());
