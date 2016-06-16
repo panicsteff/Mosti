@@ -8,6 +8,7 @@ import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.print.PageFormat;
+import java.awt.print.Paper;
 import java.awt.print.Printable;
 import java.awt.print.PrinterException;
 import java.awt.print.PrinterJob;
@@ -150,7 +151,12 @@ public class KundeneinkaufFrame extends JFrame implements Printable {
 
 			public void actionPerformed(ActionEvent evt) {
 					PrinterJob printJob = PrinterJob.getPrinterJob();
-					printJob.setPrintable(KundeneinkaufFrame.this);
+					Paper paper = new Paper();
+				      paper.setSize(210.0,297.0);
+				      paper.setImageableArea(5.0,5.0,190.0,280.0);
+				      PageFormat pf = new PageFormat();
+				      pf.setPaper(paper);
+					printJob.setPrintable(KundeneinkaufFrame.this, pf);
 					if (printJob.printDialog())
 						try {
 							printJob.print();
@@ -167,6 +173,11 @@ public class KundeneinkaufFrame extends JFrame implements Printable {
 			int x = (int) pageFormat.getImageableX() + 1;
 			int y = (int) pageFormat.getImageableY() + 1;
 			g.translate(x, y);
+			 double pHeight = pageFormat.getImageableHeight();
+			 double pWidth = pageFormat.getImageableWidth();
+			 double xRatio = pWidth / cWidth;
+			    double yRatio = pHeight / cHeight;
+			System.out.println(x+" "+y);
 			RepaintManager currentManager = RepaintManager.currentManager(this);
 			currentManager.setDoubleBufferingEnabled(false);
 			this.paint(g);
