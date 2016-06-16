@@ -103,8 +103,9 @@ public class TerminBearbeitenDialog extends JDialog{
 		add(verschiebeTermin);
 		verschiebeTermin.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e){
-				TerminBearbeitenDialog.this.dispose();
 				new TerminHinzufügenFrame(termin.getDatum().getTime());
+				
+				
 			
 			}
 		});

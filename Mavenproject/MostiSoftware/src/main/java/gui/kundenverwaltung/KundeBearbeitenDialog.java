@@ -124,15 +124,15 @@ public class KundeBearbeitenDialog extends JDialog{
 		main.add(txtStrasse);
 		
 		label = new JLabel("Hausnummer:");
-		label.setBounds(10, 115, 100, 20);
+		label.setBounds(10, 130, 100, 20);
 		main.add(label);
 		
 		txtHausnummer = new JTextField(kunde.getHausnummer());
-		txtHausnummer.setBounds(110, 100, 150, 20);
+		txtHausnummer.setBounds(110, 130, 150, 20);
 		main.add(txtHausnummer);
 		
 		label = new JLabel("Plz:");
-		label.setBounds(10, 130, 100, 20);
+		label.setBounds(10, 160, 100, 20);
 		main.add(label);
 		
 		DateFormatter df = new DateFormatter(Formats.DATE_FORMAT);
@@ -149,23 +149,23 @@ public class KundeBearbeitenDialog extends JDialog{
 		nf = new NullableFormatter(mf);
 		txtPlz = new JFormattedTextField(nf);
 		txtPlz.setValue(kunde.getPlz());
-		txtPlz.setBounds(110, 130, 40, 20);
+		txtPlz.setBounds(110, 160, 40, 20);
 		main.add(txtPlz);
 		
 		label = new JLabel("Ort:");
-		label.setBounds(10, 160, 100, 20);
+		label.setBounds(10, 190, 100, 20);
 		main.add(label);
 		
 		txtWohnort = new JTextField(kunde.getWohnort());
-		txtWohnort.setBounds(110, 160, 150, 20);
+		txtWohnort.setBounds(110, 190, 100, 20);
 		main.add(txtWohnort);
 		
 		label = new JLabel("Telefonnummer:");
-		label.setBounds(10, 180, 100, 20);
+		label.setBounds(10, 220, 100, 20);
 		main.add(label);
 		
 		txtTel = new JTextField(kunde.getTel());
-		txtTel.setBounds(110,180,170,20);
+		txtTel.setBounds(110,220,100,20);
 		main.add(txtTel);
 		
 		JPanel pane = new JPanel();
