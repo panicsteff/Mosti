@@ -97,6 +97,18 @@ public class TerminBearbeitenDialog extends JDialog{
 			}
 		});
 		
+		
+	    JButton verschiebeTermin = new JButton("Termin verschieben");
+		verschiebeTermin.setBounds(400,160,200,40);
+		add(verschiebeTermin);
+		verschiebeTermin.addActionListener(new ActionListener(){
+			public void actionPerformed(ActionEvent e){
+				TerminBearbeitenDialog.this.dispose();
+			
+			}
+		});
+		
+		
 		setVisible(true);
 	}
 }
