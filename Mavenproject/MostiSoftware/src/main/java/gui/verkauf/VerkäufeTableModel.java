@@ -1,22 +1,29 @@
 package gui.verkauf;
 
+import java.sql.Date;
 import java.util.ArrayList;
 
 import javax.swing.table.AbstractTableModel;
 
+import persistenz.KundeDB;
+import logik.kundenverwaltung.Kunde;
 import logik.verkaufsverwaltung.Verkaufsposition;
+import logik.verkaufsverwaltung.VerkaufspositionPlus;
 
 @SuppressWarnings("serial")
 class VerkäufeTableModel extends AbstractTableModel {
 
-	private ArrayList<Verkaufsposition> vliste;
+	//private ArrayList<Verkaufsposition> vliste;
+	private ArrayList<VerkaufspositionPlus> vliste;
+	private KundeDB kundedb;
 
-	VerkäufeTableModel(ArrayList<Verkaufsposition> liste) {
+	VerkäufeTableModel(ArrayList<VerkaufspositionPlus> liste) {
 		vliste = liste;
+		kundedb = new KundeDB();
 	}
 
 	public int getColumnCount() {
-		return 4;
+		return 6;
 	}
 
 	public String getColumnName(int col) {
@@ -24,11 +31,15 @@ class VerkäufeTableModel extends AbstractTableModel {
 		case 0:
 			return "Name";
 		case 1:
-			return "Preis pro Stück/Liter [€]";
+			return "Preis pro Stück/Liter";
 		case 2:
 			return "Verkaufsmenge";
 		case 3:
 			return "Literzahl";
+		case 4:
+			return "Kunde";
+		case 5:
+			return "Verkaufsdatum";
 		default:
 			return null;
 		}
@@ -39,7 +50,7 @@ class VerkäufeTableModel extends AbstractTableModel {
 	}
 
 	public Object getValueAt(int row, int col) {
-		Verkaufsposition v = vliste.get(row);
+		VerkaufspositionPlus v = vliste.get(row);
 		switch (col) {
 		case 0:
 			return v.getName();
@@ -49,6 +60,11 @@ class VerkäufeTableModel extends AbstractTableModel {
 			return v.getVerkaufsMenge();
 		case 3:
 			return v.getLiterzahl();
+		case 4:
+			Kunde kunde = kundedb.einzelnenKundeLaden(v.getKundenID());
+			return kunde.getVorname() + " " + kunde.getNachname();
+		case 5:
+			return v.getDate();
 		default:
 			return null;
 		}
@@ -64,6 +80,10 @@ class VerkäufeTableModel extends AbstractTableModel {
 			return Integer.class;
 		case 3:
 			return Integer.class;
+		case 4:
+			return String.class;
+		case 5:
+			return Date.class;
 		default:
 			return null;
 		}
@@ -73,11 +93,11 @@ class VerkäufeTableModel extends AbstractTableModel {
 		return vliste.get(row);
 	}
 
-	ArrayList<Verkaufsposition> getVerkaufspositionen() {
+	ArrayList<VerkaufspositionPlus> getVerkaufspositionen() {
 		return vliste;
 	}
 
-	void setVerkaufspositionen(ArrayList<Verkaufsposition> liste) {
+	void setVerkaufspositionen(ArrayList<VerkaufspositionPlus> liste) {
 		vliste = liste;
 	}
 

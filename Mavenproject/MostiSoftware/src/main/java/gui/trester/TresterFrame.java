@@ -18,7 +18,6 @@ import javax.swing.JTable;
 import javax.swing.table.TableColumn;
 
 import logik.produktverwaltung.PreisCellRenderer;
-import logik.trester.DatumRechtsbuendigCellRenderer;
 import logik.trester.Tresterabrechnung;
 
 @SuppressWarnings("serial")

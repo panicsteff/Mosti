@@ -1,5 +1,8 @@
 package gui.verkauf;
 
+import gui.trester.DatumRechtsbuendigCellRenderer;
+import gui.trester.TresterübersichtFrame;
+
 import java.awt.BorderLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
@@ -19,19 +22,20 @@ import javax.swing.table.TableColumn;
 
 import logik.produktverwaltung.PreisCellRenderer;
 import logik.verkaufsverwaltung.Verkaufsposition;
+import logik.verkaufsverwaltung.VerkaufspositionPlus;
 
 @SuppressWarnings("serial")
 public class VerkäufeFrame extends JFrame {
 
-	private ArrayList<Verkaufsposition> einkäufe;
+	private ArrayList<VerkaufspositionPlus> einkäufe;
 	private VerkäufeTableModel vTableModel;
 	private JLabel label;
 
-	public VerkäufeFrame(ArrayList<Verkaufsposition> liste) {
+	public VerkäufeFrame(ArrayList<VerkaufspositionPlus> liste) {
 		einkäufe = liste;
 
 		setTitle("Verkäufe");
-		setSize(700, 400);
+		setSize(900, 600);
 		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 
 		JMenuBar menubar = new JMenuBar();
@@ -40,8 +44,18 @@ public class VerkäufeFrame extends JFrame {
 		JMenu datei = new JMenu("Datei");
 		menubar.add(datei);
 		datei.addSeparator();
-		JMenuItem beenden = new JMenuItem("Beenden");
+		JMenuItem neueÜbersichtItem = new JMenuItem("Neue Verkaufsübersicht erstellen");
+		datei.add(neueÜbersichtItem);
+		datei.addSeparator();
+		JMenuItem beenden = new JMenuItem("Schließen");
 		datei.add(beenden);
+		
+		neueÜbersichtItem.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent event) {
+				new Verkaufsübersicht();
+				dispose();
+			}
+		});
 
 		beenden.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent event) {
@@ -57,12 +71,20 @@ public class VerkäufeFrame extends JFrame {
 
 		TableColumn preisspalte = vTabelle.getColumnModel().getColumn(1);
 		preisspalte.setCellRenderer(new PreisCellRenderer());
+		
+		TableColumn kundenspalte = vTabelle.getColumnModel().getColumn(4);
+		kundenspalte.setCellRenderer(new StringRechtsbuendigCellRenderer());
+		
+		TableColumn datumsspalte = vTabelle.getColumnModel().getColumn(5);
+		datumsspalte.setCellRenderer(new DatumRechtsbuendigCellRenderer());
 
 		vTabelle.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
-		vTabelle.getColumnModel().getColumn(0).setPreferredWidth(200);
+		vTabelle.getColumnModel().getColumn(0).setPreferredWidth(180);
 		vTabelle.getColumnModel().getColumn(1).setPreferredWidth(130);
 		vTabelle.getColumnModel().getColumn(2).setPreferredWidth(100);
 		vTabelle.getColumnModel().getColumn(3).setPreferredWidth(100);
+		vTabelle.getColumnModel().getColumn(4).setPreferredWidth(200);
+		vTabelle.getColumnModel().getColumn(5).setPreferredWidth(130);
 
 		JScrollPane scrollpane = new JScrollPane(vTabelle);
 		JPanel titlepanel = new JPanel();

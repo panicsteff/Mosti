@@ -12,6 +12,7 @@ public class Verkauf {
 	private double total;
 	private Kunde kunde;
 	private Date date;
+	private Verkaufsposition vposition;
 	
 	public Verkauf(Kunde kunde, Date date, ArrayList<Verkaufsposition> liste) {
 		this.setKunde(kunde);
@@ -20,6 +21,8 @@ public class Verkauf {
 		literzahl = berechneLiterzahl();
 		total = berechneTotal();
 	}
+	
+	
 
 	public void addEinkaufsposition(Verkaufsposition position) {
 		einkaufsliste.add(position);

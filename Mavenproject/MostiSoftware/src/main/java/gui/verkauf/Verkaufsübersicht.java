@@ -172,7 +172,7 @@ public class Verkaufsübersicht extends JFrame {
 							.getValue();
 					java.sql.Date date = new java.sql.Date(utilDate.getTime());
 					verkäufeframe = new VerkäufeFrame(
-							verkaufsverwaltung.ladeTagesVerkäufe(date));
+							verkaufsverwaltung.ladeTagesVerkäufe2(date));
 				}
 
 				else if (buttonZeitraum.isSelected() == true) { // alle Verkäufe
@@ -186,13 +186,13 @@ public class Verkaufsübersicht extends JFrame {
 					utilDate = (java.util.Date) txtEnddatum.getValue();
 					java.sql.Date date2 = new java.sql.Date(utilDate.getTime());
 					verkäufeframe = new VerkäufeFrame(
-							verkaufsverwaltung.ladeAlleVerkäufeZeitraum(date1,
+							verkaufsverwaltung.ladeAlleVerkäufeZeitraum2(date1,
 									date2));
 				}
 
 				else { // alle Verkäufe insgesamt
 					verkäufeframe = new VerkäufeFrame(
-							verkaufsverwaltung.ladeAlleVerkäufe());
+							verkaufsverwaltung.ladeAlleVerkäufe2());
 				}
 			}
 
@@ -214,7 +214,7 @@ public class Verkaufsübersicht extends JFrame {
 							.getValue();
 					java.sql.Date date = new java.sql.Date(utilDate.getTime());
 					verkäufeframe = new VerkäufeFrame(verkaufsverwaltung
-							.ladeKundeinkaufTag(kunde, date).getVerkäufeListe());
+							.ladeKundeinkaufTag2(kunde, date));
 				}
 
 				else if (buttonZeitraum.isSelected() == true) { // Verkäufe von
@@ -237,7 +237,7 @@ public class Verkaufsübersicht extends JFrame {
 					utilDate = (java.util.Date) txtEnddatum.getValue();
 					java.sql.Date date2 = new java.sql.Date(utilDate.getTime());
 					verkäufeframe = new VerkäufeFrame(
-							verkaufsverwaltung.ladeKundeneinkaufZeitraum(kunde,
+							verkaufsverwaltung.ladeKundeneinkaufZeitraum2(kunde,
 									date1, date2));
 				}
 
@@ -249,7 +249,7 @@ public class Verkaufsübersicht extends JFrame {
 					}
 					Kunde kunde = model.getKunde(index);
 					verkäufeframe = new VerkäufeFrame(
-							verkaufsverwaltung.ladeAlleEinkäufeVonKunde(kunde));
+							verkaufsverwaltung.ladeAlleEinkäufeVonKunde2(kunde));
 				}
 			}
 
