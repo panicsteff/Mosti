@@ -176,8 +176,6 @@ public class KundeneinkaufFrame extends JFrame implements Printable {
 			System.out.println("page format height: " + pHeight + " " + pWidth);
 			double xRatio = pWidth / cWidth;
 			double yRatio = pHeight / cHeight;
-			
-			System.out.println("Ratio: " + xRatio + " " + yRatio);
 		    
 			Graphics2D g2 = (Graphics2D) g;
 			g2.translate(x, y);
@@ -214,14 +212,6 @@ public class KundeneinkaufFrame extends JFrame implements Printable {
 //		vliste.add(v6);
 //		vliste.add(v7);
 //		vliste.add(v8);
-//		Verkaufsposition v9 = new Verkaufsposition("Quittensaft", 1.00, 0, 200);
-//		Verkaufsposition v10 = new Verkaufsposition("Apfelsaft", 1.00, 0, 150);
-//		Verkaufsposition v11 = new Verkaufsposition("Turbohefe", 1.00, 10, 0);
-//		Verkaufsposition v12 = new Verkaufsposition("5L-Beutel", 1.00, 40, 0);
-//		vliste.add(v9);
-//		vliste.add(v10);
-//		vliste.add(v11);
-//		vliste.add(v12);
 //
 //		//KundeneinkaufFrame vFrame = new KundeneinkaufFrame(vliste, "biber");
 //	}

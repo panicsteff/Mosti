@@ -169,11 +169,8 @@ public class TerminLogik {
 	}
 	
 	public void tresterKundeSpeichern(Date d, int kundenId, boolean neu){
-		if(neu == true){
-			terminDb.tresterKundeNeuSpeichern(d, kundenId);
-		} else{
-			terminDb.tresterKundeUpdaten(d, kundenId);
-		}
+		if(neu == true)
+		terminDb.tresterKundeNeuSpeichern(d, kundenId);
 	}
 	
 	public void tresterKundeLöschen(Date d){

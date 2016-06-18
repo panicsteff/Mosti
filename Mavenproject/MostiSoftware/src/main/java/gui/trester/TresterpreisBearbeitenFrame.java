@@ -66,9 +66,6 @@ public class TresterpreisBearbeitenFrame extends JFrame {
 			} catch (NumberFormatException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
-			} catch (SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
 			}
 			System.out.println("Preis pro 1000 L: "+ tv.getPreisPro1000L());
 			//Tresterabrechnung ta = new Tresterabrechnung(tv, 2000);

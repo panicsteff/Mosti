@@ -10,8 +10,6 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
 import java.sql.Date;
 import java.util.ArrayList;
 
@@ -275,8 +273,11 @@ public class TagFrame extends JDialog {
 			}
 		});
 		
-		this.addWindowListener(new WindowAdapter(){
-			public void windowClosing(WindowEvent w){
+		JButton speichern = new JButton("Tresterkunde speichern");
+		speichern.setBounds(20, 550, 200, 40);;
+		add(speichern);
+		speichern.addActionListener(new ActionListener(){
+			public void actionPerformed(ActionEvent e){
 				if(tresterKunde.getEditor().getItem().equals("")){
 					tagframecontroller.tresterKundeLöschen(datum);
 					return;
@@ -289,7 +290,6 @@ public class TagFrame extends JDialog {
 				tagframecontroller.tresterKundeSpeichern(datum, kundenId, neu);
 			}
 		});
-		
 		
 		setVisible(true);
 

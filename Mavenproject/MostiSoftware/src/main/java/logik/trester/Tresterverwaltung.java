@@ -1,8 +1,9 @@
 package logik.trester;
 
-import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.Date;
 
+import logik.kundenverwaltung.Kunde;
 import logik.verkaufsverwaltung.Verkaufsverwaltung;
 import persistenz.TresterDB;
 
@@ -13,26 +14,14 @@ public class Tresterverwaltung {
 	
 	public Tresterverwaltung(){
 		tresterdb = new TresterDB();
-		try {
-			preisPro1000L = tresterdb.tresterpreisLaden();
-		} catch (SQLException e) {
-			preisPro1000L = 15.0;
-			//System.out.println("Es wurde kein abgelegter Preis in der Datenbank gefunden. Deswegen wurde der Tresterpreis pro 1000 L nun auf 15.00 € gesetzt");
-			e.printStackTrace();
-		} 
+		preisPro1000L = tresterdb.tresterpreisLaden();
 	}
 
 	public double getPreisPro1000L() {
-		try {
 			return tresterdb.tresterpreisLaden();
-		} catch (SQLException e) {
-			System.out.println("Der Tresterpreis konnte nicht geladen werden.");
-			e.printStackTrace();
-			return 15.0;
-		}
 	}
 
-	public void setPreisPro1000L(double preis) throws SQLException {
+	public void setPreisPro1000L(double preis) {
 		preisPro1000L = preis;
 		tresterdb.updateTresterpreis(preis);
 	}
@@ -53,6 +42,43 @@ public class Tresterverwaltung {
 	public double berechneTresterGesamtpreis(int literzahl){
 		return (preisPro1000L/1000.0)*literzahl;
 	}
+	
+	
+	// alle Kunden
+	
+	public ArrayList<Tresterabrechnung> ladeTagesTresterVerkäufe(
+			java.sql.Date date) {
+		return tresterdb.ladeTagesTresterVerkäufeAusDB(date);
+	}
+
+	public ArrayList<Tresterabrechnung> ladeAlleTresterverkäufeZeitraum(
+			java.sql.Date date1, java.sql.Date date2) {
+		return tresterdb.ladeAlleTresterverkäufeZeitraumAusDB(date1, date2);
+	}
+
+	public ArrayList<Tresterabrechnung> ladeAlleTresterverkäufe() {
+		return tresterdb.ladeAlleTresterverkäufeAusDB();
+	}
+	
+	
+	//bestimmter Kunde
+
+	public ArrayList<Tresterabrechnung> ladeKundentrestereinkaufTag(
+			Kunde kunde, java.sql.Date date) {
+		return tresterdb.ladeKundentrestereinkaufTagAusDB(kunde, date);
+	}
+
+	public ArrayList<Tresterabrechnung> ladeKundenTrestereinkaufZeitraum(
+			Kunde kunde, java.sql.Date date1, java.sql.Date date2) {
+		return tresterdb.ladeKundenTrestereinkaufZeitraumAusDB(kunde, date1, date2);
+	}
+
+	public ArrayList<Tresterabrechnung> ladeAlleTresterEinkäufeVonKunde(
+			Kunde kunde) {
+		return tresterdb.ladeAlleTresterEinkäufeVonKundeAusDB(kunde);
+	}
+
+	
 
 
 }

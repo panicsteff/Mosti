@@ -254,7 +254,11 @@ public class TerminBearbeitenDialog extends JDialog{
 		add(flaschenbox);
 		
 		JButton löschen = new JButton("Löschen");
+<<<<<<< HEAD
 		löschen.setBounds(0, 240, 107, 40);
+=======
+		löschen.setBounds(0, 160, 200, 40);
+>>>>>>> 05e268b3f1ea52cae8a0795aa123ca1b6f9b51e9
 		add(löschen);
 		löschen.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent arg0) {
@@ -271,19 +275,41 @@ public class TerminBearbeitenDialog extends JDialog{
 			}
 		});
 		
+<<<<<<< HEAD
 		JButton schliessen = new JButton("Schließen");
 		schliessen.setBounds(214, 240, 107, 40);
 		add(schliessen);
 		schliessen.addActionListener(new ActionListener(){
+=======
+		JButton verschieben = new JButton("Ok");
+		verschieben.setBounds(200, 160, 200, 40);
+		add(verschieben);
+		verschieben.addActionListener(new ActionListener(){
+>>>>>>> 05e268b3f1ea52cae8a0795aa123ca1b6f9b51e9
 			public void actionPerformed(ActionEvent e){
 				TerminBearbeitenDialog.this.dispose();
 			}
 		});
 		
+<<<<<<< HEAD
 		JButton verschieben = new JButton("Verschieben");
 		verschieben.setBounds(107, 240, 107, 40);
 		verschieben.addActionListener(new MyVerschiebenHandler());
 		add(verschieben);
+=======
+		
+	    JButton verschiebeTermin = new JButton("Termin verschieben");
+		verschiebeTermin.setBounds(400,160,200,40);
+		add(verschiebeTermin);
+		verschiebeTermin.addActionListener(new ActionListener(){
+			public void actionPerformed(ActionEvent e){
+				new TerminHinzufügenFrame(termin.getDatum().getTime());
+				
+				
+			
+			}
+		});
+>>>>>>> 05e268b3f1ea52cae8a0795aa123ca1b6f9b51e9
 		
 		
 		setVisible(true);

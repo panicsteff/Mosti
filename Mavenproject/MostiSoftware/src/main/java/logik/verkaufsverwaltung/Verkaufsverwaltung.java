@@ -23,8 +23,7 @@ public class Verkaufsverwaltung {
 	// für bestimmten Kunden
 
 	public Verkauf ladeKundeinkaufTag(Kunde kunde, Date date) {
-		einkaufsliste = verkäufeDB.kundeneinkaufLaden(kunde, date);
-		verkauf = new Verkauf(kunde, date, einkaufsliste);
+		verkauf = verkäufeDB.kundeneinkaufLaden(kunde, date);
 		return verkauf;
 	}
 	
