@@ -6,6 +6,7 @@ import gui.verkauf.ÜbersichtButtonModel;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Date;
 
 import javax.swing.JButton;
 import javax.swing.JFormattedTextField;
@@ -180,7 +181,10 @@ public class TresterabrechnungFrame extends JFrame {
 			if (result != JOptionPane.YES_OPTION)
 				return;
 			
-			Tresterabrechnung ta = new Tresterabrechnung(kunde, liter, Math.round(kosten*100)/100.0);
+			java.util.Date datum = new Date();
+			java.sql.Date date = new java.sql.Date(datum.getTime());
+			Tresterabrechnung ta = new Tresterabrechnung(kunde.getKundenID()
+					, liter, Math.round(kosten*100)/100.0, date);
 			tv.tresterAbrechnungHinzufügen(ta);
 			dispose();	
 		}

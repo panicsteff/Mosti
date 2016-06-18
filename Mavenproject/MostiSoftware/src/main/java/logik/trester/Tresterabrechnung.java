@@ -9,16 +9,18 @@ public class Tresterabrechnung {
 	
 	private int gesamtLiter;
 	private double preis;
-	private Tresterverwaltung tv;
-	private Kunde tresterkunde;
+	//private Tresterverwaltung tv;
+	//private Kunde tresterkunde;
 	private java.sql.Date date;
+	private int kundenID;
 	
-	public Tresterabrechnung(/*Tresterverwaltung tv,*/Kunde kunde, int literzahl, double preis){
+	public Tresterabrechnung(/*Kunde kunde*/int kundenid, int literzahl, double preis, java.sql.Date date){
 		//this.tv = tv;
+		//tresterkunde = kunde;
+		setKundenID(kundenid);
 		gesamtLiter = literzahl;
-		setTresterkunde(kunde);
-		setDate();
 		this.preis = preis;
+		this.date = date;
 	}
 	
 //	private double berechnePreis(){
@@ -56,12 +58,20 @@ public class Tresterabrechnung {
 
 	}
 
-	public Kunde getTresterkunde() {
-		return tresterkunde;
+	public int getKundenID() {
+		return kundenID;
 	}
 
-	public void setTresterkunde(Kunde tresterkunde) {
-		this.tresterkunde = tresterkunde;
+	public void setKundenID(int kundenID) {
+		this.kundenID = kundenID;
 	}
+
+//	public Kunde getTresterkunde() {
+//		return tresterkunde;
+//	}
+//
+//	public void setTresterkunde(Kunde tresterkunde) {
+//		this.tresterkunde = tresterkunde;
+//	}
 
 }

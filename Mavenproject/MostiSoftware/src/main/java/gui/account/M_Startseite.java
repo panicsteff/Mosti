@@ -11,6 +11,7 @@ import gui.terminplanung.TagFrame;
 import gui.terminplanung.TerminplanungsFrame;
 import gui.trester.TresterabrechnungFrame;
 import gui.trester.TresterpreisBearbeitenFrame;
+import gui.trester.TresterübersichtFrame;
 import gui.verkauf.Verkaufsübersicht;
 
 import java.awt.GridLayout;
@@ -213,15 +214,13 @@ public class M_Startseite extends JFrame {
 				new TresterpreisBearbeitenFrame(new Tresterverwaltung());
 			}
 		});
-//		JMenuItem tresteritem2 = new JMenuItem("Tresterabrechnung erstellen");
-//		trester.add(tresteritem2);
-//		tresteritem2.addActionListener(new ActionListener(){
-//			public void actionPerformed(ActionEvent e){
-//				new TresterabrechnungFrame();
-////				int result = JOptionPane.showConfirmDialog(M_Startseite.this, "Möchten Sie den Tresterpreis für den gesamten Tag berechnen?",
-////						"Frage", JOptionPane.YES_NO_OPTION);
-//			}
-//		});
+		JMenuItem tresteritem2 = new JMenuItem("Trester-Verkaufsübersicht erstellen");
+		trester.add(tresteritem2);
+		tresteritem2.addActionListener(new ActionListener(){
+			public void actionPerformed(ActionEvent e){
+				new TresterübersichtFrame();
+			}
+		});
 		
 		
 		
