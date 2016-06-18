@@ -18,6 +18,7 @@ import javax.swing.JTable;
 import javax.swing.table.TableColumn;
 
 import logik.produktverwaltung.PreisCellRenderer;
+import logik.trester.DatumRechtsbuendigCellRenderer;
 import logik.trester.Tresterabrechnung;
 
 @SuppressWarnings("serial")
@@ -69,6 +70,9 @@ public class TresterFrame extends JFrame {
 		
 		TableColumn summenspalte = tTabelle.getColumnModel().getColumn(3);
 		summenspalte.setCellRenderer(new PreisCellRenderer());
+		
+		TableColumn datumsspalte = tTabelle.getColumnModel().getColumn(4);
+		datumsspalte.setCellRenderer(new DatumRechtsbuendigCellRenderer());
 
 		tTabelle.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
 		tTabelle.getColumnModel().getColumn(0).setPreferredWidth(150);
