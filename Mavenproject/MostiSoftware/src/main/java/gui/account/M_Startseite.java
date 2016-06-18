@@ -9,7 +9,6 @@ import gui.produktverwaltung.LagerVerwaltungFrame;
 import gui.schichtverwaltung.SchichtplanungsFrame;
 import gui.terminplanung.TagFrame;
 import gui.terminplanung.TerminplanungsFrame;
-import gui.trester.TresterabrechnungFrame;
 import gui.trester.TresterpreisBearbeitenFrame;
 import gui.verkauf.Verkaufsübersicht;
 
@@ -61,7 +60,7 @@ public class M_Startseite extends JFrame {
 		
 		kassenButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				new TagFrame(new Date().getTime(), 1, M_Startseite.this, 0);
+				new TagFrame(new Date().getTime(), 1, M_Startseite.this, 0, 0, false);
 			}
 		});
 		

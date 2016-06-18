@@ -35,12 +35,12 @@ public class TerminHinzufügenFrame extends JFrame{
 				int terminuhrzeit = (Integer) fttm.getValueAt(zeile, 1);
 				long d = terminhinzufügenLogik.formatieren(datum);
 				int as = terminhinzufügenLogik.berechneAnzeigeSeite(terminuhrzeit);
-				new TagFrame(d, as, TerminHinzufügenFrame.this, länge);
+				new TagFrame(d, as, TerminHinzufügenFrame.this, länge, menge, flasche.isSelected());
 				TerminHinzufügenFrame.this.dispose();
 			}
 		}
 	}
-	//MVVM Pattern
+	
 	
 	class MyBerechnenHandler implements ActionListener{
 		public void actionPerformed(ActionEvent e){
@@ -49,6 +49,11 @@ public class TerminHinzufügenFrame extends JFrame{
 				if(s.equals("")){
 					JOptionPane.showMessageDialog(TerminHinzufügenFrame.this, "Bitte geben sie eine Obstmenge ein");
 				}else{
+					try{
+						menge = Integer.parseInt(s);
+					}catch (Exception ex){
+						JOptionPane.showMessageDialog(TerminHinzufügenFrame.this, "Ungültige Obstmenge");
+					}
 					länge = terminhinzufügenLogik.berechneTermindauer(s, flasche.isSelected());
 					dauer.setEnabled(true);
 					txtdauer.setEnabled(true);
@@ -117,6 +122,7 @@ public class TerminHinzufügenFrame extends JFrame{
 	private Date heute;
 	private Date aktuellerTag;
 	private int länge = 0;
+	private int menge;
 
 	
 	public TerminHinzufügenFrame(long date){

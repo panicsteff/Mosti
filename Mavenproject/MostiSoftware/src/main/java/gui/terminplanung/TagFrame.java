@@ -17,6 +17,7 @@ import java.util.ArrayList;
 
 import javax.swing.JButton;
 import javax.swing.JComboBox;
+import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -32,7 +33,7 @@ import logik.terminplanung.TagFrameController;
 import logik.terminplanung.Termin;
 import logik.verkaufsverwaltung.Verkaufsverwaltung;
 
-public class TagFrame extends JFrame {
+public class TagFrame extends JDialog {
 
 	class MyMouseListener extends MouseAdapter {
 		public void mousePressed(MouseEvent event) {
@@ -41,16 +42,18 @@ public class TagFrame extends JFrame {
 
 			if (event.getClickCount() == 2) {
 
-				if (parent == null) {
+				if (parent instanceof TerminplanungsFrame) {
 					int pos = terminSelectionModel.getMaxSelectionIndex();
 					int zeile = tagframecontroller.getZeile(pos, anzeigeseite);
 					Termin t = termineTableModel.getTermine(zeile,1).get(0);
+					t = tagframecontroller.startTerminfinden(termineTableModel.getAlleTermine(), t);
 					if(t.getKundenId()==0){
 						JOptionPane.showMessageDialog(TagFrame.this, "Bitte wählen sie einen bestehenden Termin zur Bearbeitung");
 						return;
 					}
-					int länge = tagframecontroller.getTermindauer(t.getAnzahlZeitslots());	
-					String uhrzeit = termineCellRenderer.getText();
+					int länge = tagframecontroller.getTermindauer(t.getAnzahlZeitslots());
+					
+					String uhrzeit = tagframecontroller.terminNachUhrzeit(t.getUhrzeit());
 					String name = kundenNameCellRenderer.getText();
 					new TerminBearbeitenDialog(t, länge, name, uhrzeit, termineTableModel.getAlleTermine());
 					termineTableModel.fireTableDataChanged();
@@ -66,6 +69,7 @@ public class TagFrame extends JFrame {
 					DLSortiment dlSortiment = new DLSortiment(); 
 					ProduktSortiment pSortiment = new ProduktSortiment();
 					new KassenFrame(dlSortiment, pSortiment, new Verkaufsverwaltung(), kundenid);
+					TagFrame.this.dispose();
 				}else {
 					int anzahlZeitslots = tagframecontroller.berechneAnzahlZeitslots(dauer);
 					int zeile = tagframecontroller.getZeile(terminSelectionModel.getMaxSelectionIndex(), anzeigeseite);
@@ -79,10 +83,10 @@ public class TagFrame extends JFrame {
 						frei = tagframecontroller.istTerminFrei(termine);
 						if (frei == true) {
 							new TerminErstellenDialog(dauer, datum, termine,
-									uhrzeit);
+									uhrzeit, menge, flaschen);
 							termineTableModel.fireTableRowsUpdated(zeile, zeile + anzahlZeitslots);
 							terminSelectionModel.setSelectionInterval(zeile, zeile + anzahlZeitslots); // Damit anzeige aktualisiert wird
-							tagframecontroller.termineSpeichern(termine.get(0).getKundenId(), anzahlZeitslots, datum, termine.get(0).getUhrzeit() );
+							tagframecontroller.termineSpeichern(termine.get(0).getKundenId(), anzahlZeitslots, datum, termine.get(0).getUhrzeit(), menge, flaschen );
 						}
 					}
 				}
@@ -176,15 +180,19 @@ public class TagFrame extends JFrame {
 	private JComboBox<String> tresterKunde;
 	private int kundenId;
 	private ArrayList<Integer> kundenIds;
+	private int menge;
+	private boolean flaschen;
 	private boolean neu;
 
-	public TagFrame(long d, int as, JFrame p, int länge) {
+	public TagFrame(long d, int as, JFrame p, int länge, int menge, boolean flaschen) {
 		parent = p;
 		datum = new Date(d);
 		anzeigeseite = as;
 		dauer = länge;
 		eingabe = "";
 		kundenIds = new ArrayList<Integer>();
+		this.menge = menge;
+		this.flaschen = flaschen;
 
 		tagframecontroller = new TagFrameController();
 
@@ -198,7 +206,7 @@ public class TagFrame extends JFrame {
 
 		termineTableModel = new TermineTableModel(terminliste, anzeigeseite);
 		tagesTabelle = new JTable(termineTableModel);
-		tagesTabelle.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
+		tagesTabelle.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
 		tagesTabelle.setRowHeight(30);
 		tagesTabelle.setFont(tagesTabelle.getFont().deriveFont(16f));
 		tagesTabelle.getTableHeader().setFont(
@@ -208,6 +216,7 @@ public class TagFrame extends JFrame {
 		kundenNameCellRenderer = new KundenNameCellRenderer();
 		tcm.getColumn(0).setCellRenderer(termineCellRenderer);
 		tcm.getColumn(1).setCellRenderer(kundenNameCellRenderer);
+		tcm.getColumn(1).setMinWidth(250);
 
 		terminSelectionModel = tagesTabelle.getSelectionModel();
 		terminSelectionModel

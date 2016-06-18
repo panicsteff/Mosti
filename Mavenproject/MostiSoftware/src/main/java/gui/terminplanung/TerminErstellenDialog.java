@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.Date;
 
 import javax.swing.JButton;
+import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
 import javax.swing.JDialog;
 import javax.swing.JLabel;
@@ -86,6 +87,7 @@ public class TerminErstellenDialog extends JDialog {
 	private JTextField dauertxt;
 	private JTextField uhrzeittxt;
 	private JComboBox<String> kundetxt;
+	private JTextField mengetxt;
 	private ArrayList<Termin> terminliste;
 	private String eingabe = "";
 	private int kundenId;
@@ -93,12 +95,12 @@ public class TerminErstellenDialog extends JDialog {
 	private ArrayList<Integer> kundenIds;
 
 	public TerminErstellenDialog(int dauer, Date date, ArrayList<Termin> t,
-			String uhrzeitAnzeige) {
+			String uhrzeitAnzeige, int menge, boolean flaschen) {
 
 		setModal(true);
 
 		setTitle("Termin anlegen");
-		setSize(420, 248);
+		setSize(420, 500);
 		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 		setLayout(null);
 		
@@ -134,13 +136,29 @@ public class TerminErstellenDialog extends JDialog {
 		dauertxt = new JTextField(dauer + " min");
 		dauertxt.setFont(dauertxt.getFont().deriveFont(16f));
 		dauertxt.setBounds(200, 120, 200, 40);
+		
+		JLabel mengelabel = new JLabel("Menge:");
+		mengelabel.setFont(mengelabel.getFont().deriveFont(16f));
+		mengelabel.setBounds(0, 160, 200, 40);
+		mengetxt = new JTextField(menge + "");
+		mengetxt.setFont(mengetxt.getFont().deriveFont(16f));
+		mengetxt.setBounds(200, 160, 200, 40);
+		
+		
+		JLabel flaschenlabel = new JLabel("in Flaschen:");
+		flaschenlabel.setFont(flaschenlabel.getFont().deriveFont(16f));
+		flaschenlabel.setBounds(0, 200, 200, 40);
+		JCheckBox flaschenbox = new JCheckBox();
+		flaschenbox.setSelected(flaschen);
+		flaschenbox.setBounds(270, 205, 30, 30);
+		
 
 		JButton speichern = new JButton("Speichern");
 		speichern.addActionListener(new MyOkListener());
-		speichern.setBounds(0, 160, 140, 40);
+		speichern.setBounds(0, 240, 140, 40);
 		
 		JButton kundeHinzufügen = new JButton("Kunde hinzufügen");
-		kundeHinzufügen.setBounds(140, 160, 140, 40);
+		kundeHinzufügen.setBounds(140, 240, 140, 40);
 		kundeHinzufügen.addActionListener(new ActionListener(){
 
 			public void actionPerformed(ActionEvent e) {
@@ -150,7 +168,7 @@ public class TerminErstellenDialog extends JDialog {
 		});	
 		
 		JButton abbrechen = new JButton("Abbrechen");
-		abbrechen.setBounds(280, 160, 140, 40);
+		abbrechen.setBounds(280, 240, 140, 40);
 		abbrechen.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent arg0) {
 				TerminErstellenDialog.this.dispose();
@@ -165,6 +183,11 @@ public class TerminErstellenDialog extends JDialog {
 		add(uhrzeittxt);
 		add(dauerlabel);
 		add(dauertxt);
+		add(mengelabel);
+		add(mengetxt);
+		add(flaschenlabel);
+		add(flaschenbox);
+		
 		
 		add(speichern);
 		add(abbrechen);

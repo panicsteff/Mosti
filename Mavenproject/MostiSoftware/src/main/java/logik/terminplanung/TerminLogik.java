@@ -34,6 +34,8 @@ public class TerminLogik {
 						t.setAnzahlZeitslots(alteTerminliste.get(i).getAnzahlZeitslots());
 						t.setDatum(alteTerminliste.get(i).getDatum());
 						t.setKundenId(alteTerminliste.get(i).getKundenId());
+						t.setMenge(alteTerminliste.get(i).getMenge());
+						t.setInFlaschen(alteTerminliste.get(i).isInFlaschen());
 						t.setUhrzeit(j);
 						neueTerminliste.add(t);
 						j = j+getZeitslot();
@@ -88,11 +90,18 @@ public class TerminLogik {
 		int stunde = uhrzeit/60;
 		int minute = uhrzeit%60;
 		
-		if(minute<10){
-			return stunde + ":0" + minute;
+		String ausgabe = null;
+		if(stunde<10){
+			ausgabe = "0"+stunde;
+		}else{
+			ausgabe = stunde+"";
 		}
-		
-		return stunde + ":" + minute;
+		if(minute<10){
+			ausgabe = ausgabe + ":0" + minute;
+		}else{
+			ausgabe = ausgabe + ":" + minute;
+		}		
+		return ausgabe;
 	}
 	
 	public ArrayList<Intervall> berechneLücken(ArrayList<Termin> freieTermine, int dauer) {
@@ -146,8 +155,8 @@ public class TerminLogik {
 		return terminDb.kundenNamenLaden(id);
 	}
 	
-	void termineSpeichern(int kundenId, int anzahlZeitslot, Date datum, int beginn){
-		terminDb.termineSpeichern(kundenId, anzahlZeitslot, datum, beginn);
+	public static void termineSpeichern(int kundenId, int anzahlZeitslot, Date datum, int beginn, int menge, boolean flaschen){
+		TerminDB.termineSpeichern(kundenId, anzahlZeitslot, datum, beginn, menge, flaschen);
 		
 	}
 	

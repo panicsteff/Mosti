@@ -25,13 +25,26 @@ public class TermineTableModel extends AbstractTableModel {
 		switch(col){
 		case 0: return "Uhrzeit";
 		case 1: return "Kunde";
+		case 2: return "Menge";
+		case 3: return "in Flaschen";
+		
+		default: return null;
+		}
+	}
+	
+	public Class<?> getColumnClass(int col){
+		switch(col){
+		case 0: return String.class;
+		case 1: return String.class;
+		case 2: return String.class;
+		case 3: return Boolean.class;
 		
 		default: return null;
 		}
 	}
 	
 	public int getColumnCount() {
-		return 2;
+		return 4;
 	}
 
 	public int getRowCount() {
@@ -48,6 +61,18 @@ public class TermineTableModel extends AbstractTableModel {
 			
 		case 1:
 			return terminliste.get(reihe).getKundenId();
+		
+		case 2:
+			if(terminliste.get(reihe).getKundenId() == 0){
+				return "";
+			} else{
+				return terminliste.get(reihe).getMenge();
+			}				
+			
+		case 3:
+			return terminliste.get(reihe).isInFlaschen();
+			
+			
 			
 		default:
 			return null;

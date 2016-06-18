@@ -41,13 +41,17 @@ public class TerminplanungsFrame extends JFrame{
 		terminuebersicht.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e){
 				Date d = calendar.getDate();
-				new TagFrame(d.getTime(), 1, null,0);
+				new TagFrame(d.getTime(), 1, TerminplanungsFrame.this,0,0, false);
 			}
 		});
 		terminuebersicht.setBounds(30, 360, 180, 30);
 		add(terminuebersicht);
 		
 		setVisible(true);
+	}
+	
+	public static void main(String[] avgs){
+		new TerminplanungsFrame();
 	}
 
 	

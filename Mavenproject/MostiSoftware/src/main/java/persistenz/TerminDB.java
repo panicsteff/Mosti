@@ -45,6 +45,8 @@ public class TerminDB {
 				t.setAnzahlZeitslots(rs.getInt("AnzahlZeitslot"));
 				t.setUhrzeit(rs.getInt("Beginn"));
 				t.setDatum(rs.getDate("Datum"));
+				t.setMenge(rs.getShort("Menge"));
+				t.setInFlaschen(rs.getBoolean("Flaschen"));
 				terminliste.add(t);
 			}
 			s.close();
@@ -56,17 +58,19 @@ public class TerminDB {
 		return terminliste;
 	}
 
-	public void termineSpeichern(int kundenId, int anzahlZeitslot, Date datum,
-			int beginn) {
+	public static void termineSpeichern(int kundenId, int anzahlZeitslot, Date datum,
+			int beginn, int menge, boolean flaschen) {
 
 		try {
 			PreparedStatement s = null;
 
-			s = conn.prepareStatement("Insert into termine (kundenId, AnzahlZeitslot, Datum, Beginn) VALUES (?, ?, ?,?)");
+			s = conn.prepareStatement("Insert into termine (kundenId, AnzahlZeitslot, Datum, Beginn, Menge, Flaschen) VALUES (?, ?, ?, ?, ?, ?)");
 			s.setInt(1, kundenId);
 			s.setInt(2, anzahlZeitslot);
 			s.setDate(3, datum);
 			s.setInt(4, beginn);
+			s.setInt(5, menge);
+			s.setBoolean(6, flaschen);
 
 			s.executeUpdate();
 

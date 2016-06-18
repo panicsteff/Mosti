@@ -67,7 +67,7 @@ public class TerminHinzufügenLogik {
 		int obstmenge = Integer.parseInt(s);
 		double dauer = obstmenge*AdministratorLogik.getPressdauer();
 		if(flaschen == true){
-			dauer = dauer*AdministratorLogik.getAbfülldauer();
+			dauer = dauer + obstmenge*AdministratorLogik.getAbfülldauer();
 		}
 		int zeitslot = terminlogik.getZeitslot();
 		if(dauer%zeitslot == 0){						
