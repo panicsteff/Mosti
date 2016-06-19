@@ -2,21 +2,14 @@ package logik.trester;
 
 import java.util.Date;
 
-import logik.kundenverwaltung.Kunde;
-
-
 public class Tresterabrechnung {
 	
 	private int gesamtLiter;
 	private double preis;
-	//private Tresterverwaltung tv;
-	//private Kunde tresterkunde;
 	private java.sql.Date date;
 	private int kundenID;
 	
-	public Tresterabrechnung(/*Kunde kunde*/int kundenid, int literzahl, double preis, java.sql.Date date){
-		//this.tv = tv;
-		//tresterkunde = kunde;
+	public Tresterabrechnung(int kundenid, int literzahl, double preis, java.sql.Date date){
 		setKundenID(kundenid);
 		gesamtLiter = literzahl;
 		this.preis = preis;

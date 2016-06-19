@@ -50,26 +50,26 @@ public class VerkäufeDB {
 
 	}
 	
-//	public ArrayList<Verkaufsposition> ladeVerkaufspositionenInListe(ResultSet rs){
-//		ArrayList<Verkaufsposition> liste = new ArrayList<Verkaufsposition>();
-//		
-//		try {
-//			while (rs.next()) {
-//				String name = rs.getString("verkaufsposition");
-//				Double preis = rs.getDouble("einzelpreis");
-//				int menge = rs.getInt("verkaufsmenge");
-//				int literzahl = rs.getInt("literzahl");
-//
-//				Verkaufsposition einkaufsposition = new Verkaufsposition(name,
-//						preis, menge, literzahl);
-//				liste.add(einkaufsposition);
-//			}
-//			
-//		} catch (SQLException e) {
-//			e.printStackTrace();
-//		}
-//		return liste;
-//	}
+	public ArrayList<Verkaufsposition> ladeVerkaufspositionenInListe(ResultSet rs){
+		ArrayList<Verkaufsposition> liste = new ArrayList<Verkaufsposition>();
+		
+		try {
+			while (rs.next()) {
+				String name = rs.getString("verkaufsposition");
+				Double preis = rs.getDouble("einzelpreis");
+				int menge = rs.getInt("verkaufsmenge");
+				int literzahl = rs.getInt("literzahl");
+
+				Verkaufsposition einkaufsposition = new Verkaufsposition(name,
+						preis, menge, literzahl);
+				liste.add(einkaufsposition);
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return liste;
+	}
 	
 	public ArrayList<VerkaufspositionPlus> ladeVerkaufspositionenPlusInListe(ResultSet rs){
 		ArrayList<VerkaufspositionPlus> liste = new ArrayList<VerkaufspositionPlus>();
@@ -97,26 +97,26 @@ public class VerkäufeDB {
 	}
 
 	// bestimmter Kunde
-//	public Verkauf kundeneinkaufLaden(Kunde kunde, Date date) {
-//
-//		ArrayList<Verkaufsposition> einkaufsliste = new ArrayList<Verkaufsposition>();
-//
-//		try {
-//			Statement s = conn.createStatement();
-//			ResultSet rs = s
-//					.executeQuery("SELECT * FROM [verkäufe] WHERE kundenid = "
-//							+ kunde.getKundenID() + " AND verkaufsdatum BETWEEN {ts '"+date+" 00:00:00'} AND {ts '"+date+" 23:59:59'} ");
-//
-//			einkaufsliste = ladeVerkaufspositionenInListe(rs);
-//			s.close();
-//
-//		} catch (Exception e) {
-//			System.out.println(e);
-//		}
-//		
-//		Verkauf verkauf = new Verkauf(kunde, date, einkaufsliste);
-//		return verkauf;
-//	}
+	public Verkauf kundeneinkaufLaden(Kunde kunde, Date date) {
+
+		ArrayList<Verkaufsposition> einkaufsliste = new ArrayList<Verkaufsposition>();
+
+		try {
+			Statement s = conn.createStatement();
+			ResultSet rs = s
+					.executeQuery("SELECT * FROM [verkäufe] WHERE kundenid = "
+							+ kunde.getKundenID() + " AND verkaufsdatum BETWEEN {ts '"+date+" 00:00:00'} AND {ts '"+date+" 23:59:59'} ");
+
+			einkaufsliste = ladeVerkaufspositionenInListe(rs);
+			s.close();
+
+		} catch (Exception e) {
+			System.out.println(e);
+		}
+		
+		Verkauf verkauf = new Verkauf(kunde, date, einkaufsliste);
+		return verkauf;
+	}
 //
 //	public ArrayList<Verkaufsposition> alleEinkäufeVonKundeLaden(Kunde kunde) {
 //		ArrayList<Verkaufsposition> einkaufsliste = new ArrayList<Verkaufsposition>();

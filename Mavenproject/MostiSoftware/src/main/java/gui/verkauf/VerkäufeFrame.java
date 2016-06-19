@@ -1,8 +1,6 @@
 package gui.verkauf;
 
 import gui.trester.DatumRechtsbuendigCellRenderer;
-import gui.trester.TresterübersichtFrame;
-
 import java.awt.BorderLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
@@ -21,7 +19,6 @@ import javax.swing.JTable;
 import javax.swing.table.TableColumn;
 
 import logik.produktverwaltung.PreisCellRenderer;
-import logik.verkaufsverwaltung.Verkaufsposition;
 import logik.verkaufsverwaltung.VerkaufspositionPlus;
 
 @SuppressWarnings("serial")

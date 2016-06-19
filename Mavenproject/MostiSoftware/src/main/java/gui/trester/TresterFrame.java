@@ -93,6 +93,7 @@ public class TresterFrame extends JFrame {
 		summenPanel.add(label);
 		label = new JLabel();
 		label.setText(String.valueOf(tTableModel.berechneKostenGesamt()) + " €");
+		System.out.println("Kosten und so " + tTableModel.berechneKostenGesamt());
 		summenPanel.add(label);
 		label = new JLabel("Literzahl gesamt");
 		summenPanel.add(label);

@@ -51,7 +51,7 @@ public class TresterabrechnungFrame extends JFrame {
 		getContentPane().add(lblText);
 		
 		lblLiterzahl = new JLabel();
-		int gesamtliterzahl = tv.getTagesLiterZahl();
+		gesamtliterzahl = tv.getTagesLiterZahl();
 		lblLiterzahl.setText(String.valueOf(gesamtliterzahl) + " Liter");
 		lblLiterzahl.setBounds(340, 20, 150, 19);
 		getContentPane().add(lblLiterzahl);
@@ -184,7 +184,7 @@ public class TresterabrechnungFrame extends JFrame {
 			java.util.Date datum = new Date();
 			java.sql.Date date = new java.sql.Date(datum.getTime());
 			Tresterabrechnung ta = new Tresterabrechnung(kunde.getKundenID()
-					, liter, Math.round(kosten*100)/100.0, date);
+					, liter, tv.getPreisPro1000L(), date);
 			tv.tresterAbrechnungHinzufügen(ta);
 			dispose();	
 		}
@@ -196,8 +196,8 @@ public class TresterabrechnungFrame extends JFrame {
 		}
 	}
 	
-	public static void main(String[] args){
-		TresterabrechnungFrame t = new TresterabrechnungFrame(6);
-	}
+//	public static void main(String[] args){
+//		TresterabrechnungFrame t = new TresterabrechnungFrame(6);
+//	}
 
 }

@@ -2,10 +2,6 @@ package gui.trester;
 
 import gui.kundenverwaltung.KundeListCellRenderer;
 import gui.kundenverwaltung.KundeListModel;
-import gui.verkauf.Verkaufsübersicht;
-
-
-import gui.verkauf.VerkäufeFrame;
 import gui.verkauf.ÜbersichtButtonGroup;
 import gui.verkauf.ÜbersichtButtonModel;
 

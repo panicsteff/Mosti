@@ -9,7 +9,7 @@ import persistenz.VerkäufeDB;
 public class Verkaufsverwaltung {
 
 	private Verkauf verkauf;
-	private ArrayList<Verkaufsposition> einkaufsliste;
+	//private ArrayList<Verkaufsposition> einkaufsliste;
 	private VerkäufeDB verkäufeDB;
 
 	public Verkaufsverwaltung() {
@@ -22,10 +22,10 @@ public class Verkaufsverwaltung {
 	
 	// für bestimmten Kunden
 
-//	public Verkauf ladeKundeinkaufTag(Kunde kunde, Date date) {
-//		verkauf = verkäufeDB.kundeneinkaufLaden(kunde, date);
-//		return verkauf;
-//	}
+	public Verkauf ladeKundeinkaufTag(Kunde kunde, Date date) {
+		verkauf = verkäufeDB.kundeneinkaufLaden(kunde, date);
+		return verkauf;
+	}
 //	
 //	public ArrayList<Verkaufsposition> ladeKundeneinkaufZeitraum(Kunde kunde, Date date1, Date date2) {
 //		return verkäufeDB.kundeneinkäufeZeitraumLaden(kunde, date1, date2);

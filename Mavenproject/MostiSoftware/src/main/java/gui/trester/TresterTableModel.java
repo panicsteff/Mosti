@@ -31,7 +31,7 @@ class TresterTableModel extends AbstractTableModel {
 		case 1:
 			return "Literzahl";
 		case 2:
-			return "Preis pro Liter [€]";
+			return "Preis pro 1000 Liter [€]";
 		case 3:
 			return "Summe";
 		case 4:
@@ -56,7 +56,7 @@ class TresterTableModel extends AbstractTableModel {
 		case 2:
 			return t.getPreis();
 		case 3:
-			return t.getLiterzahl()*t.getPreis();
+			return t.getLiterzahl()*(t.getPreis()/1000.0);
 		case 4:
 			return t.getDate();
 
@@ -98,13 +98,10 @@ class TresterTableModel extends AbstractTableModel {
 		double sum = 0;
 		for (int i = 0; i < getRowCount(); i++) {
 			sum = sum + (Double) getValueAt(i, 3);
-//			System.out.println((Integer) (getValueAt(0, i)) + " und "
-//					+ vliste.get(i).getPreis());
-
 		}
-		sum = Math.round(sum * 100) / 100;
+		sum = Math.round(sum * 100);
+		sum = sum / 100;
 		return sum;
-
 	}
 
 	int berechneLiterGesamt() {
