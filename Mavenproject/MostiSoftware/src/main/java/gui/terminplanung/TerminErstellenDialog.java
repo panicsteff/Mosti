@@ -76,6 +76,8 @@ public class TerminErstellenDialog extends JDialog {
 				kundenId = kundenIds.get(gewähltePosition);
 				for (Termin t : terminliste) {
 					t.setKundenId(kundenId);
+					t.setMenge(menge);
+					t.setInFlaschen(inFlaschen);
 				}
 				TerminErstellenDialog.this.dispose();
 			}
@@ -93,6 +95,8 @@ public class TerminErstellenDialog extends JDialog {
 	private int kundenId;
 	private TerminLogik terminlogik;
 	private ArrayList<Integer> kundenIds;
+	private int menge;
+	private boolean inFlaschen;
 
 	public TerminErstellenDialog(int dauer, Date date, ArrayList<Termin> t,
 			String uhrzeitAnzeige, int menge, boolean flaschen) {
@@ -106,6 +110,8 @@ public class TerminErstellenDialog extends JDialog {
 		
 		terminliste = t;
 		terminlogik = new TerminLogik();
+		this.menge = menge;
+		inFlaschen = flaschen;
 
 		JLabel kunde = new JLabel("Kunde:");
 		kunde.setFont(kunde.getFont().deriveFont(16f));

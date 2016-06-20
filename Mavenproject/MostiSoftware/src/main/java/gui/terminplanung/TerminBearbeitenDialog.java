@@ -287,7 +287,6 @@ public class TerminBearbeitenDialog extends JDialog {
 
 		JButton löschen = new JButton("Löschen");
 		löschen.setBounds(0, 240, 107, 40);
-		löschen.setBounds(0, 160, 200, 40);
 		add(löschen);
 		löschen.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
