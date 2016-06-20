@@ -44,7 +44,6 @@ public class MitarbeiterDB {
 				m.setMitarbeiterID(rs.getInt("ID"));
 				m.setTelefonnummer(rs.getString("Telefonnummer"));
 				m.setBenutzername(rs.getString("Benutzername"));
-				m.setPasswort(rs.getString("Passwort"));
 				mitarbeiterliste.add(m);
 				
 			}
@@ -65,7 +64,7 @@ public class MitarbeiterDB {
 			for (Mitarbeiter m : mitarbeiterliste) {
 
 				s = conn.prepareStatement("update mitarbeiter set nachname = ?, vorname = ?, "
-						+ "strasse = ?,  hausnummer = ?, plz = ?, Stadt = ?, benutzername = ?, passwort = ?, "
+						+ "strasse = ?,  hausnummer = ?, plz = ?, Stadt = ?, benutzername = ?,"
 						+ "telefonnummer = ? where id = ?");
 				s.setString(1, m.getNachname());
 				s.setString(2, m.getVorname());
@@ -74,9 +73,8 @@ public class MitarbeiterDB {
 				s.setString(5, m.getPlz());
 				s.setString(6, m.getStadt());
 				s.setString(7, m.getBenutzername());
-				s.setString(8, m.getPasswort());
-				s.setString(9, m.getTelefonnummer());
-				s.setInt(10, m.getMitarbeiterID());
+				s.setString(8, m.getTelefonnummer());
+				s.setInt(9, m.getMitarbeiterID());
 
 				s.executeUpdate();
 			}
