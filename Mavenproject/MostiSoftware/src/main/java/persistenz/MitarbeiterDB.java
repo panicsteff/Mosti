@@ -44,6 +44,7 @@ public class MitarbeiterDB {
 				m.setMitarbeiterID(rs.getInt("ID"));
 				m.setTelefonnummer(rs.getString("Telefonnummer"));
 				m.setBenutzername(rs.getString("Benutzername"));
+				m.setPasswort(rs.getString("Passwort"));
 				mitarbeiterliste.add(m);
 				
 			}
@@ -129,19 +130,19 @@ public class MitarbeiterDB {
 	}
 	
 	public boolean benutzernamenSuchen(String benutzername){
-		
+		boolean frei = true;
 		try{
 			Statement s = conn.createStatement();
 			ResultSet rs = s.executeQuery("Select * from mitarbeiter where benutzername = '" + benutzername + "'");
 			
 			while(rs.next()){
-				return false;
+				frei = false;
 			}
 			
 		}catch(Exception e){
 			e.printStackTrace();
 		}
 		
-		return true;
+		return frei;
 	}
 }

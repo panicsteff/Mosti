@@ -17,12 +17,7 @@ public class SchichtTableModel extends AbstractTableModel {
 	}
 
 	public String getColumnName(int col){
-		switch(col){
-		case 0: return "Vormaittag";
-		case 1: return "Nachmittag";
-		
-		default: return null;
-		}
+		return "Schicht " + (col+1);
 	}
 	
 	public int getColumnCount() {

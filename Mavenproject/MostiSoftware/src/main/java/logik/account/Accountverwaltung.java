@@ -77,7 +77,7 @@ public class Accountverwaltung{
 	}
 	
 	public static void main(String[] avgs){
-		byte[] encodedBytes = Base64.encodeBase64("neu".getBytes());
+		byte[] encodedBytes = Base64.encodeBase64("gerd".getBytes());
 		System.out.println(new String(encodedBytes));
 	}
 	

@@ -42,9 +42,6 @@ public class MitarbeiterHinzufügenFrame extends JDialog {
 	private ArrayList<Mitarbeiter> liste;
 	private MitarbeiterDB mdb =  new MitarbeiterDB();
 	
-	
-	
-	
 
 	MitarbeiterHinzufügenFrame (JFrame parent, ArrayList<Mitarbeiter> auflistung){
 		super(parent);

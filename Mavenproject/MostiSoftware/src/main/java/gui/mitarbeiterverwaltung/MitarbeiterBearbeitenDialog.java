@@ -18,6 +18,7 @@ import javax.swing.JTextField;
 import javax.swing.text.DateFormatter;
 import javax.swing.text.MaskFormatter;
 
+import persistenz.MitarbeiterDB;
 import logik.kundenverwaltung.NullableFormatter;
 import logik.mitarbeiterverwaltung.Formats;
 import logik.mitarbeiterverwaltung.Mitarbeiter;
@@ -40,6 +41,18 @@ public class MitarbeiterBearbeitenDialog extends JDialog {
 		}
 		
 		public void actionPerformed(ActionEvent e){
+			if(txtBenutzername.equals("admin") == false && mitarbeiter.getBenutzername().equals("admin")){
+				JOptionPane.showMessageDialog(MitarbeiterBearbeitenDialog.this, "Der Benutzername \"admin\" kann "
+						+ "nicht geändert werden, da sonst eine Anmeldung als Administrator nicht mehr möglich ist");
+				txtBenutzername.setText("admin");
+				return;
+			}
+			
+			if(benutzernamePrüfen(txtBenutzername.getText(), mitarbeiter.getBenutzername()) == false){
+				JOptionPane.showMessageDialog(MitarbeiterBearbeitenDialog.this, "Benutzername ist bereits vorhanden. Bitte wählen Sie einen anderen");
+				return;
+			}
+			
 			int antwort = JOptionPane.showConfirmDialog(MitarbeiterBearbeitenDialog.this, "Wollen Sie wirklich speichern?");
 			if(antwort == JOptionPane.OK_OPTION){
 				mitarbeiter.setNachname(beautify(txtNachname.getText()));
@@ -82,9 +95,11 @@ public class MitarbeiterBearbeitenDialog extends JDialog {
 	private JTextField txtStadt;
 	private JTextField txtTel;
 	private JTextField txtBenutzername;
+	private MitarbeiterDB mdb;
 	public MitarbeiterBearbeitenDialog(JFrame parent, Mitarbeiter mitarbeiter){
 		super(parent);
 		this.mitarbeiter = mitarbeiter;
+		mdb = new MitarbeiterDB();
 		
 		setModal(true);
 		setTitle("Mitarbeiter bearbeiten");
@@ -198,4 +213,15 @@ public class MitarbeiterBearbeitenDialog extends JDialog {
 		pack();
 		setVisible(true);
 	}
+	
+	private boolean benutzernamePrüfen(String benutzername, String momentanerBenutzername){
+		if(benutzername.equals(momentanerBenutzername)){
+			return true;
+		}
+		boolean frei = true;
+		frei = mdb.benutzernamenSuchen(benutzername);
+		return frei;
+	}
+	
+	
 }
