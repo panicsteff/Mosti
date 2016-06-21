@@ -18,7 +18,7 @@ public class Schicht {
 		}
 	
 	public Integer getMitarbeiterId(int reihe){
-		if(reihe >= mitarbeiterIds.size()){
+		if(reihe >= mitarbeiterIds.size() || reihe < 0){
 			return 0;
 		}else
 		return mitarbeiterIds.get(reihe);
@@ -28,7 +28,7 @@ public class Schicht {
 		mitarbeiterIds.add(id);
 	}
 	
-	int getAnzahlMitarbeiter(){
+	public int getAnzahlMitarbeiter(){
 		return mitarbeiterIds.size();
 	}
 

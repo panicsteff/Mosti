@@ -70,6 +70,7 @@ public class M_Startseite extends JFrame {
 		JButton mitarbeiter = new JButton("Mitarbeiterverwaltung", new ImageIcon("./src/mitarbeiter1.png"));
 		mitarbeiter.setVerticalTextPosition(SwingConstants.BOTTOM);
         mitarbeiter.setHorizontalTextPosition(SwingConstants.CENTER);
+        mitarbeiter.setVisible(isAdmin);
 		mitarbeiter.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e){
 				new MitarbeiterVerwaltung();
