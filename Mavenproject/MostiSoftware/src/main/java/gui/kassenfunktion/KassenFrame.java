@@ -267,7 +267,7 @@ public class KassenFrame extends JFrame {
 			dlZuEinkauf(dienstleistungen); // gekaufte DL hinzufügen
 			produkteZuEinkauf(aliste); // gekaufte Abfüllmaterialien hinzufügen
 			produkteZuEinkauf(zliste); // gekaufte Zusatzprodukte hinzufügen
-			psortiment.updateProdukte();
+			//psortiment.updateProdukte();
 
 			java.util.Date datum = new Date();
 			java.sql.Date d = new java.sql.Date(datum.getTime());

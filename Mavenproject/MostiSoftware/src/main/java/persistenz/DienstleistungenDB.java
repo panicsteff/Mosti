@@ -9,6 +9,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 
 import logik.dienstleistungverwaltung.Dienstleistung;
+import logik.produktverwaltung.Produkt;
 
 public class DienstleistungenDB {
 		
@@ -31,6 +32,7 @@ public class DienstleistungenDB {
 					String name = rs.getString("dlname");
 					Double preis = rs.getDouble("preisProLiter");
 					Dienstleistung d = new Dienstleistung(name, preis, 0);
+					d.setId(rs.getInt("id"));
 					
 					dienstleistungenliste.add(d);
 				}
@@ -43,28 +45,49 @@ public class DienstleistungenDB {
 			return dienstleistungenliste;
 		}
 	
-	public void dlUpdaten(ArrayList<Dienstleistung> dliste) {
+	public void dienstleistungAktualisieren(Dienstleistung d) {
 
 		try {
 			conn = DriverManager
 					.getConnection("jdbc:ucanaccess://./Mosti-Datenbank.mdb");
 			PreparedStatement s = null;
-			int i = 1;
-
-			for (Dienstleistung d : dliste) {
-				s = conn.prepareStatement("update dienstleistungen set dlname = ?, preisproliter= ? where id = ? ");
+			
+				s = conn.prepareStatement("update produkte set produktname = ?, preis= ?, vorratsmenge = ?, untergrenze = ?, istAbfuellmaterial = ? where id = ? ");
 				s.setString(1, d.getName());
-				s.setDouble(2, d.getPreis());
-				s.setInt(3, i++);
+//				s.setDouble(2, d.getPreis());
+				s.setInt(3, d.getId());
 
 				s.executeUpdate();
-			}
+			
 			s.close();
 
 		} catch (Exception e) {
 			System.out.println(e);
 		}
 	}
+	
+//	public void dlUpdaten(ArrayList<Dienstleistung> dliste) {
+//
+//		try {
+//			conn = DriverManager
+//					.getConnection("jdbc:ucanaccess://./Mosti-Datenbank.mdb");
+//			PreparedStatement s = null;
+//			int i = 1;
+//
+//			for (Dienstleistung d : dliste) {
+//				s = conn.prepareStatement("update dienstleistungen set dlname = ?, preisproliter= ? where id = ? ");
+//				s.setString(1, d.getName());
+//				s.setDouble(2, d.getPreis());
+//				s.setInt(3, i++);
+//
+//				s.executeUpdate();
+//			}
+//			s.close();
+//
+//		} catch (Exception e) {
+//			System.out.println(e);
+//		}
+//	}
 	
 	public void dienstleistungLöschen(Dienstleistung d) {
 
@@ -83,7 +106,7 @@ public class DienstleistungenDB {
 		}
 	}
 
-	public void dienstleistungHinzufügen(Dienstleistung d) {
+	public int dienstleistungHinzufügen(Dienstleistung d) {
 
 		try {
 			conn = DriverManager
@@ -97,11 +120,16 @@ public class DienstleistungenDB {
 					+ ")");
 
 			s.executeUpdate();
-
 			s.close();
+			Statement k = conn.createStatement();
+			ResultSet rs = k.executeQuery("select max(id) where name = '" + d.getName() + "')");
+			int id = rs.getInt("ID");
+			k.close();
+			return id;
 
 		} catch (Exception e) {
 			System.out.println(e);
+			return 0;
 		}
 
 	}

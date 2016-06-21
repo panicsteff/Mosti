@@ -33,10 +33,16 @@ public class ProduktSortiment {
 		}}
 	}
 	
-	public void updateProdukte(){
-		System.out.println("Jou Datenbank");
+//	public void updateProdukte(){
+//		System.out.println("Jou Datenbank");
+//		printGesamtListe();
+//		lagerdb.produkteUpdaten(gesamtProduktSortiment);
+//	}
+	
+	public void produktAktualisieren(Produkt p){
+		System.out.println("Jou Datenbank jou");
 		printGesamtListe();
-		lagerdb.produkteUpdaten(gesamtProduktSortiment);
+		lagerdb.produktAktualisieren(p);
 	}
 	
 	public void updateVerkaufsmengeVonProdukt(String name, int neueMenge){
@@ -44,7 +50,7 @@ public class ProduktSortiment {
 	}
 	
 	public void addProdukt(Produkt p) {
-		lagerdb.produktHinzufügen(p);
+		p.setId(lagerdb.produktHinzufügen(p));
 		gesamtProduktSortiment.add(p);
 		createSpecialLists();
 	}

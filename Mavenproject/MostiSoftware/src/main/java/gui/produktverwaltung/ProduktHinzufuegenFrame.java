@@ -11,6 +11,7 @@ import javax.swing.JDialog;
 import javax.swing.JFormattedTextField;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.text.NumberFormatter;
 
@@ -82,9 +83,15 @@ class ProduktHinzufuegenFrame extends JDialog {
 	private class MyOKHandler implements ActionListener {
 
 		public void actionPerformed(ActionEvent arg0) {
+			try{
 			produkt = new Produkt(txtName.getText(), Double.parseDouble(txtPreis.getText()), Integer.parseInt(txtMenge.getText()), 
 					Integer.parseInt(txtUntergrenze.getText()), cBoxIsAbfuellmaterial.isSelected(), 0);
-			
+			}catch(Exception e){
+				JOptionPane.showMessageDialog(null,
+						"Bitte überprüfen Sie die Eingaben.", "Meldung",
+						JOptionPane.WARNING_MESSAGE);
+				return;
+			}
 			//pliste.add(produkt);
 			pSortiment.addProdukt(produkt);
 			

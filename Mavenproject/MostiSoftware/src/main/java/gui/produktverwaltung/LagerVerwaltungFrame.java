@@ -182,18 +182,7 @@ public class LagerVerwaltungFrame extends JFrame {
 		int row = produktSelectionModel.getMinSelectionIndex();
 		Produkt p = lagerTableModel.getProdukt(row);
 		new ProduktBearbeitenFrame(this, p);
-
-		// if(hasChanged == true){
-		// if (aliste.contains(p) && p.isAbfüllmaterial() == false) {
-		// aliste.remove(p);
-		// zliste.add(p);
-		// } else if (zliste.contains(p) && p.isAbfüllmaterial() == true) {
-		// zliste.remove(p);
-		// aliste.add(p);
-		// }
-		// hasChanged = false;
-		// }
-		pSortiment.updateProdukte();
+		pSortiment.produktAktualisieren(p);
 		printListe();
 		// lagerTableModel.fireTableRowsUpdated(0, (aliste != null?
 		// aliste.size() : 0)+(zliste != null? zliste.size() : 0)-1);

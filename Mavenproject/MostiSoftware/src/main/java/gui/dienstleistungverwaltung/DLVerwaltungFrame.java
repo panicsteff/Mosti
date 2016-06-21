@@ -157,8 +157,10 @@ import logik.produktverwaltung.PreisCellRenderer;
 
 		private void bearbeiteDL() {
 			int row = dlSelectionModel.getMinSelectionIndex();
-			new DLBearbeitenFrame(this, dlTableModel.getDienstleistung(row));
-			dlSortiment.dienstleistungenAktualisieren();
+			Dienstleistung d = dlTableModel.getDienstleistung(row);
+			new DLBearbeitenFrame(this, d);
+			//dlSortiment.dienstleistungenAktualisieren();
+			dlSortiment.dienstleistungAktualisieren(d);
 			dlTableModel.fireTableRowsUpdated(row, row);
 		}
 

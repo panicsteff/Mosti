@@ -32,6 +32,7 @@ public class LagerDB {
 				boolean isA = rs.getBoolean("istAbfuellmaterial");
 
 				Produkt p = new Produkt(name, preis, menge, untergrenze, isA, 0);
+				p.setId(rs.getInt("id"));
 
 				pliste.add(p);
 			}
@@ -43,32 +44,56 @@ public class LagerDB {
 
 		return pliste;
 	}
-
-	public void produkteUpdaten(ArrayList<Produkt> pliste) {
+	
+	public void produktAktualisieren(Produkt p) {
 
 		try {
 			conn = DriverManager
 					.getConnection("jdbc:ucanaccess://./Mosti-Datenbank.mdb");
 			PreparedStatement s = null;
-			int i = 1;
-
-			for (Produkt p : pliste) {
+			
 				s = conn.prepareStatement("update produkte set produktname = ?, preis= ?, vorratsmenge = ?, untergrenze = ?, istAbfuellmaterial = ? where id = ? ");
 				s.setString(1, p.getName());
 				s.setDouble(2, p.getPreis());
 				s.setInt(3, p.getVorratsmenge());
 				s.setInt(4, p.getUntergrenze());
 				s.setBoolean(5, p.isAbfüllmaterial());
-				s.setInt(6, i++);
+				s.setInt(6, p.getId());
 
 				s.executeUpdate();
-			}
+			
 			s.close();
 
 		} catch (Exception e) {
 			System.out.println(e);
 		}
 	}
+
+//	public void produkteUpdaten(ArrayList<Produkt> pliste) {
+//
+//		try {
+//			conn = DriverManager
+//					.getConnection("jdbc:ucanaccess://./Mosti-Datenbank.mdb");
+//			PreparedStatement s = null;
+//			int i = 1;
+//
+//			for (Produkt p : pliste) {
+//				s = conn.prepareStatement("update produkte set produktname = ?, preis= ?, vorratsmenge = ?, untergrenze = ?, istAbfuellmaterial = ? where id = ? ");
+//				s.setString(1, p.getName());
+//				s.setDouble(2, p.getPreis());
+//				s.setInt(3, p.getVorratsmenge());
+//				s.setInt(4, p.getUntergrenze());
+//				s.setBoolean(5, p.isAbfüllmaterial());
+//				s.setInt(6, i++);
+//
+//				s.executeUpdate();
+//			}
+//			s.close();
+//
+//		} catch (Exception e) {
+//			System.out.println(e);
+//		}
+//	}
 	
 	public void produktLöschen(Produkt p) {
 
@@ -87,7 +112,7 @@ public class LagerDB {
 		}
 	}
 
-	public void produktHinzufügen(Produkt p) {
+	public int produktHinzufügen(Produkt p) {
 
 		try {
 			conn = DriverManager
@@ -106,11 +131,17 @@ public class LagerDB {
 					+ p.isAbfüllmaterial() + ")");
 
 			s.executeUpdate();
-
 			s.close();
+			
+			Statement k = conn.createStatement();
+			ResultSet rs = k.executeQuery("select max(id) where name = '" + p.getName() + "')");
+			int id = rs.getInt("ID");
+			k.close();
+			return id;
 
 		} catch (Exception e) {
 			System.out.println(e);
+			return 0;
 		}
 
 	}

@@ -6,6 +6,7 @@ public class Verkaufsposition {
 	private double preis;
 	private int verkaufsMenge;
 	private int literzahl;
+	private int id;
 
 
 	public Verkaufsposition(String name, double preis, int verkaufsmenge, int literzahl) {
@@ -57,6 +58,16 @@ public class Verkaufsposition {
 
 	public void setLiterzahl(int literzahl) {
 		this.literzahl = literzahl;
+	}
+
+
+	public int getId() {
+		return id;
+	}
+
+
+	public void setId(int id) {
+		this.id = id;
 	}
 
 }

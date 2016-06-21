@@ -17,7 +17,6 @@ public class Produkt extends Verkaufsposition {
 		this.setVorratsmenge(menge);
 		this.setUntergrenze(untergrenze);
 		this.setAbfüllmaterial(isA);
-
 	}
 
 	public int getVorratsmenge() {
@@ -53,5 +52,6 @@ public class Produkt extends Verkaufsposition {
 	public void setAbfüllmaterial(boolean isAbfüllmaterial) {
 		this.isAbfüllmaterial = isAbfüllmaterial;
 	}
+
 
 }
