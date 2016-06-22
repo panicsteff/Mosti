@@ -45,6 +45,7 @@ public class MitarbeiterVerwaltung extends JFrame {
 
 		setTitle("Mitarbeiterverwaltung");
 		setSize(750, 400);
+		setLocationRelativeTo(getParent());
 		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 		mitarbeiterDb = new MitarbeiterDB();
 

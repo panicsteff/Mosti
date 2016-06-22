@@ -27,6 +27,7 @@ public class TresterpreisBearbeitenFrame extends JFrame {
 		this.tv = tv;	
 		setTitle("Tresterpreis verwalten");
 		setSize(500, 200);
+		setLocationRelativeTo(getParent());
 		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 		
 		setLayout(new GridLayout(3,2));

@@ -34,6 +34,7 @@ class ProduktBearbeitenFrame extends JDialog {
 
 		setTitle("Produkt bearbeiten");
 		setSize(250, 450);
+		setLocationRelativeTo(getParent());
 		setModal(true);
 		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 

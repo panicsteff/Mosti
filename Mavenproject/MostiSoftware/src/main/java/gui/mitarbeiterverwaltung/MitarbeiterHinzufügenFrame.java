@@ -52,6 +52,7 @@ public class MitarbeiterHinzufügenFrame extends JDialog {
 		
 		setTitle("Neuen Mitarbeiter hinzufügen");
 		setSize(350,250);
+		setLocationRelativeTo(getParent());
 		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 		
 		setLayout(new GridLayout(10,2));

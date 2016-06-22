@@ -45,6 +45,7 @@ public class KundenVerwaltung extends JFrame {
 
 		setTitle("Kundenverwaltung");
 		setSize(750, 400);
+		setLocationRelativeTo(getParent());
 		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 		kundeDb = new KundeDB();
 

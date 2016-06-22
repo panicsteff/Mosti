@@ -1,6 +1,5 @@
 package gui.kundenverwaltung;
-import java.awt.Dimension;
-import java.awt.FlowLayout;
+import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.text.ParseException;
@@ -11,8 +10,6 @@ import javax.swing.JFormattedTextField;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
-import javax.swing.JPanel;
-import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 import javax.swing.text.DateFormatter;
 import javax.swing.text.MaskFormatter;
@@ -89,51 +86,40 @@ public class KundeBearbeitenDialog extends JDialog{
 		setTitle("Kunde bearbeiten");
 		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 		
-		JPanel main = new JPanel();
-		main.setLayout(null);
-		main.setPreferredSize(new Dimension(270, 410));
+		setSize(500,400);
+		setLocationRelativeTo(getParent());
 		
-		JScrollPane scrollpane = new JScrollPane(main);
-		add(scrollpane);
+		setLayout(new GridLayout(9,2));
 		
 		JLabel  label;
 		
 		label = new JLabel("Nachname:");
-		label.setBounds(10, 10, 100, 20);
-		main.add(label);
+		add(label);
 		
 		txtNachname = new JTextField(kunde.getNachname());
-		txtNachname.setBounds(110, 10, 150, 20);
-		main.add(txtNachname);
+		add(txtNachname);
 		
 		label = new JLabel("Vorname:");
-		label.setBounds(10, 40, 100, 20);
-		main.add(label);
+		add(label);
 		
 		txtVorname = new JTextField(kunde.getVorname());
-		txtVorname.setBounds(110, 40, 150, 20);
-		main.add(txtVorname);
+		add(txtVorname);
 	
 	
 		label = new JLabel("Straﬂe:");
-		label.setBounds(10, 100, 100, 20);
-		main.add(label);
+		add(label);
 		
 		txtStrasse = new JTextField(kunde.getStrasse());
-		txtStrasse.setBounds(110, 100, 150, 20);
-		main.add(txtStrasse);
+		add(txtStrasse);
 		
 		label = new JLabel("Hausnummer:");
-		label.setBounds(10, 115, 100, 20);
-		main.add(label);
+		add(label);
 		
 		txtHausnummer = new JTextField(kunde.getHausnummer());
-		txtHausnummer.setBounds(110, 100, 150, 20);
-		main.add(txtHausnummer);
+		add(txtHausnummer);
 		
 		label = new JLabel("Plz:");
-		label.setBounds(10, 130, 100, 20);
-		main.add(label);
+		add(label);
 		
 		DateFormatter df = new DateFormatter(Formats.DATE_FORMAT);
 		NullableFormatter nf = new NullableFormatter(df);
@@ -149,34 +135,31 @@ public class KundeBearbeitenDialog extends JDialog{
 		nf = new NullableFormatter(mf);
 		txtPlz = new JFormattedTextField(nf);
 		txtPlz.setValue(kunde.getPlz());
-		txtPlz.setBounds(110, 130, 40, 20);
-		main.add(txtPlz);
+		add(txtPlz);
 		
 		label = new JLabel("Ort:");
-		label.setBounds(10, 160, 100, 20);
-		main.add(label);
+		add(label);
 		
 		txtWohnort = new JTextField(kunde.getWohnort());
-		txtWohnort.setBounds(110, 160, 150, 20);
-		main.add(txtWohnort);
+		add(txtWohnort);
 		
 		label = new JLabel("Telefonnummer:");
-		label.setBounds(10, 180, 100, 20);
-		main.add(label);
+		add(label);
 		
 		txtTel = new JTextField(kunde.getTel());
-		txtTel.setBounds(110,180,170,20);
-		main.add(txtTel);
+		add(txtTel);
 		
-		JPanel pane = new JPanel();
-		pane.setBounds(10, 360, 250, 40);
+		/*JPanel pane = new JPanel();
+		
 		pane.setLayout(new FlowLayout(FlowLayout.LEFT));
-		main.add(pane);
+		add(pane);*/
+		add(new JLabel());
+		add(new JLabel());
 		
 		JButton cmdok = new JButton("OK");
-		pane.add(cmdok);
+		add(cmdok);
 		JButton cmdcancel = new JButton("Abbrechen");
-		pane.add(cmdcancel);
+		add(cmdcancel);
 		
 		cmdok.addActionListener(new MyOkHandler());
 		cmdcancel.addActionListener(new MyCancelHandler());

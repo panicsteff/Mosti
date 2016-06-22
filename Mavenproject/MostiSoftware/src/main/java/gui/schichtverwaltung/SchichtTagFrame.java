@@ -28,6 +28,7 @@ public class SchichtTagFrame extends JFrame{
 		datum = d;
 		
 		setSize(600,250);
+		setLocationRelativeTo(getParent());
 		String title = Formats.DATE_FORMAT.format(d);
 		setTitle(title);
 		setDefaultCloseOperation(DISPOSE_ON_CLOSE);

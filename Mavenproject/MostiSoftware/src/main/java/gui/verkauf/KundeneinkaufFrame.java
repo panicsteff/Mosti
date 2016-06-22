@@ -47,6 +47,7 @@ public class KundeneinkaufFrame extends JFrame implements Printable {
 
 		setTitle("Verkäufe");
 		setSize(685, 850);
+		setLocationRelativeTo(getParent());
 		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 
 		JMenuBar menubar = new JMenuBar();

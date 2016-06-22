@@ -98,6 +98,7 @@ public class KassenFrame extends JFrame {
 
 		setTitle("Abrechnung für " + kunde.getVorname() + " " + kunde.getNachname());
 		setSize(750, 500);
+		setLocationRelativeTo(getParent());
 		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 
 		JPanel contentPanel = new JPanel();

@@ -53,10 +53,15 @@ public class M_Startseite extends JFrame {
 		
 		setTitle("Startseite");
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
-		setBounds(500, 200, 500, 500);
+		
+		setSize(750, 500);
+		setLocationRelativeTo(getParent());
+		
 
 		JPanel panel = new JPanel();
 		panel.setLayout(new GridLayout(2, 3));
+		
+		
 		JButton kassenButton = new JButton("Kasse", new ImageIcon("./src/register.png"));
 		kassenButton.setVerticalTextPosition(SwingConstants.BOTTOM);
         kassenButton.setHorizontalTextPosition(SwingConstants.CENTER);
@@ -66,8 +71,46 @@ public class M_Startseite extends JFrame {
 			}
 		});
 		
+		JButton terminplanung = new JButton("Terminverwaltung", new ImageIcon("./src/termin.png"));
+		terminplanung.setVerticalTextPosition(SwingConstants.BOTTOM);
+        terminplanung.setHorizontalTextPosition(SwingConstants.CENTER);
+		terminplanung.addActionListener(new ActionListener(){
+			public void actionPerformed(ActionEvent e){
+				new TerminplanungsFrame();
+			}
+		});
 		
-		JButton mitarbeiter = new JButton("Mitarbeiterverwaltung", new ImageIcon("./src/mitarbeiter1.png"));
+		JButton kundeButton = new JButton("Kundenverwaltung", new ImageIcon("./src/kunde.jpg"));
+		kundeButton.setVerticalTextPosition(SwingConstants.BOTTOM);
+		kundeButton.setHorizontalTextPosition(SwingConstants.CENTER);
+		kundeButton.addActionListener(new ActionListener(){
+			public void actionPerformed(ActionEvent e){
+				new KundenVerwaltung();
+			}
+		});
+		
+		
+		JButton schichtButton = new JButton("Schichtplanverwaltung", new ImageIcon("./src/schichtplan.png"));
+		schichtButton.setVerticalTextPosition(SwingConstants.BOTTOM);
+		schichtButton.setHorizontalTextPosition(SwingConstants.CENTER);
+		schichtButton.addActionListener(new ActionListener(){
+			public void actionPerformed(ActionEvent e){
+				new SchichtplanungsFrame(M_Startseite.this.isAdmin);
+			}
+		});
+		
+		
+		JButton übersichtButton = new JButton("Verkaufsübersicht", new ImageIcon("./src/übersicht.png"));
+		übersichtButton.setVerticalTextPosition(SwingConstants.BOTTOM);
+        übersichtButton.setHorizontalTextPosition(SwingConstants.CENTER);
+		übersichtButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				Verkaufsübersicht v = new Verkaufsübersicht();
+			}
+		});
+		
+		
+		JButton mitarbeiter = new JButton("Mitarbeiterverwaltung", new ImageIcon("./src/mitarbeiter.png"));
 		mitarbeiter.setVerticalTextPosition(SwingConstants.BOTTOM);
         mitarbeiter.setHorizontalTextPosition(SwingConstants.CENTER);
         mitarbeiter.setVisible(isAdmin);
@@ -77,98 +120,49 @@ public class M_Startseite extends JFrame {
 			}
 		});
 		
-		
-		JButton terminplanung = new JButton("Terminplanung", new ImageIcon("./src/termin.png"));
-		terminplanung.setVerticalTextPosition(SwingConstants.BOTTOM);
-        terminplanung.setHorizontalTextPosition(SwingConstants.CENTER);
-		terminplanung.addActionListener(new ActionListener(){
-			public void actionPerformed(ActionEvent e){
-				new TerminplanungsFrame();
-			}
-		});
+	
 		
 		
 		JButton lagerButton = new JButton("Lagerverwaltung", new ImageIcon("./src/karre.jpg"));
 		lagerButton.setVerticalTextPosition(SwingConstants.BOTTOM);
         lagerButton.setHorizontalTextPosition(SwingConstants.CENTER);
 		lagerButton.setVisible(isAdmin);
-		
-		
-		JButton dlButton = new JButton("Dienstleistungen", new ImageIcon("./src/apple.png"));
-		dlButton.setVerticalTextPosition(SwingConstants.BOTTOM);
-        dlButton.setHorizontalTextPosition(SwingConstants.CENTER);
-		dlButton.setVisible(isAdmin);
-		
-		
-		JButton übersichtButton = new JButton("Verkaufsübersicht", new ImageIcon("./src/übersicht.png"));
-		übersichtButton.setVerticalTextPosition(SwingConstants.BOTTOM);
-        übersichtButton.setHorizontalTextPosition(SwingConstants.CENTER);
-		übersichtButton.setVisible(isAdmin);
-		
-		JButton kundeButton = new JButton("Kundenverwaltung", new ImageIcon("./src/kunde.jpg"));
-		kundeButton.setVerticalTextPosition(SwingConstants.BOTTOM);
-		kundeButton.setHorizontalTextPosition(SwingConstants.CENTER);
-		
-		JButton schichtButton = new JButton("Schichtplanverwaltung", new ImageIcon("./src/schichtplan.png"));
-		schichtButton.setVerticalTextPosition(SwingConstants.BOTTOM);
-		schichtButton.setHorizontalTextPosition(SwingConstants.CENTER);
-		
-		
-		panel.add(kassenButton);
-		panel.add(mitarbeiter);
-		panel.add(kundeButton);
-		panel.add(terminplanung);
-		panel.add(lagerButton);
-		panel.add(dlButton);
-		panel.add(übersichtButton);
-		panel.add(schichtButton);
-//		panel.add(new JLabel("andere funktion"));
-//		panel.add(new JLabel("andere funktion"));
-
-		
-
 		lagerButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				LagerVerwaltungFrame l = new LagerVerwaltungFrame(pSorti);
 			}
 		});
 		
+		
+		JButton dlButton = new JButton("Dienstleistungen", new ImageIcon("./src/apple.png"));
+		dlButton.setVerticalTextPosition(SwingConstants.BOTTOM);
+        dlButton.setHorizontalTextPosition(SwingConstants.CENTER);
+		dlButton.setVisible(isAdmin);
 		dlButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				DLVerwaltungFrame dl = new DLVerwaltungFrame(dlSorti);
 			}
 		});
 		
-		übersichtButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				Verkaufsübersicht v = new Verkaufsübersicht();
-			}
-		});
+
 		
-		kundeButton.addActionListener(new ActionListener(){
-			public void actionPerformed(ActionEvent e){
-				new KundenVerwaltung();
-			}
-		});
+	
+		panel.add(kassenButton);
+		panel.add(terminplanung);
+		panel.add(kundeButton);
+		panel.add(schichtButton);
+		panel.add(übersichtButton);
+		panel.add(mitarbeiter);
+		panel.add(lagerButton);
+		panel.add(dlButton);
 		
 		
-		schichtButton.addActionListener(new ActionListener(){
-			public void actionPerformed(ActionEvent e){
-				new SchichtplanungsFrame(M_Startseite.this.isAdmin);
-			}
-		});
+		
 
 		mbar = new JMenuBar();
 		setJMenuBar(mbar);
-		mDatei = new JMenu("Datei");
+		mDatei = new JMenu("Benutzereinstellungen");
 		mbar.add(mDatei);
-		abrechnen = new JMenuItem("Abrechnen");
-		mDatei.add(abrechnen);
-		abrechnen.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				//KassenFrame k = new KassenFrame(dlSorti,pSorti, new Verkaufsverwaltung());
-			}
-		});
 		
 		JMenuItem passwort = new JMenuItem("Passwort ändern");
 		mDatei.add(new JSeparator());
@@ -188,21 +182,8 @@ public class M_Startseite extends JFrame {
 			}
 		});
 		
-		
 
-		//mDatei.add(new JSeparator());
-		//JMenuItem kunden = new JMenuItem("Kunden pflegen");
-		//mDatei.add(kunden);
-		//kunden.addActionListener(new ActionListener() {
-		//	public void actionPerformed(ActionEvent e) {
-		//		new KundenVerwaltung();
-		//	}
-		//});
-		
-		
-		
-		
-		
+			
 		
 		
 		JMenu trester = new JMenu("Tresterverwaltung");

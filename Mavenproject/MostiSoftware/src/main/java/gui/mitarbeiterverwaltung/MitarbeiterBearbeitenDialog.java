@@ -1,7 +1,8 @@
 package gui.mitarbeiterverwaltung;
 
-import java.awt.Dimension;
 import java.awt.FlowLayout;
+import java.awt.Font;
+import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.text.ParseException;
@@ -18,10 +19,10 @@ import javax.swing.JTextField;
 import javax.swing.text.DateFormatter;
 import javax.swing.text.MaskFormatter;
 
-import persistenz.MitarbeiterDB;
 import logik.kundenverwaltung.NullableFormatter;
 import logik.mitarbeiterverwaltung.Formats;
 import logik.mitarbeiterverwaltung.Mitarbeiter;
+import persistenz.MitarbeiterDB;
 
 public class MitarbeiterBearbeitenDialog extends JDialog {
 
@@ -103,32 +104,26 @@ public class MitarbeiterBearbeitenDialog extends JDialog {
 		
 		setModal(true);
 		setTitle("Mitarbeiter bearbeiten");
+		setSize(270,410);
+		setLocationRelativeTo(getParent());
 		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 		
-		JPanel main = new JPanel();
-		main.setLayout(null);
-		main.setPreferredSize(new Dimension(270, 410));
 		
-		JScrollPane scrollpane = new JScrollPane(main);
-		add(scrollpane);
-		
+		setLayout(new GridLayout(10,2));
+	
 		JLabel  label;
 		
 		label = new JLabel("Nachname:");
-		label.setBounds(10, 10, 100, 20);
-		main.add(label);
+		add(label);
 		
 		txtNachname = new JTextField(mitarbeiter.getNachname());
-		txtNachname.setBounds(110, 10, 150, 20);
-		main.add(txtNachname);
+		add(txtNachname);
 		
 		label = new JLabel("Vorname:");
-		label.setBounds(10, 40, 100, 20);
-		main.add(label);
+		add(label);
 		
 		txtVorname = new JTextField(mitarbeiter.getVorname());
-		txtVorname.setBounds(110, 40, 150, 20);
-		main.add(txtVorname);
+		add(txtVorname);
 		
 		
 		DateFormatter df = new DateFormatter(Formats.DATE_FORMAT);
@@ -136,26 +131,21 @@ public class MitarbeiterBearbeitenDialog extends JDialog {
 		
 		
 		label = new JLabel("Straﬂe:");
-		label.setBounds(10, 100, 100, 20);
-		main.add(label);
+		add(label);
 		
 		txtStrasse = new JTextField(mitarbeiter.getStrasse());
-		txtStrasse.setBounds(110, 100, 150, 20);
-		main.add(txtStrasse);
+		add(txtStrasse);
 		
 		
 		label = new JLabel("Hausnummer:");
-		label.setBounds(10,130,100,20);
-		main.add(label);
+		add(label);
 		
 		txtHausnummer = new JTextField(mitarbeiter.getHausnummer());
-		txtHausnummer.setBounds(110,130,150,20);
-		main.add(txtHausnummer);
+		add(txtHausnummer);
 		
 		
 		label = new JLabel("Plz:");
-		label.setBounds(10, 160, 100, 20);
-		main.add(label);
+		add(label);
 		
 		MaskFormatter mf = null;
 		try{
@@ -168,47 +158,59 @@ public class MitarbeiterBearbeitenDialog extends JDialog {
 		nf = new NullableFormatter(mf);
 		txtPlz = new JFormattedTextField(nf);
 		txtPlz.setValue(mitarbeiter.getPlz());
-		txtPlz.setBounds(110, 160, 40, 20);
-		main.add(txtPlz);
+		add(txtPlz);
 		
 		label = new JLabel("Ort:");
-		label.setBounds(10, 190, 100, 20);
-		main.add(label);
+		add(label);
 		
 		txtStadt = new JTextField(mitarbeiter.getStadt());
-		txtStadt.setBounds(110, 190, 100, 20);
-		main.add(txtStadt);
+		add(txtStadt);
 		
 		label = new JLabel("Telefonnummer:");
-		label.setBounds(10, 220, 100, 20);
-		main.add(label);
+		add(label);
 		
 		txtTel = new JTextField(mitarbeiter.getTelefonnummer());
-		txtTel.setBounds(110,220,100,20);
-		main.add(txtTel);
+		add(txtTel);
 		
-		label = new JLabel("Benutzername:");
-		label.setBounds(10,250,100,20);
-		main.add(label);
+		/*label = new JLabel("Benutzername:");
+		add(label);
 		
 		txtBenutzername = new JTextField(mitarbeiter.getBenutzername());
-		txtBenutzername.setBounds(110,250,100,20);
-		main.add(txtBenutzername);
+		add(txtBenutzername);*/
 		
+		JPanel jp = new JPanel();
+		jp.setLayout(new GridLayout(2,1));
+		add(jp);
 		
+		jp.add(new JLabel("Benutzername:"));
+		add(txtBenutzername = new JTextField());
+		JLabel jl = new JLabel("(Bitte nur Kleinbuchstaben verwenden!)");
+		jp.add(jl);
+		jl.setFont(new Font( "Dialog", Font.BOLD, 10));
+	
+		add(new JLabel());
+		add(new JLabel());
 		
-		JPanel pane = new JPanel();
-		pane.setBounds(10, 360, 250, 40);
+		JButton okButton = new JButton("OK");
+		okButton.addActionListener(new MyOkHandler());
+		add(okButton);
+		
+		JButton cmdButton = new JButton("Abbrechen");
+		cmdButton.addActionListener(new MyCancelHandler());
+		add(cmdButton);
+		
+		/*JPanel pane = new JPanel();
 		pane.setLayout(new FlowLayout(FlowLayout.LEFT));
-		main.add(pane);
+		add(pane);*/
 		
-		JButton cmdok = new JButton("OK");
+		/*JButton cmdok = new JButton("OK");
 		pane.add(cmdok);
 		JButton cmdcancel = new JButton("Abbrechen");
 		pane.add(cmdcancel);
 		
 		cmdok.addActionListener(new MyOkHandler());
-		cmdcancel.addActionListener(new MyCancelHandler());
+		cmdcancel.addActionListener(new MyCancelHandler());*/
+		
 		
 		pack();
 		setVisible(true);

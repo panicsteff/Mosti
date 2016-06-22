@@ -28,6 +28,7 @@ public class Anmeldung extends JFrame {
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		setLayout(new GridLayout(3, 2));
 		this.setLocation(700, 400);
+		setLocationRelativeTo(getParent());
 
 		accountverwaltung = new Accountverwaltung();
 		

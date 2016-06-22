@@ -48,6 +48,7 @@ public class LagerVerwaltungFrame extends JFrame {
 
 		setTitle("Produkte verwalten");
 		setSize(700, 400);
+		setLocationRelativeTo(getParent());
 		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 
 		JMenuBar menubar = new JMenuBar();

@@ -39,6 +39,7 @@ public class TresterabrechnungFrame extends JFrame {
 	
 		setTitle("Trester abrechnen");
 		setSize(480, 450);
+		setLocationRelativeTo(getParent());
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		getContentPane().setLayout(null);
 		tv = new Tresterverwaltung();

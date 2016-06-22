@@ -51,6 +51,7 @@ public class TresterübersichtFrame  extends JFrame {
 	public TresterübersichtFrame() {
 		setTitle("Übersicht über Trester erstellen");
 		setSize(530, 450);
+		setLocationRelativeTo(getParent());
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		getContentPane().setLayout(null);
 

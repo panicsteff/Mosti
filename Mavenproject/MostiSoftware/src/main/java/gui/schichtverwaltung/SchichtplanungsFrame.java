@@ -18,6 +18,7 @@ public class SchichtplanungsFrame extends JFrame{
 	public SchichtplanungsFrame(boolean isAdmin){
 		
 		setBounds(500, 200, 520, 500);
+		setLocationRelativeTo(getParent());
 		setTitle("Schichtplanung");
 		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 		

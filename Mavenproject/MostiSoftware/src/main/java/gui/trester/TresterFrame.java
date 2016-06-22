@@ -32,6 +32,7 @@ public class TresterFrame extends JFrame {
 
 		setTitle("Tresterverkäufe");
 		setSize(700, 400);
+		setLocationRelativeTo(getParent());
 		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 
 		JMenuBar menubar = new JMenuBar();

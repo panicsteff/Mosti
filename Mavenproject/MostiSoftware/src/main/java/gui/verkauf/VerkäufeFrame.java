@@ -33,6 +33,7 @@ public class VerkäufeFrame extends JFrame {
 
 		setTitle("Verkäufe");
 		setSize(900, 600);
+		setLocationRelativeTo(getParent());
 		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 
 		JMenuBar menubar = new JMenuBar();

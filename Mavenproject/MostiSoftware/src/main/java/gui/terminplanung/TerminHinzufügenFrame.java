@@ -127,6 +127,7 @@ public class TerminHinzufügenFrame extends JFrame{
 	
 	public TerminHinzufügenFrame(long date){
 		setBounds(350, 200, 300, 500);
+		setLocationRelativeTo(getParent());
 		setTitle("Neuer Termin");
 		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 		

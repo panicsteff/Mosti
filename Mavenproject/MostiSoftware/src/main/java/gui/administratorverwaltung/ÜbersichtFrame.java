@@ -27,6 +27,7 @@ public class ÜbersichtFrame extends JFrame{
 	
 	public ÜbersichtFrame(){
 		setSize(500,600);
+		setLocationRelativeTo(getParent());
 		setTitle("Konfigurationswerte");
 		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 		setLayout(null);

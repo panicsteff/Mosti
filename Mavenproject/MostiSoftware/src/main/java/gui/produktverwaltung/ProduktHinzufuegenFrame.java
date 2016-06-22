@@ -47,6 +47,7 @@ class ProduktHinzufuegenFrame extends JDialog {
 				
 		setTitle("Neues Produkt erstellen");
 		setSize(300, 200);
+		setLocationRelativeTo(getParent());
 		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 		setModal(true);
 

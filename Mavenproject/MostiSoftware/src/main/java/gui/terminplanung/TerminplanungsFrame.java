@@ -17,6 +17,7 @@ public class TerminplanungsFrame extends JFrame{
 	public TerminplanungsFrame(){
 		
 		setBounds(500, 200, 520, 500);
+		setLocationRelativeTo(getParent());
 		setTitle("Terminplanung");
 		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 		

@@ -113,6 +113,7 @@ public class SchichtBearbeitenFrame extends JFrame{
 	
 	SchichtBearbeitenFrame(long datum){
 		setSize(600,300);
+		setLocationRelativeTo(getParent());
 		this.datum = new Date(datum);
 		setTitle(this.datum.toString());
 		setDefaultCloseOperation(DISPOSE_ON_CLOSE);

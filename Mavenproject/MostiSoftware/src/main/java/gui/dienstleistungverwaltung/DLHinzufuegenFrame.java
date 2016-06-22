@@ -38,6 +38,7 @@ class DLHinzufuegenFrame extends JDialog {
 
 		setTitle("Neue Dienstleistung erstellen");
 		setSize(350, 250);
+		setLocationRelativeTo(getParent());
 		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 		setModal(true);
 

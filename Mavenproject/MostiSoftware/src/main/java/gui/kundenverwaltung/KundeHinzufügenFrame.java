@@ -46,6 +46,8 @@ private static final long serialVersionUID = 1L;
 		
 		
 		setTitle("Neuen Kunden hinzufügen");
+		setSize(350,250);
+		setLocationRelativeTo(getParent());
 		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 		
 		setLayout(new GridLayout(9,2));

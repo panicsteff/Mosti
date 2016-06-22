@@ -196,7 +196,8 @@ public class TagFrame extends JDialog {
 
 		tagframecontroller = new TagFrameController();
 
-		setSize(520, 800);
+		setSize(520, 600);
+		setLocationRelativeTo(getParent());
 		String title = Formats.DATE_FORMAT.format(datum);
 		setTitle(title);
 		setDefaultCloseOperation(DISPOSE_ON_CLOSE);

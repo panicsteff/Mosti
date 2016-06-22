@@ -200,6 +200,7 @@ public class TerminBearbeitenDialog extends JDialog {
 	public TerminBearbeitenDialog(Termin t, int länge, String name,
 			String zeit, ArrayList<Termin> aTermine) {
 		setSize(320, 400);
+		setLocationRelativeTo(getParent());
 		setTitle("Termin bearbeiten");
 		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 		setLayout(null);

@@ -105,6 +105,7 @@ public class TerminErstellenDialog extends JDialog {
 
 		setTitle("Termin anlegen");
 		setSize(420, 500);
+		setLocationRelativeTo(getParent());
 		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 		setLayout(null);
 		
