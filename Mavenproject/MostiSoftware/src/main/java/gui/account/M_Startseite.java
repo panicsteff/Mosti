@@ -203,6 +203,31 @@ public class M_Startseite extends JFrame {
 			}
 		});
 		
+		JMenu account = new JMenu("Account");
+		mbar.add(account);
+		
+		JMenuItem wechseln = new JMenuItem("Benutzer wechseln");
+		account.add(wechseln);
+		wechseln.addActionListener(new ActionListener(){
+
+			public void actionPerformed(ActionEvent e) {
+				M_Startseite.this.dispose();
+				new Anmeldung();
+			}
+			
+		});
+		account.addSeparator();
+		
+		JMenuItem logout = new JMenuItem("Log out");
+		account.add(logout);
+		logout.addActionListener(new ActionListener(){
+
+			public void actionPerformed(ActionEvent e) {
+				M_Startseite.this.dispose();
+			}
+			
+		});
+
 		
 		
 		

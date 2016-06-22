@@ -126,6 +126,44 @@ public class AdministratorLogik {
 		administratorDB.schichtWerteSpeichern(mitProSchicht, schichtenProTag);
 		administratorDB.pressWerteSpeichern(pressdauer, abfülldauer);
 	}
+	
+	public int terminNachInteger(String s){
+		int index = s.indexOf(":");
+		String stunde  = s.substring(0, index);
+		String minuten = s.substring(index+1, s.length());
+		
+		int stundenzahl;
+		int minutenzahl;
+		
+		try{
+			stundenzahl = Integer.parseInt(stunde);
+			minutenzahl = Integer.parseInt(minuten);
+		} catch(Exception e){
+			e.printStackTrace();
+			return -1;
+		}
+		int uhrzeit = stundenzahl*60 + minutenzahl;
+		
+		return uhrzeit;
+	}
+	
+	public String terminInString(int uhrzeit){
+		int stunde = uhrzeit/60;
+		int minute = uhrzeit%60;
+		
+		String ausgabe = null;
+		if(stunde<10){
+			ausgabe = "0"+stunde;
+		}else{
+			ausgabe = stunde+"";
+		}
+		if(minute<10){
+			ausgabe = ausgabe + ":0" + minute;
+		}else{
+			ausgabe = ausgabe + ":" + minute;
+		}		
+		return ausgabe;
+	}
 
 	
 	
