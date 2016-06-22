@@ -24,7 +24,7 @@ public class Anmeldung extends JFrame {
 
 	public Anmeldung() {
 		setTitle("Hallo bei Mosti - Anmeldung");
-		setSize(300, 200);
+		setSize(400, 200);
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		setLayout(new GridLayout(3, 2));
 		this.setLocation(700, 400);
