@@ -1,5 +1,6 @@
 package logik.administratorverwaltung;
 
+import java.sql.Date;
 import java.util.ArrayList;
 
 import persistenz.AdministratorDB;
@@ -18,6 +19,8 @@ public class AdministratorLogik {
 	private static int schichtDauer;
 	private static double pressdauer;
 	private static double abfülldauer;
+	private static int backupdauer;
+	private static Date letztesBackup;
 	
 	public AdministratorLogik(){
 		administratorDB = new AdministratorDB();
@@ -25,6 +28,8 @@ public class AdministratorLogik {
 		ArrayList<Integer> terminwerte = administratorDB.terminWerteLaden();
 		ArrayList<Integer> schichtwerte = administratorDB.schichtWerteLaden();
 		ArrayList<Double> presswerte = administratorDB.pressWerteLaden();
+		int backup = administratorDB.backupDauerLaden();
+		Date letztesBackup = administratorDB.letztesBackupLaden();
 		
 		setZeitslot(terminwerte.get(0));
 		setArbeitsbeginn(terminwerte.get(1));
@@ -38,6 +43,9 @@ public class AdministratorLogik {
 		
 		setPressdauer(presswerte.get(0));
 		setAbfülldauer(presswerte.get(1));
+		
+		setBackupdauer(backup);
+		setLetztesBackup(letztesBackup);
 	}
 
 	public static int getZeitslot() {
@@ -120,11 +128,33 @@ public class AdministratorLogik {
 		AdministratorLogik.abfülldauer = abfülldauer;
 	}
 	
+	public static int getBackupdauer() {
+		return backupdauer;
+	}
+
+	public static void setBackupdauer(int backupdauer) {
+		AdministratorLogik.backupdauer = backupdauer;
+	}
+	
+	public static long getLetztesBackup() {
+		return letztesBackup.getTime();
+	}
+
+	public static void setLetztesBackup(Date letztesBackup) {
+		AdministratorLogik.letztesBackup = letztesBackup;
+	}
+
+	
 	public void datenSpeichern(int anzeige, int zeitslot, int beginn, int ende, int mitProSchicht,
-			int schichtenProTag, double pressdauer, double abfülldauer){
+			int schichtenProTag, double pressdauer, double abfülldauer, int backup){
 		administratorDB.terminWerteSpeichern(anzeige, zeitslot, beginn, ende);
 		administratorDB.schichtWerteSpeichern(mitProSchicht, schichtenProTag);
 		administratorDB.pressWerteSpeichern(pressdauer, abfülldauer);
+		administratorDB.backupdauerSpeichern(backup);
+	}
+	
+	public static void letztesBackupSpeichern(long date){
+		AdministratorDB.letztesBackupSpeichern(new Date(date));
 	}
 	
 	public int terminNachInteger(String s){
@@ -165,6 +195,9 @@ public class AdministratorLogik {
 		return ausgabe;
 	}
 
+	
+
+	
 	
 	
 }

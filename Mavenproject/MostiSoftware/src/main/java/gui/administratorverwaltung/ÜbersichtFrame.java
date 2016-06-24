@@ -26,10 +26,11 @@ public class ÜbersichtFrame extends JFrame {
 	private JTextField anzeigetxt;
 	private JTextField pressdauertxt;
 	private JTextField abfülldauertxt;
+	private JTextField backuptxt;
 	private AdministratorLogik al;
 
 	public ÜbersichtFrame() {
-		setSize(500, 600);
+		setSize(500, 700);
 		setLocationRelativeTo(getParent());
 		setTitle("Konfigurationswerte");
 		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
@@ -121,13 +122,25 @@ public class ÜbersichtFrame extends JFrame {
 		abfülldauertxt = new JTextField(AdministratorLogik.getAufteilung() + "");
 		abfülldauertxt.setBounds(300, 390, 160, 30);
 		add(abfülldauertxt);
+		
+		JLabel backup = new JLabel("Backup");
+		backup.setBounds(50, 450, 160, 30);
+		add(backup);
+		
+		JLabel backupdatum = new JLabel("Zeitspanne zwischen zwei Backups (Tage)");
+		backupdatum.setBounds(10, 490, 260, 30);
+		add(backupdatum);
+		
+		backuptxt = new JTextField(AdministratorLogik.getBackupdauer() + "");
+		backuptxt.setBounds(300, 490, 160, 30);
+		add(backuptxt);
 
 		JButton speichern = new JButton("Speichern");
-		speichern.setBounds(10, 440, 200, 40);
+		speichern.setBounds(10, 550, 200, 40);
 		add(speichern);
 		speichern.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				int anzeige, zeitslot, beginn, ende, mitProSchicht, schichtenProTag;
+				int anzeige, zeitslot, beginn, ende, mitProSchicht, schichtenProTag, backup;
 				double pressdauer, abfülldauer;
 				try {
 					anzeige = Integer.parseInt(anzeigetxt.getText());
@@ -139,6 +152,7 @@ public class ÜbersichtFrame extends JFrame {
 							.getText());
 					pressdauer = Double.parseDouble(pressdauertxt.getText());
 					abfülldauer = Double.parseDouble(abfülldauertxt.getText());
+					backup = Integer.parseInt(backuptxt.getText());
 				} catch (Exception ex) {
 					ex.printStackTrace();
 					return;
@@ -158,13 +172,13 @@ public class ÜbersichtFrame extends JFrame {
 					return;
 				}
 				al.datenSpeichern(anzeige, zeitslot, beginn, ende,
-						mitProSchicht, schichtenProTag, pressdauer, abfülldauer);
+						mitProSchicht, schichtenProTag, pressdauer, abfülldauer, backup);
 				ÜbersichtFrame.this.dispose();
 			}
 		});
 
 		JButton abbrechen = new JButton("Abbrechen");
-		abbrechen.setBounds(240, 440, 200, 40);
+		abbrechen.setBounds(240, 550, 200, 40);
 		add(abbrechen);
 		abbrechen.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {

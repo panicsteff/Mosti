@@ -16,22 +16,35 @@ import gui.verkauf.Verkaufsübersicht;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.nio.channels.FileChannel;
 import java.util.Date;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JSeparator;
 import javax.swing.SwingConstants;
 
+import logik.administratorverwaltung.AdministratorLogik;
 import logik.dienstleistungverwaltung.DLSortiment;
 import logik.mitarbeiterverwaltung.Mitarbeiter;
 import logik.produktverwaltung.ProduktSortiment;
 import logik.trester.Tresterverwaltung;
+
 
 public class M_Startseite extends JFrame {
 
@@ -223,19 +236,64 @@ public class M_Startseite extends JFrame {
 		logout.addActionListener(new ActionListener(){
 
 			public void actionPerformed(ActionEvent e) {
+				backupBehandlung();
 				M_Startseite.this.dispose();
 			}
+
+			
 			
 		});
-
-		
-		
-		
-			
-
 		add(panel);
+		addWindowListener(new WindowAdapter(){
+			public void windowClosing(WindowEvent e){
+				backupBehandlung();
+			}
+		});
 		setVisible(true);
 	}
-
-
+	
+	
+	private static void copyFileUsingStream(File source, File dest) throws IOException {
+	    InputStream is = null;
+	    OutputStream os = null;
+	    try {
+	        is = new FileInputStream(source);
+	        os = new FileOutputStream(dest);
+	        byte[] buffer = new byte[1024];
+	        int length;
+	        while ((length = is.read(buffer)) > 0) {
+	            os.write(buffer, 0, length);
+	        }
+	    } finally {
+	        is.close();
+	        os.close();
+	    }
+	}
+	
+	private void backupBehandlung() {
+		new AdministratorLogik();
+		long heute = new Date().getTime();
+		long letztesBackup = AdministratorLogik.getLetztesBackup();
+		
+		long differenz = (heute - letztesBackup)/(24*60*60*1000);				//Stunden, Minuten, Sekunden und Millisekunden
+		if(differenz> AdministratorLogik.getBackupdauer()){
+			int result = JOptionPane.showConfirmDialog(null, "Das letzte Backup ist mehr als "
+					+ AdministratorLogik.getBackupdauer() + " Tage her. Wollen Sie das Backup für die Datenbank jetzt aktualisieren?");
+			if(result == JOptionPane.YES_OPTION){
+				JButton speichern = new JButton("Speichern");
+				File f = new File("./Mosti-Datenbank.mdb");
+				JFileChooser fc = new JFileChooser(".");
+				fc.showSaveDialog(M_Startseite.this);
+				if(fc.showSaveDialog(speichern) == JFileChooser.APPROVE_OPTION){
+					try {
+						AdministratorLogik.letztesBackupSpeichern(heute);
+						copyFileUsingStream(f, fc.getSelectedFile());
+					} catch (IOException e1) {
+						e1.printStackTrace();
+					}
+				}
+			}
+		}
+	}
+	
 }

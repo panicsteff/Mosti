@@ -1,6 +1,7 @@
 package persistenz;
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -10,7 +11,7 @@ import java.util.ArrayList;
 
 public class AdministratorDB {
 
-	private Connection conn;
+	private static Connection conn;
 	
 	public AdministratorDB(){
 		try {
@@ -89,6 +90,7 @@ public class AdministratorDB {
 		return adminwerte;
 	}
 	
+	
 	public void schichtWerteSpeichern(int mitProSchicht, int schichtenProTag) {
 
 		try {
@@ -144,6 +146,64 @@ public class AdministratorDB {
 		}
 	}
 	
-	
+	public int backupDauerLaden(){
+		
+		int backupdauer = 0;
+		try {
+			Statement s = conn.createStatement();
+			ResultSet rs = s.executeQuery("SELECT backup FROM [Adminwerte] where id = 1");
 
+			while (rs.next()) {
+				backupdauer = rs.getInt("Backup");
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return backupdauer;
+	}
+	
+	public void backupdauerSpeichern(int backupdauer){
+		try {
+			PreparedStatement s = null;
+			s = conn.prepareStatement("update adminwerte set backup = ? where id = 1");
+			s.setInt(1, backupdauer);
+			
+			s.executeUpdate();
+			s.close();
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public Date letztesBackupLaden(){
+		Date backupDate = new Date(1l);
+		try {
+			Statement s = conn.createStatement();
+			ResultSet rs = s.executeQuery("SELECT LetztesBackup FROM [Adminwerte] where id = 1");
+
+			while (rs.next()) {
+				backupDate = rs.getDate("LetztesBackup");
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return backupDate;
+	}
+	
+	public static void letztesBackupSpeichern(Date backupdate){
+		try {
+			PreparedStatement s = null;
+			s = conn.prepareStatement("update adminwerte set letztesBackup = ? where id = 1");
+			s.setDate(1, backupdate);
+			
+			s.executeUpdate();
+			s.close();
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
 }
