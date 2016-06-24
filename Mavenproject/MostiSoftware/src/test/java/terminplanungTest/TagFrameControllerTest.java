@@ -37,7 +37,8 @@ public class TagFrameControllerTest {
 	@Test
 	public void getZeileTest(){
 		TagFrameController tfc = new TagFrameController();
-		assertEquals(tfc.getZeile(5, 1), 25);	
+		assertEquals(tfc.getZeile(5, 1), 5);	
+		assertEquals(tfc.getZeile(5, 2), 17);	
 	}
 	
 	@Test
@@ -132,13 +133,11 @@ public class TagFrameControllerTest {
 		eingabe.add("20:30");
 		eingabe.add("09:gf");
 		eingabe.add("gf:00");
-		eingabe.add("090:00");
-		eingabe.add("09:000");
 		
-		int[] lösung = {540,600, 605, -2, -3, -3, -1,-1, -1, -1};
+		int[] lösung = {540,600, 605, -2, -3, -3, -1,-1};
 		TagFrameController tfc = new TagFrameController();
 		
-		for(int i = 0; i<10; i++){
+		for(int i = 0; i<8; i++){
 			assertEquals(tfc.terminStringNachInt(eingabe.get(i)), lösung[i]);
 		}
 	}
@@ -188,7 +187,7 @@ public class TagFrameControllerTest {
 	public void isFrueherEnabledTest(){
 		TagFrameController tfc = new TagFrameController();
 		int[] eingabe = {1, 0, 4, -1};
-		boolean[] lösung = {true, false, false, false};
+		boolean[] lösung = {false, true, true, true};
 		
 		for(int i=0; i<4; i++){
 			assertEquals(tfc.isFrueherEnabled(eingabe[i]), lösung[i]);
@@ -199,7 +198,7 @@ public class TagFrameControllerTest {
 	public void isSpaeterEnabledTest(){
 		TagFrameController tfc = new TagFrameController();
 		int[] eingabe = {10, 0, 4, -1};
-		boolean[] lösung = {true, false, false, false};
+		boolean[] lösung = {false, true, true, true};
 		
 		for(int i=0; i<4; i++){
 			assertEquals(tfc.isSpaeterEnabled(eingabe[i]), lösung[i]);

@@ -85,7 +85,7 @@ public class TerminHinzufügenLogik {
 		try {
 			d = Formats.DATE_FORMAT.parse(datum);
 		} catch (ParseException e) {
-			e.printStackTrace();
+			return -1;
 		}
 		return d.getTime();
 	}

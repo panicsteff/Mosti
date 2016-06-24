@@ -22,7 +22,7 @@ public class TagFrameController {
 	}
 	
 	public int getZeile(int pos, int anzeigeseite){
-		return pos + (anzeigeseite - 1) * terminlogik.getZeilenAnzahlProSeite();
+		return pos + (anzeigeseite - 1)* terminlogik.getZeilenAnzahlProSeite();
 	}
 	
 	public int anzahlAlleTermine(){
@@ -70,7 +70,6 @@ public class TagFrameController {
 			stundenzahl = Integer.parseInt(stunde);
 			minutenzahl = Integer.parseInt(minuten);
 		} catch(Exception e){
-			e.printStackTrace();
 			return -1;
 		}
 		int uhrzeit = stundenzahl*60 + minutenzahl;

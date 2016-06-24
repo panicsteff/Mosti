@@ -19,7 +19,7 @@ public class TerminLogik {
 		new AdministratorLogik();
 	}
 	
-	private ArrayList<Termin> inVolleTerminListe(ArrayList<Termin> alteTerminliste){
+	public  ArrayList<Termin> inVolleTerminListe(ArrayList<Termin> alteTerminliste){
 		alteTerminliste = termineSortieren(alteTerminliste);
 		
 		ArrayList<Termin> neueTerminliste = new ArrayList<Termin>();
@@ -65,7 +65,7 @@ public class TerminLogik {
 		return terminliste;
 	}
 
-	ArrayList<Termin> termineLaden(long d){
+	public ArrayList<Termin> termineLaden(long d){
 		
 		Date datum = new Date(d);
 		ArrayList<Termin> terminliste = terminDb.termineLaden(datum);
@@ -74,7 +74,7 @@ public class TerminLogik {
 		
 	}
 	
-	int berechneAnzeigeSeite(int uhrzeit){
+	public int berechneAnzeigeSeite(int uhrzeit){
 		int zeile = (uhrzeit - getArbeitsbeginn())/getZeitslot() + 1;    //EInsbasierte Indexzählung 
 		int i;
 		for(i=0; i<=getAufteilung(); i++){
