@@ -55,10 +55,8 @@ public class KundeneinkaufFrame extends JFrame implements Printable {
 
 		JMenu datei = new JMenu("Kundenabrechnung");
 		menubar.add(datei);
-		datei.addSeparator();
 		JMenuItem drucken = new JMenuItem("Drucken");
 		datei.add(drucken);
-		datei.addSeparator();
 		drucken.addActionListener(new MyPrintHandler());
 
 		JPanel panel = new JPanel();

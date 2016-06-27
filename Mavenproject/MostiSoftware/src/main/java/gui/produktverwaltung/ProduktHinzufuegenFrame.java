@@ -3,6 +3,7 @@ package gui.produktverwaltung;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.text.DecimalFormat;
 import java.util.List;
 
 import javax.swing.JButton;
@@ -57,9 +58,12 @@ class ProduktHinzufuegenFrame extends JDialog {
 		add(txtName = new JTextField());
 
 		add(new JLabel("Einzelpreis [€]:"));
-		NumberFormatter nuf = new NumberFormatter(FoFormat.pf);
-		NullableFormatter nf = new NullableFormatter(nuf);
-		add(txtPreis = new JFormattedTextField(nf));
+//		NumberFormatter nuf = new NumberFormatter(FoFormat.pf);
+//		NullableFormatter nf = new NullableFormatter(nuf);
+//		add(txtPreis = new JFormattedTextField(nf));
+		txtPreis =new JFormattedTextField(FoFormat.preisformat);
+		//txtPreis =new JFormattedTextField(new DecimalFormat("0.00"));
+		add(txtPreis);
 
 		add(new JLabel("Vorrätige Menge:"));
 		add(txtMenge = new JFormattedTextField());
@@ -85,13 +89,17 @@ class ProduktHinzufuegenFrame extends JDialog {
 
 		public void actionPerformed(ActionEvent arg0) {
 			try{
-			produkt = new Produkt(txtName.getText(), Double.parseDouble(txtPreis.getText()), Integer.parseInt(txtMenge.getText()), 
+				Object preis_objekt = txtPreis.getValue();
+				Double preis = Double.parseDouble(preis_objekt+"");
+			produkt = new Produkt(txtName.getText(), preis, Integer.parseInt(txtMenge.getText()), 
 					Integer.parseInt(txtUntergrenze.getText()), cBoxIsAbfuellmaterial.isSelected(), 0);
 			}catch(Exception e){
 				JOptionPane.showMessageDialog(null,
 						"Bitte überprüfen Sie die Eingaben.", "Meldung",
 						JOptionPane.WARNING_MESSAGE);
+				e.printStackTrace();
 				return;
+				
 			}
 			//pliste.add(produkt);
 			pSortiment.addProdukt(produkt);

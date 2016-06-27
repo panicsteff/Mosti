@@ -4,6 +4,7 @@ package gui.dienstleistungverwaltung;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.text.DecimalFormat;
 import java.util.List;
 
 import javax.swing.JButton;
@@ -11,6 +12,7 @@ import javax.swing.JDialog;
 import javax.swing.JFormattedTextField;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.text.NumberFormatter;
 
@@ -48,10 +50,14 @@ class DLHinzufuegenFrame extends JDialog {
 		add(txtName = new JTextField());
 
 		add(new JLabel("Preis pro Liter [€]:"));
-		NumberFormatter nuf = new NumberFormatter(FoFormat.pf);
-		NullableFormatter nf = new NullableFormatter(nuf);
-		add(txtPreis = new JFormattedTextField(nf));
+//		NumberFormatter nuf = new NumberFormatter(FoFormat.pf);
+//		NullableFormatter nf = new NullableFormatter(nuf);
+//		add(txtPreis = new JFormattedTextField(nf));
 
+		//txtPreis =new JFormattedTextField(new DecimalFormat("0.00"));
+		txtPreis =new JFormattedTextField(FoFormat.preisformat);
+		add(txtPreis);
+		
 		JButton okButton = new JButton("OK");
 		okButton.addActionListener(new MyOKHandler());
 		add(okButton);
@@ -66,7 +72,20 @@ class DLHinzufuegenFrame extends JDialog {
 	private class MyOKHandler implements ActionListener {
 
 		public void actionPerformed(ActionEvent arg0) {
-			dienstleistung = new Dienstleistung(txtName.getText(), Double.parseDouble(txtPreis.getText()),0);
+			try{
+			Object preis_objekt = txtPreis.getValue();
+			Double preis = Double.parseDouble(preis_objekt+"");
+			
+			dienstleistung = new Dienstleistung(txtName.getText(), preis,0);
+			
+		}catch(Exception e){
+			JOptionPane.showMessageDialog(null,
+					"Bitte überprüfen Sie die Eingaben.", "Meldung",
+					JOptionPane.WARNING_MESSAGE);
+			e.printStackTrace();
+			return;
+			
+		}
 			dlSortiment.addDienstleistung(dienstleistung);
 			dispose();
 		}

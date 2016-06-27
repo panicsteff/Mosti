@@ -1,7 +1,6 @@
 package gui.kassenfunktion;
 
 import gui.verkauf.KundeneinkaufFrame;
-import gui.verkauf.VerkäufeFrame;
 
 import java.awt.BorderLayout;
 import java.awt.Component;
@@ -10,7 +9,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -28,8 +26,6 @@ import javax.swing.event.ListSelectionListener;
 import javax.swing.table.TableCellEditor;
 import javax.swing.table.TableColumnModel;
 
-import persistenz.KundeDB;
-import persistenz.LagerDB;
 import logik.dienstleistungverwaltung.DLSortiment;
 import logik.dienstleistungverwaltung.Dienstleistung;
 import logik.kundenverwaltung.Kunde;
@@ -38,6 +34,7 @@ import logik.produktverwaltung.ProduktSortiment;
 import logik.verkaufsverwaltung.Verkauf;
 import logik.verkaufsverwaltung.Verkaufsposition;
 import logik.verkaufsverwaltung.Verkaufsverwaltung;
+import persistenz.KundeDB;
 
 public class KassenFrame extends JFrame {
 
