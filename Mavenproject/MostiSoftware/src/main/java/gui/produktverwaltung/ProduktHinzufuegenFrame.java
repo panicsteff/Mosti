@@ -61,8 +61,8 @@ class ProduktHinzufuegenFrame extends JDialog {
 //		NumberFormatter nuf = new NumberFormatter(FoFormat.pf);
 //		NullableFormatter nf = new NullableFormatter(nuf);
 //		add(txtPreis = new JFormattedTextField(nf));
-		txtPreis =new JFormattedTextField(FoFormat.preisformat);
-		//txtPreis =new JFormattedTextField(new DecimalFormat("0.00"));
+		//txtPreis =new JFormattedTextField(FoFormat.preisformat);
+		txtPreis =new JFormattedTextField(new DecimalFormat("0.00"));
 		add(txtPreis);
 
 		add(new JLabel("Vorrätige Menge:"));

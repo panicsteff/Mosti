@@ -5,7 +5,6 @@ import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.text.DecimalFormat;
-import java.util.List;
 
 import javax.swing.JButton;
 import javax.swing.JDialog;
@@ -14,12 +13,9 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
-import javax.swing.text.NumberFormatter;
 
 import logik.dienstleistungverwaltung.DLSortiment;
 import logik.dienstleistungverwaltung.Dienstleistung;
-import logik.kundenverwaltung.NullableFormatter;
-import logik.produktverwaltung.FoFormat;
 
 import com.sun.glass.ui.Pixels.Format;
 
@@ -54,8 +50,8 @@ class DLHinzufuegenFrame extends JDialog {
 //		NullableFormatter nf = new NullableFormatter(nuf);
 //		add(txtPreis = new JFormattedTextField(nf));
 
-		//txtPreis =new JFormattedTextField(new DecimalFormat("0.00"));
-		txtPreis =new JFormattedTextField(FoFormat.preisformat);
+		txtPreis =new JFormattedTextField(new DecimalFormat("0.00"));
+		//txtPreis =new JFormattedTextField(FoFormat.preisformat);
 		add(txtPreis);
 		
 		JButton okButton = new JButton("OK");

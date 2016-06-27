@@ -52,9 +52,9 @@ class ProduktBearbeitenFrame extends JDialog {
 //		txtPreis.setValue(produkt.getPreis()*100);
 //		add(txtPreis);
 		
-		//txtPreis =new JFormattedTextField(new DecimalFormat("0.00"));
-		txtPreis =new JFormattedTextField(FoFormat.preisformat);
-		txtPreis.setValue(produkt.getPreis()/**100*/);
+		txtPreis =new JFormattedTextField(new DecimalFormat("0.00"));
+		//txtPreis =new JFormattedTextField(FoFormat.preisformat);
+		txtPreis.setValue(produkt.getPreis());
 		add(txtPreis);
 
 		add(new JLabel("Aktuelle Menge:"));
@@ -93,7 +93,7 @@ class ProduktBearbeitenFrame extends JDialog {
 			produkt.setUntergrenze(Integer.parseInt(txtUntergrenze.getText()));
 			if(produkt.isAbfüllmaterial() != cBoxIsAbfuellmaterial.isSelected()){
 				produkt.setAbfüllmaterial(cBoxIsAbfuellmaterial.isSelected());
-				LagerVerwaltungFrame.hasChanged = true;
+				//LagerVerwaltungFrame.hasChanged = true;
 			}
 		}catch(Exception e){
 			JOptionPane.showMessageDialog(null,

@@ -178,7 +178,6 @@ public class M_Startseite extends JFrame {
 		mbar.add(mDatei);
 		
 		JMenuItem passwort = new JMenuItem("Passwort ändern");
-		mDatei.add(new JSeparator());
 		mDatei.add(passwort);
 		passwort.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e){
@@ -208,6 +207,7 @@ public class M_Startseite extends JFrame {
 				new TresterpreisBearbeitenFrame(new Tresterverwaltung());
 			}
 		});
+		trester.addSeparator();
 		JMenuItem tresteritem2 = new JMenuItem("Trester-Verkaufsübersicht erstellen");
 		trester.add(tresteritem2);
 		tresteritem2.addActionListener(new ActionListener(){

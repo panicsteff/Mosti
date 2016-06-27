@@ -1,4 +1,3 @@
-
 package persistenz;
 
 import java.sql.Connection;
@@ -14,7 +13,8 @@ import logik.produktverwaltung.Produkt;
 public class LagerDB {
 
 	Connection conn;
-	public LagerDB(){
+
+	public LagerDB() {
 		try {
 			conn = DriverManager
 					.getConnection("jdbc:ucanaccess://./Mosti-Datenbank.mdb");
@@ -23,12 +23,13 @@ public class LagerDB {
 			e.printStackTrace();
 		}
 	}
+
 	public ArrayList<Produkt> produkteLaden() {
 
 		ArrayList<Produkt> pliste = new ArrayList<Produkt>();
 
 		try {
-			
+
 			Statement s = conn.createStatement();
 			ResultSet rs = s.executeQuery("SELECT * FROM [produkte]");
 
@@ -53,23 +54,23 @@ public class LagerDB {
 
 		return pliste;
 	}
-	
+
 	public void produktAktualisieren(Produkt p) {
 
 		try {
 
 			PreparedStatement s = null;
-			
-				s = conn.prepareStatement("update produkte set produktname = ?, preis= ?, vorratsmenge = ?, untergrenze = ?, istAbfuellmaterial = ? where id = ? ");
-				s.setString(1, p.getName());
-				s.setDouble(2, p.getPreis());
-				s.setInt(3, p.getVorratsmenge());
-				s.setInt(4, p.getUntergrenze());
-				s.setBoolean(5, p.isAbfüllmaterial());
-				s.setInt(6, p.getId());
 
-				s.executeUpdate();
-			
+			s = conn.prepareStatement("update produkte set produktname = ?, preis= ?, vorratsmenge = ?, untergrenze = ?, istAbfuellmaterial = ? where id = ? ");
+			s.setString(1, p.getName());
+			s.setDouble(2, p.getPreis());
+			s.setInt(3, p.getVorratsmenge());
+			s.setInt(4, p.getUntergrenze());
+			s.setBoolean(5, p.isAbfüllmaterial());
+			s.setInt(6, p.getId());
+
+			s.executeUpdate();
+
 			s.close();
 
 		} catch (Exception e) {
@@ -78,40 +79,13 @@ public class LagerDB {
 		}
 	}
 
-//	public void produkteUpdaten(ArrayList<Produkt> pliste) {
-//
-//		try {
-//			conn = DriverManager
-//					.getConnection("jdbc:ucanaccess://./Mosti-Datenbank.mdb");
-//			PreparedStatement s = null;
-//			int i = 1;
-//
-//			for (Produkt p : pliste) {
-//				s = conn.prepareStatement("update produkte set produktname = ?, preis= ?, vorratsmenge = ?, untergrenze = ?, istAbfuellmaterial = ? where id = ? ");
-//				s.setString(1, p.getName());
-//				s.setDouble(2, p.getPreis());
-//				s.setInt(3, p.getVorratsmenge());
-//				s.setInt(4, p.getUntergrenze());
-//				s.setBoolean(5, p.isAbfüllmaterial());
-//				s.setInt(6, i++);
-//
-//				s.executeUpdate();
-//			}
-//			s.close();
-//
-//		} catch (Exception e) {
-//			System.out.println(e);
-//		}
-//	}
-	
 	public void produktLöschen(Produkt p) {
 
 		try {
-	
 			PreparedStatement s = null;
-			
-			s = conn.prepareStatement("delete from produkte where produktname = '" + p.getName() +"' ");	
-			
+			s = conn.prepareStatement("delete from produkte where produktname = '"
+					+ p.getName() + "' ");
+
 			s.executeUpdate();
 			s.close();
 
@@ -124,9 +98,7 @@ public class LagerDB {
 	public int produktHinzufügen(Produkt p) {
 
 		try {
-
 			PreparedStatement s = null;
-
 			s = conn.prepareStatement("insert into produkte (produktname, preis, vorratsmenge, untergrenze, istAbfuellmaterial) values ( '"
 					+ p.getName()
 					+ "', "
@@ -140,14 +112,16 @@ public class LagerDB {
 
 			s.executeUpdate();
 			s.close();
-			
+
 			int id = 0;
 			Statement k = conn.createStatement();
-			ResultSet rs = k.executeQuery("select id from produkte where produktname = '" + p.getName() + "'");
-			while(rs.next()){
+			ResultSet rs = k
+					.executeQuery("select id from produkte where produktname = '"
+							+ p.getName() + "'");
+			while (rs.next()) {
 				id = rs.getInt("id");
 			}
-			
+
 			k.close();
 			return id;
 
@@ -158,19 +132,17 @@ public class LagerDB {
 		}
 
 	}
-	
-	
+
 	public void verkaufsmengeUpdaten(String name, int neueVerkaufsmenge) {
 
 		try {
 			PreparedStatement s = null;
-			//int i = 1;
 
-				s = conn.prepareStatement("update produkte set vorratsmenge = ? where produktname = ? ");
-				s.setInt(1, neueVerkaufsmenge);
-				s.setString(2, name);
+			s = conn.prepareStatement("update produkte set vorratsmenge = ? where produktname = ? ");
+			s.setInt(1, neueVerkaufsmenge);
+			s.setString(2, name);
 
-				s.executeUpdate();
+			s.executeUpdate();
 
 			s.close();
 
@@ -178,8 +150,6 @@ public class LagerDB {
 			System.out.println(e);
 			e.printStackTrace();
 		}
-			
 
-			
 	}
 }

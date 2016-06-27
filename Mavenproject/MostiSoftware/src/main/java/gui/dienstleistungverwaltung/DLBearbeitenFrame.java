@@ -13,12 +13,11 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
-import javax.swing.text.NumberFormatter;
 
 import logik.dienstleistungverwaltung.Dienstleistung;
-import logik.produktverwaltung.FoFormat;
 
 
+@SuppressWarnings("serial")
 class DLBearbeitenFrame extends JDialog {
 
 	private JFormattedTextField txtPreis;
@@ -48,8 +47,8 @@ class DLBearbeitenFrame extends JDialog {
 //		txtPreis.setValue(dienstleistung.getPreis()*100); // *100, da sonst fehlerhafter Wert durch CellRenderer
 //		add(txtPreis);
 		
-		//txtPreis =new JFormattedTextField(new DecimalFormat("0.##"));
-		txtPreis =new JFormattedTextField(FoFormat.preisformat);
+		txtPreis =new JFormattedTextField(new DecimalFormat("0.00"));
+		//txtPreis =new JFormattedTextField(FoFormat.preisformat);
 		txtPreis.setValue((Double)dienstleistung.getPreis());
 		add(txtPreis);
 
@@ -81,9 +80,6 @@ class DLBearbeitenFrame extends JDialog {
 			return;
 			
 		}
-			//dienstleistung.setPreis((Double)txtPreis.getValue());
-			//dienstleistung.setPreis(Double.parseDouble(txtPreis.getText()));
-
 			dispose();
 		}
 	}

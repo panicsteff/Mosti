@@ -5,8 +5,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.util.List;
-
 import javax.swing.BorderFactory;
 import javax.swing.JFrame;
 import javax.swing.JMenu;
@@ -31,20 +29,15 @@ public class LagerVerwaltungFrame extends JFrame {
 	private static final long serialVersionUID = 1L;
 	private LagerTableModel lagerTableModel;
 	private ListSelectionModel produktSelectionModel;
-	// private List<Produkt> pliste;
-	// private List<Produkt> aliste;
-	// private List<Produkt> zliste;
+
 	private JMenuItem bearP;
-	static boolean hasChanged;
-	//private JMenuItem miSpeichern;
+	//static boolean hasChanged;
+
 	private ProduktSortiment pSortiment;
 	private JMenuItem löschP;
 
 	public LagerVerwaltungFrame(ProduktSortiment p) {
 		this.pSortiment = p;
-		
-		//hasChanged = false;
-		// createGesamtListe();
 
 		setTitle("Produkte verwalten");
 		setSize(700, 400);
@@ -131,7 +124,7 @@ public class LagerVerwaltungFrame extends JFrame {
 
 		TableColumn preisspalte = ptabelle.getColumnModel().getColumn(1);
 		preisspalte.setCellRenderer(new PreisCellRenderer());
-		//
+		
 		TableColumn mengespalte = ptabelle.getColumnModel().getColumn(2);
 		mengespalte.setCellRenderer(new MengeCellRenderer());
 		TableColumn grenzespalte = ptabelle.getColumnModel().getColumn(3);
@@ -158,7 +151,7 @@ public class LagerVerwaltungFrame extends JFrame {
 
 	private void addProdukt() {
 		new ProduktHinzufuegenFrame(this, pSortiment);
-		printListe();
+		//printListe();
 		lagerTableModel.fireTableDataChanged();
 	}
 
@@ -171,11 +164,7 @@ public class LagerVerwaltungFrame extends JFrame {
 			return;
 		
 		pSortiment.deleteProdukt(p);
-		// if(aliste.contains(p)== true)
-		// aliste.remove(p);
-		// else
-		// zliste.remove(p);
-		printListe();
+		//printListe();
 		lagerTableModel.fireTableDataChanged();
 	}
 
@@ -184,21 +173,19 @@ public class LagerVerwaltungFrame extends JFrame {
 		Produkt p = lagerTableModel.getProdukt(row);
 		new ProduktBearbeitenFrame(this, p);
 		pSortiment.produktAktualisieren(p);
-		printListe();
-		// lagerTableModel.fireTableRowsUpdated(0, (aliste != null?
-		// aliste.size() : 0)+(zliste != null? zliste.size() : 0)-1);
+		//printListe();
 		lagerTableModel.fireTableRowsUpdated(0, (pSortiment
 				.getGesamtSortiment() != null ? pSortiment.getGesamtSortiment()
 				.size() : 0));
 	}
 
-	private void printListe() {
-		System.out.println();
-		for (Produkt p : pSortiment.getGesamtSortiment()) {
-			System.out.print(p.getName());
-		}
-		System.out.println();
-	}
+//	private void printListe() {
+//		System.out.println();
+//		for (Produkt p : pSortiment.getGesamtSortiment()) {
+//			System.out.print(p.getName());
+//		}
+//		System.out.println();
+//	}
 
 
 }
