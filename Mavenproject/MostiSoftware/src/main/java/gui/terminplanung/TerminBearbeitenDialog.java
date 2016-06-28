@@ -27,23 +27,6 @@ public class TerminBearbeitenDialog extends JDialog {
 		public void actionPerformed(ActionEvent e) {
 
 			if (beginnzeit.equals(uhrzeittxt.getText()) == false) {
-				String neueUhrzeit = uhrzeittxt.getText();
-				int intUhrzeit = tfc.terminStringNachInt(neueUhrzeit);
-				if (intUhrzeit == -1) {
-					JOptionPane.showMessageDialog(TerminBearbeitenDialog.this,
-							"Bitte gebe Sie eine gültige Uhrzeit ein");
-					return;
-				}
-				if (intUhrzeit == -2) {
-					JOptionPane.showMessageDialog(TerminBearbeitenDialog.this,
-							"Das ist kein angebotener Termin-Slot");
-					return;
-				}
-				if (intUhrzeit == -3) {
-					JOptionPane.showMessageDialog(TerminBearbeitenDialog.this,
-							"Termin lieg außerhalb der Arbeitszeiten!");
-					return;
-				}
 				neueMenge = termin.getMenge();
 				neueDauer = dauer;
 				boolean isDauerneu = false;
@@ -61,7 +44,25 @@ public class TerminBearbeitenDialog extends JDialog {
 						return;
 					}
 				}
-
+				
+				String neueUhrzeit = uhrzeittxt.getText();
+				int intUhrzeit = tfc.terminStringNachInt(neueUhrzeit, neueDauer);
+				if (intUhrzeit == -1) {
+					JOptionPane.showMessageDialog(TerminBearbeitenDialog.this,
+							"Bitte gebe Sie eine gültige Uhrzeit ein");
+					return;
+				}
+				if (intUhrzeit == -2) {
+					JOptionPane.showMessageDialog(TerminBearbeitenDialog.this,
+							"Das ist kein angebotener Termin-Slot");
+					return;
+				}
+				if (intUhrzeit == -3) {
+					JOptionPane.showMessageDialog(TerminBearbeitenDialog.this,
+							"Termin lieg außerhalb der Arbeitszeiten!");
+					return;
+				}
+				
 				boolean frei = tfc.neueTermindauerPrüfen(alleTermine, termin,
 						tfc.berechneAnzahlZeitslots(neueDauer), intUhrzeit);
 				if (frei == false) {
@@ -106,8 +107,11 @@ public class TerminBearbeitenDialog extends JDialog {
 									+ neueDauer + " Minuten");
 					dauertxt.setText(neueDauer + " min");
 				}
-				JOptionPane.showMessageDialog(TerminBearbeitenDialog.this,
-						"Termin geändert");
+				else{
+					JOptionPane.showMessageDialog(TerminBearbeitenDialog.this,
+							"Termin geändert");
+				}
+				
 
 			} else {
 				if (((termin.getMenge() + "").equals(mengetxt.getText()) == false)

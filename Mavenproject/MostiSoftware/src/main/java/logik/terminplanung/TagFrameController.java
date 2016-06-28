@@ -55,7 +55,7 @@ public class TagFrameController {
 		return true;
 	}
 	
-	public int terminStringNachInt(String s){
+	public int terminStringNachInt(String s, int dauer){
 		int index = s.indexOf(":");
 		if(index <= 0 || index >= 3){
 			return -1;
@@ -72,11 +72,14 @@ public class TagFrameController {
 		} catch(Exception e){
 			return -1;
 		}
+		if(minutenzahl>=60 || stundenzahl>=24){
+			return -1;
+		}
 		int uhrzeit = stundenzahl*60 + minutenzahl;
 		if((terminlogik.getArbeitsbeginn() - uhrzeit)%terminlogik.getZeitslot() != 0){
 			return -2;
 		}
-		if(uhrzeit > terminlogik.getArbeitsende() || uhrzeit < terminlogik.getArbeitsbeginn()){
+		if(uhrzeit > terminlogik.getArbeitsende() || uhrzeit < terminlogik.getArbeitsbeginn()|| uhrzeit + dauer > terminlogik.getArbeitsende()){
 			return -3;
 		}
 		

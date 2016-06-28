@@ -138,7 +138,7 @@ public class TagFrameControllerTest {
 		TagFrameController tfc = new TagFrameController();
 		
 		for(int i = 0; i<8; i++){
-			assertEquals(tfc.terminStringNachInt(eingabe.get(i)), lösung[i]);
+			assertEquals(tfc.terminStringNachInt(eingabe.get(i), 5), lösung[i]);
 		}
 	}
 	
