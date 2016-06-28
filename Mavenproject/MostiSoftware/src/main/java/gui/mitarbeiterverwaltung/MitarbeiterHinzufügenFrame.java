@@ -57,17 +57,27 @@ public class MitarbeiterHinzufügenFrame extends JDialog {
 		
 		setLayout(new GridLayout(10,2));
 		
-		add(new JLabel("Nachname: "));
+		JLabel label;
+		
+		add(label = new JLabel("Nachname: "));
+		label.setFont(label.getFont().deriveFont(16f));
 		add(txtNachname = new JTextField());
+		txtNachname.setFont(txtNachname.getFont().deriveFont(16f));
 		
-		add(new JLabel("Vorname: "));
+		add(label = new JLabel("Vorname: "));
+		label.setFont(label.getFont().deriveFont(16f));
 		add(txtVorname = new JTextField());
+		txtVorname.setFont(txtVorname.getFont().deriveFont(16f));
 		
-		add(new JLabel("Straße: "));
+		add(label = new JLabel("Straße: "));
+		label.setFont(label.getFont().deriveFont(16f));
 		add(txtStrasse = new JTextField());
+		txtStrasse.setFont(txtStrasse.getFont().deriveFont(16f));
 		
-		add(new JLabel("Hausnummer: "));
+		add(label = new JLabel("Hausnummer: "));
+		label.setFont(label.getFont().deriveFont(16f));
 		add(txtHausnummer = new JTextField());
+		txtHausnummer.setFont(txtHausnummer.getFont().deriveFont(16f));
 		
 		
 		DateFormatter df = new DateFormatter(Formats.DATE_FORMAT);
@@ -82,21 +92,29 @@ public class MitarbeiterHinzufügenFrame extends JDialog {
 			}
 		
 		NullableFormatter ff = new NullableFormatter(mf);
-		add(new JLabel("PLZ: "));
+		add(label = new JLabel("PLZ: "));
+		label.setFont(label.getFont().deriveFont(16f));
 		add(txtPlz = new JFormattedTextField(ff));
+		txtPlz.setFont(txtPlz.getFont().deriveFont(16f));
 		
-		add(new JLabel("Stadt: "));
+		add(label = new JLabel("Stadt: "));
+		label.setFont(label.getFont().deriveFont(16f));
 		add(txtStadt = new JTextField());
+		txtStadt.setFont(txtStadt.getFont().deriveFont(16f));
 		
-		add(new JLabel("Telefonnummer: "));
+		add(label = new JLabel("Telefonnummer: "));
+		label.setFont(label.getFont().deriveFont(16f));
 		add(txtTelefonnummer = new JTextField());
+		txtTelefonnummer.setFont(txtTelefonnummer.getFont().deriveFont(16f));
 		
 		JPanel jp = new JPanel();
 		jp.setLayout(new GridLayout(2,1));
 		add(jp);
 		
-		jp.add(new JLabel("Benutzername:"));
+		jp.add(label = new JLabel("Benutzername:"));
+		label.setFont(label.getFont().deriveFont(16f));
 		add(txtBenutzername = new JTextField());
+		txtBenutzername.setFont(txtBenutzername.getFont().deriveFont(16f));
 		JLabel jl = new JLabel("(Bitte nur Kleinbuchstaben verwenden!)");
 		jp.add(jl);
 		jl.setFont(new Font( "Dialog", Font.BOLD, 10));
@@ -105,10 +123,12 @@ public class MitarbeiterHinzufügenFrame extends JDialog {
 		add(new JLabel());
 		
 		JButton okButton = new JButton("OK");
+		okButton.setFont(okButton.getFont().deriveFont(16f));
 		okButton.addActionListener(new MyOKHandler());
 		add(okButton);
 		
 		JButton cmdButton = new JButton("Abbrechen");
+		cmdButton.setFont(cmdButton.getFont().deriveFont(16f));
 		cmdButton.addActionListener(new MyCancelHandler());
 		add(cmdButton);
 		

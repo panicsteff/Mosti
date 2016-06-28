@@ -208,7 +208,6 @@ public class TagFrame extends JDialog {
 
 		termineTableModel = new TermineTableModel(terminliste, anzeigeseite);
 		tagesTabelle = new JTable(termineTableModel);
-		tagesTabelle.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
 		tagesTabelle.setRowHeight(30);
 		tagesTabelle.setFont(tagesTabelle.getFont().deriveFont(16f));
 		tagesTabelle.getTableHeader().setFont(
@@ -219,6 +218,7 @@ public class TagFrame extends JDialog {
 		tcm.getColumn(0).setCellRenderer(termineCellRenderer);
 		tcm.getColumn(1).setCellRenderer(kundenNameCellRenderer);
 		tcm.getColumn(1).setMinWidth(250);
+		tcm.getColumn(3).setWidth(130);
 
 		terminSelectionModel = tagesTabelle.getSelectionModel();
 		terminSelectionModel
@@ -230,25 +230,29 @@ public class TagFrame extends JDialog {
 		add(scrollpane);
 
 		cmdFrueher = new JButton("Früher");
-		cmdFrueher.setBounds(150, 430, 80, 20);
+		cmdFrueher.setFont(cmdFrueher.getFont().deriveFont(16f));
+		cmdFrueher.setBounds(120, 430, 130, 30);
 		add(cmdFrueher);
 		boolean enabledf = tagframecontroller.isFrueherEnabled(anzeigeseite);
 		cmdFrueher.setEnabled(enabledf);
 		cmdFrueher.addActionListener(new MyFrüherHandler());
 
 		cmdSpaeter = new JButton("Später");
-		cmdSpaeter.setBounds(260, 430, 80, 20);
+		cmdSpaeter.setFont(cmdSpaeter.getFont().deriveFont(16f));
+		cmdSpaeter.setBounds(290, 430, 130, 30);
 		add(cmdSpaeter);
 		boolean enabled = tagframecontroller.isSpaeterEnabled(anzeigeseite);
 		cmdSpaeter.setEnabled(enabled);
 		cmdSpaeter.addActionListener(new MySpäterHandler());
 
 		JLabel kunde = new JLabel("Tresterkunde: ");
+		kunde.setFont(kunde.getFont().deriveFont(16f));
 		kunde.setBounds(20, 500, 200, 40);
 		add(kunde);
 		
 		tresterKunde = new JComboBox<String>();
 		tresterKunde.setBounds(230, 500, 200, 40);
+		tresterKunde.setFont(tresterKunde.getFont().deriveFont(16f));
 		tresterKunde.setEditable(true);
 		add(tresterKunde);
 		tresterKunde.getEditor().getEditorComponent().addKeyListener(new MyKeyListener());

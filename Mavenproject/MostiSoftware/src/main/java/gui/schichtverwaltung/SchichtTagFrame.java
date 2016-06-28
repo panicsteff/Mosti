@@ -46,6 +46,7 @@ public class SchichtTagFrame extends JFrame{
 		SchichtTableModel schichtmodel= new SchichtTableModel(liste);
 		JTable schichtplan = new JTable(schichtmodel);
 		TableColumnModel tcm = schichtplan.getColumnModel();
+		schichtplan.getTableHeader().setFont(schichtplan.getFont().deriveFont(16f));
 		tcm.getColumn(0).setCellRenderer(new MitarbeiterNameCellRenderer());
 		tcm.getColumn(1).setCellRenderer(new MitarbeiterNameCellRenderer());
 		schichtplan.setFont(schichtplan.getFont().deriveFont(16f));

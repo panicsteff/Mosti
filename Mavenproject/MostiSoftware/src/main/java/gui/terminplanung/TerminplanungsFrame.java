@@ -16,13 +16,14 @@ public class TerminplanungsFrame extends JFrame{
 	
 	public TerminplanungsFrame(){
 		
-		setBounds(500, 200, 520, 500);
+		setBounds(500, 200, 720, 550);
 		setLocationRelativeTo(getParent());
 		setTitle("Terminplanung");
 		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 		
 		JButton neuerTermin = new JButton("Neuen Termin anlegen");
-		neuerTermin.setBounds(230, 360, 180, 30);
+		neuerTermin.setFont(neuerTermin.getFont().deriveFont(16f));
+		neuerTermin.setBounds(230, 420, 230, 30);
 		neuerTermin.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e){
 				Date d = calendar.getDate();
@@ -34,7 +35,7 @@ public class TerminplanungsFrame extends JFrame{
 		this.setLayout(null);
 
 		calendar = new JCalendar();
-		calendar.setBounds(0, 0, 500, 350);
+		calendar.setBounds(0, 0, 700, 420);
 		calendar.setVisible(true);
 		add(calendar);
 
@@ -45,7 +46,8 @@ public class TerminplanungsFrame extends JFrame{
 				new TagFrame(d.getTime(), 1, TerminplanungsFrame.this,0,0, false);
 			}
 		});
-		terminuebersicht.setBounds(30, 360, 180, 30);
+		terminuebersicht.setFont(terminuebersicht.getFont().deriveFont(16f));
+		terminuebersicht.setBounds(30, 420, 180, 30);
 		add(terminuebersicht);
 		
 		setVisible(true);

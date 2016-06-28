@@ -52,19 +52,30 @@ private static final long serialVersionUID = 1L;
 		
 		setLayout(new GridLayout(9,2));
 		
-		add(new JLabel("Nachname: "));
+		JLabel label;
+		
+		add(label = new JLabel("Nachname: "));
+		label.setFont(label.getFont().deriveFont(16f));
 		add(txtNachname = new JTextField());
+		txtNachname.setFont(txtNachname.getFont().deriveFont(16f));
 		
-		add(new JLabel("Vorname: "));
+		add(label = new JLabel("Vorname: "));
+		label.setFont(label.getFont().deriveFont(16f));
 		add(txtVorname = new JTextField());
+		txtVorname.setFont(txtVorname.getFont().deriveFont(16f));
 		
-		add(new JLabel("Straﬂe: "));
+		add(label = new JLabel("Straﬂe: "));
+		label.setFont(label.getFont().deriveFont(16f));
 		add(txtStrasse = new JTextField());
+		txtStrasse.setFont(txtStrasse.getFont().deriveFont(16f));
 		
-		add(new JLabel("Hausnummer: "));
+		add(label = new JLabel("Hausnummer: "));
+		label.setFont(label.getFont().deriveFont(16f));
 		add(txtHausnummer = new JTextField());
+		txtHausnummer.setFont(txtHausnummer.getFont().deriveFont(16f));
 	
-		add(new JLabel("PLZ: "));
+		add(label = new JLabel("PLZ: "));
+		label.setFont(label.getFont().deriveFont(16f));
 		DateFormatter df = new DateFormatter(Formats.DATE_FORMAT);
 		NullableFormatter nf = new NullableFormatter(df);
 		
@@ -78,21 +89,28 @@ private static final long serialVersionUID = 1L;
 		}
 		NullableFormatter ff = new NullableFormatter(mf);
 		add(txtPlz = new JFormattedTextField(ff));
+		txtPlz.setFont(txtPlz.getFont().deriveFont(16f));
 		
-		add(new JLabel("Stadt: "));
+		add(label = new JLabel("Stadt: "));
+		label.setFont(label.getFont().deriveFont(16f));
 		add(txtStadt = new JTextField());
+		txtStadt.setFont(txtStadt.getFont().deriveFont(16f));
 		
-		add(new JLabel("Telefonnummer: "));
+		add(label = new JLabel("Telefonnummer: "));
+		label.setFont(label.getFont().deriveFont(16f));
 		add(txtTelefonnummer = new JTextField());
+		txtTelefonnummer.setFont(txtTelefonnummer.getFont().deriveFont(16f));
 		
 		add(new JLabel());
 		add(new JLabel());
 		
 		JButton okButton = new JButton("OK");
+		okButton.setFont(okButton.getFont().deriveFont(16f));
 		okButton.addActionListener(new MyOKHandler());
 		add(okButton);
 		
 		JButton cmdButton = new JButton("Abbrechen");
+		cmdButton.setFont(cmdButton.getFont().deriveFont(16f));
 		cmdButton.addActionListener(new MyCancelHandler());
 		add(cmdButton);
 		

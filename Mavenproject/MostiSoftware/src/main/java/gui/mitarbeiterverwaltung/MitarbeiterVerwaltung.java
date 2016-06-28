@@ -23,6 +23,7 @@ import javax.swing.JTable;
 import javax.swing.ListSelectionModel;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
+import javax.swing.table.TableColumnModel;
 
 import logik.mitarbeiterverwaltung.Mitarbeiter;
 import logik.mitarbeiterverwaltung.MitarbeiterTableModel;
@@ -56,10 +57,12 @@ public class MitarbeiterVerwaltung extends JFrame {
 		JMenuItem mi;
 
 		menubar.add(menu = new JMenu("Datei"));
+		menu.setFont(menu.getFont().deriveFont(16f));
 		
 		menu.add(new JSeparator());
 
 		menu.add(mi = new JMenuItem("Beenden"));
+		mi.setFont(mi.getFont().deriveFont(16f));
 		mi.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				dispose();
@@ -67,9 +70,11 @@ public class MitarbeiterVerwaltung extends JFrame {
 		});
 		
 		menubar.add(menu = new JMenu("Bearbeiten"));
+		menu.setFont(menu.getFont().deriveFont(16f));
 		
 		miMitarbeiterHinzufügen = new JMenuItem("Neuen Mitarbeiter hinzufügen");
 		menu.add(miMitarbeiterHinzufügen);
+		miMitarbeiterHinzufügen.setFont(miMitarbeiterHinzufügen.getFont().deriveFont(16f));
 		miMitarbeiterHinzufügen.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e){
 				new MitarbeiterHinzufügenFrame(MitarbeiterVerwaltung.this, mitarbeiterTableModel.getMitarbeiter());
@@ -79,6 +84,7 @@ public class MitarbeiterVerwaltung extends JFrame {
 		});
 		
 		miMitarbeiterBearbeiten = new JMenuItem("Mitarbeiter bearbeiten");
+		miMitarbeiterBearbeiten.setFont(miMitarbeiterBearbeiten.getFont().deriveFont(16f));
 		miMitarbeiterBearbeiten.setEnabled(false);
 		menu.add(miMitarbeiterBearbeiten);
 		miMitarbeiterBearbeiten.addActionListener(new ActionListener() {
@@ -90,6 +96,7 @@ public class MitarbeiterVerwaltung extends JFrame {
 		menu.add(new JSeparator());
 		
 		miMitarbeiterLoeschen = new JMenuItem("Mitarbeiter löschen");
+		miMitarbeiterLoeschen.setFont(miMitarbeiterLoeschen.getFont().deriveFont(16f));
 		miMitarbeiterLoeschen.setEnabled(false);
 		menu.add(miMitarbeiterLoeschen);
 		miMitarbeiterLoeschen.addActionListener(new ActionListener(){
@@ -120,6 +127,17 @@ public class MitarbeiterVerwaltung extends JFrame {
 		mitarbeiterTableModel = new MitarbeiterTableModel();
 		mitarbeiterTableModel.setMitarbeiter(mitarbeiterliste);
 		JTable table = new JTable(mitarbeiterTableModel);
+		table.setFont(table.getFont().deriveFont(16f));
+		table.getTableHeader().setFont(table.getFont().deriveFont(16f));
+		table.setRowHeight(30);
+		TableColumnModel tcm = table.getColumnModel();
+		tcm.getColumn(0).setWidth(200);
+		tcm.getColumn(1).setWidth(200);
+		tcm.getColumn(2).setWidth(200);
+		tcm.getColumn(3).setWidth(100);
+		tcm.getColumn(4).setWidth(30);
+		tcm.getColumn(5).setWidth(200);
+		tcm.getColumn(6).setWidth(250);
 		mitarbeiterSelectionModel = table.getSelectionModel();
 		table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 
@@ -144,10 +162,6 @@ public class MitarbeiterVerwaltung extends JFrame {
 			}
 		});
 
-		//TableColumn colrabatt = table.getColumnModel().getColumn(5);
-		//TableColumn colanrede = table.getColumnModel().getColumn(0);
-
-		table.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
 		JScrollPane scrollpane = new JScrollPane(table);
 		JPanel titlepane = new JPanel();
 		titlepane.setBorder(BorderFactory.createTitledBorder(

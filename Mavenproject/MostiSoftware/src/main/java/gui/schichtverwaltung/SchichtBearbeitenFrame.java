@@ -135,6 +135,7 @@ public class SchichtBearbeitenFrame extends JFrame{
 		}
 		
 		JButton cmdOk = new JButton("Speichern");
+		cmdOk.setFont(cmdOk.getFont().deriveFont(16f));
 		cmdOk.setBounds(10, 10, 130, 30);
 		add(cmdOk);
 		cmdOk.addActionListener(new MyOkListener());

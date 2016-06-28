@@ -94,31 +94,40 @@ public class KundeBearbeitenDialog extends JDialog{
 		JLabel  label;
 		
 		label = new JLabel("Nachname:");
+		label.setFont(label.getFont().deriveFont(16f));
 		add(label);
 		
 		txtNachname = new JTextField(kunde.getNachname());
+		txtNachname.setFont(txtNachname.getFont().deriveFont(16f));
 		add(txtNachname);
 		
 		label = new JLabel("Vorname:");
+		label.setFont(label.getFont().deriveFont(16f));
 		add(label);
 		
 		txtVorname = new JTextField(kunde.getVorname());
+		txtVorname.setFont(txtVorname.getFont().deriveFont(16f));
 		add(txtVorname);
 	
 	
 		label = new JLabel("Straﬂe:");
+		label.setFont(label.getFont().deriveFont(16f));
 		add(label);
 		
 		txtStrasse = new JTextField(kunde.getStrasse());
+		txtStrasse.setFont(txtStrasse.getFont().deriveFont(16f));
 		add(txtStrasse);
 		
 		label = new JLabel("Hausnummer:");
+		label.setFont(label.getFont().deriveFont(16f));
 		add(label);
 		
 		txtHausnummer = new JTextField(kunde.getHausnummer());
+		txtHausnummer.setFont(txtHausnummer.getFont().deriveFont(16f));
 		add(txtHausnummer);
 		
 		label = new JLabel("Plz:");
+		label.setFont(label.getFont().deriveFont(16f));
 		add(label);
 		
 		DateFormatter df = new DateFormatter(Formats.DATE_FORMAT);
@@ -135,18 +144,23 @@ public class KundeBearbeitenDialog extends JDialog{
 		nf = new NullableFormatter(mf);
 		txtPlz = new JFormattedTextField(nf);
 		txtPlz.setValue(kunde.getPlz());
+		txtPlz.setFont(txtPlz.getFont().deriveFont(16f));
 		add(txtPlz);
 		
 		label = new JLabel("Ort:");
+		label.setFont(label.getFont().deriveFont(16f));
 		add(label);
 		
 		txtWohnort = new JTextField(kunde.getWohnort());
+		txtWohnort.setFont(txtWohnort.getFont().deriveFont(16f));
 		add(txtWohnort);
 		
 		label = new JLabel("Telefonnummer:");
+		label.setFont(label.getFont().deriveFont(16f));
 		add(label);
 		
 		txtTel = new JTextField(kunde.getTel());
+		txtTel.setFont(txtTel.getFont().deriveFont(16f));
 		add(txtTel);
 		
 		/*JPanel pane = new JPanel();
@@ -157,8 +171,10 @@ public class KundeBearbeitenDialog extends JDialog{
 		add(new JLabel());
 		
 		JButton cmdok = new JButton("OK");
+		cmdok.setFont(cmdok.getFont().deriveFont(16f));
 		add(cmdok);
 		JButton cmdcancel = new JButton("Abbrechen");
+		cmdcancel.setFont(cmdcancel.getFont().deriveFont(16f));
 		add(cmdcancel);
 		
 		cmdok.addActionListener(new MyOkHandler());

@@ -42,10 +42,15 @@ class ProduktBearbeitenFrame extends JDialog {
 
 		setLayout(new GridLayout(6, 2));
 
-		add(new JLabel("Name:"));
+		JLabel label;
+		
+		add(label = new JLabel("Name:"));
+		label.setFont(label.getFont().deriveFont(16f));
 		add(txtName = new JTextField(produkt.getName()));
+		txtName.setFont(txtName.getFont().deriveFont(16f));
 
-		add(new JLabel("Einzelpreis [€]:"));
+		add(label = new JLabel("Einzelpreis [€]:"));
+		label.setFont(label.getFont().deriveFont(16f));
 //		NumberFormatter nuf = new NumberFormatter(FoFormat.pf);
 //		NullableFormatter nf = new NullableFormatter(nuf);
 //		txtPreis = new JFormattedTextField(nf);
@@ -53,26 +58,35 @@ class ProduktBearbeitenFrame extends JDialog {
 //		add(txtPreis);
 		
 		txtPreis =new JFormattedTextField(new DecimalFormat("0.00"));
+		txtPreis.setFont(txtPreis.getFont().deriveFont(16f));
 		//txtPreis =new JFormattedTextField(FoFormat.preisformat);
 		txtPreis.setValue(produkt.getPreis());
 		add(txtPreis);
 
-		add(new JLabel("Aktuelle Menge:"));
+		add(label = new JLabel("Aktuelle Menge:"));
+		label.setFont(label.getFont().deriveFont(16f));
 		add(txtMenge = new JFormattedTextField(produkt.getVorratsmenge()));
+		txtMenge.setFont(txtMenge.getFont().deriveFont(16f));
 
-		add(new JLabel("Untergrenze"));
+		add(label = new JLabel("Untergrenze"));
+		label.setFont(label.getFont().deriveFont(16f));
 		add(txtUntergrenze = new JFormattedTextField(produkt.getUntergrenze()));
+		txtUntergrenze.setFont(txtUntergrenze.getFont().deriveFont(16f));
 		
-		add(new JLabel("Ist Abfüllmaterial:"));
+		add(label = new JLabel("Ist Abfüllmaterial:"));
+		label.setFont(label.getFont().deriveFont(16f));
 		cBoxIsAbfuellmaterial = new JCheckBox();
+		cBoxIsAbfuellmaterial.setFont(cBoxIsAbfuellmaterial.getFont().deriveFont(16f));
 		cBoxIsAbfuellmaterial.setSelected(produkt.isAbfüllmaterial());
 		add(cBoxIsAbfuellmaterial);
 
 		JButton okButton = new JButton("OK");
+		okButton.setFont(okButton.getFont().deriveFont(16f));
 		add(okButton);
 		okButton.addActionListener(new MyOkHandler());
 
 		JButton abbButton = new JButton("Abbrechen");
+		abbButton.setFont(abbButton.getFont().deriveFont(16f));
 		add(abbButton);
 		abbButton.addActionListener(new MyAbbHandler());
 

@@ -37,10 +37,15 @@ class DLBearbeitenFrame extends JDialog {
 
 		setLayout(new GridLayout(3, 2));
 
-		add(new JLabel("Name:"));
+		JLabel name = new JLabel("Name:");
+		name.setFont(name.getFont().deriveFont(16f));
+		add(name);
 		add(txtName = new JTextField(dienstleistung.getName()));
+		txtName.setFont(txtName.getFont().deriveFont(16f));
 
-		add(new JLabel("Einzelpreis [€]:"));
+		JLabel preis = new JLabel("Einzelpreis [€]:");
+		preis.setFont(preis.getFont().deriveFont(16f));
+		add(preis);
 //		NumberFormatter nuf = new NumberFormatter(FoFormat.pf);
 //		NullableFormatter nf = new NullableFormatter(nuf);
 //		txtPreis = new JFormattedTextField(nf);
@@ -48,16 +53,19 @@ class DLBearbeitenFrame extends JDialog {
 //		add(txtPreis);
 		
 		txtPreis =new JFormattedTextField(new DecimalFormat("0.00"));
+		txtPreis.setFont(txtPreis.getFont().deriveFont(16f));
 		//txtPreis =new JFormattedTextField(FoFormat.preisformat);
 		txtPreis.setValue((Double)dienstleistung.getPreis());
 		add(txtPreis);
 
 		JButton okButton = new JButton("OK");
 		add(okButton);
+		okButton.setFont(okButton.getFont().deriveFont(16f));
 		okButton.addActionListener(new MyOkHandler());
 
 		JButton abbButton = new JButton("Abbrechen");
 		add(abbButton);
+		abbButton.setFont(abbButton.getFont().deriveFont(16f));
 		abbButton.addActionListener(new MyAbbHandler());
 
 		//pack();

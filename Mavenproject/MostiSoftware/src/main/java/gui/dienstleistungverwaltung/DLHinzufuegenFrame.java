@@ -42,23 +42,31 @@ class DLHinzufuegenFrame extends JDialog {
 
 		setLayout(new GridLayout(3, 2));
 
-		add(new JLabel("Name:"));
+		JLabel name = new JLabel("Name:");
+		name.setFont(name.getFont().deriveFont(16f));
+		add(name);
 		add(txtName = new JTextField());
+		txtName.setFont(txtName.getFont().deriveFont(16f));
 
-		add(new JLabel("Preis pro Liter [€]:"));
+		JLabel preis = new JLabel("Preis pro Liter [€]:");
+		preis.setFont(preis.getFont().deriveFont(16f));
+		add(preis);
 //		NumberFormatter nuf = new NumberFormatter(FoFormat.pf);
 //		NullableFormatter nf = new NullableFormatter(nuf);
 //		add(txtPreis = new JFormattedTextField(nf));
 
 		txtPreis =new JFormattedTextField(new DecimalFormat("0.00"));
+		txtPreis.setFont(txtPreis.getFont().deriveFont(16f));
 		//txtPreis =new JFormattedTextField(FoFormat.preisformat);
 		add(txtPreis);
 		
 		JButton okButton = new JButton("OK");
+		okButton.setFont(okButton.getFont().deriveFont(16f));
 		okButton.addActionListener(new MyOKHandler());
 		add(okButton);
 
 		JButton abbButton = new JButton("Abbrechen");
+		abbButton.setFont(abbButton.getFont().deriveFont(16f));
 		abbButton.addActionListener(new MyAbbHandler());
 		add(abbButton);
 

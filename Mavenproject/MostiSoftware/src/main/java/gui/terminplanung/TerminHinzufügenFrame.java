@@ -126,44 +126,54 @@ public class TerminHinzufügenFrame extends JFrame{
 
 	
 	public TerminHinzufügenFrame(long date){
-		setBounds(350, 200, 300, 500);
+		setBounds(450, 350, 300, 500);
 		setLocationRelativeTo(getParent());
 		setTitle("Neuer Termin");
 		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+		setSize(370, 500);
 		
 		terminhinzufügenLogik = new TerminHinzufügenLogik();
 		heute = new Date(date);
 		setLayout(null);
 		
 		JLabel menge = new JLabel("Obstmenge in Zentner: ");
-		menge.setBounds(10, 10, 150, 20);
+		menge.setFont(menge.getFont().deriveFont(16f));
+		menge.setBounds(10, 10, 200, 30);
 		add(menge);
 		
 		txtmenge = new JTextField();
-		txtmenge.setBounds(150, 10, 100, 20);
+		txtmenge.setFont(txtmenge.getFont().deriveFont(16f));
+		txtmenge.setBounds(210, 10, 100, 30);
 		add(txtmenge);
 		
 		flasche = new JCheckBox("Abfüllung in Flaschen");
-		flasche.setBounds(100, 40, 200, 20);
+		flasche.setFont(flasche.getFont().deriveFont(16f));
+		flasche.setBounds(10, 60, 200, 30);
 		add(flasche);
 		
 		JButton dauerberechnen = new JButton("Termindauer berechnen");
-		dauerberechnen.setBounds(25, 70, 200, 20);
+		dauerberechnen.setFont(dauerberechnen.getFont().deriveFont(16f));
+		dauerberechnen.setBounds(25, 110, 200, 30);
 		dauerberechnen.addActionListener(new MyBerechnenHandler());
 		add(dauerberechnen);
 		
 		dauer = new JLabel("Presszeit in Minuten:");
-		dauer.setBounds(10, 110, 150, 20);
+		dauer.setFont(dauer.getFont().deriveFont(16f));
+		dauer.setBounds(10, 160, 200, 30);
 		dauer.setEnabled(false);
 		add(dauer);
 		
 		txtdauer = new JTextField();
-		txtdauer.setBounds(150, 110, 100, 20);
+		txtdauer.setFont(txtdauer.getFont().deriveFont(16f));
+		txtdauer.setBounds(210, 160, 100, 30);
 		txtdauer.setEnabled(false);
 		add(txtdauer);
 		
 		verfügbarTabelle = new JTable();
-		verfügbarTabelle.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
+		verfügbarTabelle.getTableHeader().setFont(verfügbarTabelle.getFont().deriveFont(16f));
+		verfügbarTabelle.setFont(verfügbarTabelle.getFont().deriveFont(16f));
+		verfügbarTabelle.setRowHeight(30);
+		
 		
 		terminSelectionModel = verfügbarTabelle.getSelectionModel();
 		terminSelectionModel.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
@@ -171,7 +181,7 @@ public class TerminHinzufügenFrame extends JFrame{
 		
 		JScrollPane scrollpane = new JScrollPane(verfügbarTabelle);
 		titlepane = new JPanel();
-		titlepane.setBounds(10, 150, 200, 200);
+		titlepane.setBounds(10, 210, 300, 200);
 		titlepane.setBorder(BorderFactory.createTitledBorder(BorderFactory.createEtchedBorder(), "Freie Termine"));
 		titlepane.setLayout(new BorderLayout());
 		titlepane.add(scrollpane);
@@ -179,14 +189,16 @@ public class TerminHinzufügenFrame extends JFrame{
 		add(titlepane);
 		
 		spaeter = new JButton("Nächster Tag");
+		spaeter.setFont(spaeter.getFont().deriveFont(16f));
 		spaeter.addActionListener(new MySpäterHandler());
-		spaeter.setBounds(140, 370, 120, 30);
+		spaeter.setBounds(140, 450, 120, 30);
 		spaeter.setEnabled(false);
 		add(spaeter);
 		
 		frueher = new JButton("Vorheriger Tag");
+		frueher.setFont(frueher.getFont().deriveFont(16f));
 		frueher.addActionListener(new MyFrüherHandler());
-		frueher.setBounds(10, 370, 120, 30);
+		frueher.setBounds(10, 450, 120, 30);
 		frueher.setEnabled(false);
 		add(frueher);
 		

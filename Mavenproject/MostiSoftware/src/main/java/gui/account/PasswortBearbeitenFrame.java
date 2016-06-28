@@ -31,31 +31,38 @@ public class PasswortBearbeitenFrame extends JFrame{
 		mit = m;
 		
 		JLabel alt = new JLabel("Altes Passwort:");
+		alt.setFont(alt.getFont().deriveFont(16f));
 		alt.setBounds(10, 10, 190, 40);
 		add(alt);
 		
 		alttxt = new JPasswordField();
-		alttxt.setBounds(200, 10, 190, 40);
+		alttxt.setBounds(250, 10, 190, 40);
+		alttxt.setFont(alttxt.getFont().deriveFont(16f));
 		add(alttxt);
 		
 		JLabel neu = new JLabel("Neues Passwort:");
+		neu.setFont(neu.getFont().deriveFont(16f));
 		neu.setBounds(10, 60, 190, 40);
 		add(neu);
 		
 		neutxt = new JPasswordField();
-		neutxt.setBounds(200, 60, 190, 40);
+		neutxt.setFont(neutxt.getFont().deriveFont(16f));
+		neutxt.setBounds(250, 60, 190, 40);
 		add(neutxt);
 		
 		JLabel wieder = new JLabel("Neues Passwort wiederholen:");
-		wieder.setBounds(10, 110, 190, 40);
+		wieder.setFont(wieder.getFont().deriveFont(16f));
+		wieder.setBounds(10, 110, 240, 40);
 		add(wieder);
 		
 		wiedertxt = new JPasswordField();
-		wiedertxt.setBounds(200, 110, 190, 40);
+		wiedertxt.setFont(wiedertxt.getFont().deriveFont(16f));
+		wiedertxt.setBounds(250, 110, 190, 40);
 		add(wiedertxt);
 		
 		JButton speichern = new JButton("Speichern");
 		speichern.setBounds(10, 170, 230, 40);
+		speichern.setFont(speichern.getFont().deriveFont(16f));
 		add(speichern);
 		speichern.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e){
@@ -68,6 +75,7 @@ public class PasswortBearbeitenFrame extends JFrame{
 		
 		JButton abbrechen = new JButton("Abbrechen");
 		abbrechen.setBounds(231, 170, 230, 40);
+		abbrechen.setFont(abbrechen.getFont().deriveFont(16f));
 		add(abbrechen);
 		abbrechen.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e){

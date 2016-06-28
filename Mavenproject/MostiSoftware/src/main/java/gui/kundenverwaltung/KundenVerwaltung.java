@@ -24,11 +24,11 @@ import javax.swing.JTable;
 import javax.swing.ListSelectionModel;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
+import javax.swing.table.TableColumnModel;
 
-import persistenz.KundeDB;
 import logik.kundenverwaltung.Kunde;
 import logik.kundenverwaltung.KundeTableModel;
-import logik.mitarbeiterverwaltung.Mitarbeiter;
+import persistenz.KundeDB;
 
 public class KundenVerwaltung extends JFrame {
 	
@@ -44,7 +44,7 @@ public class KundenVerwaltung extends JFrame {
 	public KundenVerwaltung() {
 
 		setTitle("Kundenverwaltung");
-		setSize(750, 400);
+		setSize(1300, 600);
 		setLocationRelativeTo(getParent());
 		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 		kundeDb = new KundeDB();
@@ -56,10 +56,11 @@ public class KundenVerwaltung extends JFrame {
 		JMenuItem mi;
 
 		menubar.add(menu = new JMenu("Datei"));
-		
+		menu.setFont(menu.getFont().deriveFont(16f));
 		menu.add(new JSeparator());
 
 		menu.add(mi = new JMenuItem("Beenden"));
+		mi.setFont(mi.getFont().deriveFont(16f));
 		mi.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				dispose();
@@ -68,8 +69,10 @@ public class KundenVerwaltung extends JFrame {
 		
 		
 		menubar.add(menu = new JMenu("Bearbeiten"));
+		menu.setFont(menu.getFont().deriveFont(16f));
 		
 		miKundeHinzufuegen = new JMenuItem("Neuen Kunden hinzufügen");
+		miKundeHinzufuegen.setFont(miKundeHinzufuegen.getFont().deriveFont(16f));
 		miKundeHinzufuegen.setEnabled(true);
 		menu.add(miKundeHinzufuegen);
 		miKundeHinzufuegen.addActionListener(new ActionListener(){
@@ -81,6 +84,7 @@ public class KundenVerwaltung extends JFrame {
 		});
 		
 		miKundeBearbeiten = new JMenuItem("Kunde bearbeiten");
+		miKundeBearbeiten.setFont(miKundeBearbeiten.getFont().deriveFont(16f));
 		miKundeBearbeiten.setEnabled(false);
 		menu.add(miKundeBearbeiten);
 		miKundeBearbeiten.addActionListener(new ActionListener() {
@@ -93,6 +97,7 @@ public class KundenVerwaltung extends JFrame {
 		
 		
 		miKundeLoeschen = new JMenuItem("Kunde löschen");
+		miKundeLoeschen.setFont(miKundeLoeschen.getFont().deriveFont(16f));
 		miKundeLoeschen.setEnabled(false);
 		menu.add(miKundeLoeschen);
 		miKundeLoeschen.addActionListener(new ActionListener(){
@@ -122,8 +127,23 @@ public class KundenVerwaltung extends JFrame {
 		sortiereKundenliste(kundenliste);
 		kundeTableModel.setKunden(kundenliste);
 		JTable table = new JTable(kundeTableModel);
+		table.setSize(800, 300);
+		table.setAutoResizeMode(JTable.AUTO_RESIZE_LAST_COLUMN);
+		TableColumnModel tcm = table.getColumnModel();
+		tcm.getColumn(0).setMinWidth(200);	
+		tcm.getColumn(1).setMinWidth(200);	
+		tcm.getColumn(2).setMinWidth(200);	
+		tcm.getColumn(3).setMinWidth(100);	
+		tcm.getColumn(4).setMinWidth(50);	
+		tcm.getColumn(5).setMinWidth(200);	
+		tcm.getColumn(6).setMinWidth(200);
+		table.setRowHeight(30);
+		table.setFont(table.getFont().deriveFont(16f));
+		table.getTableHeader().setFont(
+				table.getTableHeader().getFont().deriveFont(16f));
 		kundeSelectionModel = table.getSelectionModel();
 		table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+		
 
 		kundeSelectionModel
 				.addListSelectionListener(new ListSelectionListener() {
