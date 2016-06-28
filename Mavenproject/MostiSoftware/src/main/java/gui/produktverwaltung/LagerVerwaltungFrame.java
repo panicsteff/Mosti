@@ -48,10 +48,12 @@ public class LagerVerwaltungFrame extends JFrame {
 		setJMenuBar(menubar);
 
 		JMenu datei = new JMenu("Datei");
+		datei.setFont(datei.getFont().deriveFont(16f));
 		menubar.add(datei);
 		datei.addSeparator();
 
 		JMenuItem beenden = new JMenuItem("Beenden");
+		beenden.setFont(beenden.getFont().deriveFont(16f));
 		datei.add(beenden);
 
 		beenden.addActionListener(new ActionListener() {
@@ -62,14 +64,18 @@ public class LagerVerwaltungFrame extends JFrame {
 		});
 
 		JMenu bearbeiten = new JMenu("Produktangebot bearbeiten");
+		bearbeiten.setFont(bearbeiten.getFont().deriveFont(16f));
 		menubar.add(bearbeiten);
 		JMenuItem newP = new JMenuItem("Neues Produkt hinzufügen");
+		newP.setFont(newP.getFont().deriveFont(16f));
 		bearbeiten.add(newP);
 		bearbeiten.addSeparator();
 		bearP = new JMenuItem("Produkt bearbeiten");
+		bearP.setFont(bearP.getFont().deriveFont(16f));
 		bearbeiten.add(bearP);
 		bearbeiten.addSeparator();
 		löschP = new JMenuItem("Produkt löschen");
+		löschP.setFont(löschP.getFont().deriveFont(16f));
 		bearbeiten.add(löschP);
 
 		newP.addActionListener(new ActionListener() {
@@ -95,6 +101,9 @@ public class LagerVerwaltungFrame extends JFrame {
 		lagerTableModel = new LagerTableModel(pSortiment.getGesamtSortiment());
 
 		JTable ptabelle = new JTable(lagerTableModel);
+		ptabelle.setFont(ptabelle.getFont().deriveFont(16f));
+		ptabelle.getTableHeader().setFont(ptabelle.getFont().deriveFont(16f));
+		ptabelle.setRowHeight(30);
 
 		produktSelectionModel = ptabelle.getSelectionModel();
 		produktSelectionModel

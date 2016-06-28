@@ -32,11 +32,21 @@ public class Anmeldung extends JFrame {
 
 		accountverwaltung = new Accountverwaltung();
 		
-		add(new JLabel("Benutzername:"));
-		add(txtbenutzername = new JTextField());
-		add(new JLabel("Passwort"));
-		add(txtpasswort = new JPasswordField());
-		add(einloggen = new JButton("Einloggen"));
+		JLabel benutzername = new JLabel("Benutzername:");
+		benutzername.setFont(benutzername.getFont().deriveFont(16f));
+		add(benutzername);
+		txtbenutzername = new JTextField();
+		txtbenutzername.setFont(txtbenutzername.getFont().deriveFont(16f));
+		add(txtbenutzername);
+		JLabel passwort = new JLabel("Passwort:");
+		passwort.setFont(passwort.getFont().deriveFont(16f));
+		add(passwort);
+		txtpasswort = new JPasswordField();
+		txtpasswort.setFont(txtpasswort.getFont().deriveFont(16f));
+		add(txtpasswort);
+		einloggen = new JButton("Einloggen");
+		einloggen.setFont(einloggen.getFont().deriveFont(16f));
+		add(einloggen);
 		einloggen.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				Mitarbeiter mitarbeiter;
@@ -51,7 +61,9 @@ public class Anmeldung extends JFrame {
 				}
 			}
 		});
-		add(abbrechen = new JButton("Abbrechen"));
+		abbrechen = new JButton("Abbrechen");
+		abbrechen.setFont(abbrechen.getFont().deriveFont(16f));
+		add(abbrechen);
 		abbrechen.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e){
 				dispose();

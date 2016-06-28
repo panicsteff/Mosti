@@ -17,7 +17,7 @@ public class SchichtplanungsFrame extends JFrame{
 	
 	public SchichtplanungsFrame(boolean isAdmin){
 		
-		setBounds(500, 200, 520, 500);
+		setBounds(500, 200, 720, 600);
 		setLocationRelativeTo(getParent());
 		setTitle("Schichtplanung");
 		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
@@ -25,25 +25,27 @@ public class SchichtplanungsFrame extends JFrame{
 		this.setLayout(null);
 
 		calendar = new JCalendar();
-		calendar.setBounds(0, 0, 500, 350);
+		calendar.setBounds(0, 0, 700, 450);
 		calendar.setVisible(true);
 		add(calendar);
 
 		if(!isAdmin){
 			JButton schichtuebersicht = new JButton("Schichtübersicht");
+			schichtuebersicht.setFont(schichtuebersicht.getFont().deriveFont(16f));
 			schichtuebersicht.addActionListener(new ActionListener(){
 				public void actionPerformed(ActionEvent e){
 					Date d = calendar.getDate();
 					new SchichtTagFrame(d);
 				}
 			});
-			schichtuebersicht.setBounds(30, 360, 180, 30);
+			schichtuebersicht.setBounds(30, 450, 180, 30);
 			add(schichtuebersicht);
 		
 			setVisible(true);
 		}
 		else{
 			JButton neueSchicht = new JButton("Schicht bearbeiten");
+			neueSchicht.setFont(neueSchicht.getFont().deriveFont(16f));
 			neueSchicht.addActionListener(new ActionListener(){
 				public void actionPerformed(ActionEvent arg0) {
 					Date d = calendar.getDate();
@@ -51,7 +53,7 @@ public class SchichtplanungsFrame extends JFrame{
 				}
 			
 			});
-			neueSchicht.setBounds(30, 360, 180, 30);
+			neueSchicht.setBounds(30, 450, 180, 30);
 			add(neueSchicht);
 		
 			setVisible(true);

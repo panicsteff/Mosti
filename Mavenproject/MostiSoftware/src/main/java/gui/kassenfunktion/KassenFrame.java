@@ -104,14 +104,23 @@ public class KassenFrame extends JFrame {
 
 		dienstTableModel = new DienstleistungenTableModel(dienstleistungen);
 		dienstTable = new JTable(dienstTableModel);
+		dienstTable.setFont(dienstTable.getFont().deriveFont(16f));
+		dienstTable.getTableHeader().setFont(dienstTable.getFont().deriveFont(16f));
+		dienstTable.setRowHeight(30);
 		tabellenSpaltenGrößeFestlegen(dienstTable);
 
 		abfüllTableModel = new ProduktTableModel(aliste);
 		abfüllTable = new JTable(abfüllTableModel);
+		abfüllTable.setFont(abfüllTable.getFont().deriveFont(16f));
+		abfüllTable.getTableHeader().setFont(abfüllTable.getFont().deriveFont(16f));
+		abfüllTable.setRowHeight(30);
 		tabellenSpaltenGrößeFestlegen(abfüllTable);
 
 		zusatzTableModel = new ProduktTableModel(zliste);
 		zusatzTable = new JTable(zusatzTableModel);
+		zusatzTable.setFont(zusatzTable.getFont().deriveFont(16f));
+		zusatzTable.getTableHeader().setFont(zusatzTable.getFont().deriveFont(16f));
+		zusatzTable.setRowHeight(30);
 		tabellenSpaltenGrößeFestlegen(zusatzTable);
 		
 		dienstTable.addMouseListener(new MouseAdapter() {
@@ -141,7 +150,7 @@ public class KassenFrame extends JFrame {
 		label.setVerticalAlignment(JLabel.BOTTOM);
 		label.setBounds(6, 6, 200, 20);
 		contentPanel.add(label);
-		tableContainer1.setBounds(6, 30, 700, 60);
+		tableContainer1.setBounds(6, 30, 700, 75);
 		contentPanel.add(tableContainer1);
 
 		label = new JLabel("Abfüll-Materialien");
@@ -149,7 +158,7 @@ public class KassenFrame extends JFrame {
 		label.setVerticalAlignment(JLabel.BOTTOM);
 		label.setBounds(6, 120, 200, 20);
 		contentPanel.add(label);
-		tableContainer2.setBounds(6, 144, 700, 60);
+		tableContainer2.setBounds(6, 144, 700, 75);
 		contentPanel.add(tableContainer2);
 
 		label = new JLabel("Weitere Produkte");
@@ -157,16 +166,19 @@ public class KassenFrame extends JFrame {
 		label.setVerticalAlignment(JLabel.BOTTOM);
 		label.setBounds(6, 234, 200, 20);
 		contentPanel.add(label);
-		tableContainer3.setBounds(6, 258, 700, 60);
+		tableContainer3.setBounds(6, 258, 700, 75);
 		contentPanel.add(tableContainer3);
 
 		JPanel summePanel = new JPanel();
 		summePanel.setLayout(new FlowLayout(FlowLayout.RIGHT));
-		summePanel.add(new JLabel("Gesamtsumme in Euro: "));
+		JLabel summe = new JLabel("Gesamtsumme in Euro: ");
+		summe.setFont(summe.getFont().deriveFont(16f));
+		summePanel.add(summe);
 
 		totalText = new JTextField(13);
 		totalText.setHorizontalAlignment(JTextField.RIGHT);
 		totalText.setEditable(false);
+		totalText.setFont(totalText.getFont().deriveFont(16f));
 		total = berechneGesamtTotal();
 		totalText.setText(String.valueOf(total));
 
@@ -176,9 +188,12 @@ public class KassenFrame extends JFrame {
 
 		JPanel buttonPanel = new JPanel();
 		JButton abschlussButton = new JButton("Einkauf abschließen");
+		abschlussButton.setFont(abschlussButton.getFont().deriveFont(16f));
 		JButton aktualisiereSummeButton = new JButton(
 				"Kostenanzeige aktualisieren");
+		aktualisiereSummeButton.setFont(aktualisiereSummeButton.getFont().deriveFont(16f));
 		JButton abbrechButton = new JButton("Abbrechen");
+		abbrechButton.setFont(abbrechButton.getFont().deriveFont(16f));
 		abbrechButton.addActionListener(new AbbruchHandler());
 		aktualisiereSummeButton
 				.addActionListener(new AktualisiereSummeHandler());

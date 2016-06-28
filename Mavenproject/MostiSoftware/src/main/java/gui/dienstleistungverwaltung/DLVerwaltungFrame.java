@@ -46,9 +46,11 @@ import logik.produktverwaltung.PreisCellRenderer;
 			setJMenuBar(menubar);
 
 			JMenu datei = new JMenu("Datei");
+			datei.setFont(datei.getFont().deriveFont(16f));
 			menubar.add(datei);
 			datei.addSeparator();
 			JMenuItem beenden = new JMenuItem("Beenden");
+			beenden.setFont(beenden.getFont().deriveFont(16f));
 			datei.add(beenden);
 
 			beenden.addActionListener(new ActionListener() {
@@ -58,14 +60,18 @@ import logik.produktverwaltung.PreisCellRenderer;
 			});
 
 			JMenu bearbeiten = new JMenu("Bearbeiten");
+			bearbeiten.setFont(bearbeiten.getFont().deriveFont(16f));
 			menubar.add(bearbeiten);
 			JMenuItem newDL = new JMenuItem("Neue Dienstleistung hinzufügen");
 			bearbeiten.add(newDL);
+			newDL.setFont(newDL.getFont().deriveFont(16f));
 			bearbeiten.addSeparator();
 			bearDL = new JMenuItem("Dienstleistung bearbeiten");
 			bearbeiten.add(bearDL);
+			bearDL.setFont(bearDL.getFont().deriveFont(16f));
 			bearbeiten.addSeparator();
 			loescheDL = new JMenuItem("Dienstleistung löschen");
+			loescheDL.setFont(loescheDL.getFont().deriveFont(16f));
 			bearbeiten.add(loescheDL);
 
 			newDL.addActionListener(new ActionListener() {
@@ -122,10 +128,12 @@ import logik.produktverwaltung.PreisCellRenderer;
 			TableColumn preisspalte = dlTabelle.getColumnModel().getColumn(1);
 			preisspalte.setCellRenderer(new PreisCellRenderer());
 
-
+			dlTabelle.setRowHeight(30);
+			dlTabelle.getTableHeader().setFont(dlTabelle.getFont().deriveFont(16f));
+			dlTabelle.setFont(dlTabelle.getFont().deriveFont(16f));
 			dlTabelle.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
 			dlTabelle.getColumnModel().getColumn(0).setPreferredWidth(200);
-			dlTabelle.getColumnModel().getColumn(1).setPreferredWidth(100);
+			dlTabelle.getColumnModel().getColumn(1).setPreferredWidth(200);
 
 
 			JScrollPane scrollpane = new JScrollPane(dlTabelle);

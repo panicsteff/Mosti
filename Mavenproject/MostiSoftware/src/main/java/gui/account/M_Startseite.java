@@ -176,8 +176,10 @@ public class M_Startseite extends JFrame {
 		setJMenuBar(mbar);
 		mDatei = new JMenu("Benutzereinstellungen");
 		mbar.add(mDatei);
+		mDatei.setFont(mDatei.getFont().deriveFont(16f));
 		
 		JMenuItem passwort = new JMenuItem("Passwort ändern");
+		passwort.setFont(passwort.getFont().deriveFont(16f));
 		mDatei.add(passwort);
 		passwort.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e){
@@ -185,6 +187,7 @@ public class M_Startseite extends JFrame {
 			}
 		});
 		JMenuItem adminwerte = new JMenuItem("Adminwerte bearbeiten");
+		adminwerte.setFont(adminwerte.getFont().deriveFont(16f));
 		mDatei.add(new JSeparator());
 		mDatei.add(adminwerte);
 		adminwerte.setVisible(isAdmin);
@@ -199,8 +202,10 @@ public class M_Startseite extends JFrame {
 		
 		
 		JMenu trester = new JMenu("Tresterverwaltung");
+		trester.setFont(trester.getFont().deriveFont(16f));
 		mbar.add(trester);
 		JMenuItem tresteritem = new JMenuItem("Tresterpreis bearbeiten");
+		tresteritem.setFont(tresteritem.getFont().deriveFont(16f));
 		trester.add(tresteritem);
 		tresteritem.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e){
@@ -209,6 +214,7 @@ public class M_Startseite extends JFrame {
 		});
 		trester.addSeparator();
 		JMenuItem tresteritem2 = new JMenuItem("Trester-Verkaufsübersicht erstellen");
+		tresteritem2.setFont(tresteritem2.getFont().deriveFont(16f));
 		trester.add(tresteritem2);
 		tresteritem2.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e){
@@ -217,9 +223,11 @@ public class M_Startseite extends JFrame {
 		});
 		
 		JMenu account = new JMenu("Account");
+		account.setFont(account.getFont().deriveFont(16f));
 		mbar.add(account);
 		
 		JMenuItem wechseln = new JMenuItem("Benutzer wechseln");
+		wechseln.setFont(wechseln.getFont().deriveFont(16f));
 		account.add(wechseln);
 		wechseln.addActionListener(new ActionListener(){
 
@@ -232,6 +240,7 @@ public class M_Startseite extends JFrame {
 		account.addSeparator();
 		
 		JMenuItem logout = new JMenuItem("Log out");
+		logout.setFont(logout.getFont().deriveFont(16f));
 		account.add(logout);
 		logout.addActionListener(new ActionListener(){
 

@@ -161,11 +161,13 @@ public class TerminErstellenDialog extends JDialog {
 		
 
 		JButton speichern = new JButton("Speichern");
+		speichern.setFont(speichern.getFont().deriveFont(16f));
 		speichern.addActionListener(new MyOkListener());
-		speichern.setBounds(0, 240, 140, 40);
+		speichern.setBounds(0, 300, 210, 40);
 		
 		JButton kundeHinzufügen = new JButton("Kunde hinzufügen");
-		kundeHinzufügen.setBounds(140, 240, 140, 40);
+		kundeHinzufügen.setFont(kundeHinzufügen.getFont().deriveFont(16f));
+		kundeHinzufügen.setBounds(200, 240, 200, 40);
 		kundeHinzufügen.addActionListener(new ActionListener(){
 
 			public void actionPerformed(ActionEvent e) {
@@ -175,7 +177,8 @@ public class TerminErstellenDialog extends JDialog {
 		});	
 		
 		JButton abbrechen = new JButton("Abbrechen");
-		abbrechen.setBounds(280, 240, 140, 40);
+		abbrechen.setFont(abbrechen.getFont().deriveFont(16f));
+		abbrechen.setBounds(210, 300, 210, 40);
 		abbrechen.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent arg0) {
 				TerminErstellenDialog.this.dispose();
