@@ -32,7 +32,7 @@ public class Verk‰ufeFrame extends JFrame {
 		eink‰ufe = liste;
 
 		setTitle("Verk‰ufe");
-		setSize(900, 600);
+		setSize(1050, 600);
 		setLocationRelativeTo(getParent());
 		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 
@@ -40,12 +40,15 @@ public class Verk‰ufeFrame extends JFrame {
 		setJMenuBar(menubar);
 
 		JMenu datei = new JMenu("Datei");
+		datei.setFont(datei.getFont().deriveFont(16f));
 		menubar.add(datei);
 		datei.addSeparator();
 		JMenuItem neue‹bersichtItem = new JMenuItem("Neue Verkaufs¸bersicht erstellen");
+		neue‹bersichtItem.setFont(neue‹bersichtItem.getFont().deriveFont(16f));
 		datei.add(neue‹bersichtItem);
 		datei.addSeparator();
 		JMenuItem beenden = new JMenuItem("Schlieﬂen");
+		beenden.setFont(beenden.getFont().deriveFont(16f));
 		datei.add(beenden);
 		
 		neue‹bersichtItem.addActionListener(new ActionListener() {
@@ -66,6 +69,9 @@ public class Verk‰ufeFrame extends JFrame {
 
 		vTableModel = new Verk‰ufeTableModel(eink‰ufe);
 		JTable vTabelle = new JTable(vTableModel);
+		vTabelle.getTableHeader().setFont(vTabelle.getFont().deriveFont(16f));
+		vTabelle.setFont(vTabelle.getFont().deriveFont(16f));
+		vTabelle.setRowHeight(25); 
 
 		TableColumn preisspalte = vTabelle.getColumnModel().getColumn(1);
 		preisspalte.setCellRenderer(new PreisCellRenderer());
@@ -78,10 +84,10 @@ public class Verk‰ufeFrame extends JFrame {
 
 		vTabelle.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
 		vTabelle.getColumnModel().getColumn(0).setPreferredWidth(180);
-		vTabelle.getColumnModel().getColumn(1).setPreferredWidth(130);
-		vTabelle.getColumnModel().getColumn(2).setPreferredWidth(100);
+		vTabelle.getColumnModel().getColumn(1).setPreferredWidth(180);
+		vTabelle.getColumnModel().getColumn(2).setPreferredWidth(130);
 		vTabelle.getColumnModel().getColumn(3).setPreferredWidth(100);
-		vTabelle.getColumnModel().getColumn(4).setPreferredWidth(200);
+		vTabelle.getColumnModel().getColumn(4).setPreferredWidth(250);
 		vTabelle.getColumnModel().getColumn(5).setPreferredWidth(130);
 
 		JScrollPane scrollpane = new JScrollPane(vTabelle);
@@ -94,13 +100,17 @@ public class Verk‰ufeFrame extends JFrame {
 		JPanel summenPanel = new JPanel();
 		summenPanel.setLayout(new GridLayout(2, 2));
 		label = new JLabel("Kostensumme gesamt");
+		label.setFont(label.getFont().deriveFont(16f));
 		summenPanel.add(label);
 		label = new JLabel();
+		label.setFont(label.getFont().deriveFont(16f));
 		label.setText(String.valueOf(vTableModel.berechneKostenGesamt()) + " Ä");
 		summenPanel.add(label);
 		label = new JLabel("Literzahl gesamt");
+		label.setFont(label.getFont().deriveFont(16f));
 		summenPanel.add(label);
 		label = new JLabel();
+		label.setFont(label.getFont().deriveFont(16f));
 		label.setText(String.valueOf(vTableModel.berechneLiterGesamt()) + " L");
 		summenPanel.add(label);
 		

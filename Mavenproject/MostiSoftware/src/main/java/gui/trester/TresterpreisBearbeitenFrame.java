@@ -17,7 +17,6 @@ import logik.trester.Tresterverwaltung;
 public class TresterpreisBearbeitenFrame extends JFrame {
 	
 	private JFormattedTextField txtPreis;
-	//private Tresterabrechnung ta;
 	private JLabel label;
 	private Tresterverwaltung tv;
 	
@@ -25,41 +24,35 @@ public class TresterpreisBearbeitenFrame extends JFrame {
 		
 		this.tv = tv;	
 		setTitle("Tresterpreis verwalten");
-		setSize(500, 200);
+		setSize(700, 200);
 		setLocationRelativeTo(getParent());
 		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 		
 		setLayout(new GridLayout(3,2));
 		label = new JLabel("Aktueller Tresterpreis pro 1000 L Saft [€]: ");
+		label.setFont(label.getFont().deriveFont(16f));
 		add(label);
 		JFormattedTextField textfield = new JFormattedTextField(new DecimalFormat("0.00"));
 		textfield.setValue(Math.round(tv.getPreisPro1000L()* 100.0) / 100.0);
-		//textfield.setText(String.valueOf(Math.round(tv.getPreisPro1000L()* 100.0) / 100.0)+ " €");
+		textfield.setFont(textfield.getFont().deriveFont(16f));
 		add(textfield);
 		textfield.setEditable(false);
-		//label = new JLabel(String.valueOf(tv.getPreisPro1000L())+ " €");
-		
-		//label = new JLabel(String.valueOf(Math.round(tv.getPreisPro1000L()* 100.0) / 100.0)+ " €");
-		//add(label);
-//		label = new JLabel("Neuer Preis aus 1000 L Saft: ");
-//		//label.setFont(label.getFont().deriveFont(14f));
-//		add(label);
 
 		label = new JLabel ("Neuer Tresterpreis pro 1000 L [€]:");
-		//label.setFont(label.getFont().deriveFont(14f));
+		label.setFont(label.getFont().deriveFont(16f));
 		add(label);
-//		NumberFormatter nuf = new NumberFormatter(FoFormat.pf);
-//		NullableFormatter nf = new NullableFormatter(nuf);
-//		add(txtPreis = new JFormattedTextField(nf));
 		
 		txtPreis =new JFormattedTextField(new DecimalFormat("0.00"));
+		txtPreis.setFont(txtPreis.getFont().deriveFont(16f));
 		add(txtPreis);
 
 		JButton okButton = new JButton("OK");
+		okButton.setFont(okButton.getFont().deriveFont(16f));
 		okButton.addActionListener(new MyOKHandler());
 		add(okButton);
 
 		JButton abbButton = new JButton("Abbrechen");
+		abbButton.setFont(abbButton.getFont().deriveFont(16f));
 		abbButton.addActionListener(new MyAbbHandler());
 		add(abbButton);
 
@@ -78,6 +71,7 @@ public class TresterpreisBearbeitenFrame extends JFrame {
 						"Bitte überprüfen Sie die Eingaben.", "Meldung",
 						JOptionPane.WARNING_MESSAGE);
 				e.printStackTrace();
+				return;
 			}
 			System.out.println("Preis pro 1000 L: "+ tv.getPreisPro1000L());
 			//Tresterabrechnung ta = new Tresterabrechnung(tv, 2000);

@@ -31,19 +31,23 @@ public class TresterFrame extends JFrame {
 		tresterverk‰ufe = liste;
 
 		setTitle("Tresterverk‰ufe");
-		setSize(700, 400);
+		setSize(850, 600);
 		setLocationRelativeTo(getParent());
 		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 
 		JMenuBar menubar = new JMenuBar();
 		setJMenuBar(menubar);
+		menubar.setFont(menubar.getFont().deriveFont(16f));
 
 		JMenu datei = new JMenu("Datei");
+		datei.setFont(datei.getFont().deriveFont(16f));
 		menubar.add(datei);
 		JMenuItem neue‹bersichtItem = new JMenuItem("Neue Trester-Verkaufs¸bersicht erstellen");
+		neue‹bersichtItem.setFont(neue‹bersichtItem.getFont().deriveFont(16f));
 		datei.add(neue‹bersichtItem);
 		datei.addSeparator();
 		JMenuItem beenden = new JMenuItem("Schlieﬂen");
+		beenden.setFont(beenden.getFont().deriveFont(16f));
 		datei.add(beenden);
 		
 		neue‹bersichtItem.addActionListener(new ActionListener() {
@@ -64,6 +68,9 @@ public class TresterFrame extends JFrame {
 
 		tTableModel = new TresterTableModel(tresterverk‰ufe);
 		JTable tTabelle = new JTable(tTableModel);
+		tTabelle.getTableHeader().setFont(tTabelle.getFont().deriveFont(16f));
+		tTabelle.setFont(tTabelle.getFont().deriveFont(16f));
+		tTabelle.setRowHeight(25); 
 
 		TableColumn preisspalte = tTabelle.getColumnModel().getColumn(2);
 		preisspalte.setCellRenderer(new PreisCellRenderer());
@@ -75,9 +82,9 @@ public class TresterFrame extends JFrame {
 		datumsspalte.setCellRenderer(new DatumRechtsbuendigCellRenderer());
 
 		tTabelle.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
-		tTabelle.getColumnModel().getColumn(0).setPreferredWidth(150);
+		tTabelle.getColumnModel().getColumn(0).setPreferredWidth(250);
 		tTabelle.getColumnModel().getColumn(1).setPreferredWidth(100);
-		tTabelle.getColumnModel().getColumn(2).setPreferredWidth(150);
+		tTabelle.getColumnModel().getColumn(2).setPreferredWidth(180);
 		tTabelle.getColumnModel().getColumn(3).setPreferredWidth(100);
 		tTabelle.getColumnModel().getColumn(4).setPreferredWidth(150);
 
@@ -90,15 +97,20 @@ public class TresterFrame extends JFrame {
 
 		JPanel summenPanel = new JPanel();
 		summenPanel.setLayout(new GridLayout(2, 2));
+		
 		label = new JLabel("Kostensumme gesamt");
+		label.setFont(label.getFont().deriveFont(16f));
 		summenPanel.add(label);
 		label = new JLabel();
+		label.setFont(label.getFont().deriveFont(16f));
 		label.setText(String.valueOf(tTableModel.berechneKostenGesamt()) + " Ä");
 		System.out.println("Kosten und so " + tTableModel.berechneKostenGesamt());
 		summenPanel.add(label);
 		label = new JLabel("Literzahl gesamt");
+		label.setFont(label.getFont().deriveFont(16f));
 		summenPanel.add(label);
 		label = new JLabel();
+		label.setFont(label.getFont().deriveFont(16f));
 		label.setText(String.valueOf(tTableModel.berechneLiterGesamt()) + " L");
 		summenPanel.add(label);
 		

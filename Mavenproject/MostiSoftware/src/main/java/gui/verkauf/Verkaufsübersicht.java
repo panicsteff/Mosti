@@ -53,20 +53,23 @@ public class Verkaufsübersicht extends JFrame {
 		getContentPane().setLayout(null);
 
 		buttonAlleKunden = new JRadioButton("alle Kunden");
+		buttonAlleKunden.setFont(buttonAlleKunden.getFont().deriveFont(16f));
 		buttonAlleKunden.setSelected(true);
 		buttonAlleKunden.setModel(new ÜbersichtButtonModel(true));
 		buttonAlleKunden.addActionListener(new FirstButtonHandler());
-		buttonAlleKunden.setBounds(6, 35, 150, 23);
+		buttonAlleKunden.setBounds(6, 35, 200, 23);
 		getContentPane().add(buttonAlleKunden);
 
 		buttonBestimmterKunde = new JRadioButton("ein bestimmter Kunde");
+		buttonBestimmterKunde.setFont(buttonBestimmterKunde.getFont().deriveFont(16f));
 		buttonBestimmterKunde.setModel(new ÜbersichtButtonModel(false));
 		buttonBestimmterKunde.addActionListener(new FirstButtonHandler());
-		buttonBestimmterKunde.setBounds(6, 61, 150, 23);
+		buttonBestimmterKunde.setBounds(6, 61, 200, 23);
 		getContentPane().add(buttonBestimmterKunde);
 
 		lblKundenname = new JLabel("Kundenname:");
-		lblKundenname.setBounds(222, 61, 150, 19);
+		lblKundenname.setFont(lblKundenname.getFont().deriveFont(16f));
+		lblKundenname.setBounds(222, 61, 200, 19);
 		getContentPane().add(lblKundenname);
 		lblKundenname.setVisible(false);
 
@@ -77,7 +80,7 @@ public class Verkaufsübersicht extends JFrame {
 		ListCellRenderer lcr = new KundeListCellRenderer();
 		listKunde.setCellRenderer(lcr);
 		scrollpane = new JScrollPane(listKunde);
-		scrollpane.setBounds(330, 61, 150, 100);
+		scrollpane.setBounds(350, 61, 150, 100);
 		getContentPane().add(scrollpane);
 		scrollpane.setVisible(false);
 
@@ -87,22 +90,25 @@ public class Verkaufsübersicht extends JFrame {
 		group.setValue(true);
 
 		buttonBestimmterTag = new JRadioButton("ein bestimmter Tag");
+		buttonBestimmterTag.setFont(buttonBestimmterTag.getFont().deriveFont(16f));
 		buttonBestimmterTag.setModel(new ÜbersichtButtonModel(true));
 		buttonBestimmterTag.setSelected(true);
 		buttonBestimmterTag.addActionListener(new SecondButtonHandler());
-		buttonBestimmterTag.setBounds(6, 200, 150, 23);
+		buttonBestimmterTag.setBounds(6, 200, 200, 23);
 		getContentPane().add(buttonBestimmterTag);
 
 		buttonZeitraum = new JRadioButton("bestimmter Zeitraum");
+		buttonZeitraum.setFont(buttonZeitraum.getFont().deriveFont(16f));
 		buttonZeitraum.setModel(new ÜbersichtButtonModel(false));
 		buttonZeitraum.addActionListener(new SecondButtonHandler());
-		buttonZeitraum.setBounds(6, 229, 150, 23);
+		buttonZeitraum.setBounds(6, 229, 200, 23);
 		getContentPane().add(buttonZeitraum);
 
 		buttonGesamterZeitraum = new JRadioButton("gesamter Zeitraum");
+		buttonGesamterZeitraum.setFont(buttonGesamterZeitraum.getFont().deriveFont(16f));
 		buttonGesamterZeitraum.setModel(new ÜbersichtButtonModel(false));
 		buttonGesamterZeitraum.addActionListener(new SecondButtonHandler());
-		buttonGesamterZeitraum.setBounds(6, 280, 150, 23);
+		buttonGesamterZeitraum.setBounds(6, 280, 200, 23);
 		getContentPane().add(buttonGesamterZeitraum);
 
 		ÜbersichtButtonGroup group2 = new ÜbersichtButtonGroup();
@@ -112,44 +118,52 @@ public class Verkaufsübersicht extends JFrame {
 		group2.setValue(true);
 
 		lblDatum = new JLabel("Datum:");
-		lblDatum.setBounds(222, 200, 150, 14);
+		lblDatum.setFont(lblDatum.getFont().deriveFont(16f));
+		lblDatum.setBounds(222, 200, 200, 20);
 		getContentPane().add(lblDatum);
 
 		DateFormatter df = new DateFormatter(Formats.DATE_FORMAT);
 		NullableFormatter nf = new NullableFormatter(df);
 		txtDatum = new JFormattedTextField(nf);
-		txtDatum.setBounds(330, 200, 86, 20);
+		txtDatum.setFont(txtDatum.getFont().deriveFont(16f));
+		txtDatum.setBounds(350, 200, 150, 20);
 		getContentPane().add(txtDatum);
 		txtDatum.setColumns(10);
 
 		lblAnfangsdatum = new JLabel("Anfangsdatum:");
-		lblAnfangsdatum.setBounds(222, 229, 150, 14);
+		lblAnfangsdatum.setFont(lblAnfangsdatum.getFont().deriveFont(16f));
+		lblAnfangsdatum.setBounds(222, 229, 200, 20);
 		getContentPane().add(lblAnfangsdatum);
 		lblAnfangsdatum.setVisible(false);
 
 		txtAnfangsdatum = new JFormattedTextField(nf);
-		txtAnfangsdatum.setBounds(330, 229, 86, 20);
+		txtAnfangsdatum.setFont(txtAnfangsdatum.getFont().deriveFont(16f));
+		txtAnfangsdatum.setBounds(350, 229, 150, 20);
 		getContentPane().add(txtAnfangsdatum);
 		txtAnfangsdatum.setColumns(10);
 		txtAnfangsdatum.setVisible(false);
 
 		lblEnddatum = new JLabel("Enddatum:");
-		lblEnddatum.setBounds(222, 258, 150, 14);
+		lblEnddatum.setFont(lblEnddatum.getFont().deriveFont(16f));
+		lblEnddatum.setBounds(222, 258, 200, 20);
 		getContentPane().add(lblEnddatum);
 		lblEnddatum.setVisible(false);
 
 		txtEnddatum = new JFormattedTextField(nf);
-		txtEnddatum.setBounds(330, 258, 86, 20);
+		txtEnddatum.setFont(txtEnddatum.getFont().deriveFont(16f));
+		txtEnddatum.setBounds(350, 258, 150, 20);
 		getContentPane().add(txtEnddatum);
 		txtEnddatum.setColumns(10);
 		txtEnddatum.setVisible(false);
 
 		JButton okButton = new JButton("OK");
+		okButton.setFont(okButton.getFont().deriveFont(16f));
 		okButton.setBounds(6, 370, 150, 30);
 		getContentPane().add(okButton);
 		okButton.addActionListener(new MyOkHandler());
 
 		JButton abbButton = new JButton("Abbrechen");
+		abbButton.setFont(abbButton.getFont().deriveFont(16f));
 		abbButton.setBounds(200, 370, 150, 30);
 		getContentPane().add(abbButton);
 		abbButton.addActionListener(new MyAbbHandler());
