@@ -39,7 +39,8 @@ public class MitarbeiterBearbeitenDialog extends JDialog {
 		}
 
 		public void actionPerformed(ActionEvent e) {
-			if ( mitarbeiter.getBenutzername() != null && txtBenutzername.getText().equals("admin") == false
+			if (mitarbeiter.getBenutzername() != null
+					&& txtBenutzername.getText().equals("admin") == false
 					&& mitarbeiter.getBenutzername().equals("admin")) {
 				JOptionPane
 						.showMessageDialog(
@@ -68,7 +69,6 @@ public class MitarbeiterBearbeitenDialog extends JDialog {
 			mitarbeiter.setBenutzername(beautify(txtBenutzername.getText()));
 			dispose();
 
-			
 		}
 	}
 

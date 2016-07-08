@@ -15,38 +15,37 @@ import logik.schichtverwaltung.Schicht;
 import logik.schichtverwaltung.SchichtLogik;
 import logik.schichtverwaltung.SchichtTableModel;
 
+public class SchichtTagFrame extends JFrame {
 
-public class SchichtTagFrame extends JFrame{
-	
 	private static final long serialVersionUID = 1L;
 	private SchichtLogik schichtlogik;
 	private Date datum;
 
-	public SchichtTagFrame(Date d){
-		
+	public SchichtTagFrame(Date d) {
+
 		schichtlogik = new SchichtLogik();
 		datum = d;
-		
-		setSize(600,250);
+
+		setSize(600, 250);
 		setLocationRelativeTo(getParent());
 		String title = Formats.DATE_FORMAT.format(d);
 		setTitle(title);
 		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 		setLayout(null);
-		
-		for(int i=0; i<schichtlogik.getMitarbeiterProSchicht(); i++){
-			JLabel mitarbeiter = new JLabel("Mitarbeiter"+(i+1)+": ");
-			mitarbeiter.setBounds(0, 30+i*40, 100, 40);
+
+		for (int i = 0; i < schichtlogik.getMitarbeiterProSchicht(); i++) {
+			JLabel mitarbeiter = new JLabel("Mitarbeiter" + (i + 1) + ": ");
+			mitarbeiter.setBounds(0, 30 + i * 40, 100, 40);
 			mitarbeiter.setFont(mitarbeiter.getFont().deriveFont(16f));
 			add(mitarbeiter);
 		}
-		
-		
+
 		ArrayList<Schicht> liste = schichtlogik.schichtLaden(datum.getTime());
-		SchichtTableModel schichtmodel= new SchichtTableModel(liste);
+		SchichtTableModel schichtmodel = new SchichtTableModel(liste);
 		JTable schichtplan = new JTable(schichtmodel);
 		TableColumnModel tcm = schichtplan.getColumnModel();
-		schichtplan.getTableHeader().setFont(schichtplan.getFont().deriveFont(16f));
+		schichtplan.getTableHeader().setFont(
+				schichtplan.getFont().deriveFont(16f));
 		tcm.getColumn(0).setCellRenderer(new MitarbeiterNameCellRenderer());
 		tcm.getColumn(1).setCellRenderer(new MitarbeiterNameCellRenderer());
 		schichtplan.setFont(schichtplan.getFont().deriveFont(16f));
@@ -55,11 +54,8 @@ public class SchichtTagFrame extends JFrame{
 		JScrollPane scrollpane = new JScrollPane(schichtplan);
 		scrollpane.setBounds(100, 10, 400, 300);
 		add(scrollpane);
-		
 
-		
 		setVisible(true);
 	}
-	
-	
+
 }

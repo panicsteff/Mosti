@@ -44,9 +44,10 @@ public class TerminBearbeitenDialog extends JDialog {
 						return;
 					}
 				}
-				
+
 				String neueUhrzeit = uhrzeittxt.getText();
-				int intUhrzeit = tfc.terminStringNachInt(neueUhrzeit, neueDauer);
+				int intUhrzeit = tfc
+						.terminStringNachInt(neueUhrzeit, neueDauer);
 				if (intUhrzeit == -1) {
 					JOptionPane.showMessageDialog(TerminBearbeitenDialog.this,
 							"Bitte gebe Sie eine gültige Uhrzeit ein");
@@ -62,7 +63,7 @@ public class TerminBearbeitenDialog extends JDialog {
 							"Termin lieg außerhalb der Arbeitszeiten!");
 					return;
 				}
-				
+
 				boolean frei = tfc.neueTermindauerPrüfen(alleTermine, termin,
 						tfc.berechneAnzahlZeitslots(neueDauer), intUhrzeit);
 				if (frei == false) {
@@ -106,12 +107,10 @@ public class TerminBearbeitenDialog extends JDialog {
 							"Termin geändert. Der neue Termin dauert "
 									+ neueDauer + " Minuten");
 					dauertxt.setText(neueDauer + " min");
-				}
-				else{
+				} else {
 					JOptionPane.showMessageDialog(TerminBearbeitenDialog.this,
 							"Termin geändert");
 				}
-				
 
 			} else {
 				if (((termin.getMenge() + "").equals(mengetxt.getText()) == false)

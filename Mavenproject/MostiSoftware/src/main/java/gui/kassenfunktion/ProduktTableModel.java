@@ -1,4 +1,5 @@
 package gui.kassenfunktion;
+
 import java.util.ArrayList;
 
 import javax.swing.JOptionPane;
@@ -42,7 +43,7 @@ public class ProduktTableModel extends AbstractTableModel {
 	}
 
 	public int getColumnCount() {
-		return produktsortiment != null? produktsortiment.size() : 0;
+		return produktsortiment != null ? produktsortiment.size() : 0;
 	}
 
 	public Object getValueAt(int row, int col) {
@@ -55,8 +56,9 @@ public class ProduktTableModel extends AbstractTableModel {
 
 	public void setValueAt(Object eintrag, int row, int col) {
 
-		if ((Integer) eintrag <0){
-			JOptionPane.showMessageDialog(null, "Keine negativen Werte erlaubt!");
+		if ((Integer) eintrag < 0) {
+			JOptionPane.showMessageDialog(null,
+					"Keine negativen Werte erlaubt!");
 			return;
 		}
 		if (col >= 0 && col < produktAnzahl) {
@@ -71,19 +73,19 @@ public class ProduktTableModel extends AbstractTableModel {
 		return produkt;
 
 	}
-	
-	public double berechneTeilpreis(){
+
+	public double berechneTeilpreis() {
 		double sum = 0;
 		for (int i = 0; i < produktAnzahl; i++) {
 			sum = sum
-					+ ((Integer) (getValueAt(0, i)) * produktsortiment
-							.get(i).getPreis());
-			System.out.println((Integer) (getValueAt(0, i))
-					+ " und " + produktsortiment.get(i).getPreis());
+					+ ((Integer) (getValueAt(0, i)) * produktsortiment.get(i)
+							.getPreis());
+			System.out.println((Integer) (getValueAt(0, i)) + " und "
+					+ produktsortiment.get(i).getPreis());
 
 		}
-		sum = Math.round(sum*100);
-		sum = sum/100;
+		sum = Math.round(sum * 100);
+		sum = sum / 100;
 		return sum;
 	}
 

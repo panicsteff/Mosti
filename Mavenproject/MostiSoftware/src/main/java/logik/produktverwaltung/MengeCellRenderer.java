@@ -30,6 +30,3 @@ public class MengeCellRenderer extends DefaultTableCellRenderer.UIResource {
 	}
 
 }
-
-
-

@@ -3,22 +3,23 @@ package logik.trester;
 import java.util.Date;
 
 public class Tresterabrechnung {
-	
+
 	private int gesamtLiter;
 	private double preis;
 	private java.sql.Date date;
 	private int kundenID;
-	
-	public Tresterabrechnung(int kundenid, int literzahl, double preis, java.sql.Date date){
+
+	public Tresterabrechnung(int kundenid, int literzahl, double preis,
+			java.sql.Date date) {
 		setKundenID(kundenid);
 		gesamtLiter = literzahl;
 		this.preis = preis;
 		this.date = date;
 	}
-	
-//	private double berechnePreis(){
-//		return (getLiterzahl()/1000) * tv.getPreisPro1000L();
-//	}
+
+	// private double berechnePreis(){
+	// return (getLiterzahl()/1000) * tv.getPreisPro1000L();
+	// }
 
 	public double getPreis() {
 		return preis;
@@ -27,7 +28,7 @@ public class Tresterabrechnung {
 	public void setPreis(double preis) {
 		this.preis = preis;
 	}
-	
+
 	public int getLiterzahl() {
 		return gesamtLiter;
 	}
@@ -35,9 +36,9 @@ public class Tresterabrechnung {
 	public void setLiterzahl(int liter) {
 		this.gesamtLiter = liter;
 	}
-	
-	public void printTresterAbrechnung(){
-		System.out.println("Trester"+preis + " € für " + gesamtLiter + " L");
+
+	public void printTresterAbrechnung() {
+		System.out.println("Trester" + preis + " € für " + gesamtLiter + " L");
 	}
 
 	public Date getDate() {
@@ -58,13 +59,5 @@ public class Tresterabrechnung {
 	public void setKundenID(int kundenID) {
 		this.kundenID = kundenID;
 	}
-
-//	public Kunde getTresterkunde() {
-//		return tresterkunde;
-//	}
-//
-//	public void setTresterkunde(Kunde tresterkunde) {
-//		this.tresterkunde = tresterkunde;
-//	}
 
 }

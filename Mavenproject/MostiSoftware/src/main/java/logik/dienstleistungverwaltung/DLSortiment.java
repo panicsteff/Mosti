@@ -10,24 +10,21 @@ public class DLSortiment {
 	private static DienstleistungenDB dldb;
 
 	public DLSortiment() {
-		dldb = new DienstleistungenDB(); 
+		dldb = new DienstleistungenDB();
 		dliste = dldb.dienstleistungenLaden();
-		printDLSortiment();
+		//printDLSortiment();
 	}
-	
+
 	public void addDienstleistung(Dienstleistung d) {
 		d.setId(dldb.dienstleistungHinzufügen(d));
 		dliste.add(d);
 	}
-	
-//	public void dienstleistungenAktualisieren(){
-//		dldb.dlUpdaten(dliste);
-//	}
-	
-	public void dienstleistungAktualisieren(Dienstleistung d){
+
+
+	public void dienstleistungAktualisieren(Dienstleistung d) {
 		dldb.dienstleistungAktualisieren(d);
 	}
-	
+
 	public void deleteDienstleistung(Dienstleistung d) {
 		dldb.dienstleistungLöschen(d);
 		dliste.remove(d);
@@ -36,16 +33,12 @@ public class DLSortiment {
 	public ArrayList<Dienstleistung> getDLSortiment() {
 		return dliste;
 	}
-	
-	public void printDLSortiment(){
-		for(Dienstleistung d: dliste){
+
+	public void printDLSortiment() {
+		for (Dienstleistung d : dliste) {
 			System.out.print(d.getName() + " ");
 		}
 		System.out.println();
 	}
-	
+
 }
-
-
-
-

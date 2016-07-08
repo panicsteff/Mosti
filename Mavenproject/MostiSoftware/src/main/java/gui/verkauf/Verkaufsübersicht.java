@@ -61,7 +61,8 @@ public class Verkaufsübersicht extends JFrame {
 		getContentPane().add(buttonAlleKunden);
 
 		buttonBestimmterKunde = new JRadioButton("ein bestimmter Kunde");
-		buttonBestimmterKunde.setFont(buttonBestimmterKunde.getFont().deriveFont(16f));
+		buttonBestimmterKunde.setFont(buttonBestimmterKunde.getFont()
+				.deriveFont(16f));
 		buttonBestimmterKunde.setModel(new ÜbersichtButtonModel(false));
 		buttonBestimmterKunde.addActionListener(new FirstButtonHandler());
 		buttonBestimmterKunde.setBounds(6, 61, 200, 23);
@@ -90,7 +91,8 @@ public class Verkaufsübersicht extends JFrame {
 		group.setValue(true);
 
 		buttonBestimmterTag = new JRadioButton("ein bestimmter Tag");
-		buttonBestimmterTag.setFont(buttonBestimmterTag.getFont().deriveFont(16f));
+		buttonBestimmterTag.setFont(buttonBestimmterTag.getFont().deriveFont(
+				16f));
 		buttonBestimmterTag.setModel(new ÜbersichtButtonModel(true));
 		buttonBestimmterTag.setSelected(true);
 		buttonBestimmterTag.addActionListener(new SecondButtonHandler());
@@ -105,7 +107,8 @@ public class Verkaufsübersicht extends JFrame {
 		getContentPane().add(buttonZeitraum);
 
 		buttonGesamterZeitraum = new JRadioButton("gesamter Zeitraum");
-		buttonGesamterZeitraum.setFont(buttonGesamterZeitraum.getFont().deriveFont(16f));
+		buttonGesamterZeitraum.setFont(buttonGesamterZeitraum.getFont()
+				.deriveFont(16f));
 		buttonGesamterZeitraum.setModel(new ÜbersichtButtonModel(false));
 		buttonGesamterZeitraum.addActionListener(new SecondButtonHandler());
 		buttonGesamterZeitraum.setBounds(6, 280, 200, 23);
@@ -181,7 +184,7 @@ public class Verkaufsübersicht extends JFrame {
 																// an einem
 																// bestimmten
 																// Tag
-					if(prüfeDatumsauswahl(txtDatum) == false)
+					if (prüfeDatumsauswahl(txtDatum) == false)
 						return;
 					java.util.Date utilDate = (java.util.Date) txtDatum
 							.getValue();
@@ -193,7 +196,8 @@ public class Verkaufsübersicht extends JFrame {
 				else if (buttonZeitraum.isSelected() == true) { // alle Verkäufe
 																// in bestimmten
 																// Zeitraum
-					if(prüfeDatumsauswahl(txtAnfangsdatum) && prüfeDatumsauswahl(txtEnddatum) == false)
+					if (prüfeDatumsauswahl(txtAnfangsdatum)
+							&& prüfeDatumsauswahl(txtEnddatum) == false)
 						return;
 					java.util.Date utilDate = (java.util.Date) txtAnfangsdatum
 							.getValue();
@@ -223,13 +227,13 @@ public class Verkaufsübersicht extends JFrame {
 						return;
 					}
 					Kunde kunde = model.getKunde(index);
-					if(prüfeDatumsauswahl(txtDatum) == false)
+					if (prüfeDatumsauswahl(txtDatum) == false)
 						return;
 					java.util.Date utilDate = (java.util.Date) txtDatum
 							.getValue();
 					java.sql.Date date = new java.sql.Date(utilDate.getTime());
-					verkäufeframe = new VerkäufeFrame(verkaufsverwaltung
-							.ladeKundeinkaufTag2(kunde, date));
+					verkäufeframe = new VerkäufeFrame(
+							verkaufsverwaltung.ladeKundeinkaufTag2(kunde, date));
 				}
 
 				else if (buttonZeitraum.isSelected() == true) { // Verkäufe von
@@ -243,17 +247,18 @@ public class Verkaufsübersicht extends JFrame {
 						return;
 					}
 					Kunde kunde = model.getKunde(index);
-					if(prüfeDatumsauswahl(txtAnfangsdatum) && prüfeDatumsauswahl(txtEnddatum) == false)
+					if (prüfeDatumsauswahl(txtAnfangsdatum)
+							&& prüfeDatumsauswahl(txtEnddatum) == false)
 						return;
-					 
+
 					java.util.Date utilDate = (java.util.Date) txtAnfangsdatum
 							.getValue();
 					java.sql.Date date1 = new java.sql.Date(utilDate.getTime());
 					utilDate = (java.util.Date) txtEnddatum.getValue();
 					java.sql.Date date2 = new java.sql.Date(utilDate.getTime());
 					verkäufeframe = new VerkäufeFrame(
-							verkaufsverwaltung.ladeKundeneinkaufZeitraum2(kunde,
-									date1, date2));
+							verkaufsverwaltung.ladeKundeneinkaufZeitraum2(
+									kunde, date1, date2));
 				}
 
 				else { // Verkäufe von bestimmten Kunden insgesamt
@@ -283,9 +288,9 @@ public class Verkaufsübersicht extends JFrame {
 		else
 			return true;
 	}
-	
+
 	private boolean prüfeDatumsauswahl(JFormattedTextField textfield) {
-		if (textfield.getText().length()<= 0) {
+		if (textfield.getText().length() <= 0) {
 			JOptionPane.showMessageDialog(this,
 					"Bitte geben Sie ein Datum der Form dd.MM.yyyy ein.",
 					"Fehler", JOptionPane.ERROR_MESSAGE);
@@ -338,8 +343,8 @@ public class Verkaufsübersicht extends JFrame {
 		}
 	}
 
-//	public static void main(String[] args) {
-//		Verkaufsübersicht window = new Verkaufsübersicht();
-//
-//	}
+	// public static void main(String[] args) {
+	// Verkaufsübersicht window = new Verkaufsübersicht();
+	//
+	// }
 }

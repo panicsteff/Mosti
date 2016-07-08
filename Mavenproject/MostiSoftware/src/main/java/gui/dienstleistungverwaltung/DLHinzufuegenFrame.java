@@ -1,6 +1,5 @@
 package gui.dienstleistungverwaltung;
 
-
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -51,15 +50,11 @@ class DLHinzufuegenFrame extends JDialog {
 		JLabel preis = new JLabel("Preis pro Liter [€]:");
 		preis.setFont(preis.getFont().deriveFont(16f));
 		add(preis);
-//		NumberFormatter nuf = new NumberFormatter(FoFormat.pf);
-//		NullableFormatter nf = new NullableFormatter(nuf);
-//		add(txtPreis = new JFormattedTextField(nf));
 
-		txtPreis =new JFormattedTextField(new DecimalFormat("0.00"));
+		txtPreis = new JFormattedTextField(new DecimalFormat("0.00"));
 		txtPreis.setFont(txtPreis.getFont().deriveFont(16f));
-		//txtPreis =new JFormattedTextField(FoFormat.preisformat);
 		add(txtPreis);
-		
+
 		JButton okButton = new JButton("OK");
 		okButton.setFont(okButton.getFont().deriveFont(16f));
 		okButton.addActionListener(new MyOKHandler());
@@ -76,31 +71,30 @@ class DLHinzufuegenFrame extends JDialog {
 	private class MyOKHandler implements ActionListener {
 
 		public void actionPerformed(ActionEvent arg0) {
-			try{
-			Object preis_objekt = txtPreis.getValue();
-			Double preis = Double.parseDouble(preis_objekt+"");
-			
-			dienstleistung = new Dienstleistung(txtName.getText(), preis,0);
-			
-		}catch(Exception e){
-			JOptionPane.showMessageDialog(null,
-					"Bitte überprüfen Sie die Eingaben.", "Meldung",
-					JOptionPane.WARNING_MESSAGE);
-			e.printStackTrace();
-			return;
-			
-		}
+			try {
+				Object preis_objekt = txtPreis.getValue();
+				Double preis = Double.parseDouble(preis_objekt + "");
+
+				dienstleistung = new Dienstleistung(txtName.getText(), preis, 0);
+
+			} catch (Exception e) {
+				JOptionPane.showMessageDialog(null,
+						"Bitte überprüfen Sie die Eingaben.", "Meldung",
+						JOptionPane.WARNING_MESSAGE);
+				e.printStackTrace();
+				return;
+
+			}
 			dlSortiment.addDienstleistung(dienstleistung);
 			dispose();
 		}
 	}
 
 	private class MyAbbHandler implements ActionListener {
-		
+
 		public void actionPerformed(ActionEvent e) {
 			dispose();
 		}
 	}
 
 }
-

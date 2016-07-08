@@ -8,7 +8,7 @@ import persistenz.AdministratorDB;
 public class AdministratorLogik {
 
 	private AdministratorDB administratorDB;
-	
+
 	private static int zeitslot;
 	private static int arbeitsbeginn;
 	private static int arbeitsende;
@@ -21,29 +21,30 @@ public class AdministratorLogik {
 	private static double abfülldauer;
 	private static int backupdauer;
 	private static Date letztesBackup;
-	
-	public AdministratorLogik(){
+
+	public AdministratorLogik() {
 		administratorDB = new AdministratorDB();
-		
+
 		ArrayList<Integer> terminwerte = administratorDB.terminWerteLaden();
 		ArrayList<Integer> schichtwerte = administratorDB.schichtWerteLaden();
 		ArrayList<Double> presswerte = administratorDB.pressWerteLaden();
 		int backup = administratorDB.backupDauerLaden();
 		Date letztesBackup = administratorDB.letztesBackupLaden();
-		
+
 		setZeitslot(terminwerte.get(0));
 		setArbeitsbeginn(terminwerte.get(1));
 		setArbeitsende(terminwerte.get(2));
 		setAufteilung(terminwerte.get(3));
-		setZeilenanzahlProSeite((arbeitsende-arbeitsbeginn)/(zeitslot*aufteilung));
-		
+		setZeilenanzahlProSeite((arbeitsende - arbeitsbeginn)
+				/ (zeitslot * aufteilung));
+
 		setMitarbeiterProSchicht(schichtwerte.get(0));
 		setSchichtenProTag(schichtwerte.get(1));
-		setSchichtDauer((arbeitsende-arbeitsbeginn)/schichtenProTag);
-		
+		setSchichtDauer((arbeitsende - arbeitsbeginn) / schichtenProTag);
+
 		setPressdauer(presswerte.get(0));
 		setAbfülldauer(presswerte.get(1));
-		
+
 		setBackupdauer(backup);
 		setLetztesBackup(letztesBackup);
 	}
@@ -111,7 +112,7 @@ public class AdministratorLogik {
 	public static void setSchichtDauer(int schichtDauer) {
 		AdministratorLogik.schichtDauer = schichtDauer;
 	}
-	
+
 	public static double getPressdauer() {
 		return pressdauer;
 	}
@@ -127,7 +128,7 @@ public class AdministratorLogik {
 	public static void setAbfülldauer(double abfülldauer) {
 		AdministratorLogik.abfülldauer = abfülldauer;
 	}
-	
+
 	public static int getBackupdauer() {
 		return backupdauer;
 	}
@@ -135,7 +136,7 @@ public class AdministratorLogik {
 	public static void setBackupdauer(int backupdauer) {
 		AdministratorLogik.backupdauer = backupdauer;
 	}
-	
+
 	public static long getLetztesBackup() {
 		return letztesBackup.getTime();
 	}
@@ -144,60 +145,55 @@ public class AdministratorLogik {
 		AdministratorLogik.letztesBackup = letztesBackup;
 	}
 
-	
-	public void datenSpeichern(int anzeige, int zeitslot, int beginn, int ende, int mitProSchicht,
-			int schichtenProTag, double pressdauer, double abfülldauer, int backup){
+	public void datenSpeichern(int anzeige, int zeitslot, int beginn, int ende,
+			int mitProSchicht, int schichtenProTag, double pressdauer,
+			double abfülldauer, int backup) {
 		administratorDB.terminWerteSpeichern(anzeige, zeitslot, beginn, ende);
 		administratorDB.schichtWerteSpeichern(mitProSchicht, schichtenProTag);
 		administratorDB.pressWerteSpeichern(pressdauer, abfülldauer);
 		administratorDB.backupdauerSpeichern(backup);
 	}
-	
-	public static void letztesBackupSpeichern(long date){
+
+	public static void letztesBackupSpeichern(long date) {
 		AdministratorDB.letztesBackupSpeichern(new Date(date));
 	}
-	
-	public int terminNachInteger(String s){
+
+	public int terminNachInteger(String s) {
 		int index = s.indexOf(":");
-		String stunde  = s.substring(0, index);
-		String minuten = s.substring(index+1, s.length());
-		
+		String stunde = s.substring(0, index);
+		String minuten = s.substring(index + 1, s.length());
+
 		int stundenzahl;
 		int minutenzahl;
-		
-		try{
+
+		try {
 			stundenzahl = Integer.parseInt(stunde);
 			minutenzahl = Integer.parseInt(minuten);
-		} catch(Exception e){
+		} catch (Exception e) {
 			e.printStackTrace();
 			return -1;
 		}
-		int uhrzeit = stundenzahl*60 + minutenzahl;
-		
+		int uhrzeit = stundenzahl * 60 + minutenzahl;
+
 		return uhrzeit;
 	}
-	
-	public String terminInString(int uhrzeit){
-		int stunde = uhrzeit/60;
-		int minute = uhrzeit%60;
-		
+
+	public String terminInString(int uhrzeit) {
+		int stunde = uhrzeit / 60;
+		int minute = uhrzeit % 60;
+
 		String ausgabe = null;
-		if(stunde<10){
-			ausgabe = "0"+stunde;
-		}else{
-			ausgabe = stunde+"";
+		if (stunde < 10) {
+			ausgabe = "0" + stunde;
+		} else {
+			ausgabe = stunde + "";
 		}
-		if(minute<10){
+		if (minute < 10) {
 			ausgabe = ausgabe + ":0" + minute;
-		}else{
+		} else {
 			ausgabe = ausgabe + ":" + minute;
-		}		
+		}
 		return ausgabe;
 	}
 
-	
-
-	
-	
-	
 }

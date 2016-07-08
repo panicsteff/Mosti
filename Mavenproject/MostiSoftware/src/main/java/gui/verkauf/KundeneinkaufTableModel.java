@@ -46,15 +46,15 @@ class KundeneinkaufTableModel extends AbstractTableModel {
 		case 1:
 			return v.getPreis();
 		case 2:
-			if(v.getLiterzahl()!= 0)
+			if (v.getLiterzahl() != 0)
 				return v.getLiterzahl();
 			else
-			    return v.getVerkaufsMenge();
+				return v.getVerkaufsMenge();
 		case 3:
-			if(v.getLiterzahl()!= 0)
-				return v.getLiterzahl()*v.getPreis();
+			if (v.getLiterzahl() != 0)
+				return v.getLiterzahl() * v.getPreis();
 			else
-				return v.getVerkaufsMenge()*v.getPreis();
+				return v.getVerkaufsMenge() * v.getPreis();
 		default:
 			return null;
 		}
@@ -87,31 +87,31 @@ class KundeneinkaufTableModel extends AbstractTableModel {
 		vliste = liste;
 	}
 
-//	double berechneKostenGesamt() {
-//		double sum = 0;
-//		for (int i = 0; i < getRowCount(); i++) {
-//			sum = sum
-//					+ ((Integer) (getValueAt(i, 2)) * vliste.get(i)
-//							.getPreis())+ ((Integer) (getValueAt(i, 3)) * vliste.get(i)
-//									.getPreis());
-////			System.out.println((Integer) (getValueAt(0, i)) + " und "
-////					+ vliste.get(i).getPreis());
-//			System.out.println(vliste.get(i).getClass());
-//
-//		}
-//		sum = Math.round(sum * 100);
-//		sum = sum / 100;
-//		return sum;
-//
-//	}
-//
-//	int berechneLiterGesamt() {
-//		int sum = 0;
-//		for (int i = 0; i < getRowCount(); i++) {
-//			sum = sum + (Integer) getValueAt(i, 3);
-//			// System.out.println((Integer)getValueAt(0, i));
-//		}
-//		return sum;
-//	}
+	// double berechneKostenGesamt() {
+	// double sum = 0;
+	// for (int i = 0; i < getRowCount(); i++) {
+	// sum = sum
+	// + ((Integer) (getValueAt(i, 2)) * vliste.get(i)
+	// .getPreis())+ ((Integer) (getValueAt(i, 3)) * vliste.get(i)
+	// .getPreis());
+	// // System.out.println((Integer) (getValueAt(0, i)) + " und "
+	// // + vliste.get(i).getPreis());
+	// System.out.println(vliste.get(i).getClass());
+	//
+	// }
+	// sum = Math.round(sum * 100);
+	// sum = sum / 100;
+	// return sum;
+	//
+	// }
+	//
+	// int berechneLiterGesamt() {
+	// int sum = 0;
+	// for (int i = 0; i < getRowCount(); i++) {
+	// sum = sum + (Integer) getValueAt(i, 3);
+	// // System.out.println((Integer)getValueAt(0, i));
+	// }
+	// return sum;
+	// }
 
 }

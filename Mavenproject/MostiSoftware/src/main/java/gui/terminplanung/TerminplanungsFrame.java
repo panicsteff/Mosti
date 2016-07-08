@@ -10,39 +10,41 @@ import javax.swing.JOptionPane;
 
 import com.toedter.calendar.JCalendar;
 
-public class TerminplanungsFrame extends JFrame{
+public class TerminplanungsFrame extends JFrame {
 
 	private static final long serialVersionUID = 1L;
-	JCalendar calendar;	
-	
-	public TerminplanungsFrame(){
-		
+	JCalendar calendar;
+
+	public TerminplanungsFrame() {
+
 		setBounds(500, 200, 720, 550);
 		setLocationRelativeTo(getParent());
 		setTitle("Terminplanung");
 		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
-		
+
 		JButton neuerTermin = new JButton("Neuen Termin anlegen");
 		neuerTermin.setFont(neuerTermin.getFont().deriveFont(16f));
 		neuerTermin.setBounds(230, 420, 230, 30);
-		neuerTermin.addActionListener(new ActionListener(){
-			public void actionPerformed(ActionEvent e){
+		neuerTermin.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
 				Date d = null;
-				try{
+				try {
 					d = calendar.getDate();
-				}catch(Exception ex){
-					JOptionPane.showMessageDialog(null, ex.getMessage()+ "Datum");
+				} catch (Exception ex) {
+					JOptionPane.showMessageDialog(null, ex.getMessage()
+							+ "Datum");
 				}
-				try{
+				try {
 					new TerminHinzufügenFrame(d.getTime());
-				} catch(Exception ex){
-					JOptionPane.showMessageDialog(null, ex.getMessage()+ "PLanung");
+				} catch (Exception ex) {
+					JOptionPane.showMessageDialog(null, ex.getMessage()
+							+ "PLanung");
 				}
-				
+
 			}
 		});
 		add(neuerTermin);
-		
+
 		this.setLayout(null);
 
 		calendar = new JCalendar();
@@ -51,32 +53,34 @@ public class TerminplanungsFrame extends JFrame{
 		add(calendar);
 
 		JButton terminuebersicht = new JButton("Terminübersicht");
-		terminuebersicht.addActionListener(new ActionListener(){
-			public void actionPerformed(ActionEvent e){
+		terminuebersicht.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
 				Date d = null;
-				try{
+				try {
 					d = calendar.getDate();
-				}catch(Exception ex){
-					JOptionPane.showMessageDialog(null, ex.getMessage() + "Datum");
+				} catch (Exception ex) {
+					JOptionPane.showMessageDialog(null, ex.getMessage()
+							+ "Datum");
 				}
-				try{
-					new TagFrame(d.getTime(), 1, TerminplanungsFrame.this,0,0, false);
-				}catch (Exception ex){
-					JOptionPane.showMessageDialog(null, ex.getMessage() + "planung");
+				try {
+					new TagFrame(d.getTime(), 1, TerminplanungsFrame.this, 0,
+							0, false);
+				} catch (Exception ex) {
+					JOptionPane.showMessageDialog(null, ex.getMessage()
+							+ "planung");
 				}
-				
+
 			}
 		});
 		terminuebersicht.setFont(terminuebersicht.getFont().deriveFont(16f));
 		terminuebersicht.setBounds(30, 420, 180, 30);
 		add(terminuebersicht);
-		
+
 		setVisible(true);
 	}
-	
-	public static void main(String[] avgs){
+
+	public static void main(String[] avgs) {
 		new TerminplanungsFrame();
 	}
 
-	
 }

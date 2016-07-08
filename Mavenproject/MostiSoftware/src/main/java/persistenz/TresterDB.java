@@ -58,7 +58,7 @@ public class TresterDB {
 		}
 
 	}
-	
+
 	public void trestereinkaufHinzufügen(Tresterabrechnung ta) {
 
 		try {
@@ -72,12 +72,12 @@ public class TresterDB {
 					+ ", "
 					+ ta.getPreis()
 					+ ", {ts '"
-					+ ta.getDate() + " 00:00:00'} )");
+					+ ta.getDate()
+					+ " 00:00:00'} )");
 
 			s.executeUpdate();
 			s.close();
-			System.out.println("Trestereinkauf von Kunde "
-					+ ta.getKundenID()
+			System.out.println("Trestereinkauf von Kunde " + ta.getKundenID()
 					+ " wurde abgespeichert.");
 
 		} catch (Exception e) {
@@ -85,17 +85,19 @@ public class TresterDB {
 		}
 
 	}
-	
-	public ArrayList<Tresterabrechnung> ladeTresterabrechnungenInListe(ResultSet rs){
+
+	public ArrayList<Tresterabrechnung> ladeTresterabrechnungenInListe(
+			ResultSet rs) {
 		ArrayList<Tresterabrechnung> liste = new ArrayList<Tresterabrechnung>();
-		
+
 		try {
 			while (rs.next()) {
 				int kundenid = rs.getInt("kundenid");
 				int literzahl = rs.getInt("tresterliter");
 				Double preis = rs.getDouble("tresterpreis");
-				java.sql.Date verkaufsdatum = rs.getDate("tresterverkaufsdatum");
-				
+				java.sql.Date verkaufsdatum = rs
+						.getDate("tresterverkaufsdatum");
+
 				Tresterabrechnung ta = new Tresterabrechnung(kundenid,
 						literzahl, preis, verkaufsdatum);
 				liste.add(ta);
@@ -106,8 +108,6 @@ public class TresterDB {
 		return liste;
 	}
 
-
-
 	public ArrayList<Tresterabrechnung> ladeAlleTresterverkäufeZeitraumAusDB(
 			java.sql.Date date1, java.sql.Date date2) {
 		ArrayList<Tresterabrechnung> tliste = new ArrayList<Tresterabrechnung>();
@@ -115,7 +115,11 @@ public class TresterDB {
 			Statement s = conn.createStatement();
 			System.out.println("1. Schritt");
 			ResultSet rs = s
-					.executeQuery("SELECT * FROM [tresterverkäufe] WHERE tresterverkaufsdatum BETWEEN{ts '"+date1+" 00:00:00'} AND {ts '"+date2+" 23:59:59'}");
+					.executeQuery("SELECT * FROM [tresterverkäufe] WHERE tresterverkaufsdatum BETWEEN{ts '"
+							+ date1
+							+ " 00:00:00'} AND {ts '"
+							+ date2
+							+ " 23:59:59'}");
 			System.out.println("YEEES");
 
 			tliste = ladeTresterabrechnungenInListe(rs);
@@ -132,20 +136,7 @@ public class TresterDB {
 		ArrayList<Tresterabrechnung> tliste = new ArrayList<Tresterabrechnung>();
 		try {
 			Statement s = conn.createStatement();
-			ResultSet rs = s
-					.executeQuery("SELECT * FROM [tresterverkäufe]");
-			System.out.println("YEEES");
-
-//			while (rs.next()) {
-//				int kundenid = rs.getInt("kundenid");
-//				int literzahl = rs.getInt("tresterliter");
-//				Double preis = rs.getDouble("tresterpreis");
-//				java.sql.Date verkaufsdatum = rs.getDate("tresterverkaufsdatum");
-//				
-//				Tresterabrechnung ta = new Tresterabrechnung(kundenid,
-//						literzahl, preis, verkaufsdatum);
-//				tliste.add(ta);
-//			}
+			ResultSet rs = s.executeQuery("SELECT * FROM [tresterverkäufe]");
 			tliste = ladeTresterabrechnungenInListe(rs);
 			s.close();
 
@@ -155,7 +146,7 @@ public class TresterDB {
 
 		return tliste;
 	}
-	
+
 	public ArrayList<Tresterabrechnung> ladeTagesTresterVerkäufeAusDB(
 			java.sql.Date date) {
 		ArrayList<Tresterabrechnung> tliste = new ArrayList<Tresterabrechnung>();
@@ -163,7 +154,11 @@ public class TresterDB {
 			Statement s = conn.createStatement();
 			System.out.println("1. Schritt");
 			ResultSet rs = s
-					.executeQuery("SELECT * FROM [tresterverkäufe] WHERE tresterverkaufsdatum BETWEEN{ts '"+date+" 00:00:00'} AND {ts '"+date+" 23:59:59'}");
+					.executeQuery("SELECT * FROM [tresterverkäufe] WHERE tresterverkaufsdatum BETWEEN{ts '"
+							+ date
+							+ " 00:00:00'} AND {ts '"
+							+ date
+							+ " 23:59:59'}");
 			System.out.println("YEEES");
 			tliste = ladeTresterabrechnungenInListe(rs);
 			s.close();
@@ -176,25 +171,19 @@ public class TresterDB {
 
 	}
 
-	public ArrayList<Tresterabrechnung> ladeKundentrestereinkaufTagAusDB(Kunde kunde, java.sql.Date date) {
+	public ArrayList<Tresterabrechnung> ladeKundentrestereinkaufTagAusDB(
+			Kunde kunde, java.sql.Date date) {
 		ArrayList<Tresterabrechnung> tliste = new ArrayList<Tresterabrechnung>();
 
 		try {
 			Statement s = conn.createStatement();
 			ResultSet rs = s
 					.executeQuery("SELECT * FROM [tresterverkäufe] WHERE kundenid = "
-							+ kunde.getKundenID() + " AND tresterverkaufsdatum BETWEEN {ts '"+date+" 00:00:00'} AND {ts '"+date+" 23:59:59'} ");
+							+ kunde.getKundenID()
+							+ " AND tresterverkaufsdatum BETWEEN {ts '"
+							+ date
+							+ " 00:00:00'} AND {ts '" + date + " 23:59:59'} ");
 
-//			while (rs.next()) {
-//				int kundenid = rs.getInt("kundenid");
-//				int literzahl = rs.getInt("tresterliter");
-//				Double preis = rs.getDouble("tresterpreis");
-//				java.sql.Date verkaufsdatum = rs.getDate("tresterverkaufsdatum");
-//				
-//				Tresterabrechnung ta = new Tresterabrechnung(kundenid,
-//						literzahl, preis, verkaufsdatum);
-//				tliste.add(ta);
-//			}
 			tliste = ladeTresterabrechnungenInListe(rs);
 			s.close();
 
@@ -207,25 +196,18 @@ public class TresterDB {
 
 	public ArrayList<Tresterabrechnung> ladeKundenTrestereinkaufZeitraumAusDB(
 			Kunde kunde, java.sql.Date date1, java.sql.Date date2) {
-		
+
 		ArrayList<Tresterabrechnung> tliste = new ArrayList<Tresterabrechnung>();
 
 		try {
 			Statement s = conn.createStatement();
 			ResultSet rs = s
 					.executeQuery("SELECT * FROM [tresterverkäufe] WHERE kundenid = "
-							+ kunde.getKundenID() + " AND tresterverkaufsdatum BETWEEN{ts '"+date1+" 00:00:00'} AND {ts '"+date2+" 23:59:59'} ");
+							+ kunde.getKundenID()
+							+ " AND tresterverkaufsdatum BETWEEN{ts '"
+							+ date1
+							+ " 00:00:00'} AND {ts '" + date2 + " 23:59:59'} ");
 
-//			while (rs.next()) {
-//				int kundenid = rs.getInt("kundenid");
-//				int literzahl = rs.getInt("tresterliter");
-//				Double preis = rs.getDouble("tresterpreis");
-//				java.sql.Date verkaufsdatum = rs.getDate("tresterverkaufsdatum");
-//
-//				Tresterabrechnung ta = new Tresterabrechnung(kundenid,
-//						literzahl, preis, verkaufsdatum);
-//				tliste.add(ta);
-//			}
 			tliste = ladeTresterabrechnungenInListe(rs);
 			s.close();
 
@@ -242,7 +224,8 @@ public class TresterDB {
 		ArrayList<Tresterabrechnung> tliste = new ArrayList<Tresterabrechnung>();
 		try {
 			Statement s = conn.createStatement();
-			ResultSet rs = s.executeQuery("SELECT * FROM [tresterverkäufe] WHERE kundenid = "
+			ResultSet rs = s
+					.executeQuery("SELECT * FROM [tresterverkäufe] WHERE kundenid = "
 							+ kunde.getKundenID() + "");
 			tliste = ladeTresterabrechnungenInListe(rs);
 			s.close();
@@ -253,7 +236,5 @@ public class TresterDB {
 
 		return tliste;
 	}
-
-	
 
 }

@@ -13,7 +13,6 @@ import logik.verkaufsverwaltung.VerkaufspositionPlus;
 @SuppressWarnings("serial")
 class VerkäufeTableModel extends AbstractTableModel {
 
-	//private ArrayList<Verkaufsposition> vliste;
 	private ArrayList<VerkaufspositionPlus> vliste;
 	private KundeDB kundedb;
 
@@ -105,11 +104,10 @@ class VerkäufeTableModel extends AbstractTableModel {
 		double sum = 0;
 		for (int i = 0; i < getRowCount(); i++) {
 			sum = sum
-					+ ((Integer) (getValueAt(i, 2)) * vliste.get(i)
-							.getPreis())+ ((Integer) (getValueAt(i, 3)) * vliste.get(i)
-									.getPreis());
-//			System.out.println((Integer) (getValueAt(0, i)) + " und "
-//					+ vliste.get(i).getPreis());
+					+ ((Integer) (getValueAt(i, 2)) * vliste.get(i).getPreis())
+					+ ((Integer) (getValueAt(i, 3)) * vliste.get(i).getPreis());
+			// System.out.println((Integer) (getValueAt(0, i)) + " und "
+			// + vliste.get(i).getPreis());
 
 		}
 		sum = Math.round(sum * 100);

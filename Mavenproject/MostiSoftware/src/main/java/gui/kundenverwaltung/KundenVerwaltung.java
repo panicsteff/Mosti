@@ -31,7 +31,7 @@ import logik.kundenverwaltung.KundeTableModel;
 import persistenz.KundeDB;
 
 public class KundenVerwaltung extends JFrame {
-	
+
 	private static final long serialVersionUID = 1L;
 	private KundeTableModel kundeTableModel;
 	private ListSelectionModel kundeSelectionModel;
@@ -66,23 +66,24 @@ public class KundenVerwaltung extends JFrame {
 				dispose();
 			}
 		});
-		
-		
+
 		menubar.add(menu = new JMenu("Bearbeiten"));
 		menu.setFont(menu.getFont().deriveFont(16f));
-		
+
 		miKundeHinzufuegen = new JMenuItem("Neuen Kunden hinzufügen");
-		miKundeHinzufuegen.setFont(miKundeHinzufuegen.getFont().deriveFont(16f));
+		miKundeHinzufuegen
+				.setFont(miKundeHinzufuegen.getFont().deriveFont(16f));
 		miKundeHinzufuegen.setEnabled(true);
 		menu.add(miKundeHinzufuegen);
-		miKundeHinzufuegen.addActionListener(new ActionListener(){
-			public void actionPerformed(ActionEvent e){
-				new KundeHinzufügenFrame(KundenVerwaltung.this, kundeTableModel.getKunden());
+		miKundeHinzufuegen.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				new KundeHinzufügenFrame(KundenVerwaltung.this, kundeTableModel
+						.getKunden());
 				kundeTableModel.fireTableDataChanged();
 				sortiereKundenliste(kundenliste);
 			}
 		});
-		
+
 		miKundeBearbeiten = new JMenuItem("Kunde bearbeiten");
 		miKundeBearbeiten.setFont(miKundeBearbeiten.getFont().deriveFont(16f));
 		miKundeBearbeiten.setEnabled(false);
@@ -92,19 +93,21 @@ public class KundenVerwaltung extends JFrame {
 				editKunde();
 			}
 		});
-		
+
 		menu.add(new JSeparator());
-		
-		
+
 		miKundeLoeschen = new JMenuItem("Kunde löschen");
 		miKundeLoeschen.setFont(miKundeLoeschen.getFont().deriveFont(16f));
 		miKundeLoeschen.setEnabled(false);
 		menu.add(miKundeLoeschen);
-		miKundeLoeschen.addActionListener(new ActionListener(){
-			public void actionPerformed(ActionEvent e){
+		miKundeLoeschen.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
 				int pos = kundeSelectionModel.getMinSelectionIndex();
 				Kunde k = kundeTableModel.getKunde(pos);
-				int result = JOptionPane.showConfirmDialog(KundenVerwaltung.this, "Möchten Sie den Kunden " + k.getVorname() + " " + k.getNachname() + " wirklich löschen?",
+				int result = JOptionPane.showConfirmDialog(
+						KundenVerwaltung.this,
+						"Möchten Sie den Kunden " + k.getVorname() + " "
+								+ k.getNachname() + " wirklich löschen?",
 						"Frage", JOptionPane.YES_NO_OPTION);
 				if (result != JOptionPane.YES_OPTION)
 					return;
@@ -115,7 +118,6 @@ public class KundenVerwaltung extends JFrame {
 				kundeTableModel.fireTableRowsDeleted(pos, pos);
 			}
 		});
-
 
 		kundeTableModel = new KundeTableModel();
 		kundenliste = new ArrayList<Kunde>();
@@ -130,12 +132,12 @@ public class KundenVerwaltung extends JFrame {
 		table.setSize(800, 300);
 		table.setAutoResizeMode(JTable.AUTO_RESIZE_LAST_COLUMN);
 		TableColumnModel tcm = table.getColumnModel();
-		tcm.getColumn(0).setMinWidth(200);	
-		tcm.getColumn(1).setMinWidth(200);	
-		tcm.getColumn(2).setMinWidth(200);	
-		tcm.getColumn(3).setMinWidth(100);	
-		tcm.getColumn(4).setMinWidth(50);	
-		tcm.getColumn(5).setMinWidth(200);	
+		tcm.getColumn(0).setMinWidth(200);
+		tcm.getColumn(1).setMinWidth(200);
+		tcm.getColumn(2).setMinWidth(200);
+		tcm.getColumn(3).setMinWidth(100);
+		tcm.getColumn(4).setMinWidth(50);
+		tcm.getColumn(5).setMinWidth(200);
 		tcm.getColumn(6).setMinWidth(200);
 		table.setRowHeight(30);
 		table.setFont(table.getFont().deriveFont(16f));
@@ -143,7 +145,6 @@ public class KundenVerwaltung extends JFrame {
 				table.getTableHeader().getFont().deriveFont(16f));
 		kundeSelectionModel = table.getSelectionModel();
 		table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-		
 
 		kundeSelectionModel
 				.addListSelectionListener(new ListSelectionListener() {
@@ -166,7 +167,6 @@ public class KundenVerwaltung extends JFrame {
 			}
 		});
 
-		
 		table.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
 		JScrollPane scrollpane = new JScrollPane(table);
 		JPanel titlepane = new JPanel();
@@ -178,13 +178,17 @@ public class KundenVerwaltung extends JFrame {
 		add(titlepane);
 		setVisible(true);
 	}
-	
-	public void sortiereKundenliste(ArrayList<Kunde> liste){            // alphabetische Sortierung nach Nachnamen der Kunden
+
+	public void sortiereKundenliste(ArrayList<Kunde> liste) { // alphabetische
+																// Sortierung
+																// nach
+																// Nachnamen der
+																// Kunden
 		Collections.sort(liste, new Comparator<Kunde>() {
 			public int compare(Kunde o1, Kunde o2) {
 				return o1.getNachname().compareTo(o2.getNachname());
 			}
-			
+
 		});
 	}
 
@@ -195,10 +199,9 @@ public class KundenVerwaltung extends JFrame {
 		sortiereKundenliste(kundenliste);
 		kundeDb.kundenSpeichern(kundeTableModel.getKunden());
 	}
-	
-	public static void main(String[] avgs){
+
+	public static void main(String[] avgs) {
 		new KundenVerwaltung();
 	}
-
 
 }

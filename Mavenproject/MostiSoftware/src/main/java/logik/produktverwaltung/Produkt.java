@@ -32,7 +32,7 @@ public class Produkt extends Verkaufsposition {
 					JOptionPane.WARNING_MESSAGE);
 		}
 	}
-	
+
 	public void setLiterzahl(int literzahl) {
 		super.setLiterzahl(liter);
 	}
@@ -52,6 +52,5 @@ public class Produkt extends Verkaufsposition {
 	public void setAbfüllmaterial(boolean isAbfüllmaterial) {
 		this.isAbfüllmaterial = isAbfüllmaterial;
 	}
-
 
 }

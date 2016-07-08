@@ -14,8 +14,8 @@ import logik.schichtverwaltung.Schicht;
 public class SchichtplanDB {
 
 	private Connection conn;
-	
-	public SchichtplanDB(){
+
+	public SchichtplanDB() {
 		try {
 			conn = DriverManager
 					.getConnection("jdbc:ucanaccess://./Mosti-Datenbank.mdb");
@@ -23,19 +23,20 @@ public class SchichtplanDB {
 			e.printStackTrace();
 		}
 	}
-	
-	public ArrayList<Schicht> schichtLaden(Date datum){
-		
+
+	public ArrayList<Schicht> schichtLaden(Date datum) {
+
 		ArrayList<Schicht> liste = new ArrayList<Schicht>();
-		
+
 		try {
 			Statement st = conn.createStatement();
 			ResultSet rs = st
 					.executeQuery("SELECT * FROM [schichtplan] Where datum between {ts '"
 							+ datum
 							+ " 00:00:00'} AND {ts '"
-							+ datum + " 23:59:59'} ");
-			
+							+ datum
+							+ " 23:59:59'} ");
+
 			while (rs.next()) {
 				Schicht s = new Schicht();
 				s.setDatum(datum);
@@ -43,17 +44,17 @@ public class SchichtplanDB {
 				s.addSchichtId(rs.getShort("ID"));
 				s.setUhrzeit(rs.getInt("Uhrzeit"));
 				liste.add(s);
-				
+
 			}
 			st.close();
 
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		
+
 		return liste;
 	}
-	
+
 	public void schichtSpeichern(Date datum, int mitarbeiterId, int uhrzeit) {
 
 		try {
@@ -78,8 +79,9 @@ public class SchichtplanDB {
 		String name = new String();
 		try {
 			Statement s = conn.createStatement();
-			ResultSet rs = s.executeQuery("SELECT vorname, nachname FROM [mitarbeiter] Where id = "
-					+ mitarbeiterId);
+			ResultSet rs = s
+					.executeQuery("SELECT vorname, nachname FROM [mitarbeiter] Where id = "
+							+ mitarbeiterId);
 
 			while (rs.next()) {
 				name = rs.getString("Nachname") + ", "
@@ -95,62 +97,62 @@ public class SchichtplanDB {
 
 	}
 
-	public ArrayList<Integer> mitarbeiterIdLaden(String name){
-		
+	public ArrayList<Integer> mitarbeiterIdLaden(String name) {
+
 		ArrayList<Integer> mitarbeiterId = new ArrayList<Integer>();
-		
+
 		try {
 			Statement s = conn.createStatement();
-			ResultSet rs = s.executeQuery("SELECT * FROM [mitarbeiter] where nachname like '" + name + "%'");
+			ResultSet rs = s
+					.executeQuery("SELECT * FROM [mitarbeiter] where nachname like '"
+							+ name + "%'");
 
-			while(rs.next()){
+			while (rs.next()) {
 				Integer i = rs.getInt("ID");
 				mitarbeiterId.add(i);
 			}
-			
+
 			s.close();
 
 		} catch (Exception e) {
 			e.printStackTrace();
 
 		}
-		
+
 		return mitarbeiterId;
 	}
-	
-	public void schichtUpdaten(int schichtId, int mitarbeiterId){
-		
+
+	public void schichtUpdaten(int schichtId, int mitarbeiterId) {
+
 		try {
 			PreparedStatement s = null;
 			s = conn.prepareStatement("update schichtplan set mitarbeiter = ? where ID = ?");
-			
+
 			s.setInt(1, mitarbeiterId);
 			s.setInt(2, schichtId);
-			
+
 			s.executeUpdate();
 			s.close();
-			
-			
+
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
-	
-	public void schichtLöschen(int schichtId){
-		
+
+	public void schichtLöschen(int schichtId) {
+
 		try {
 			PreparedStatement s = null;
 			s = conn.prepareStatement("delete from schichtplan where ID = ?");
-			
+
 			s.setInt(1, schichtId);
-			
+
 			s.executeUpdate();
 			s.close();
-			
-			
+
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
-	
+
 }

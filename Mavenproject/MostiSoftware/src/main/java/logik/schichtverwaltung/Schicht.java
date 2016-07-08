@@ -3,32 +3,30 @@ package logik.schichtverwaltung;
 import java.sql.Date;
 import java.util.ArrayList;
 
-
 public class Schicht {
-	
+
 	private ArrayList<Integer> mitarbeiterIds;
 	private ArrayList<Integer> schichtId;
 	private int uhrzeit;
 	private Date datum;
-		
-	
-	public Schicht(){
+
+	public Schicht() {
 		mitarbeiterIds = new ArrayList<Integer>();
 		schichtId = new ArrayList<Integer>();
-		}
-	
-	public Integer getMitarbeiterId(int reihe){
-		if(reihe >= mitarbeiterIds.size() || reihe < 0){
-			return 0;
-		}else
-		return mitarbeiterIds.get(reihe);
 	}
 
-	public void addMitarbeiterId(int id){
+	public Integer getMitarbeiterId(int reihe) {
+		if (reihe >= mitarbeiterIds.size() || reihe < 0) {
+			return 0;
+		} else
+			return mitarbeiterIds.get(reihe);
+	}
+
+	public void addMitarbeiterId(int id) {
 		mitarbeiterIds.add(id);
 	}
-	
-	public int getAnzahlMitarbeiter(){
+
+	public int getAnzahlMitarbeiter() {
 		return mitarbeiterIds.size();
 	}
 

@@ -4,8 +4,6 @@ import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.text.DecimalFormat;
-import java.util.List;
-
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JDialog;
@@ -14,10 +12,6 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
-import javax.swing.text.NumberFormatter;
-
-import logik.kundenverwaltung.NullableFormatter;
-import logik.produktverwaltung.FoFormat;
 import logik.produktverwaltung.Produkt;
 import logik.produktverwaltung.ProduktSortiment;
 
@@ -30,21 +24,13 @@ class ProduktHinzufuegenFrame extends JDialog {
 	private JFormattedTextField txtUntergrenze;
 	private JCheckBox cBoxIsAbfuellmaterial;
 	private Produkt produkt;
-//	private List<Produkt> aliste;
-//	private List<Produkt> zliste;
-	private List<Produkt> pliste;
+	//private List<Produkt> pliste;
 	private ProduktSortiment pSortiment;
 
-	//ProduktHinzufuegenFrame(JFrame parent, List<Produkt> a_auflistung, List<Produkt> z_auflistung) {
-	//ProduktHinzufuegenFrame(JFrame parent, List<Produkt> pliste) {
 		ProduktHinzufuegenFrame(JFrame parent, ProduktSortiment p) {
 
 		super(parent);
 		this.pSortiment = p;
-		
-//		this.aliste = a_auflistung;
-//		this.zliste = z_auflistung;
-		//this.pliste = pliste;
 				
 		setTitle("Neues Produkt erstellen");
 		setSize(400, 300);
@@ -63,10 +49,6 @@ class ProduktHinzufuegenFrame extends JDialog {
 
 		add(label = new JLabel("Einzelpreis [€]:"));
 		label.setFont(label.getFont().deriveFont(16f));
-//		NumberFormatter nuf = new NumberFormatter(FoFormat.pf);
-//		NullableFormatter nf = new NullableFormatter(nuf);
-//		add(txtPreis = new JFormattedTextField(nf));
-		//txtPreis =new JFormattedTextField(FoFormat.preisformat);
 		txtPreis =new JFormattedTextField(new DecimalFormat("0.00"));
 		txtPreis.setFont(txtPreis.getFont().deriveFont(16f));
 		add(txtPreis);
@@ -115,16 +97,8 @@ class ProduktHinzufuegenFrame extends JDialog {
 				return;
 				
 			}
-			//pliste.add(produkt);
 			pSortiment.addProdukt(produkt);
-			
-//			if(produkt.isAbfüllmaterial()== true)
-//				aliste.add(produkt);
-//			else
-//				zliste.add(produkt);
-			
 			dispose();
-
 		}
 
 

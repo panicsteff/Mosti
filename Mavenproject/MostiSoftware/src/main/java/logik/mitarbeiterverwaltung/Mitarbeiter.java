@@ -14,8 +14,8 @@ public class Mitarbeiter {
 	private String passwort;
 
 	public Mitarbeiter(String nachname, String vorname, String strasse,
-			String hausnummer, String plz, String stadt, String telefonnummer, int mitarbeiterId, String benutzername, String passwort)
-	{
+			String hausnummer, String plz, String stadt, String telefonnummer,
+			int mitarbeiterId, String benutzername, String passwort) {
 		setNachname(nachname);
 		setVorname(vorname);
 		setStrasse(strasse);
@@ -27,9 +27,9 @@ public class Mitarbeiter {
 		setBenutzername(benutzername);
 		setPasswort(passwort);
 	}
-	
-	public Mitarbeiter(){
-		
+
+	public Mitarbeiter() {
+
 	}
 
 	public String getNachname() {
@@ -103,12 +103,12 @@ public class Mitarbeiter {
 	public void setMitarbeiterID(int mitarbeiterID) {
 		this.mitarbeiterID = mitarbeiterID;
 	}
-	
-	public void setPasswort(String passwort){
+
+	public void setPasswort(String passwort) {
 		this.passwort = passwort;
 	}
-	
-	public String getPasswort(){
+
+	public String getPasswort() {
 		return passwort;
 	}
 }

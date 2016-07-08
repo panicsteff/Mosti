@@ -11,12 +11,12 @@ public class Termin {
 	private int uhrzeit;
 	private int menge;
 	private boolean inFlaschen;
-	
-	public int getKundenId(){
+
+	public int getKundenId() {
 		return kundenId;
 	}
 
-	public void setKundenId(int ID){
+	public void setKundenId(int ID) {
 		kundenId = ID;
 	}
 
@@ -67,6 +67,5 @@ public class Termin {
 	public void setInFlaschen(boolean inFlaschen) {
 		this.inFlaschen = inFlaschen;
 	}
-
 
 }
