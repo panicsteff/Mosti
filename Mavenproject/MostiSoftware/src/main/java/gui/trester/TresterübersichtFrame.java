@@ -26,9 +26,8 @@ import logik.kundenverwaltung.Kunde;
 import logik.kundenverwaltung.NullableFormatter;
 import logik.trester.Tresterverwaltung;
 
-
 @SuppressWarnings("serial")
-public class TresterübersichtFrame  extends JFrame {
+public class TresterübersichtFrame extends JFrame { 
 
 	private JTextField txtKundenname;
 	private JFormattedTextField txtDatum;
@@ -64,7 +63,8 @@ public class TresterübersichtFrame  extends JFrame {
 		getContentPane().add(buttonAlleKunden);
 
 		buttonBestimmterKunde = new JRadioButton("ein bestimmter Kunde");
-		buttonBestimmterKunde.setFont(buttonBestimmterKunde.getFont().deriveFont(16f));
+		buttonBestimmterKunde.setFont(buttonBestimmterKunde.getFont()
+				.deriveFont(16f));
 		buttonBestimmterKunde.setModel(new ÜbersichtButtonModel(false));
 		buttonBestimmterKunde.addActionListener(new FirstButtonHandler());
 		buttonBestimmterKunde.setBounds(6, 61, 200, 23);
@@ -83,7 +83,7 @@ public class TresterübersichtFrame  extends JFrame {
 		ListCellRenderer lcr = new KundeListCellRenderer();
 		listKunde.setCellRenderer(lcr);
 		scrollpane = new JScrollPane(listKunde);
-		
+
 		scrollpane.setBounds(350, 61, 150, 100);
 		getContentPane().add(scrollpane);
 		scrollpane.setVisible(false);
@@ -94,7 +94,8 @@ public class TresterübersichtFrame  extends JFrame {
 		group.setValue(true);
 
 		buttonBestimmterTag = new JRadioButton("ein bestimmter Tag");
-		buttonBestimmterTag.setFont(buttonBestimmterTag.getFont().deriveFont(16f));
+		buttonBestimmterTag.setFont(buttonBestimmterTag.getFont().deriveFont(
+				16f));
 		buttonBestimmterTag.setModel(new ÜbersichtButtonModel(true));
 		buttonBestimmterTag.setSelected(true);
 		buttonBestimmterTag.addActionListener(new SecondButtonHandler());
@@ -109,7 +110,8 @@ public class TresterübersichtFrame  extends JFrame {
 		getContentPane().add(buttonZeitraum);
 
 		buttonGesamterZeitraum = new JRadioButton("gesamter Zeitraum");
-		buttonGesamterZeitraum.setFont(buttonGesamterZeitraum.getFont().deriveFont(16f));
+		buttonGesamterZeitraum.setFont(buttonGesamterZeitraum.getFont()
+				.deriveFont(16f));
 		buttonGesamterZeitraum.setModel(new ÜbersichtButtonModel(false));
 		buttonGesamterZeitraum.addActionListener(new SecondButtonHandler());
 		buttonGesamterZeitraum.setBounds(6, 280, 200, 23);
@@ -173,7 +175,7 @@ public class TresterübersichtFrame  extends JFrame {
 		abbButton.addActionListener(new MyAbbHandler());
 
 		setVisible(true);
-		
+
 	}
 
 	private class MyOkTresterHandler implements ActionListener {
@@ -186,7 +188,7 @@ public class TresterübersichtFrame  extends JFrame {
 																// an einem
 																// bestimmten
 																// Tag
-					if(prüfeDatumsauswahl(txtDatum) == false)
+					if (prüfeDatumsauswahl(txtDatum) == false)
 						return;
 					java.util.Date utilDate = (java.util.Date) txtDatum
 							.getValue();
@@ -198,7 +200,8 @@ public class TresterübersichtFrame  extends JFrame {
 				else if (buttonZeitraum.isSelected() == true) { // alle Verkäufe
 																// in bestimmten
 																// Zeitraum
-					if(prüfeDatumsauswahl(txtAnfangsdatum) && prüfeDatumsauswahl(txtEnddatum) == false)
+					if (prüfeDatumsauswahl(txtAnfangsdatum)
+							&& prüfeDatumsauswahl(txtEnddatum) == false)
 						return;
 					java.util.Date utilDate = (java.util.Date) txtAnfangsdatum
 							.getValue();
@@ -206,8 +209,8 @@ public class TresterübersichtFrame  extends JFrame {
 					utilDate = (java.util.Date) txtEnddatum.getValue();
 					java.sql.Date date2 = new java.sql.Date(utilDate.getTime());
 					tresterframe = new TresterFrame(
-							tresterverwaltung.ladeAlleTresterverkäufeZeitraum(date1,
-									date2));
+							tresterverwaltung.ladeAlleTresterverkäufeZeitraum(
+									date1, date2));
 				}
 
 				else { // alle Verkäufe insgesamt
@@ -228,13 +231,14 @@ public class TresterübersichtFrame  extends JFrame {
 						return;
 					}
 					Kunde kunde = model.getKunde(index);
-					if(prüfeDatumsauswahl(txtDatum) == false)
+					if (prüfeDatumsauswahl(txtDatum) == false)
 						return;
 					java.util.Date utilDate = (java.util.Date) txtDatum
 							.getValue();
 					java.sql.Date date = new java.sql.Date(utilDate.getTime());
-					tresterframe = new TresterFrame(tresterverwaltung
-							.ladeKundentrestereinkaufTag(kunde, date));
+					tresterframe = new TresterFrame(
+							tresterverwaltung.ladeKundentrestereinkaufTag(
+									kunde, date));
 				}
 
 				else if (buttonZeitraum.isSelected() == true) { // Verkäufe von
@@ -248,17 +252,18 @@ public class TresterübersichtFrame  extends JFrame {
 						return;
 					}
 					Kunde kunde = model.getKunde(index);
-					if(prüfeDatumsauswahl(txtAnfangsdatum) && prüfeDatumsauswahl(txtEnddatum) == false)
+					if (prüfeDatumsauswahl(txtAnfangsdatum)
+							&& prüfeDatumsauswahl(txtEnddatum) == false)
 						return;
-					 
+
 					java.util.Date utilDate = (java.util.Date) txtAnfangsdatum
 							.getValue();
 					java.sql.Date date1 = new java.sql.Date(utilDate.getTime());
 					utilDate = (java.util.Date) txtEnddatum.getValue();
 					java.sql.Date date2 = new java.sql.Date(utilDate.getTime());
 					tresterframe = new TresterFrame(
-							tresterverwaltung.ladeKundenTrestereinkaufZeitraum(kunde,
-									date1, date2));
+							tresterverwaltung.ladeKundenTrestereinkaufZeitraum(
+									kunde, date1, date2));
 				}
 
 				else { // Verkäufe von bestimmten Kunden insgesamt
@@ -269,7 +274,8 @@ public class TresterübersichtFrame  extends JFrame {
 					}
 					Kunde kunde = model.getKunde(index);
 					tresterframe = new TresterFrame(
-							tresterverwaltung.ladeAlleTresterEinkäufeVonKunde(kunde));
+							tresterverwaltung
+									.ladeAlleTresterEinkäufeVonKunde(kunde));
 				}
 			}
 
@@ -288,9 +294,9 @@ public class TresterübersichtFrame  extends JFrame {
 		else
 			return true;
 	}
-	
+
 	private boolean prüfeDatumsauswahl(JFormattedTextField textfield) {
-		if (textfield.getText().length()<= 0) {
+		if (textfield.getText().length() <= 0) {
 			JOptionPane.showMessageDialog(this,
 					"Bitte geben Sie ein Datum der Form dd.MM.yyyy ein.",
 					"Fehler", JOptionPane.ERROR_MESSAGE);
@@ -348,4 +354,3 @@ public class TresterübersichtFrame  extends JFrame {
 
 	}
 }
-

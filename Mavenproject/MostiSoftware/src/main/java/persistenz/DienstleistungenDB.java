@@ -92,7 +92,7 @@ public class DienstleistungenDB {
 
 			s.executeUpdate();
 			s.close();
-			
+
 			int id = 0;
 			Statement k = conn.createStatement();
 			ResultSet rs = k

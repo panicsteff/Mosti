@@ -42,14 +42,15 @@ public class TresterFrame extends JFrame {
 		JMenu datei = new JMenu("Datei");
 		datei.setFont(datei.getFont().deriveFont(16f));
 		menubar.add(datei);
-		JMenuItem neue‹bersichtItem = new JMenuItem("Neue Trester-Verkaufs¸bersicht erstellen");
+		JMenuItem neue‹bersichtItem = new JMenuItem(
+				"Neue Trester-Verkaufs¸bersicht erstellen");
 		neue‹bersichtItem.setFont(neue‹bersichtItem.getFont().deriveFont(16f));
 		datei.add(neue‹bersichtItem);
 		datei.addSeparator();
 		JMenuItem beenden = new JMenuItem("Schlieﬂen");
 		beenden.setFont(beenden.getFont().deriveFont(16f));
 		datei.add(beenden);
-		
+
 		neue‹bersichtItem.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent event) {
 				new Trester¸bersichtFrame();
@@ -70,14 +71,14 @@ public class TresterFrame extends JFrame {
 		JTable tTabelle = new JTable(tTableModel);
 		tTabelle.getTableHeader().setFont(tTabelle.getFont().deriveFont(16f));
 		tTabelle.setFont(tTabelle.getFont().deriveFont(16f));
-		tTabelle.setRowHeight(25); 
+		tTabelle.setRowHeight(25);
 
 		TableColumn preisspalte = tTabelle.getColumnModel().getColumn(2);
 		preisspalte.setCellRenderer(new PreisCellRenderer());
-		
+
 		TableColumn summenspalte = tTabelle.getColumnModel().getColumn(3);
 		summenspalte.setCellRenderer(new PreisCellRenderer());
-		
+
 		TableColumn datumsspalte = tTabelle.getColumnModel().getColumn(4);
 		datumsspalte.setCellRenderer(new DatumRechtsbuendigCellRenderer());
 
@@ -97,14 +98,15 @@ public class TresterFrame extends JFrame {
 
 		JPanel summenPanel = new JPanel();
 		summenPanel.setLayout(new GridLayout(2, 2));
-		
+
 		label = new JLabel("Kostensumme gesamt");
 		label.setFont(label.getFont().deriveFont(16f));
 		summenPanel.add(label);
 		label = new JLabel();
 		label.setFont(label.getFont().deriveFont(16f));
 		label.setText(String.valueOf(tTableModel.berechneKostenGesamt()) + " Ä");
-		System.out.println("Kosten und so " + tTableModel.berechneKostenGesamt());
+		System.out.println("Kosten und so "
+				+ tTableModel.berechneKostenGesamt());
 		summenPanel.add(label);
 		label = new JLabel("Literzahl gesamt");
 		label.setFont(label.getFont().deriveFont(16f));
@@ -113,43 +115,43 @@ public class TresterFrame extends JFrame {
 		label.setFont(label.getFont().deriveFont(16f));
 		label.setText(String.valueOf(tTableModel.berechneLiterGesamt()) + " L");
 		summenPanel.add(label);
-		
+
 		titlepanel.add(summenPanel, BorderLayout.SOUTH);
 
-//		panel.add(titlepane, BorderLayout.NORTH);
-//		panel.add(summenPanel, BorderLayout.CENTER);
+		// panel.add(titlepane, BorderLayout.NORTH);
+		// panel.add(summenPanel, BorderLayout.CENTER);
 		add(titlepanel);
 		setVisible(true);
 
 	}
 
-//	public static void main(String[] args) {
-//		ArrayList<Verkaufsposition> vliste = new ArrayList<Verkaufsposition>();
-//		Verkaufsposition v1 = new Verkaufsposition("Quittensaft", 1.00, 0, 200);
-//		Verkaufsposition v2 = new Verkaufsposition("Apfelsaft", 1.00, 0, 150);
-//		Verkaufsposition v3 = new Verkaufsposition("Turbohefe", 1.00, 10, 0);
-//		Verkaufsposition v4 = new Verkaufsposition("5L-Beutel", 1.00, 40, 0);
-//		vliste.add(v1);
-//		vliste.add(v2);
-//		vliste.add(v3);
-//		vliste.add(v4);
-//		Verkaufsposition v5 = new Verkaufsposition("Quittensaft", 1.00, 0, 200);
-//		Verkaufsposition v6 = new Verkaufsposition("Apfelsaft", 1.00, 0, 150);
-//		Verkaufsposition v7 = new Verkaufsposition("Turbohefe", 1.00, 10, 0);
-//		Verkaufsposition v8 = new Verkaufsposition("5L-Beutel", 1.00, 40, 0);
-//		vliste.add(v5);
-//		vliste.add(v6);
-//		vliste.add(v7);
-//		vliste.add(v8);
-//		Verkaufsposition v9 = new Verkaufsposition("Quittensaft", 1.00, 0, 200);
-//		Verkaufsposition v10 = new Verkaufsposition("Apfelsaft", 1.00, 0, 150);
-//		Verkaufsposition v11 = new Verkaufsposition("Turbohefe", 1.00, 10, 0);
-//		Verkaufsposition v12 = new Verkaufsposition("5L-Beutel", 1.00, 40, 0);
-//		vliste.add(v9);
-//		vliste.add(v10);
-//		vliste.add(v11);
-//		vliste.add(v12);
-//
-//		Verk‰ufeFrame vFrame = new Verk‰ufeFrame(vliste);
-//	}
+	// public static void main(String[] args) {
+	// ArrayList<Verkaufsposition> vliste = new ArrayList<Verkaufsposition>();
+	// Verkaufsposition v1 = new Verkaufsposition("Quittensaft", 1.00, 0, 200);
+	// Verkaufsposition v2 = new Verkaufsposition("Apfelsaft", 1.00, 0, 150);
+	// Verkaufsposition v3 = new Verkaufsposition("Turbohefe", 1.00, 10, 0);
+	// Verkaufsposition v4 = new Verkaufsposition("5L-Beutel", 1.00, 40, 0);
+	// vliste.add(v1);
+	// vliste.add(v2);
+	// vliste.add(v3);
+	// vliste.add(v4);
+	// Verkaufsposition v5 = new Verkaufsposition("Quittensaft", 1.00, 0, 200);
+	// Verkaufsposition v6 = new Verkaufsposition("Apfelsaft", 1.00, 0, 150);
+	// Verkaufsposition v7 = new Verkaufsposition("Turbohefe", 1.00, 10, 0);
+	// Verkaufsposition v8 = new Verkaufsposition("5L-Beutel", 1.00, 40, 0);
+	// vliste.add(v5);
+	// vliste.add(v6);
+	// vliste.add(v7);
+	// vliste.add(v8);
+	// Verkaufsposition v9 = new Verkaufsposition("Quittensaft", 1.00, 0, 200);
+	// Verkaufsposition v10 = new Verkaufsposition("Apfelsaft", 1.00, 0, 150);
+	// Verkaufsposition v11 = new Verkaufsposition("Turbohefe", 1.00, 10, 0);
+	// Verkaufsposition v12 = new Verkaufsposition("5L-Beutel", 1.00, 40, 0);
+	// vliste.add(v9);
+	// vliste.add(v10);
+	// vliste.add(v11);
+	// vliste.add(v12);
+	//
+	// Verk‰ufeFrame vFrame = new Verk‰ufeFrame(vliste);
+	// }
 }

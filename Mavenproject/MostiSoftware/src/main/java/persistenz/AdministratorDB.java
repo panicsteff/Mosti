@@ -12,8 +12,8 @@ import java.util.ArrayList;
 public class AdministratorDB {
 
 	private static Connection conn;
-	
-	public AdministratorDB(){
+
+	public AdministratorDB() {
 		try {
 			conn = DriverManager
 					.getConnection("jdbc:ucanaccess://./Mosti-Datenbank.mdb");
@@ -21,7 +21,7 @@ public class AdministratorDB {
 			e.printStackTrace();
 		}
 	}
-	
+
 	public ArrayList<Integer> terminWerteLaden() {
 
 		ArrayList<Integer> adminwerte = new ArrayList<Integer>();
@@ -48,8 +48,9 @@ public class AdministratorDB {
 
 		return adminwerte;
 	}
-	
-	public void terminWerteSpeichern(int aufteilung, int zeitslot, int beginn, int ende) {
+
+	public void terminWerteSpeichern(int aufteilung, int zeitslot, int beginn,
+			int ende) {
 
 		try {
 			PreparedStatement s = null;
@@ -58,7 +59,7 @@ public class AdministratorDB {
 			s.setInt(2, zeitslot);
 			s.setInt(3, beginn);
 			s.setInt(4, ende);
-			
+
 			s.executeUpdate();
 			s.close();
 
@@ -72,7 +73,8 @@ public class AdministratorDB {
 		ArrayList<Integer> adminwerte = new ArrayList<Integer>();
 		try {
 			Statement s = conn.createStatement();
-			ResultSet rs = s.executeQuery("SELECT * FROM [Adminwerte] where id = 1");
+			ResultSet rs = s
+					.executeQuery("SELECT * FROM [Adminwerte] where id = 1");
 
 			while (rs.next()) {
 				Integer i = rs.getInt("MitarbeiterProSchicht");
@@ -89,8 +91,7 @@ public class AdministratorDB {
 
 		return adminwerte;
 	}
-	
-	
+
 	public void schichtWerteSpeichern(int mitProSchicht, int schichtenProTag) {
 
 		try {
@@ -98,7 +99,7 @@ public class AdministratorDB {
 			s = conn.prepareStatement("update adminwerte set MitarbeiterProSchicht = ?, SchichtenProTag = ?  where id = 1");
 			s.setInt(1, mitProSchicht);
 			s.setInt(2, schichtenProTag);
-			
+
 			s.executeUpdate();
 			s.close();
 
@@ -106,13 +107,14 @@ public class AdministratorDB {
 			e.printStackTrace();
 		}
 	}
-	
+
 	public ArrayList<Double> pressWerteLaden() {
 
 		ArrayList<Double> adminwerte = new ArrayList<Double>();
 		try {
 			Statement s = conn.createStatement();
-			ResultSet rs = s.executeQuery("SELECT * FROM [Adminwerte] where id = 1");
+			ResultSet rs = s
+					.executeQuery("SELECT * FROM [Adminwerte] where id = 1");
 
 			while (rs.next()) {
 				Double d = rs.getDouble("Pressdauer");
@@ -129,7 +131,7 @@ public class AdministratorDB {
 
 		return adminwerte;
 	}
-	
+
 	public void pressWerteSpeichern(double pressdauer, double abfülldauer) {
 
 		try {
@@ -137,7 +139,7 @@ public class AdministratorDB {
 			s = conn.prepareStatement("update adminwerte set Pressdauer = ?, abfülldauer = ?  where id = 1");
 			s.setDouble(1, pressdauer);
 			s.setDouble(2, abfülldauer);
-			
+
 			s.executeUpdate();
 			s.close();
 
@@ -145,30 +147,31 @@ public class AdministratorDB {
 			e.printStackTrace();
 		}
 	}
-	
-	public int backupDauerLaden(){
-		
+
+	public int backupDauerLaden() {
+
 		int backupdauer = 0;
 		try {
 			Statement s = conn.createStatement();
-			ResultSet rs = s.executeQuery("SELECT backup FROM [Adminwerte] where id = 1");
+			ResultSet rs = s
+					.executeQuery("SELECT backup FROM [Adminwerte] where id = 1");
 
 			while (rs.next()) {
 				backupdauer = rs.getInt("Backup");
 			}
-			
+
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 		return backupdauer;
 	}
-	
-	public void backupdauerSpeichern(int backupdauer){
+
+	public void backupdauerSpeichern(int backupdauer) {
 		try {
 			PreparedStatement s = null;
 			s = conn.prepareStatement("update adminwerte set backup = ? where id = 1");
 			s.setInt(1, backupdauer);
-			
+
 			s.executeUpdate();
 			s.close();
 
@@ -176,29 +179,30 @@ public class AdministratorDB {
 			e.printStackTrace();
 		}
 	}
-	
-	public Date letztesBackupLaden(){
+
+	public Date letztesBackupLaden() {
 		Date backupDate = new Date(1l);
 		try {
 			Statement s = conn.createStatement();
-			ResultSet rs = s.executeQuery("SELECT LetztesBackup FROM [Adminwerte] where id = 1");
+			ResultSet rs = s
+					.executeQuery("SELECT LetztesBackup FROM [Adminwerte] where id = 1");
 
 			while (rs.next()) {
 				backupDate = rs.getDate("LetztesBackup");
 			}
-			
+
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 		return backupDate;
 	}
-	
-	public static void letztesBackupSpeichern(Date backupdate){
+
+	public static void letztesBackupSpeichern(Date backupdate) {
 		try {
 			PreparedStatement s = null;
 			s = conn.prepareStatement("update adminwerte set letztesBackup = ? where id = 1");
 			s.setDate(1, backupdate);
-			
+
 			s.executeUpdate();
 			s.close();
 

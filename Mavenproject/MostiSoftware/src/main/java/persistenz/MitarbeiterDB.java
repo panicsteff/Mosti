@@ -14,8 +14,8 @@ import logik.mitarbeiterverwaltung.Mitarbeiter;
 public class MitarbeiterDB {
 
 	Connection conn;
-	
-	public MitarbeiterDB(){
+
+	public MitarbeiterDB() {
 		try {
 			conn = DriverManager
 					.getConnection("jdbc:ucanaccess://./Mosti-Datenbank.mdb");
@@ -23,9 +23,9 @@ public class MitarbeiterDB {
 			e.printStackTrace();
 		}
 	}
-	
 
-	public ArrayList<Mitarbeiter> mitarbeiterLaden() throws FileNotFoundException {
+	public ArrayList<Mitarbeiter> mitarbeiterLaden()
+			throws FileNotFoundException {
 
 		ArrayList<Mitarbeiter> mitarbeiterliste = new ArrayList<Mitarbeiter>();
 
@@ -45,7 +45,7 @@ public class MitarbeiterDB {
 				m.setTelefonnummer(rs.getString("Telefonnummer"));
 				m.setBenutzername(rs.getString("Benutzername"));
 				mitarbeiterliste.add(m);
-				
+
 			}
 			s.close();
 
@@ -90,9 +90,10 @@ public class MitarbeiterDB {
 	public void mitarbeiterEinfügen(Mitarbeiter mitarbeiter) {
 
 		try {
-			PreparedStatement s = conn.prepareStatement("INSERT into mitarbeiter (Nachname, Vorname, Strasse, Hausnummer, plz, Stadt, telefonnummer, benutzername, passwort) "
-					+ "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)");
-			
+			PreparedStatement s = conn
+					.prepareStatement("INSERT into mitarbeiter (Nachname, Vorname, Strasse, Hausnummer, plz, Stadt, telefonnummer, benutzername, passwort) "
+							+ "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)");
+
 			s.setString(1, mitarbeiter.getNachname());
 			s.setString(2, mitarbeiter.getVorname());
 			s.setString(3, mitarbeiter.getStrasse());
@@ -103,44 +104,46 @@ public class MitarbeiterDB {
 			s.setString(8, mitarbeiter.getBenutzername());
 			s.setString(9, mitarbeiter.getPasswort());
 
-			
 			s.executeUpdate();
 			s.close();
-			
+
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 
 	}
-	
-	public void mitarbeiterLöschen(int mitarbeiterId){
-		
-		try{			
-			PreparedStatement s = conn.prepareStatement("Delete from mitarbeiter where Id = ?");
-			
+
+	public void mitarbeiterLöschen(int mitarbeiterId) {
+
+		try {
+			PreparedStatement s = conn
+					.prepareStatement("Delete from mitarbeiter where Id = ?");
+
 			s.setInt(1, mitarbeiterId);
 			s.executeUpdate();
 			s.close();
-			
-		}catch(Exception e){
+
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
-	
-	public boolean benutzernamenSuchen(String benutzername){
+
+	public boolean benutzernamenSuchen(String benutzername) {
 		boolean frei = true;
-		try{
+		try {
 			Statement s = conn.createStatement();
-			ResultSet rs = s.executeQuery("Select * from mitarbeiter where benutzername = '" + benutzername + "'");
-			
-			while(rs.next()){
+			ResultSet rs = s
+					.executeQuery("Select * from mitarbeiter where benutzername = '"
+							+ benutzername + "'");
+
+			while (rs.next()) {
 				frei = false;
 			}
-			
-		}catch(Exception e){
+
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		
+
 		return frei;
 	}
 }

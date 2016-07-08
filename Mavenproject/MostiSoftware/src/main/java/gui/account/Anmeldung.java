@@ -31,7 +31,7 @@ public class Anmeldung extends JFrame {
 		setLocationRelativeTo(getParent());
 
 		accountverwaltung = new Accountverwaltung();
-		
+
 		JLabel benutzername = new JLabel("Benutzername:");
 		benutzername.setFont(benutzername.getFont().deriveFont(16f));
 		add(benutzername);
@@ -53,9 +53,9 @@ public class Anmeldung extends JFrame {
 				mitarbeiter = accountverwaltung.anmelden(
 						txtbenutzername.getText(), txtpasswort.getText());
 
-
-				if(mitarbeiter != null){
-					boolean istAdmin = accountverwaltung.isAdmin(mitarbeiter.getBenutzername());
+				if (mitarbeiter != null) {
+					boolean istAdmin = accountverwaltung.isAdmin(mitarbeiter
+							.getBenutzername());
 					new M_Startseite(istAdmin, mitarbeiter);
 					dispose();
 				}
@@ -64,8 +64,8 @@ public class Anmeldung extends JFrame {
 		abbrechen = new JButton("Abbrechen");
 		abbrechen.setFont(abbrechen.getFont().deriveFont(16f));
 		add(abbrechen);
-		abbrechen.addActionListener(new ActionListener(){
-			public void actionPerformed(ActionEvent e){
+		abbrechen.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
 				dispose();
 			}
 		});

@@ -61,7 +61,8 @@ public class ÜbersichtFrame extends JFrame {
 
 		schichtenProTagtxt = new JTextField(
 				AdministratorLogik.getSchichtenProTag() + "");
-		schichtenProTagtxt.setFont(schichtenProTagtxt.getFont().deriveFont(16f));
+		schichtenProTagtxt
+				.setFont(schichtenProTagtxt.getFont().deriveFont(16f));
 		schichtenProTagtxt.setBounds(400, 90, 160, 30);
 		add(schichtenProTagtxt);
 
@@ -74,7 +75,7 @@ public class ÜbersichtFrame extends JFrame {
 		arbeitsbeginn.setFont(arbeitsbeginn.getFont().deriveFont(16f));
 		arbeitsbeginn.setBounds(10, 190, 260, 30);
 		add(arbeitsbeginn);
-		
+
 		MaskFormatter mf = null;
 		try {
 			mf = new MaskFormatter("##:##");
@@ -84,7 +85,8 @@ public class ÜbersichtFrame extends JFrame {
 		NullableFormatter nf = new NullableFormatter(mf);
 
 		beginntxt = new JFormattedTextField(nf);
-		beginntxt.setValue(al.terminInString(AdministratorLogik.getArbeitsbeginn()) + "");
+		beginntxt.setValue(al.terminInString(AdministratorLogik
+				.getArbeitsbeginn()) + "");
 		beginntxt.setFont(beginntxt.getFont().deriveFont(16f));
 		beginntxt.setBounds(400, 190, 160, 30);
 		add(beginntxt);
@@ -96,7 +98,8 @@ public class ÜbersichtFrame extends JFrame {
 
 		endetxt = new JFormattedTextField(nf);
 		endetxt.setFont(endetxt.getFont().deriveFont(16f));
-		endetxt.setValue(al.terminInString(AdministratorLogik.getArbeitsende()) + "");
+		endetxt.setValue(al.terminInString(AdministratorLogik.getArbeitsende())
+				+ "");
 		endetxt.setBounds(400, 230, 160, 30);
 		add(endetxt);
 
@@ -140,17 +143,18 @@ public class ÜbersichtFrame extends JFrame {
 		abfülldauertxt.setFont(abfülldauertxt.getFont().deriveFont(16f));
 		abfülldauertxt.setBounds(400, 390, 160, 30);
 		add(abfülldauertxt);
-		
+
 		JLabel backup = new JLabel("Backup");
 		backup.setFont(backup.getFont().deriveFont(16f));
 		backup.setBounds(50, 450, 160, 30);
 		add(backup);
-		
-		JLabel backupdatum = new JLabel("Zeitspanne zwischen zwei Backups (Tage)");
+
+		JLabel backupdatum = new JLabel(
+				"Zeitspanne zwischen zwei Backups (Tage)");
 		backupdatum.setFont(backupdatum.getFont().deriveFont(16f));
 		backupdatum.setBounds(10, 490, 360, 30);
 		add(backupdatum);
-		
+
 		backuptxt = new JTextField(AdministratorLogik.getBackupdauer() + "");
 		backuptxt.setFont(backuptxt.getFont().deriveFont(16f));
 		backuptxt.setBounds(400, 490, 160, 30);
@@ -194,7 +198,8 @@ public class ÜbersichtFrame extends JFrame {
 					return;
 				}
 				al.datenSpeichern(anzeige, zeitslot, beginn, ende,
-						mitProSchicht, schichtenProTag, pressdauer, abfülldauer, backup);
+						mitProSchicht, schichtenProTag, pressdauer,
+						abfülldauer, backup);
 				ÜbersichtFrame.this.dispose();
 			}
 		});

@@ -10,10 +10,10 @@ import logik.dienstleistungverwaltung.Dienstleistung;
 public class DienstleistungenTableModel extends AbstractTableModel {
 
 	private static final long serialVersionUID = 1L;
-	private ArrayList <Dienstleistung> dienstleistungen;
+	private ArrayList<Dienstleistung> dienstleistungen;
 	private int DLAnzahl;
 
-	DienstleistungenTableModel(ArrayList <Dienstleistung> dienstleistungen) {
+	DienstleistungenTableModel(ArrayList<Dienstleistung> dienstleistungen) {
 		this.dienstleistungen = dienstleistungen;
 		DLAnzahl = getColumnCount();
 	}
@@ -30,7 +30,7 @@ public class DienstleistungenTableModel extends AbstractTableModel {
 	}
 
 	public int getColumnCount() {
-		return dienstleistungen != null? dienstleistungen.size() : 0;
+		return dienstleistungen != null ? dienstleistungen.size() : 0;
 	}
 
 	public Object getValueAt(int row, int col) {
@@ -42,8 +42,9 @@ public class DienstleistungenTableModel extends AbstractTableModel {
 
 	public void setValueAt(Object eintrag, int row, int col) {
 
-		if ((Integer) eintrag <0){
-			JOptionPane.showMessageDialog(null, "Keine negativen Werte erlaubt!");
+		if ((Integer) eintrag < 0) {
+			JOptionPane.showMessageDialog(null,
+					"Keine negativen Werte erlaubt!");
 			return;
 		}
 		if (col >= 0 && col < DLAnzahl) {
@@ -66,29 +67,27 @@ public class DienstleistungenTableModel extends AbstractTableModel {
 		return d;
 
 	}
-	
-	double berechneTeilpreis(){
+
+	double berechneTeilpreis() {
 		double sum = 0;
 		for (int i = 0; i < DLAnzahl; i++) {
 			sum = sum
 					+ ((Integer) (getValueAt(0, i)) * dienstleistungen.get(i)
 							.getPreis());
-			System.out.println((Integer) (getValueAt(0, i))
-					+ " und "
-					+ dienstleistungen.get(i)
-							.getPreis());
+			System.out.println((Integer) (getValueAt(0, i)) + " und "
+					+ dienstleistungen.get(i).getPreis());
 		}
-		
-		sum = Math.round(sum*100);
-		sum = sum/100;
+
+		sum = Math.round(sum * 100);
+		sum = sum / 100;
 		return sum;
 	}
-	
-	int berechneGesamtLiterZahl(){
+
+	int berechneGesamtLiterZahl() {
 		int sum = 0;
 		for (int i = 0; i < DLAnzahl; i++) {
-			sum = sum + (Integer)getValueAt(0, i);
-			System.out.println((Integer)getValueAt(0, i));
+			sum = sum + (Integer) getValueAt(0, i);
+			System.out.println((Integer) getValueAt(0, i));
 		}
 		return sum;
 	}

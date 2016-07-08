@@ -39,7 +39,7 @@ import persistenz.KundeDB;
 public class KassenFrame extends JFrame {
 
 	private static final long serialVersionUID = 1L;
-	
+
 	private JTable dienstTable;
 	private JTable abfüllTable;
 	private JTable zusatzTable;
@@ -62,85 +62,86 @@ public class KassenFrame extends JFrame {
 	private Kunde kunde;
 	private ArrayList<Verkaufsposition> einkaufsliste;
 	private Verkaufsverwaltung vVerwaltung;
-	private KundeDB kundeDB; 
+	private KundeDB kundeDB;
 	private ProduktSortiment psortiment;
-	
+
 	private TableColumnModel columnModel1;
 	private TableColumnModel columnModel2;
 	private TableColumnModel columnModel3;
-	
-	
 
-	public KassenFrame(DLSortiment dlsortiment,ProduktSortiment psortiment,
+	public KassenFrame(DLSortiment dlsortiment, ProduktSortiment psortiment,
 			Verkaufsverwaltung verkaufsverwaltung, int kundenId) {
-		
+
 		this.psortiment = psortiment;
 		aliste = psortiment.getAbfuellSortiment();
 		zliste = psortiment.getZProduktSortiment();
 		dienstleistungen = dlsortiment.getDLSortiment();
 		this.vVerwaltung = verkaufsverwaltung;
 		kundeDB = new KundeDB();
-		
+
 		try {
-			kunde = kundeDB.einzelnenKundeLaden(kundenId);					/////////
-			System.out.println("KundenID: " +kunde.getKundenID());
+			kunde = kundeDB.einzelnenKundeLaden(kundenId); // ///////
+			System.out.println("KundenID: " + kunde.getKundenID());
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			System.out.println("Fehler beim Laden des Kunden");
 			e.printStackTrace();
 		}
-		
 
 		initVerkaufsmengen();
 
-		setTitle("Abrechnung für " + kunde.getVorname() + " " + kunde.getNachname());
+		setTitle("Abrechnung für " + kunde.getVorname() + " "
+				+ kunde.getNachname());
 		setSize(750, 500);
 		setLocationRelativeTo(getParent());
 		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 
 		JPanel contentPanel = new JPanel();
-		//contentPanel.setLayout(new GridLayout(8, 1));
+		// contentPanel.setLayout(new GridLayout(8, 1));
 		contentPanel.setLayout(null);
 
 		dienstTableModel = new DienstleistungenTableModel(dienstleistungen);
 		dienstTable = new JTable(dienstTableModel);
 		dienstTable.setFont(dienstTable.getFont().deriveFont(16f));
-		dienstTable.getTableHeader().setFont(dienstTable.getFont().deriveFont(16f));
+		dienstTable.getTableHeader().setFont(
+				dienstTable.getFont().deriveFont(16f));
 		dienstTable.setRowHeight(30);
 		tabellenSpaltenGrößeFestlegen(dienstTable);
 
 		abfüllTableModel = new ProduktTableModel(aliste);
 		abfüllTable = new JTable(abfüllTableModel);
 		abfüllTable.setFont(abfüllTable.getFont().deriveFont(16f));
-		abfüllTable.getTableHeader().setFont(abfüllTable.getFont().deriveFont(16f));
+		abfüllTable.getTableHeader().setFont(
+				abfüllTable.getFont().deriveFont(16f));
 		abfüllTable.setRowHeight(30);
 		tabellenSpaltenGrößeFestlegen(abfüllTable);
 
 		zusatzTableModel = new ProduktTableModel(zliste);
 		zusatzTable = new JTable(zusatzTableModel);
 		zusatzTable.setFont(zusatzTable.getFont().deriveFont(16f));
-		zusatzTable.getTableHeader().setFont(zusatzTable.getFont().deriveFont(16f));
+		zusatzTable.getTableHeader().setFont(
+				zusatzTable.getFont().deriveFont(16f));
 		zusatzTable.setRowHeight(30);
 		tabellenSpaltenGrößeFestlegen(zusatzTable);
-		
+
 		dienstTable.addMouseListener(new MouseAdapter() {
 			public void mousePressed(MouseEvent event) {
-				markiereZellinhalt(dienstTable);	
+				markiereZellinhalt(dienstTable);
 			}
 		});
-		
+
 		abfüllTable.addMouseListener(new MouseAdapter() {
 			public void mousePressed(MouseEvent event) {
-				markiereZellinhalt(abfüllTable);	
+				markiereZellinhalt(abfüllTable);
 			}
 		});
-		
+
 		zusatzTable.addMouseListener(new MouseAdapter() {
 			public void mousePressed(MouseEvent event) {
-				markiereZellinhalt(zusatzTable);	
+				markiereZellinhalt(zusatzTable);
 			}
 		});
-		
+
 		JScrollPane tableContainer1 = new JScrollPane(dienstTable);
 		JScrollPane tableContainer2 = new JScrollPane(abfüllTable);
 		JScrollPane tableContainer3 = new JScrollPane(zusatzTable);
@@ -191,7 +192,8 @@ public class KassenFrame extends JFrame {
 		abschlussButton.setFont(abschlussButton.getFont().deriveFont(16f));
 		JButton aktualisiereSummeButton = new JButton(
 				"Kostenanzeige aktualisieren");
-		aktualisiereSummeButton.setFont(aktualisiereSummeButton.getFont().deriveFont(16f));
+		aktualisiereSummeButton.setFont(aktualisiereSummeButton.getFont()
+				.deriveFont(16f));
 		JButton abbrechButton = new JButton("Abbrechen");
 		abbrechButton.setFont(abbrechButton.getFont().deriveFont(16f));
 		abbrechButton.addActionListener(new AbbruchHandler());
@@ -204,35 +206,38 @@ public class KassenFrame extends JFrame {
 		buttonPanel.add(abschlussButton);
 		buttonPanel.setBounds(6, 370, 700, 50);
 		contentPanel.add(buttonPanel);
-		
+
 		listSelectionModel1 = dienstTable.getSelectionModel();
 		listSelectionModel1
 				.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-		listSelectionModel1.addListSelectionListener(new MyListSelectionListener());
+		listSelectionModel1
+				.addListSelectionListener(new MyListSelectionListener());
 		columnModel1 = dienstTable.getColumnModel();
 		columnModel1.setColumnSelectionAllowed(true);
-		
+
 		listSelectionModel2 = abfüllTable.getSelectionModel();
 		listSelectionModel2
 				.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-		listSelectionModel2.addListSelectionListener(new MyListSelectionListener());
+		listSelectionModel2
+				.addListSelectionListener(new MyListSelectionListener());
 		columnModel2 = abfüllTable.getColumnModel();
 		columnModel2.setColumnSelectionAllowed(true);
-		
+
 		listSelectionModel3 = zusatzTable.getSelectionModel();
 		listSelectionModel3
 				.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-		listSelectionModel3.addListSelectionListener(new MyListSelectionListener());
+		listSelectionModel3
+				.addListSelectionListener(new MyListSelectionListener());
 		columnModel3 = zusatzTable.getColumnModel();
 		columnModel3.setColumnSelectionAllowed(true);
 
-		//JScrollPane scrollpane = new JScrollPane(contentPanel);
+		// JScrollPane scrollpane = new JScrollPane(contentPanel);
 		JPanel titlepane = new JPanel();
 		titlepane.setBorder(BorderFactory.createTitledBorder(
 				BorderFactory.createEtchedBorder(), "Verkäufe"));
 		titlepane.setLayout(new BorderLayout());
-		//scrollpane.add(contentPanel);
-		//titlepane.add(scrollpane);
+		// scrollpane.add(contentPanel);
+		// titlepane.add(scrollpane);
 		titlepane.add(contentPanel);
 		add(titlepane);
 
@@ -251,26 +256,26 @@ public class KassenFrame extends JFrame {
 			totalText.setText(String.valueOf(total));
 		}
 	}
-	
+
 	private class MyListSelectionListener implements ListSelectionListener {
 		public void valueChanged(ListSelectionEvent event) {
 			listSelectionModel1.clearSelection();
 		}
 	};
-	
-	private void tabellenSpaltenGrößeFestlegen(JTable table){
+
+	private void tabellenSpaltenGrößeFestlegen(JTable table) {
 		int spaltenanzahl = table.getColumnCount();
 		table.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
-		
-		for(int i = 0; i<spaltenanzahl; i++){
+
+		for (int i = 0; i < spaltenanzahl; i++) {
 			table.getColumnModel().getColumn(i).setPreferredWidth(200);
 		}
 	}
 
 	private double berechneGesamtTotal() {
-		return (dienstTableModel.berechneTeilpreis() + 
-				abfüllTableModel.berechneTeilpreis() + 
-				zusatzTableModel.berechneTeilpreis());
+		return (dienstTableModel.berechneTeilpreis()
+				+ abfüllTableModel.berechneTeilpreis() + zusatzTableModel
+					.berechneTeilpreis());
 	}
 
 	private class EinkaufAbschließenHandler implements ActionListener {
@@ -280,42 +285,44 @@ public class KassenFrame extends JFrame {
 			dlZuEinkauf(dienstleistungen); // gekaufte DL hinzufügen
 			produkteZuEinkauf(aliste); // gekaufte Abfüllmaterialien hinzufügen
 			produkteZuEinkauf(zliste); // gekaufte Zusatzprodukte hinzufügen
-			//psortiment.updateProdukte();
+			// psortiment.updateProdukte();
 
 			java.util.Date datum = new Date();
 			java.sql.Date d = new java.sql.Date(datum.getTime());
 			System.out.println(d);
 			verkauf = new Verkauf(kunde, d, einkaufsliste);
-			//System.out.println(verkauf.getSumme());
+			// System.out.println(verkauf.getSumme());
 			vVerwaltung.addVerkauf(verkauf);
 
-//			total = berechneGesamtTotal();
-//			einkauf.setSumme(total);
-//			einkauf.setLiterzahl(literzahl);
-			
+			// total = berechneGesamtTotal();
+			// einkauf.setSumme(total);
+			// einkauf.setLiterzahl(literzahl);
+
 			System.out.println("Einkauf abgeschlossen");
-			//new VerkäufeFrame(einkaufsliste);
+			// new VerkäufeFrame(einkaufsliste);
 			new KundeneinkaufFrame(verkauf);
-			
+
 			dispose();
 		}
 	}
-	
-	private void markiereZellinhalt(JTable table){
+
+	private void markiereZellinhalt(JTable table) {
 		int row = 0;
 		int col = table.getSelectedColumn();
-	
-		table.editCellAt(row,col); // Editiert die Zelle
 
-		// Selektiert den Inhalt der Zelle, sodass dieser überschrieben werden kann
+		table.editCellAt(row, col); // Editiert die Zelle
+
+		// Selektiert den Inhalt der Zelle, sodass dieser überschrieben werden
+		// kann
 		Integer i = (Integer) table.getValueAt(row, col);
-		//if( i == null)
-		TableCellEditor cedit = table.getCellEditor(row,col);
-		Component tf = (Component) cedit.getTableCellEditorComponent(table, i, true, row, col);
-		if(tf instanceof JTextField) {
-		JTextField tf_ = (JTextField)tf;
-		tf_.selectAll();
-		tf_.requestFocusInWindow();
+		// if( i == null)
+		TableCellEditor cedit = table.getCellEditor(row, col);
+		Component tf = (Component) cedit.getTableCellEditorComponent(table, i,
+				true, row, col);
+		if (tf instanceof JTextField) {
+			JTextField tf_ = (JTextField) tf;
+			tf_.selectAll();
+			tf_.requestFocusInWindow();
 		}
 	}
 
@@ -324,9 +331,10 @@ public class KassenFrame extends JFrame {
 			if (p.getVerkaufsMenge() > 0) {
 				produktPosition = new Verkaufsposition(p.getName(),
 						p.getPreis(), p.getVerkaufsMenge(), p.getLiterzahl());
-				p.setVorratsmenge(p.getVorratsmenge()-p.getVerkaufsMenge());
-				psortiment.updateVerkaufsmengeVonProdukt(p.getName(), p.getVorratsmenge());
-				//einkauf.addEinkaufsposition(produktPosition);
+				p.setVorratsmenge(p.getVorratsmenge() - p.getVerkaufsMenge());
+				psortiment.updateVerkaufsmengeVonProdukt(p.getName(),
+						p.getVorratsmenge());
+				// einkauf.addEinkaufsposition(produktPosition);
 				einkaufsliste.add(produktPosition);
 				p.printVerkaufsposition();
 			}
@@ -338,25 +346,27 @@ public class KassenFrame extends JFrame {
 		for (Dienstleistung d : liste) {
 			if (d.getLiterzahl() > 0) {
 				DLposition = new Verkaufsposition(d.getName(), d.getPreis(),
-						d.getVerkaufsMenge(), d.getLiterzahl()
-						);
-				//einkauf.addEinkaufsposition(DLposition);
+						d.getVerkaufsMenge(), d.getLiterzahl());
+				// einkauf.addEinkaufsposition(DLposition);
 				einkaufsliste.add(DLposition);
 				literzahl = literzahl + d.getLiterzahl();
 				d.printVerkaufsposition();
 			}
 		}
 	}
-	
+
 	private void initVerkaufsmengen() {
 		for (Dienstleistung d : dienstleistungen) {
-			if (d.getLiterzahl() != 0) d.setLiterzahl(0);
+			if (d.getLiterzahl() != 0)
+				d.setLiterzahl(0);
 		}
 		for (Produkt p : aliste) {
-			if (p.getVerkaufsMenge() != 0) p.setVerkaufsMenge(0);
+			if (p.getVerkaufsMenge() != 0)
+				p.setVerkaufsMenge(0);
 		}
 		for (Produkt p : zliste) {
-			if (p.getVerkaufsMenge() != 0) p.setVerkaufsMenge(0);
+			if (p.getVerkaufsMenge() != 0)
+				p.setVerkaufsMenge(0);
 		}
 	}
 

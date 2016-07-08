@@ -56,7 +56,7 @@ class TresterTableModel extends AbstractTableModel {
 		case 2:
 			return t.getPreis();
 		case 3:
-			return t.getLiterzahl()*(t.getPreis()/1000.0);
+			return t.getLiterzahl() * (t.getPreis() / 1000.0);
 		case 4:
 			return t.getDate();
 
@@ -114,4 +114,3 @@ class TresterTableModel extends AbstractTableModel {
 	}
 
 }
-

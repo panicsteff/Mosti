@@ -43,14 +43,15 @@ public class Verk‰ufeFrame extends JFrame {
 		datei.setFont(datei.getFont().deriveFont(16f));
 		menubar.add(datei);
 		datei.addSeparator();
-		JMenuItem neue‹bersichtItem = new JMenuItem("Neue Verkaufs¸bersicht erstellen");
+		JMenuItem neue‹bersichtItem = new JMenuItem(
+				"Neue Verkaufs¸bersicht erstellen");
 		neue‹bersichtItem.setFont(neue‹bersichtItem.getFont().deriveFont(16f));
 		datei.add(neue‹bersichtItem);
 		datei.addSeparator();
 		JMenuItem beenden = new JMenuItem("Schlieﬂen");
 		beenden.setFont(beenden.getFont().deriveFont(16f));
 		datei.add(beenden);
-		
+
 		neue‹bersichtItem.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent event) {
 				new Verkaufs¸bersicht();
@@ -71,14 +72,14 @@ public class Verk‰ufeFrame extends JFrame {
 		JTable vTabelle = new JTable(vTableModel);
 		vTabelle.getTableHeader().setFont(vTabelle.getFont().deriveFont(16f));
 		vTabelle.setFont(vTabelle.getFont().deriveFont(16f));
-		vTabelle.setRowHeight(25); 
+		vTabelle.setRowHeight(25);
 
 		TableColumn preisspalte = vTabelle.getColumnModel().getColumn(1);
 		preisspalte.setCellRenderer(new PreisCellRenderer());
-		
+
 		TableColumn kundenspalte = vTabelle.getColumnModel().getColumn(4);
 		kundenspalte.setCellRenderer(new StringRechtsbuendigCellRenderer());
-		
+
 		TableColumn datumsspalte = vTabelle.getColumnModel().getColumn(5);
 		datumsspalte.setCellRenderer(new DatumRechtsbuendigCellRenderer());
 
@@ -113,43 +114,43 @@ public class Verk‰ufeFrame extends JFrame {
 		label.setFont(label.getFont().deriveFont(16f));
 		label.setText(String.valueOf(vTableModel.berechneLiterGesamt()) + " L");
 		summenPanel.add(label);
-		
+
 		titlepanel.add(summenPanel, BorderLayout.SOUTH);
 
-//		panel.add(titlepane, BorderLayout.NORTH);
-//		panel.add(summenPanel, BorderLayout.CENTER);
+		// panel.add(titlepane, BorderLayout.NORTH);
+		// panel.add(summenPanel, BorderLayout.CENTER);
 		add(titlepanel);
 		setVisible(true);
 
 	}
 
-//	public static void main(String[] args) {
-//		ArrayList<Verkaufsposition> vliste = new ArrayList<Verkaufsposition>();
-//		Verkaufsposition v1 = new Verkaufsposition("Quittensaft", 1.00, 0, 200);
-//		Verkaufsposition v2 = new Verkaufsposition("Apfelsaft", 1.00, 0, 150);
-//		Verkaufsposition v3 = new Verkaufsposition("Turbohefe", 1.00, 10, 0);
-//		Verkaufsposition v4 = new Verkaufsposition("5L-Beutel", 1.00, 40, 0);
-//		vliste.add(v1);
-//		vliste.add(v2);
-//		vliste.add(v3);
-//		vliste.add(v4);
-//		Verkaufsposition v5 = new Verkaufsposition("Quittensaft", 1.00, 0, 200);
-//		Verkaufsposition v6 = new Verkaufsposition("Apfelsaft", 1.00, 0, 150);
-//		Verkaufsposition v7 = new Verkaufsposition("Turbohefe", 1.00, 10, 0);
-//		Verkaufsposition v8 = new Verkaufsposition("5L-Beutel", 1.00, 40, 0);
-//		vliste.add(v5);
-//		vliste.add(v6);
-//		vliste.add(v7);
-//		vliste.add(v8);
-//		Verkaufsposition v9 = new Verkaufsposition("Quittensaft", 1.00, 0, 200);
-//		Verkaufsposition v10 = new Verkaufsposition("Apfelsaft", 1.00, 0, 150);
-//		Verkaufsposition v11 = new Verkaufsposition("Turbohefe", 1.00, 10, 0);
-//		Verkaufsposition v12 = new Verkaufsposition("5L-Beutel", 1.00, 40, 0);
-//		vliste.add(v9);
-//		vliste.add(v10);
-//		vliste.add(v11);
-//		vliste.add(v12);
-//
-//		Verk‰ufeFrame vFrame = new Verk‰ufeFrame(vliste);
-//	}
+	// public static void main(String[] args) {
+	// ArrayList<Verkaufsposition> vliste = new ArrayList<Verkaufsposition>();
+	// Verkaufsposition v1 = new Verkaufsposition("Quittensaft", 1.00, 0, 200);
+	// Verkaufsposition v2 = new Verkaufsposition("Apfelsaft", 1.00, 0, 150);
+	// Verkaufsposition v3 = new Verkaufsposition("Turbohefe", 1.00, 10, 0);
+	// Verkaufsposition v4 = new Verkaufsposition("5L-Beutel", 1.00, 40, 0);
+	// vliste.add(v1);
+	// vliste.add(v2);
+	// vliste.add(v3);
+	// vliste.add(v4);
+	// Verkaufsposition v5 = new Verkaufsposition("Quittensaft", 1.00, 0, 200);
+	// Verkaufsposition v6 = new Verkaufsposition("Apfelsaft", 1.00, 0, 150);
+	// Verkaufsposition v7 = new Verkaufsposition("Turbohefe", 1.00, 10, 0);
+	// Verkaufsposition v8 = new Verkaufsposition("5L-Beutel", 1.00, 40, 0);
+	// vliste.add(v5);
+	// vliste.add(v6);
+	// vliste.add(v7);
+	// vliste.add(v8);
+	// Verkaufsposition v9 = new Verkaufsposition("Quittensaft", 1.00, 0, 200);
+	// Verkaufsposition v10 = new Verkaufsposition("Apfelsaft", 1.00, 0, 150);
+	// Verkaufsposition v11 = new Verkaufsposition("Turbohefe", 1.00, 10, 0);
+	// Verkaufsposition v12 = new Verkaufsposition("5L-Beutel", 1.00, 40, 0);
+	// vliste.add(v9);
+	// vliste.add(v10);
+	// vliste.add(v11);
+	// vliste.add(v12);
+	//
+	// Verk‰ufeFrame vFrame = new Verk‰ufeFrame(vliste);
+	// }
 }

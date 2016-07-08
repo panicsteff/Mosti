@@ -12,8 +12,7 @@ public class Verkauf {
 	private double total;
 	private Kunde kunde;
 	private Date date;
-	//private Verkaufsposition vposition;
-	
+
 	public Verkauf(Kunde kunde, Date date, ArrayList<Verkaufsposition> liste) {
 		this.setKunde(kunde);
 		setVerkaufsDatum(date);
@@ -21,31 +20,29 @@ public class Verkauf {
 		literzahl = berechneLiterzahl();
 		total = berechneTotal();
 	}
-	
-	
 
 	public void addEinkaufsposition(Verkaufsposition position) {
 		einkaufsliste.add(position);
-		//total = total + position.getVerkaufsMenge()*position.getPreis();
+		// total = total + position.getVerkaufsMenge()*position.getPreis();
 	}
-	
-	public Verkaufsposition getVerkaufsposition(int index){
+
+	public Verkaufsposition getVerkaufsposition(int index) {
 		return einkaufsliste.get(index);
 	}
-	
-	public ArrayList<Verkaufsposition> getVerkäufeListe(){
+
+	public ArrayList<Verkaufsposition> getVerkäufeListe() {
 		return einkaufsliste;
 	}
-	
-	public int getListengröße(){
+
+	public int getListengröße() {
 		return einkaufsliste.size();
 	}
 
 	public void printEinkauf() {
 		for (Verkaufsposition e : einkaufsliste) {
-				System.out.print(e.getVerkaufsMenge() + "x " + e.getName()+ ", ");
+			System.out.print(e.getVerkaufsMenge() + "x " + e.getName() + ", ");
 		}
-		System.out.println(" für insgesamt " + getSumme()+ " €");
+		System.out.println(" für insgesamt " + getSumme() + " €");
 	}
 
 	public void setSumme(double total) {
@@ -59,33 +56,27 @@ public class Verkauf {
 	public int getLiterzahl() {
 		return literzahl;
 	}
-	
-	public int berechneLiterzahl(){
+
+	public int berechneLiterzahl() {
 		int summe = 0;
-		for(Verkaufsposition v: einkaufsliste){
+		for (Verkaufsposition v : einkaufsliste) {
 			summe = summe + v.getLiterzahl();
 		}
 		return summe;
 	}
-	
-	public double berechneTotal(){
+
+	public double berechneTotal() {
 		double erg = 0.0;
 		int faktor = 0;
-		for(Verkaufsposition v: einkaufsliste){
-			if(v.getLiterzahl() != 0)
+		for (Verkaufsposition v : einkaufsliste) {
+			if (v.getLiterzahl() != 0)
 				faktor = v.getLiterzahl();
-			else 
+			else
 				faktor = v.getVerkaufsMenge();
-			erg = erg + faktor*v.getPreis();
+			erg = erg + faktor * v.getPreis();
 		}
 		return erg;
 	}
-	
-	
-
-//	public void setLiterzahl(int literzahl) {
-//		this.literzahl = literzahl;
-//	}
 
 	public Date getVerkaufsDatum() {
 		return date;

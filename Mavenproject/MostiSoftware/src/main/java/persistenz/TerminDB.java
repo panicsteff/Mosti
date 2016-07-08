@@ -14,8 +14,8 @@ import logik.terminplanung.Termin;
 public class TerminDB {
 
 	private static Connection conn;
-	
-	public TerminDB(){
+
+	public TerminDB() {
 		try {
 			conn = DriverManager
 					.getConnection("jdbc:ucanaccess://./Mosti-Datenbank.mdb");
@@ -29,13 +29,11 @@ public class TerminDB {
 		ArrayList<Termin> terminliste = new ArrayList<Termin>();
 
 		try {
-			
+
 			Statement s = conn.createStatement();
 			ResultSet rs = s
 					.executeQuery("SELECT * FROM [termine] Where Datum  "
-							+ "BETWEEN{ts '"
-							+ datum
-							+ " 00:00:00'} AND {ts '"
+							+ "BETWEEN{ts '" + datum + " 00:00:00'} AND {ts '"
 							+ datum + " 23:59:59'} ");
 
 			while (rs.next()) {
@@ -58,8 +56,8 @@ public class TerminDB {
 		return terminliste;
 	}
 
-	public static void termineSpeichern(int kundenId, int anzahlZeitslot, Date datum,
-			int beginn, int menge, boolean flaschen) {
+	public static void termineSpeichern(int kundenId, int anzahlZeitslot,
+			Date datum, int beginn, int menge, boolean flaschen) {
 
 		try {
 			PreparedStatement s = null;
@@ -104,7 +102,6 @@ public class TerminDB {
 
 	}
 
-
 	public ArrayList<Integer> kundenIdLaden(String name) {
 
 		ArrayList<Integer> kundenId = new ArrayList<Integer>();
@@ -129,42 +126,45 @@ public class TerminDB {
 
 		return kundenId;
 	}
-	
-	public static void terminLöschen(int terminId){
-		
+
+	public static void terminLöschen(int terminId) {
+
 		try {
 			PreparedStatement s = null;
-			s = conn.prepareStatement("Delete from termine where ID = " + terminId);
-			
+			s = conn.prepareStatement("Delete from termine where ID = "
+					+ terminId);
+
 			s.executeUpdate();
 			s.close();
-			
-			
+
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
-	
-	public int tresterKundeLaden(Date datum){
-		
+
+	public int tresterKundeLaden(Date datum) {
+
 		int kundenId = 0;
-		
+
 		try {
 			Statement s = conn.createStatement();
-			ResultSet rs = s.executeQuery("SELECT * FROM [trestertermine] Where Datum  "
-							+ "BETWEEN{ts '" + datum + " 00:00:00'} AND {ts '"
+			ResultSet rs = s
+					.executeQuery("SELECT * FROM [trestertermine] Where Datum  "
+							+ "BETWEEN{ts '"
+							+ datum
+							+ " 00:00:00'} AND {ts '"
 							+ datum + " 23:59:59'} ");
-			while(rs.next()){
+			while (rs.next()) {
 				kundenId = rs.getInt("kundenId");
 			}
-			
+
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		
+
 		return kundenId;
 	}
-	
+
 	public void tresterKundeNeuSpeichern(Date d, int kundenId) {
 
 		try {
@@ -173,7 +173,7 @@ public class TerminDB {
 			s = conn.prepareStatement("Insert into trestertermine (Datum, kundenId) VALUES (?,?)");
 			s.setDate(1, d);
 			s.setInt(2, kundenId);
-			
+
 			s.executeUpdate();
 
 			s.close();
@@ -182,41 +182,37 @@ public class TerminDB {
 			System.out.println(e);
 		}
 	}
-	
-	public void tresterkundeUpdaten(Date datum, int kundenId){
-		
-		try{
+
+	public void tresterkundeUpdaten(Date datum, int kundenId) {
+
+		try {
 			PreparedStatement s = null;
-			
+
 			s = conn.prepareStatement("Update trestertermine set kundenid = ? where Datum  BETWEEN{ts '"
-							+ datum + " 00:00:00'} AND {ts '"
-							+ datum + " 23:59:59'} ");
+					+ datum + " 00:00:00'} AND {ts '" + datum + " 23:59:59'} ");
 			s.setInt(1, kundenId);
-			
+
 			s.executeUpdate();
 			s.close();
-			
-		}catch(Exception e){
-			e.printStackTrace();
-		}
-	}
-	
-	public void tresterKundeLöschen(Date datum){
-		
-		try{
-			PreparedStatement s = null;
-			s = conn.prepareStatement("Delete from trestertermine where datum BETWEEN{ts '"
-							+ datum	+ " 00:00:00'} AND {ts '"
-							+ datum + " 23:59:59'} ");
-			
-			s.executeUpdate();
-			s.close();
-			
-			
-		}catch(Exception e){
+
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
 
+	public void tresterKundeLöschen(Date datum) {
+
+		try {
+			PreparedStatement s = null;
+			s = conn.prepareStatement("Delete from trestertermine where datum BETWEEN{ts '"
+					+ datum + " 00:00:00'} AND {ts '" + datum + " 23:59:59'} ");
+
+			s.executeUpdate();
+			s.close();
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
 
 }

@@ -31,7 +31,6 @@ public class LagerVerwaltungFrame extends JFrame {
 	private ListSelectionModel produktSelectionModel;
 
 	private JMenuItem bearP;
-	//static boolean hasChanged;
 
 	private ProduktSortiment pSortiment;
 	private JMenuItem löschP;
@@ -112,11 +111,10 @@ public class LagerVerwaltungFrame extends JFrame {
 				.addListSelectionListener(new ListSelectionListener() {
 
 					public void valueChanged(ListSelectionEvent listevent) {
-						if (listevent.getFirstIndex() == -1){
+						if (listevent.getFirstIndex() == -1) {
 							bearP.setEnabled(false);
 							löschP.setEnabled(false);
-						}
-						else{
+						} else {
 							bearP.setEnabled(true);
 							löschP.setEnabled(true);
 						}
@@ -133,7 +131,7 @@ public class LagerVerwaltungFrame extends JFrame {
 
 		TableColumn preisspalte = ptabelle.getColumnModel().getColumn(1);
 		preisspalte.setCellRenderer(new PreisCellRenderer());
-		
+
 		TableColumn mengespalte = ptabelle.getColumnModel().getColumn(2);
 		mengespalte.setCellRenderer(new MengeCellRenderer());
 		TableColumn grenzespalte = ptabelle.getColumnModel().getColumn(3);
@@ -160,20 +158,23 @@ public class LagerVerwaltungFrame extends JFrame {
 
 	private void addProdukt() {
 		new ProduktHinzufuegenFrame(this, pSortiment);
-		//printListe();
+		// printListe();
 		lagerTableModel.fireTableDataChanged();
 	}
 
 	private void deleteProdukt() {
 		int row = produktSelectionModel.getMinSelectionIndex();
 		Produkt p = lagerTableModel.getProdukt(row);
-		int result = JOptionPane.showConfirmDialog(this, "Möchten Sie das Produkt " + p.getName() + " wirklich löschen?",
-				"Frage", JOptionPane.YES_NO_OPTION);
+		int result = JOptionPane
+				.showConfirmDialog(this,
+						"Möchten Sie das Produkt " + p.getName()
+								+ " wirklich löschen?", "Frage",
+						JOptionPane.YES_NO_OPTION);
 		if (result != JOptionPane.YES_OPTION)
 			return;
-		
+
 		pSortiment.deleteProdukt(p);
-		//printListe();
+		// printListe();
 		lagerTableModel.fireTableDataChanged();
 	}
 
@@ -182,19 +183,18 @@ public class LagerVerwaltungFrame extends JFrame {
 		Produkt p = lagerTableModel.getProdukt(row);
 		new ProduktBearbeitenFrame(this, p);
 		pSortiment.produktAktualisieren(p);
-		//printListe();
+		// printListe();
 		lagerTableModel.fireTableRowsUpdated(0, (pSortiment
 				.getGesamtSortiment() != null ? pSortiment.getGesamtSortiment()
 				.size() : 0));
 	}
 
-//	private void printListe() {
-//		System.out.println();
-//		for (Produkt p : pSortiment.getGesamtSortiment()) {
-//			System.out.print(p.getName());
-//		}
-//		System.out.println();
-//	}
-
+	// private void printListe() {
+	// System.out.println();
+	// for (Produkt p : pSortiment.getGesamtSortiment()) {
+	// System.out.print(p.getName());
+	// }
+	// System.out.println();
+	// }
 
 }

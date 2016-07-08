@@ -23,12 +23,12 @@ import logik.terminplanung.Termin;
 import logik.terminplanung.TerminLogik;
 
 public class TerminErstellenDialog extends JDialog {
-	
+
 	class MyKeyListener extends KeyAdapter {
 		public void keyTyped(KeyEvent k) {
-			
+
 			boolean delete = false;
-			
+
 			char c = k.getKeyChar();
 			if (c >= 65 && c <= 90 || c >= 97 && c <= 122) {
 				eingabe = eingabe + c;
@@ -40,28 +40,29 @@ public class TerminErstellenDialog extends JDialog {
 					delete = true;
 				}
 			}
-			
-			if(eingabe != ""){
+
+			if (eingabe != "") {
 				kundetxt.showPopup();
 				kundenIds = terminlogik.kundenIDLaden(eingabe);
 				kundetxt.removeAllItems();
-				
-				for(Integer i : kundenIds){
+
+				for (Integer i : kundenIds) {
 					kundetxt.addItem(terminlogik.kundenNamenLaden(i));
 				}
 				kundetxt.setSelectedItem(null);
-				if(delete == true){
+				if (delete == true) {
 					kundetxt.getEditor().setItem(eingabe);
-				}else{
-					if(eingabe.length() - 1 >= 0){
-						kundetxt.getEditor().setItem(eingabe.substring(0, eingabe.length() - 1));
+				} else {
+					if (eingabe.length() - 1 >= 0) {
+						kundetxt.getEditor().setItem(
+								eingabe.substring(0, eingabe.length() - 1));
 					}
-					
+
 				}
-			}else{
+			} else {
 				kundetxt.hidePopup();
 			}
-			
+
 		}
 	}
 
@@ -69,9 +70,10 @@ public class TerminErstellenDialog extends JDialog {
 		public void actionPerformed(ActionEvent e) {
 
 			int gewähltePosition = kundetxt.getSelectedIndex();
-			
-			if(gewähltePosition == -1){
-				JOptionPane.showMessageDialog(TerminErstellenDialog.this, "Bitte wählen Sie einen Kunden aus");
+
+			if (gewähltePosition == -1) {
+				JOptionPane.showMessageDialog(TerminErstellenDialog.this,
+						"Bitte wählen Sie einen Kunden aus");
 			} else {
 				kundenId = kundenIds.get(gewähltePosition);
 				for (Termin t : terminliste) {
@@ -81,7 +83,7 @@ public class TerminErstellenDialog extends JDialog {
 				}
 				TerminErstellenDialog.this.dispose();
 			}
-			
+
 		}
 	}
 
@@ -108,7 +110,7 @@ public class TerminErstellenDialog extends JDialog {
 		setLocationRelativeTo(getParent());
 		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 		setLayout(null);
-		
+
 		terminliste = t;
 		terminlogik = new TerminLogik();
 		this.menge = menge;
@@ -120,9 +122,10 @@ public class TerminErstellenDialog extends JDialog {
 		kundetxt = new JComboBox<String>();
 		kundetxt.setFont(kundetxt.getFont().deriveFont(16f));
 		kundetxt.setEditable(true);
-		kundetxt.getEditor().getEditorComponent().addKeyListener(new MyKeyListener());
+		kundetxt.getEditor().getEditorComponent()
+				.addKeyListener(new MyKeyListener());
 		kundetxt.setBounds(200, 0, 200, 40);
-		
+
 		JLabel datum = new JLabel("Datum:");
 		datum.setFont(datum.getFont().deriveFont(16f));
 		datum.setBounds(0, 40, 200, 40);
@@ -143,43 +146,41 @@ public class TerminErstellenDialog extends JDialog {
 		dauertxt = new JTextField(dauer + " min");
 		dauertxt.setFont(dauertxt.getFont().deriveFont(16f));
 		dauertxt.setBounds(200, 120, 200, 40);
-		
+
 		JLabel mengelabel = new JLabel("Menge:");
 		mengelabel.setFont(mengelabel.getFont().deriveFont(16f));
 		mengelabel.setBounds(0, 160, 200, 40);
 		mengetxt = new JTextField(menge + "");
 		mengetxt.setFont(mengetxt.getFont().deriveFont(16f));
 		mengetxt.setBounds(200, 160, 200, 40);
-		
-		
+
 		JLabel flaschenlabel = new JLabel("in Flaschen:");
 		flaschenlabel.setFont(flaschenlabel.getFont().deriveFont(16f));
 		flaschenlabel.setBounds(0, 200, 200, 40);
 		JCheckBox flaschenbox = new JCheckBox();
 		flaschenbox.setSelected(flaschen);
 		flaschenbox.setBounds(270, 205, 30, 30);
-		
 
 		JButton speichern = new JButton("Speichern");
 		speichern.setFont(speichern.getFont().deriveFont(16f));
 		speichern.addActionListener(new MyOkListener());
 		speichern.setBounds(0, 300, 210, 40);
-		
+
 		JButton kundeHinzufügen = new JButton("Kunde hinzufügen");
 		kundeHinzufügen.setFont(kundeHinzufügen.getFont().deriveFont(16f));
 		kundeHinzufügen.setBounds(200, 240, 200, 40);
-		kundeHinzufügen.addActionListener(new ActionListener(){
+		kundeHinzufügen.addActionListener(new ActionListener() {
 
 			public void actionPerformed(ActionEvent e) {
 				new KundeHinzufügenFrame(null, null);
 			}
-			
-		});	
-		
+
+		});
+
 		JButton abbrechen = new JButton("Abbrechen");
 		abbrechen.setFont(abbrechen.getFont().deriveFont(16f));
 		abbrechen.setBounds(210, 300, 210, 40);
-		abbrechen.addActionListener(new ActionListener(){
+		abbrechen.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				TerminErstellenDialog.this.dispose();
 			}
@@ -197,8 +198,7 @@ public class TerminErstellenDialog extends JDialog {
 		add(mengetxt);
 		add(flaschenlabel);
 		add(flaschenbox);
-		
-		
+
 		add(speichern);
 		add(abbrechen);
 		add(new JPanel());

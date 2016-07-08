@@ -13,8 +13,8 @@ import logik.mitarbeiterverwaltung.Mitarbeiter;
 
 public class AnmeldungDB {
 	private Connection conn;
-	
-	public AnmeldungDB(){
+
+	public AnmeldungDB() {
 		try {
 			conn = DriverManager
 					.getConnection("jdbc:ucanaccess://./Mosti-Datenbank.mdb");
@@ -25,14 +25,13 @@ public class AnmeldungDB {
 	}
 
 	public Mitarbeiter mitarbeiterLaden(String benutzernameEingabe) {
-     Mitarbeiter mitarbeiter = new Mitarbeiter();
+		Mitarbeiter mitarbeiter = new Mitarbeiter();
 		try {
 			Statement s = conn.createStatement();
 			ResultSet rs = s
 					.executeQuery("SELECT * FROM [mitarbeiter] Where Benutzername = '"
 							+ benutzernameEingabe + "'");
-			
-			
+
 			while (rs.next()) {
 				mitarbeiter.setBenutzername(rs.getString("Benutzername"));
 				mitarbeiter.setMitarbeiterID(rs.getInt("ID"));
@@ -45,10 +44,10 @@ public class AnmeldungDB {
 		return mitarbeiter;
 
 	}
-	
-	public String passwortLaden(String benutzername){
+
+	public String passwortLaden(String benutzername) {
 		String passwort = "";
-	
+
 		try {
 			Statement s = conn.createStatement();
 			ResultSet rs = s
@@ -56,20 +55,21 @@ public class AnmeldungDB {
 							+ benutzername + '\"');
 			while (rs.next()) {
 				passwort = rs.getString("Passwort");
-			
+
 			}
 		} catch (SQLException e) {
 			System.out.println(e);
 		}
 		return passwort;
 	}
-	
-	public String passwortLaden(int id){
+
+	public String passwortLaden(int id) {
 		String passwort = "";
 		try {
 			Statement s = conn.createStatement();
 			ResultSet rs = s
-					.executeQuery("SELECT * FROM [mitarbeiter] Where id = " + id);
+					.executeQuery("SELECT * FROM [mitarbeiter] Where id = "
+							+ id);
 			while (rs.next()) {
 				passwort = rs.getString("Passwort");
 			}
@@ -78,23 +78,20 @@ public class AnmeldungDB {
 		}
 		return passwort;
 	}
-	
-	public void updatePasswort(String passwort, int id){
-		
+
+	public void updatePasswort(String passwort, int id) {
+
 		PreparedStatement s = null;
 		try {
 			s = conn.prepareStatement("update mitarbeiter set passwort = ? where id = ? ");
 			s.setString(1, passwort);
 			s.setInt(2, id);
-			
+
 			s.executeUpdate();
 			s.close();
-			
+
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 	}
 }
-
-
-

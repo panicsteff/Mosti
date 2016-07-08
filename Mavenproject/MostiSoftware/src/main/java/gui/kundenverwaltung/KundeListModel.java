@@ -32,16 +32,17 @@ public class KundeListModel extends AbstractListModel<String> {
 			e.printStackTrace();
 		}
 		sortiereKundenliste();
-		
+
 	}
-	
-	void sortiereKundenliste(){            // alphabetische Sortierung nach Nachnamen der Kunden
+
+	void sortiereKundenliste() { // alphabetische Sortierung nach Nachnamen der
+									// Kunden
 		Collections.sort(kundenliste, new Comparator<Kunde>() {
 
 			public int compare(Kunde o1, Kunde o2) {
 				return o1.getNachname().compareTo(o2.getNachname());
 			}
-			
+
 		});
 	}
 
@@ -52,8 +53,8 @@ public class KundeListModel extends AbstractListModel<String> {
 			return "-";
 
 	}
-	
-	public Kunde getKunde(int index){
+
+	public Kunde getKunde(int index) {
 		return kundenliste.get(index);
 	}
 
@@ -89,9 +90,9 @@ public class KundeListModel extends AbstractListModel<String> {
 	// frame.add(scrollpane);
 	// frame.setVisible(true);
 	// }
-//	public static void main(String[] args) {
-//		KundeListModel k = new KundeListModel();
-//		k.printListe();
-//	}
+	// public static void main(String[] args) {
+	// KundeListModel k = new KundeListModel();
+	// k.printListe();
+	// }
 
 }

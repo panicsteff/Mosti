@@ -1,6 +1,5 @@
 package gui.dienstleistungverwaltung;
 
-
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -15,7 +14,6 @@ import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 
 import logik.dienstleistungverwaltung.Dienstleistung;
-
 
 @SuppressWarnings("serial")
 class DLBearbeitenFrame extends JDialog {
@@ -46,16 +44,17 @@ class DLBearbeitenFrame extends JDialog {
 		JLabel preis = new JLabel("Einzelpreis [€]:");
 		preis.setFont(preis.getFont().deriveFont(16f));
 		add(preis);
-//		NumberFormatter nuf = new NumberFormatter(FoFormat.pf);
-//		NullableFormatter nf = new NullableFormatter(nuf);
-//		txtPreis = new JFormattedTextField(nf);
-//		txtPreis.setValue(dienstleistung.getPreis()*100); // *100, da sonst fehlerhafter Wert durch CellRenderer
-//		add(txtPreis);
-		
-		txtPreis =new JFormattedTextField(new DecimalFormat("0.00"));
+		// NumberFormatter nuf = new NumberFormatter(FoFormat.pf);
+		// NullableFormatter nf = new NullableFormatter(nuf);
+		// txtPreis = new JFormattedTextField(nf);
+		// txtPreis.setValue(dienstleistung.getPreis()*100); // *100, da sonst
+		// fehlerhafter Wert durch CellRenderer
+		// add(txtPreis);
+
+		txtPreis = new JFormattedTextField(new DecimalFormat("0.00"));
 		txtPreis.setFont(txtPreis.getFont().deriveFont(16f));
-		//txtPreis =new JFormattedTextField(FoFormat.preisformat);
-		txtPreis.setValue((Double)dienstleistung.getPreis());
+		// txtPreis =new JFormattedTextField(FoFormat.preisformat);
+		txtPreis.setValue((Double) dienstleistung.getPreis());
 		add(txtPreis);
 
 		JButton okButton = new JButton("OK");
@@ -68,26 +67,26 @@ class DLBearbeitenFrame extends JDialog {
 		abbButton.setFont(abbButton.getFont().deriveFont(16f));
 		abbButton.addActionListener(new MyAbbHandler());
 
-		//pack();
+		// pack();
 		setVisible(true);
 	}
 
 	private class MyOkHandler implements ActionListener {
 
 		public void actionPerformed(ActionEvent arg0) {
-			try{
-			Object preis_objekt = txtPreis.getValue();
-			Double preis = Double.parseDouble(preis_objekt+"");
-			dienstleistung.setName(txtName.getText());
-			dienstleistung.setPreis(preis);
-		}catch(Exception e){
-			JOptionPane.showMessageDialog(null,
-					"Bitte überprüfen Sie die Eingaben.", "Meldung",
-					JOptionPane.WARNING_MESSAGE);
-			e.printStackTrace();
-			return;
-			
-		}
+			try {
+				Object preis_objekt = txtPreis.getValue();
+				Double preis = Double.parseDouble(preis_objekt + "");
+				dienstleistung.setName(txtName.getText());
+				dienstleistung.setPreis(preis);
+			} catch (Exception e) {
+				JOptionPane.showMessageDialog(null,
+						"Bitte überprüfen Sie die Eingaben.", "Meldung",
+						JOptionPane.WARNING_MESSAGE);
+				e.printStackTrace();
+				return;
+
+			}
 			dispose();
 		}
 	}
@@ -100,4 +99,3 @@ class DLBearbeitenFrame extends JDialog {
 	}
 
 }
-

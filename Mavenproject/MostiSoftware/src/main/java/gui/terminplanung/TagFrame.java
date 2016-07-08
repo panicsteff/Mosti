@@ -12,7 +12,6 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
-import java.awt.event.WindowListener;
 import java.sql.Date;
 import java.util.ArrayList;
 
@@ -46,48 +45,70 @@ public class TagFrame extends JDialog {
 				if (parent instanceof TerminplanungsFrame) {
 					int pos = terminSelectionModel.getMaxSelectionIndex();
 					int zeile = tagframecontroller.getZeile(pos, anzeigeseite);
-					Termin t = termineTableModel.getTermine(zeile,1).get(0);
-					t = tagframecontroller.startTerminfinden(termineTableModel.getAlleTermine(), t);
-					if(t.getKundenId()==0){
-						JOptionPane.showMessageDialog(TagFrame.this, "Bitte wählen sie einen bestehenden Termin zur Bearbeitung");
+					Termin t = termineTableModel.getTermine(zeile, 1).get(0);
+					t = tagframecontroller.startTerminfinden(
+							termineTableModel.getAlleTermine(), t);
+					if (t.getKundenId() == 0) {
+						JOptionPane
+								.showMessageDialog(TagFrame.this,
+										"Bitte wählen sie einen bestehenden Termin zur Bearbeitung");
 						return;
 					}
-					int länge = tagframecontroller.getTermindauer(t.getAnzahlZeitslots());
-					
-					String uhrzeit = tagframecontroller.terminNachUhrzeit(t.getUhrzeit());
+					int länge = tagframecontroller.getTermindauer(t
+							.getAnzahlZeitslots());
+
+					String uhrzeit = tagframecontroller.terminNachUhrzeit(t
+							.getUhrzeit());
 					String name = kundenNameCellRenderer.getText();
-					new TerminBearbeitenDialog(t, länge, name, uhrzeit, termineTableModel.getAlleTermine());
+					new TerminBearbeitenDialog(t, länge, name, uhrzeit,
+							termineTableModel.getAlleTermine());
 					termineTableModel.fireTableDataChanged();
 					return;
 				}
-				if(parent instanceof M_Startseite){
+				if (parent instanceof M_Startseite) {
 					int pos = terminSelectionModel.getMaxSelectionIndex();
-					int kundenid = (Integer) termineTableModel.getValueAt(pos, 1);
-					if(kundenid == 0){
-						JOptionPane.showMessageDialog(null, "Abrechnung nicht möglich, da kein Kundentermin vorhanden");
+					int kundenid = (Integer) termineTableModel.getValueAt(pos,
+							1);
+					if (kundenid == 0) {
+						JOptionPane
+								.showMessageDialog(null,
+										"Abrechnung nicht möglich, da kein Kundentermin vorhanden");
 						return;
 					}
-					DLSortiment dlSortiment = new DLSortiment(); 
+					DLSortiment dlSortiment = new DLSortiment();
 					ProduktSortiment pSortiment = new ProduktSortiment();
-					new KassenFrame(dlSortiment, pSortiment, new Verkaufsverwaltung(), kundenid);
+					new KassenFrame(dlSortiment, pSortiment,
+							new Verkaufsverwaltung(), kundenid);
 					TagFrame.this.dispose();
-				}else {
-					int anzahlZeitslots = tagframecontroller.berechneAnzahlZeitslots(dauer);
-					int zeile = tagframecontroller.getZeile(terminSelectionModel.getMaxSelectionIndex(), anzeigeseite);
-					if (zeile + anzahlZeitslots > tagframecontroller.anzahlAlleTermine()) {
+				} else {
+					int anzahlZeitslots = tagframecontroller
+							.berechneAnzahlZeitslots(dauer);
+					int zeile = tagframecontroller.getZeile(
+							terminSelectionModel.getMaxSelectionIndex(),
+							anzeigeseite);
+					if (zeile + anzahlZeitslots > tagframecontroller
+							.anzahlAlleTermine()) {
 						JOptionPane.showMessageDialog(TagFrame.this,
 								"Termin dauert zu lange. Tag ist schon vorbei");
 					} else {
 
-						ArrayList<Termin> termine = termineTableModel.getTermine(zeile, anzahlZeitslots);
+						ArrayList<Termin> termine = termineTableModel
+								.getTermine(zeile, anzahlZeitslots);
 						String uhrzeit = termineCellRenderer.getText();
 						frei = tagframecontroller.istTerminFrei(termine);
 						if (frei == true) {
 							new TerminErstellenDialog(dauer, datum, termine,
 									uhrzeit, menge, flaschen);
-							termineTableModel.fireTableRowsUpdated(zeile, zeile + anzahlZeitslots);
-							terminSelectionModel.setSelectionInterval(zeile, zeile + anzahlZeitslots); // Damit anzeige aktualisiert wird
-							tagframecontroller.termineSpeichern(termine.get(0).getKundenId(), anzahlZeitslots, datum, termine.get(0).getUhrzeit(), menge, flaschen );
+							termineTableModel.fireTableRowsUpdated(zeile, zeile
+									+ anzahlZeitslots);
+							terminSelectionModel.setSelectionInterval(zeile,
+									zeile + anzahlZeitslots); // Damit anzeige
+																// aktualisiert
+																// wird
+							tagframecontroller.termineSpeichern(termine.get(0)
+									.getKundenId(), anzahlZeitslots, datum,
+									termine.get(0).getUhrzeit(), menge,
+									flaschen);
 						}
 					}
 				}
@@ -95,12 +116,12 @@ public class TagFrame extends JDialog {
 			}
 		}
 	}
-	
+
 	class MyKeyListener extends KeyAdapter {
 		public void keyTyped(KeyEvent k) {
-			
+
 			boolean delete = false;
-			
+
 			char c = k.getKeyChar();
 			if (c >= 65 && c <= 90 || c >= 97 && c <= 122) {
 				eingabe = eingabe + c;
@@ -112,51 +133,54 @@ public class TagFrame extends JDialog {
 					delete = true;
 				}
 			}
-			if(eingabe != ""){
+			if (eingabe != "") {
 				tresterKunde.showPopup();
 				kundenIds = tagframecontroller.kundenIdLaden(eingabe);
 				tresterKunde.removeAllItems();
-				
-				for(Integer i : kundenIds){
+
+				for (Integer i : kundenIds) {
 					tresterKunde.addItem(tagframecontroller.kundenNameLaden(i));
 				}
 				tresterKunde.setSelectedItem(null);
-				if(delete == true){
+				if (delete == true) {
 					tresterKunde.getEditor().setItem(eingabe);
-				}else{
-					if(eingabe.length() - 1 >= 0){
-						tresterKunde.getEditor().setItem(eingabe.substring(0, eingabe.length() - 1));
+				} else {
+					if (eingabe.length() - 1 >= 0) {
+						tresterKunde.getEditor().setItem(
+								eingabe.substring(0, eingabe.length() - 1));
 					}
-					
+
 				}
-			}else{
+			} else {
 				tresterKunde.hidePopup();
 			}
-			
+
 		}
 	}
-	
-	class MySpäterHandler implements ActionListener{
+
+	class MySpäterHandler implements ActionListener {
 
 		public void actionPerformed(ActionEvent arg0) {
 			anzeigeseite++;
 			boolean enabled = tagframecontroller.isSpaeterEnabled(anzeigeseite);
 			cmdSpaeter.setEnabled(enabled);
-			boolean enabledf = tagframecontroller.isFrueherEnabled(anzeigeseite);
+			boolean enabledf = tagframecontroller
+					.isFrueherEnabled(anzeigeseite);
 			cmdFrueher.setEnabled(enabledf);
 			termineTableModel.erhoeheAnzeigeseite();
 			termineTableModel.fireTableDataChanged();
 		}
-		
+
 	}
-	
-	class MyFrüherHandler implements ActionListener{
+
+	class MyFrüherHandler implements ActionListener {
 
 		public void actionPerformed(ActionEvent e) {
 			anzeigeseite--;
 			boolean enabled = tagframecontroller.isFrueherEnabled(anzeigeseite);
 			cmdFrueher.setEnabled(enabled);
-			boolean enableds = tagframecontroller.isSpaeterEnabled(anzeigeseite);
+			boolean enableds = tagframecontroller
+					.isSpaeterEnabled(anzeigeseite);
 			cmdSpaeter.setEnabled(enableds);
 			termineTableModel.erniedrigeAnzeigeseite();
 			termineTableModel.fireTableDataChanged();
@@ -185,7 +209,8 @@ public class TagFrame extends JDialog {
 	private boolean flaschen;
 	private boolean neu;
 
-	public TagFrame(long d, int as, JFrame p, int länge, int menge, boolean flaschen) {
+	public TagFrame(long d, int as, JFrame p, int länge, int menge,
+			boolean flaschen) {
 		parent = p;
 		datum = new Date(d);
 		anzeigeseite = as;
@@ -249,55 +274,61 @@ public class TagFrame extends JDialog {
 		kunde.setFont(kunde.getFont().deriveFont(16f));
 		kunde.setBounds(20, 500, 200, 40);
 		add(kunde);
-		
+
 		tresterKunde = new JComboBox<String>();
 		tresterKunde.setBounds(230, 500, 200, 40);
 		tresterKunde.setFont(tresterKunde.getFont().deriveFont(16f));
 		tresterKunde.setEditable(true);
 		add(tresterKunde);
-		tresterKunde.getEditor().getEditorComponent().addKeyListener(new MyKeyListener());
+		tresterKunde.getEditor().getEditorComponent()
+				.addKeyListener(new MyKeyListener());
 		kundenId = tagframecontroller.tresterKundeLaden(datum);
 		neu = false;
-		if(kundenId == 0){
+		if (kundenId == 0) {
 			neu = true;
-		}else{
-			tresterKunde.getEditor().setItem(tagframecontroller.kundenNameLaden(kundenId));
+		} else {
+			tresterKunde.getEditor().setItem(
+					tagframecontroller.kundenNameLaden(kundenId));
 		}
-		tresterKunde.getEditor().getEditorComponent().addMouseListener(new MouseAdapter(){
-			public void mousePressed(MouseEvent m){
-				if(m.getClickCount() == 2){
-					if(tresterKunde.getEditor().getItem().equals("") == true){
-						JOptionPane.showMessageDialog(TagFrame.this, "Bitte wählen Sie zuerst eine Tresterkunden aus");
-						return;
+		tresterKunde.getEditor().getEditorComponent()
+				.addMouseListener(new MouseAdapter() {
+					public void mousePressed(MouseEvent m) {
+						if (m.getClickCount() == 2) {
+							if (tresterKunde.getEditor().getItem().equals("") == true) {
+								JOptionPane
+										.showMessageDialog(TagFrame.this,
+												"Bitte wählen Sie zuerst eine Tresterkunden aus");
+								return;
+							}
+							int index = tresterKunde.getSelectedIndex();
+							if (index < 0) { // Combobox wurde nicht angeworfen
+												// und es hat sich nix geändert
+								new TresterabrechnungFrame(kundenId);
+							} else {
+								new TresterabrechnungFrame(kundenIds.get(index));
+							}
+						}
 					}
-					int index = tresterKunde.getSelectedIndex();
-					if(index < 0){									//Combobox wurde nicht angeworfen und es hat sich nix geändert
-						new TresterabrechnungFrame(kundenId);								
-					}
-					else{
-						new TresterabrechnungFrame(kundenIds.get(index));
-					}
-				}
-			}
-		});
-		
-		addWindowListener(new WindowAdapter(){
+				});
+
+		addWindowListener(new WindowAdapter() {
 
 			public void windowClosing(WindowEvent arg0) {
-				if(tresterKunde.getEditor().getItem().equals("")){
+				if (tresterKunde.getEditor().getItem().equals("")) {
 					tagframecontroller.tresterKundeLöschen(datum);
 					return;
 				}
 				int index = tresterKunde.getSelectedIndex();
-				if(index < 0){								//Combobox wurde nicht angeworfen und es hat sich nix geändert
+				if (index < 0) { // Combobox wurde nicht angeworfen und es hat
+									// sich nix geändert
 					return;
 				}
 				int kundenId = kundenIds.get(index);
 				tagframecontroller.tresterKundeSpeichern(datum, kundenId, neu);
 			}
-			
+
 		});
-		
+
 		setVisible(true);
 
 	}
