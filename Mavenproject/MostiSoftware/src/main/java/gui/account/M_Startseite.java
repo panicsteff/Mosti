@@ -98,7 +98,12 @@ public class M_Startseite extends JFrame {
 		kundeButton.setHorizontalTextPosition(SwingConstants.CENTER);
 		kundeButton.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e){
-				new KundenVerwaltung();
+				try{
+					new KundenVerwaltung();
+				} catch(Exception ex){
+					JOptionPane.showMessageDialog(null, ex.getMessage());
+				}
+				
 			}
 		});
 		
@@ -129,7 +134,12 @@ public class M_Startseite extends JFrame {
         mitarbeiter.setVisible(isAdmin);
 		mitarbeiter.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e){
-				new MitarbeiterVerwaltung();
+				try{
+					new MitarbeiterVerwaltung();
+				}catch(Exception ex){
+					JOptionPane.showMessageDialog(null, ex.getMessage() + "von der startseite");
+				}
+				
 			}
 		});
 		

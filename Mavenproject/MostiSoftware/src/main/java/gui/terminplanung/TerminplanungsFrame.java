@@ -6,6 +6,7 @@ import java.util.Date;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 
 import com.toedter.calendar.JCalendar;
 
@@ -26,8 +27,18 @@ public class TerminplanungsFrame extends JFrame{
 		neuerTermin.setBounds(230, 420, 230, 30);
 		neuerTermin.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e){
-				Date d = calendar.getDate();
-				new TerminHinzufügenFrame(d.getTime());
+				Date d = null;
+				try{
+					d = calendar.getDate();
+				}catch(Exception ex){
+					JOptionPane.showMessageDialog(null, ex.getMessage()+ "Datum");
+				}
+				try{
+					new TerminHinzufügenFrame(d.getTime());
+				} catch(Exception ex){
+					JOptionPane.showMessageDialog(null, ex.getMessage()+ "PLanung");
+				}
+				
 			}
 		});
 		add(neuerTermin);
@@ -42,8 +53,18 @@ public class TerminplanungsFrame extends JFrame{
 		JButton terminuebersicht = new JButton("Terminübersicht");
 		terminuebersicht.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e){
-				Date d = calendar.getDate();
-				new TagFrame(d.getTime(), 1, TerminplanungsFrame.this,0,0, false);
+				Date d = null;
+				try{
+					d = calendar.getDate();
+				}catch(Exception ex){
+					JOptionPane.showMessageDialog(null, ex.getMessage() + "Datum");
+				}
+				try{
+					new TagFrame(d.getTime(), 1, TerminplanungsFrame.this,0,0, false);
+				}catch (Exception ex){
+					JOptionPane.showMessageDialog(null, ex.getMessage() + "planung");
+				}
+				
 			}
 		});
 		terminuebersicht.setFont(terminuebersicht.getFont().deriveFont(16f));

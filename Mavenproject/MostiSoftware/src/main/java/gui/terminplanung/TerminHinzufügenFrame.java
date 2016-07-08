@@ -153,7 +153,7 @@ public class TerminHinzufügenFrame extends JFrame{
 		
 		JButton dauerberechnen = new JButton("Termindauer berechnen");
 		dauerberechnen.setFont(dauerberechnen.getFont().deriveFont(16f));
-		dauerberechnen.setBounds(25, 110, 200, 30);
+		dauerberechnen.setBounds(25, 110, 300, 30);
 		dauerberechnen.addActionListener(new MyBerechnenHandler());
 		add(dauerberechnen);
 		

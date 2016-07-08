@@ -7,6 +7,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
+import javax.swing.JOptionPane;
+
 import logik.mitarbeiterverwaltung.Mitarbeiter;
 
 public class AnmeldungDB {
@@ -17,8 +19,9 @@ public class AnmeldungDB {
 			conn = DriverManager
 					.getConnection("jdbc:ucanaccess://./Mosti-Datenbank.mdb");
 		} catch (SQLException e) {
+			JOptionPane.showMessageDialog(null, e.getMessage());
 			e.printStackTrace();
-		} 
+		}
 	}
 
 	public Mitarbeiter mitarbeiterLaden(String benutzernameEingabe) {

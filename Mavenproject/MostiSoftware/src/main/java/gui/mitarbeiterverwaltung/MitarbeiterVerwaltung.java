@@ -119,7 +119,7 @@ public class MitarbeiterVerwaltung extends JFrame {
 		mitarbeiterliste = new ArrayList<Mitarbeiter>();
 		try {
 			mitarbeiterliste = mitarbeiterDb.mitarbeiterLaden();
-		} catch (FileNotFoundException e1) {
+		} catch (Exception e1) {
 			e1.printStackTrace();
 		}
 		
@@ -177,6 +177,9 @@ public class MitarbeiterVerwaltung extends JFrame {
 		Collections.sort(liste, new Comparator<Mitarbeiter>() {
 
 			public int compare(Mitarbeiter o1, Mitarbeiter o2) {
+				if(o1.getNachname()==null || o2.getNachname() == null){
+					return Integer.MIN_VALUE;
+				}
 				return o1.getNachname().compareTo(o2.getNachname());
 			}
 			
@@ -188,7 +191,7 @@ public class MitarbeiterVerwaltung extends JFrame {
 		new MitarbeiterBearbeitenDialog(this, mitarbeiterTableModel.getMitarbeiter(row));
 		sortiereMitarbeiterliste(mitarbeiterliste);
 		mitarbeiterDb.mitarbeiterSpeichern(mitarbeiterTableModel.getMitarbeiter());
-		mitarbeiterTableModel.fireTableRowsUpdated(row, row);
+		mitarbeiterTableModel.fireTableDataChanged();
 	}
 
 	

@@ -1,7 +1,5 @@
 package logik.account; 
 
-import java.sql.Date;
-
 import javax.swing.JOptionPane;
 
 import logik.mitarbeiterverwaltung.Mitarbeiter;
@@ -79,8 +77,8 @@ public class Accountverwaltung{
 	}
 	
 	public static void main (String[] avgs){
-		Date d = new Date(1464300000000l);
-		System.out.println(d.toString());
+		Accountverwaltung ac = new Accountverwaltung();
+		System.out.println(ac.passwortVerschlüsseln("admin"));
 	}
 	
 }

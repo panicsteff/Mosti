@@ -103,8 +103,8 @@ class ProduktBearbeitenFrame extends JDialog {
 			
 			produkt.setName(txtName.getText());
 			produkt.setPreis(preis);
-			produkt.setVorratsmenge(Integer.parseInt(txtMenge.getText()));
-			produkt.setUntergrenze(Integer.parseInt(txtUntergrenze.getText()));
+			produkt.setVorratsmenge((Integer)txtMenge.getValue());
+			produkt.setUntergrenze((Integer)txtUntergrenze.getValue());
 			if(produkt.isAbfüllmaterial() != cBoxIsAbfuellmaterial.isSelected()){
 				produkt.setAbfüllmaterial(cBoxIsAbfuellmaterial.isSelected());
 				//LagerVerwaltungFrame.hasChanged = true;
